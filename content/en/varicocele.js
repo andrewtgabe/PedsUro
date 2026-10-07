@@ -66,11 +66,11 @@ export default {
       surgery: {
         name: 'Varicocele surgery',
         summary:
-          'The surgeon ties off the swollen veins, leaving the artery and lymph channels alone. This is done through a small cut in the groin using a microscope, or with a small camera through the belly.',
+          'The surgeon ties off the swollen veins, leaving the artery and lymph channels alone. There are two main ways: open surgery through a small cut just below the groin (subinguinal), or laparoscopic surgery with a small camera through the belly.',
         before: 'Before',
         after: 'After surgery',
         pros: ['Works well', 'Testicle often catches up in size', 'Usually home the same day'],
-        cons: ['General anesthesia', 'Small chance of fluid around the testicle (hydrocele)', 'Can come back'],
+        cons: ['General anesthesia', 'Fluid around the testicle (hydrocele) afterward: more common with the laparoscopic approach, but uncommon when the lymph channels are spared', 'Can come back'],
       },
       embolization: {
         name: 'Embolization',
