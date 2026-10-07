@@ -36,6 +36,10 @@ import esTorsion from '../content/es/torsion.js';
 import esStones from '../content/es/stones.js';
 import esBbd from '../content/es/bbd.js';
 import esHypospadias from '../content/es/hypospadias.js';
+import esUpj from '../content/es/upj.js';
+import esUvj from '../content/es/uvj.js';
+import esDuplex from '../content/es/duplex.js';
+import esEctopic from '../content/es/ectopic.js';
 
 // [code, name shown in the language switcher]
 export const LANGUAGES = [
@@ -54,6 +58,7 @@ const languages = {
     common: esCommon, vur: esVur, hydronephrosis: esHydronephrosis, uti: esUti, enuresis: esEnuresis,
     cryptorchidism: esCryptorchidism, hernia: esHernia, hydrocele: esHydrocele, phimosis: esPhimosis,
     torsion: esTorsion, stones: esStones, bbd: esBbd, hypospadias: esHypospadias,
+    upj: esUpj, uvj: esUvj, duplex: esDuplex, ectopic: esEctopic,
   },
 };
 
