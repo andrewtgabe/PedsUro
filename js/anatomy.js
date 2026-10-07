@@ -171,13 +171,13 @@ function upperTract(o, g) {
     : '';
   const scar = o.scar ? `<path class="scar" d="M430 42 Q446 62 456 50 Q466 64 482 54 Q474 36 455 34 Q438 34 430 42 Z"/>` : '';
 
-  return `
-    <path class="kidney" d="${KIDNEY_PATH}" ${s !== 1 || dy ? `transform="translate(${f(455 - 455 * s)} ${f(125 - 125 * s + dy)}) scale(${f(s)})"` : ''}/>
+  return `<g class="${o.pale ? 'pale-k' : ''}">
+    <path class="kidney ${o.pale ? 'pale' : ''}" d="${KIDNEY_PATH}" ${s !== 1 || dy ? `transform="translate(${f(455 - 455 * s)} ${f(125 - 125 * s + dy)}) scale(${f(s)})"` : ''}/>
     ${scar}
     ${drawSystem([cs], [tube])}
     ${vessel}${mark}
     ${o.stent ? stentPath(pts) : ''}
-    ${bact}`;
+    ${bact}</g>`;
 }
 
 // ---------- duplex kidney ----------
@@ -230,8 +230,9 @@ function duplexTract(o, g) {
 
   let over = '';
   if (!removed && o.type === 'complete' && !o.ectopic && !o.joined && o.ureterocele > 0) {
-    const r = 10 + 20 * o.ureterocele;
-    const [x, y] = [g.cx + g.rx * 0.55, g.cy + g.ry * 0.2];
+    // A large ureterocele can slide down and block the bladder outlet.
+    const r = (o.ureteroceleNeck ? 14 : 10) + (o.ureteroceleNeck ? 28 : 20) * o.ureterocele;
+    const [x, y] = o.ureteroceleNeck ? [g.cx + 14, g.cy + g.ry * 0.45] : [g.cx + g.rx * 0.55, g.cy + g.ry * 0.2];
     over = `<ellipse class="ureterocele ${o.ureteroceleCut ? 'cut' : ''}" cx="${f(x)}" cy="${f(y)}" rx="${f(r)}" ry="${f(r * 0.85)}"/>`;
     if (o.ureteroceleCut) over += `<path class="slit" d="M${f(x - 6)} ${f(y + r * 0.5)} L${f(x + 6)} ${f(y + r * 0.5)}"/>`;
   }
@@ -246,6 +247,8 @@ function duplexTract(o, g) {
 //     affected.duplex: options for duplexTract instead
 //   bladderFill: 0..1; bladderBact: number of bacteria; voiding: urine stream
 //   bladderWall: 0..1 thickening; urethraBlock: valve in the urethra
+//   catheter: tube draining the bladder through the urethra
+//   vesicostomy: opening from the bladder to the belly skin; vesicostomyLabel
 //   sideLabels: [left, right]; labels: false hides anatomy labels
 export function urinaryTract({
   affected = {},
@@ -255,6 +258,9 @@ export function urinaryTract({
   voiding = false,
   bladderWall = 0,
   urethraBlock = false,
+  catheter = false,
+  vesicostomy = false,
+  vesicostomyLabel = '',
   sideLabels,
   labels = true,
 } = {}) {
@@ -277,6 +283,14 @@ export function urinaryTract({
     <ellipse class="bladder" cx="${g.cx}" cy="${g.cy}" rx="${f(g.rx)}" ry="${f(g.ry)}" style="stroke-width:${f(9 + 14 * bladderWall)}"/>
     ${right.over}
     ${bact}
+    ${catheter ? `<g class="catheter"><path d="M300 530 L300 ${f(g.cy + g.ry * 0.25)}"/><circle cx="300" cy="${f(g.cy + g.ry * 0.25)}" r="7"/></g>` : ''}
+    ${
+      vesicostomy
+        ? `<g class="vesicostomy"><path d="M${g.cx} ${f(g.cy - g.ry)} L${g.cx} ${f(g.cy - g.ry - 40)}"/><path class="stream" d="M${g.cx} ${f(g.cy - g.ry - 42)} L${g.cx} ${f(g.cy - g.ry - 60)}"/>
+           <line class="skin" x1="${g.cx - 70}" y1="${f(g.cy - g.ry - 40)}" x2="${g.cx + 70}" y2="${f(g.cy - g.ry - 40)}"/>
+           <text class="lbl small" x="${g.cx + 76}" y="${f(g.cy - g.ry - 36)}">${vesicostomyLabel}</text></g>`
+        : ''
+    }
     ${
       labels
         ? `<text class="lbl" x="455" y="${f(150 + 90 * (affected.kidney?.s ?? 1) + (affected.kidney?.dy ?? 0))}" text-anchor="middle">${t('common.labels.kidney')}</text>
@@ -464,5 +478,70 @@ export function drainageChart(selected, text) {
     ${Object.entries(CURVES)
       .map(([k, fn]) => `<path class="curve ${k} ${k === selected ? 'on' : ''}" d="${line(fn)}"/>`)
       .join('')}
+  </svg>`;
+}
+
+// ---------- urethra close-up (posterior urethral valves) ----------
+
+//   valves: 0..1 how much the valve leaflets block; opened: 0..1 removed
+//   voiding: show urine flowing and the stream
+//   text: { bladder, neck, valves, urethra, tip }
+export function urethraSection({ valves = 0, opened = 0, voiding = false, text }) {
+  const block = clamp(valves) * (1 - clamp(opened));
+  const wp = 14 + 24 * block;
+  const leaf = wp / 2 - 2;
+  const leaflets =
+    block > 0.02
+      ? `<path class="leaflet" d="M${f(160 - wp / 2)} 196 Q${f(160 - leaf * 0.4)} 206 ${f(160 - 1)} ${f(204 + 14 * block)} L${f(160 - wp / 2)} 212 Z"/>
+         <path class="leaflet" d="M${f(160 + wp / 2)} 196 Q${f(160 + leaf * 0.4)} 206 ${f(160 + 1)} ${f(204 + 14 * block)} L${f(160 + wp / 2)} 212 Z"/>`
+      : '';
+  const streamW = voiding ? 6 - 4.5 * block : 0;
+  return `<svg class="anatomy urethra-x" viewBox="0 0 320 450" role="img" aria-label="${text.urethra}">
+    <ellipse class="bladder" cx="160" cy="20" rx="130" ry="88" style="stroke-width:${f(9 + 16 * block)}"/>
+    <line class="u-wall-x" x1="160" y1="100" x2="160" y2="210" stroke-width="${f(wp + 8)}"/>
+    <line class="u-wall-x" x1="160" y1="205" x2="160" y2="412" stroke-width="18"/>
+    <line class="u-urine-x" x1="160" y1="98" x2="160" y2="210" stroke-width="${f(wp)}"/>
+    <line class="${voiding ? 'u-urine-x' : 'u-lumen-x'}" x1="160" y1="205" x2="160" y2="412" stroke-width="10"/>
+    ${leaflets}
+    ${voiding ? `<line class="flowline ${block > 0.5 ? 'slow' : 'down'}" x1="160" y1="60" x2="160" y2="412"/>` : ''}
+    ${streamW > 0 ? `<line class="stream" x1="160" y1="414" x2="160" y2="450" style="stroke-width:${f(streamW)}"/>` : ''}
+    <text class="lbl" x="160" y="50" text-anchor="middle">${text.bladder}</text>
+    <text class="lbl small" x="${f(170 + wp / 2)}" y="118">${text.neck}</text>
+    ${block > 0.02 ? `<text class="lbl small accent-text" x="${f(170 + wp / 2)}" y="212">${text.valves}</text>` : ''}
+    <text class="lbl small" x="178" y="320">${text.urethra}</text>
+    <text class="lbl small" x="178" y="410">${text.tip}</text>
+  </svg>`;
+}
+
+// ---------- where an ectopic ureter can open ----------
+
+// [x, y, belowSphincter] for each possible opening.
+export const ECTOPIC_SITES = {
+  girl: { neck: [150, 160, false], urethra: [150, 300, true], vagina: [262, 290, true] },
+  boy: { neck: [150, 160, false], prostatic: [150, 210, false], seminal: [288, 182, false] },
+};
+
+//   sex: 'girl' | 'boy'; site: key of ECTOPIC_SITES[sex]
+//   text: { bladder, urethra, sphincter, vagina, prostate, seminal }
+export function ectopicMap({ sex, site, text }) {
+  const [x, y, below] = ECTOPIC_SITES[sex][site];
+  const outlet = site === 'vagina' ? 262 : 150;
+  const ureter = `M335 0 C 320 70 ${x + 70} ${y - 50} ${x} ${y}`;
+  const girl = sex === 'girl';
+  return `<svg class="anatomy ectopic-map" viewBox="0 0 360 420" role="img" aria-label="${text.urethra}">
+    ${girl ? `<rect class="vagina" x="248" y="200" width="28" height="186" rx="12"/><text class="lbl small" x="262" y="410" text-anchor="middle">${text.vagina}</text>` : ''}
+    ${girl ? '' : `<ellipse class="prostate" cx="150" cy="205" rx="36" ry="30"/><text class="lbl small" x="94" y="200" text-anchor="end">${text.prostate}</text>
+      <ellipse class="sv" cx="288" cy="182" rx="24" ry="13"/><text class="lbl small" x="288" y="212" text-anchor="middle">${text.seminal}</text>`}
+    <line class="urethra" x1="150" y1="140" x2="150" y2="386"/>
+    <rect class="sphincter" x="133" y="238" width="34" height="20" rx="6"/>
+    <text class="lbl small" x="126" y="253" text-anchor="end">${text.sphincter}</text>
+    <path class="map-ureter" d="M20 0 C 40 40 60 60 80 80"/>
+    <ellipse class="bladder" cx="150" cy="85" rx="105" ry="65"/>
+    <text class="lbl" x="150" y="80" text-anchor="middle">${text.bladder}</text>
+    <text class="lbl small" x="160" y="340">${text.urethra}</text>
+    <path class="ectopic-wall" d="${ureter}"/>
+    <path class="ectopic-urine" d="${ureter}"/>
+    <circle class="site" cx="${x}" cy="${y}" r="8"/>
+    ${below ? [0, 1, 2].map((i) => `<circle class="drip" cx="${outlet}" cy="392" r="4" style="animation-delay:${i * 0.5}s"/>`).join('') : ''}
   </svg>`;
 }

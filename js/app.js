@@ -4,10 +4,12 @@ import hydronephrosis from './chapters/hydronephrosis.js';
 import upj from './chapters/upj.js';
 import uvj from './chapters/uvj.js';
 import duplex from './chapters/duplex.js';
+import puv from './chapters/puv.js';
+import ectopic from './chapters/ectopic.js';
 
 // Built chapters. To add one: create js/chapters/<id>.js and content/en/<id>.js,
 // register the content in i18n.js, then add it here.
-const CHAPTERS = { vur, hydronephrosis, upj, uvj, duplex };
+const CHAPTERS = { vur, hydronephrosis, upj, uvj, duplex, puv, ectopic };
 
 // Order of conditions on the home page.
 const CATALOG = {

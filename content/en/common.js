@@ -75,5 +75,7 @@ export default {
     upj: 'A narrow spot where the kidney meets the ureter.',
     uvj: 'A narrow spot where the ureter meets the bladder.',
     duplex: 'A kidney with two drainage systems instead of one.',
+    ectopic: 'A ureter that opens in the wrong place, or a balloon-like pouch at its end.',
+    puv: 'Extra flaps of tissue in a boy’s urethra that block urine.',
   },
 };

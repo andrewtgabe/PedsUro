@@ -57,7 +57,7 @@ const CAUSES = {
     return { affected: side, healthy: side, bladderWall: 1, urethraBlock: true, bladderFill: 0.8 };
   },
 };
-const LINKS = { upj: 'upj', uvj: 'uvj', reflux: 'vur' };
+const LINKS = { upj: 'upj', uvj: 'uvj', reflux: 'vur', puv: 'puv' };
 
 function renderPathology(root) {
   const s = { cause: 'upj', sev: 1 };

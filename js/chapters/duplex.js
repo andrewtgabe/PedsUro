@@ -140,7 +140,7 @@ function beforeAfter(viz, ctl, o, makeDuplex) {
 
 const blockedTop = (k) => ({ dilation: 0.8 - 0.5 * k, pelvisFill: 1, ureterFill: 1 });
 
-const BUILD = {
+export const BUILD = {
   none(viz) {
     viz.innerHTML = urinaryTract({ affected: { duplex: { type: 'partial', upper: { pelvisFill: 1 }, lower: { pelvisFill: 1 } } } });
   },

@@ -6,9 +6,11 @@ import enHydronephrosis from '../content/en/hydronephrosis.js';
 import enUpj from '../content/en/upj.js';
 import enUvj from '../content/en/uvj.js';
 import enDuplex from '../content/en/duplex.js';
+import enPuv from '../content/en/puv.js';
+import enEctopic from '../content/en/ectopic.js';
 
 const languages = {
-  en: { common: enCommon, vur: enVur, hydronephrosis: enHydronephrosis, upj: enUpj, uvj: enUvj, duplex: enDuplex },
+  en: { common: enCommon, vur: enVur, hydronephrosis: enHydronephrosis, upj: enUpj, uvj: enUvj, duplex: enDuplex, puv: enPuv, ectopic: enEctopic },
 };
 
 let current = 'en';

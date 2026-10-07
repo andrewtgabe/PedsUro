@@ -238,3 +238,27 @@ body.present .chapter-head { padding-top: 8px; }
   body { background: #fff; }
   .card textarea { border: 0; resize: none; }
 }
+
+/* PUV / ectopic ureter */
+svg.anatomy .kidney.pale { fill: #d9b3aa; stroke: #a88d86; }
+svg.anatomy .catheter path { fill: none; stroke: #3b82c4; stroke-width: 4; }
+svg.anatomy .catheter circle { fill: #9cc3e6; stroke: #3b82c4; stroke-width: 2; }
+svg.anatomy .vesicostomy > path:first-child { stroke: var(--wall); stroke-width: 16; stroke-linecap: round; }
+svg.anatomy .skin { stroke: var(--kidney-edge); stroke-width: 3; stroke-dasharray: 8 5; }
+svg.anatomy .u-wall-x { stroke: var(--wall); stroke-linecap: round; }
+svg.anatomy .u-urine-x { stroke: var(--urine); stroke-linecap: butt; }
+svg.anatomy .u-lumen-x { stroke: var(--lumen); stroke-linecap: butt; }
+svg.anatomy .leaflet { fill: #b85f4f; }
+svg.anatomy .accent-text { fill: var(--warn); }
+svg.anatomy .vagina { fill: #f0c6cf; stroke: #c98d9a; stroke-width: 2; }
+svg.anatomy .prostate { fill: #e3c3a8; stroke: #b99272; stroke-width: 2; }
+svg.anatomy .sv { fill: #e3c3a8; stroke: #b99272; stroke-width: 2; }
+svg.anatomy .sphincter { fill: var(--muscle); stroke: #9c5144; stroke-width: 2; }
+svg.anatomy .map-ureter { fill: none; stroke: var(--wall); stroke-width: 12; stroke-linecap: round; }
+svg.anatomy .ectopic-wall { fill: none; stroke: #e07b39; stroke-width: 14; stroke-linecap: round; }
+svg.anatomy .ectopic-urine { fill: none; stroke: var(--urine); stroke-width: 7; stroke-linecap: round; }
+svg.anatomy .site { fill: var(--warn); stroke: #fff; stroke-width: 3; }
+svg.anatomy .drip { fill: var(--urine); stroke: #c9a227; animation: drip 1.5s ease-in infinite; }
+@keyframes drip { from { transform: translateY(0); opacity: 1; } to { transform: translateY(26px); opacity: 0; } }
+svg.anatomy.urethra-x, svg.anatomy.ectopic-map { max-height: 460px; margin: 0 auto; }
+svg.anatomy .pale-k .papilla { fill: #d9b3aa; }
