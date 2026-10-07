@@ -98,6 +98,15 @@ const BUILD = {
       (viz.innerHTML = urinaryTract({ affected: megaureter(0.7 - 0.25 * k, { narrowW: 3 + 7 * k, stent: k > 0.99 }) })));
   },
 
+  ureterostomy(viz, ctl) {
+    const o = T('treatment.options.ureterostomy');
+    return beforeAfter(ctl, [o.before, o.after], (k) =>
+      (viz.innerHTML = urinaryTract({
+        affected: k > 0.99 ? { dilation: 0.45, pelvisFill: 1, ureterostomy: true } : megaureter(0.75 - 0.3 * k, { bactSpread: k < 0.5 ? 0.9 : 0 }),
+        bladderBact: k < 0.5 ? 3 : 0,
+      })));
+  },
+
   reimplant(viz, ctl) {
     const o = T('treatment.options.reimplant');
     return beforeAfter(ctl, [o.before, o.after], (k) =>

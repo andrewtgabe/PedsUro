@@ -40,7 +40,7 @@ export default {
 
   treatment: {
     intro:
-      'Most megaureters get better on their own in the first few years. Surgery is used when the kidney is at risk, swelling gets worse, or infections keep happening.',
+      'Most megaureters get better on their own in the first few years, so most babies are watched while taking a preventive antibiotic. Surgery is used when the kidney is at risk, swelling gets worse, or infections keep happening. The type of surgery depends mostly on the child’s age and bladder size.',
     pros: 'Benefits',
     cons: 'Things to consider',
     options: {
@@ -65,20 +65,29 @@ export default {
       balloon: {
         name: 'Balloon and stent',
         summary:
-          'Using a small camera passed through the urethra, the surgeon stretches the narrow spot with a balloon and leaves a stent (soft tube) for a few weeks. No cut on the skin. This is often used for young babies.',
+          'Using a small camera passed through the urethra, the surgeon stretches the narrow spot with a balloon and leaves a stent (soft tube) for a few weeks. No cut on the skin. This is not done often, and not every center offers it.',
         before: 'Before',
         after: 'After balloon',
         pros: ['No cut on the skin', 'Can avoid or delay bigger surgery'],
-        cons: ['General anesthesia', 'A second procedure to remove the stent', 'Does not work for everyone'],
+        cons: ['General anesthesia', 'A second procedure to remove the stent', 'Does not work for everyone', 'Not widely used'],
+      },
+      ureterostomy: {
+        name: 'Temporary ureterostomy',
+        summary:
+          'For a baby who keeps getting kidney infections even on antibiotics, the wide ureter can be brought out through a small opening on the lower belly. Urine drains straight into the diaper, so it cannot back up. When the child is older and the bladder is bigger, the ureter is reimplanted and the opening is closed.',
+        before: 'Before',
+        after: 'With ureterostomy',
+        pros: ['Drains the kidney well', 'Stops repeat infections', 'Lets the ureter shrink before reimplant'],
+        cons: ['Two surgeries (now and later)', 'Care of the opening in the diaper area'],
       },
       reimplant: {
         name: 'Reimplant with tapering',
         summary:
-          'The surgeon removes the narrow piece, trims the wide ureter to a more normal size, and attaches it back to the bladder through a new tunnel. A stent is often left in for a short time.',
+          'The surgeon removes the narrow piece, trims the wide ureter to a more normal size, and attaches it back to the bladder through a new tunnel. A stent is often left in for a short time. This is usually done once the child is at least about 1 year old and the bladder is big enough, either as the first surgery or after a ureterostomy.',
         before: 'Before surgery',
         after: 'After surgery',
         pros: ['Fixes the blockage for good', 'Works very well'],
-        cons: ['Surgery with general anesthesia', 'A few days in the hospital', 'Usually waited on until the child is older'],
+        cons: ['Surgery with general anesthesia', 'A few days in the hospital', 'Best after about 1 year of age, when the bladder is big enough'],
       },
     },
   },

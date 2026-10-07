@@ -167,7 +167,7 @@ const stentPath = (pts) => {
 //   flow: '' | 'down' | 'slow' animated urine flow; stent: show a stent
 //   bactSpread: 0..1 bacteria moving up; scar: kidney scar
 //   kidney: { s, dy } scale and vertical shift (fetal kidney ascent)
-//   inflamed: infected kidney; stone: { at: 'calyx' | 'pelvis' | 0..1 along ureter, size, fragments }
+//   ureterostomy: ureter brought out to the skin; inflamed: infected kidney; stone: { at: 'calyx' | 'pelvis' | 0..1 along ureter, size, fragments }
 function upperTract(o, g) {
   const pd = clamp(o.pelvisDilation ?? o.dilation ?? 0);
   const ud = clamp(o.ureterDilation ?? o.dilation ?? 0);
@@ -177,7 +177,9 @@ function upperTract(o, g) {
 
   const cs = makeCS({ pc: [414, 128], tips: [[466, 74], [484, 126], [466, 178]], d: pd, blunt: o.blunt || 0, fill: o.pelvisFill, xf, scale: s });
   const start = [cs.pc[0] - 2, cs.pc[1] + cs.pry - 6];
-  const pts = wavyLine(start, g.entry, clamp(o.tort || 0));
+  // A ureterostomy brings the ureter out to the skin of the lower belly.
+  const end = o.ureterostomy ? [520, 330] : g.entry;
+  const pts = wavyLine(start, end, clamp(o.tort || 0));
   const uW = (8 + 18 * ud) * Math.max(s, 0.6);
   const tube = { pts, segs: ureterSegs(uW, o), fill: o.ureterFill, fillTop: o.ureterFillTop, flow: o.flow };
 
@@ -199,6 +201,7 @@ function upperTract(o, g) {
     ${drawSystem([cs], [tube])}
     ${vessel}${mark}
     ${o.stent ? stentPath(pts) : ''}
+    ${o.ureterostomy ? `<line class="skin" x1="530" y1="270" x2="530" y2="390"/><circle class="stoma" cx="528" cy="330" r="9"/>` : ''}
     ${o.stone ? stoneMarkup(o.stone, cs, pts) : ''}
     ${o.inflamed ? `<path class="inflamed" d="${KIDNEY_PATH}"/>` : ''}
     ${bact}</g>`;
