@@ -91,8 +91,9 @@ function along(pos) {
 
 //   pos: 0..1 along the route (see DESCENT_STOPS); retractile: muscle pulling up
 //   stitched: fixed in the scrotum; gubernaculum: show the guiding cord
+//   clipped: testicular vessels clipped (Fowler-Stephens); the vas then carries the backup blood supply
 //   text: { kidney, ring, canal, scrotum, muscle, guide }
-export function descent({ pos = 1, retractile = false, stitched = false, gubernaculum = false, text }) {
+export function descent({ pos = 1, retractile = false, stitched = false, gubernaculum = false, clipped = false, text }) {
   const [x, y] = along(pos);
   const vessels = `M150 70 C 128 120 ${f(x)} ${f(Math.max(150, y - 120))} ${f(x)} ${f(y - 20)}`;
   const vas = `M${f(x + 6)} ${f(y - 10)} C ${f(x + 40)} ${f(y - 80)} 220 300 200 268`;
@@ -105,8 +106,9 @@ export function descent({ pos = 1, retractile = false, stitched = false, guberna
     <path class="canal" d="M282 245 L230 330"/>
     <path class="scrotum" d="M130 340 C 110 420 150 470 200 466 C 250 470 290 420 270 340"/>
     <line class="raphe" x1="200" y1="350" x2="200" y2="460"/>
-    <path class="g-vessels" d="${vessels}"/>
-    <path class="g-vas" d="${vas}"/>
+    <path class="g-vessels ${clipped ? 'cut' : ''}" d="${vessels}"/>
+    <path class="g-vas ${clipped ? 'collateral' : ''}" d="${vas}"/>
+    ${clipped ? `<g class="clip"><rect x="128" y="92" width="20" height="7" rx="2" transform="rotate(-25 138 95)"/></g><text class="lbl small accent-text" x="156" y="98">${text.clip}</text><text class="lbl small" x="${f(x + 44)}" y="${f(y - 46)}">${text.collateral}</text>` : ''}
     <path class="g-vessels" d="M250 70 C 272 120 220 300 220 408"/>
     <path class="g-vas" d="M226 418 C 260 340 190 300 200 268"/>
     ${gubernaculum && pos < 1 ? `<path class="guide" d="M${f(x)} ${f(y + 18)} L180 455"/>` : ''}

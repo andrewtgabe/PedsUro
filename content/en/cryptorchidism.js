@@ -15,7 +15,7 @@ export default {
     stopTitle: 'Where can a testicle stop?',
     stopText:
       'A testicle can stop anywhere along the path. Most undescended testicles are in the groin and can be felt. About 1 in 5 cannot be felt because they are inside the belly or missing.',
-    labels: { kidney: 'Kidney', ring: 'Inside opening', canal: 'Groin canal', scrotum: 'Scrotum', muscle: 'Muscle pulls up', guide: 'Guide' },
+    labels: { kidney: 'Kidney', ring: 'Inside opening', canal: 'Groin canal', scrotum: 'Scrotum', muscle: 'Muscle pulls up', guide: 'Guide', clip: 'Vessels clipped', collateral: 'Backup blood supply' },
   },
 
   pathology: {
@@ -61,14 +61,24 @@ export default {
         pros: ['Puts the testicle where it can work and be checked', 'Usually home the same day', 'Works very well, more than 9 out of 10 times'],
         cons: ['General anesthesia', 'Rarely the testicle moves back up or shrinks'],
       },
-      laparoscopy: {
-        name: 'Laparoscopy',
+      fsOne: {
+        name: 'One-stage Fowler-Stephens',
         summary:
-          'For a testicle that cannot be felt, a small camera is placed through the belly button to find it. If found, it can be brought down, sometimes in two surgeries a few months apart to let its blood supply adjust. If it is very small or missing, it may be removed.',
+          'For a testicle that cannot be felt, a small camera through the belly button finds it. If its main blood vessels are too short to reach the scrotum, the surgeon clips and divides them and brings the testicle down in the same surgery. The testicle then lives on smaller backup vessels that run along the vas deferens. If the testicle is very small or missing, it may be removed instead.',
         before: 'Found in belly',
         after: 'After surgery',
-        pros: ['Finds testicles that cannot be felt', 'Small cuts'],
-        cons: ['General anesthesia', 'Sometimes needs two surgeries'],
+        pros: ['One surgery', 'Small cuts', 'Finds testicles that cannot be felt'],
+        cons: ['General anesthesia', 'The testicle can shrink if the backup blood supply is not enough'],
+      },
+      fsTwo: {
+        name: 'Two-stage Fowler-Stephens',
+        summary:
+          'The same idea, done in two surgeries. In the first, the main blood vessels are clipped with a small camera and the testicle is left in place. Over about 6 months, the backup vessels along the vas grow stronger. In the second surgery, the testicle is brought down into the scrotum.',
+        before: 'Before',
+        stage1: 'Stage 1: clip',
+        stage2: 'Stage 2: bring down',
+        pros: ['Gives the backup blood supply time to grow', 'Small cuts'],
+        cons: ['Two surgeries, about 6 months apart', 'General anesthesia each time', 'The testicle can still shrink'],
       },
       retractile: {
         name: 'Retractile testicle',

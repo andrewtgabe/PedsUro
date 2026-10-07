@@ -79,7 +79,30 @@ const BUILD = {
     draw(0);
   },
   orchiopexy: (viz, ctl) => bringDown(viz, ctl, T('treatment.options.orchiopexy'), DESCENT_STOPS.canal),
-  laparoscopy: (viz, ctl) => bringDown(viz, ctl, T('treatment.options.laparoscopy'), DESCENT_STOPS.abdomen),
+  fsOne(viz, ctl) {
+    const o = T('treatment.options.fsOne');
+    let pos = DESCENT_STOPS.abdomen;
+    let stop = null;
+    const draw = () => (viz.innerHTML = descent({ pos, clipped: pos > DESCENT_STOPS.abdomen + 0.01, stitched: pos >= 0.999, text: labels() }));
+    ctl.append(segmented('', [[DESCENT_STOPS.abdomen, o.before], [1, o.after]], DESCENT_STOPS.abdomen, (v) => {
+      stop?.();
+      const from = pos;
+      stop = animate(1400, (k) => { pos = from + (v - from) * k; draw(); });
+    }));
+    draw();
+    return () => stop?.();
+  },
+  fsTwo(viz, ctl) {
+    const o = T('treatment.options.fsTwo');
+    const STAGES = [
+      { pos: DESCENT_STOPS.abdomen },
+      { pos: DESCENT_STOPS.abdomen, clipped: true },
+      { pos: 1, clipped: true, stitched: true },
+    ];
+    const draw = (i) => (viz.innerHTML = descent({ ...STAGES[i], text: labels() }));
+    ctl.append(segmented('', [[0, o.before], [1, o.stage1], [2, o.stage2]], 0, draw));
+    draw(0);
+  },
   retractile(viz, ctl) {
     const o = T('treatment.options.retractile');
     const draw = (up) => (viz.innerHTML = descent({ pos: up ? DESCENT_STOPS.high : 1, retractile: up, text: labels() }));

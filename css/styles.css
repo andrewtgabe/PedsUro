@@ -382,3 +382,7 @@ svg.anatomy .graft { fill: none; stroke: #e17f8a; stroke-width: 14; stroke-linec
 .author { color: var(--ink-soft); font-size: 0.9rem; margin-top: 6px; }
 .lang-note { background: var(--accent-soft); border-left: 4px solid var(--accent); margin: 0 0 14px; }
 @media print { .lang-switch { display: none; } }
+
+svg.anatomy .g-vessels.cut { stroke-dasharray: 4 5; opacity: 0.35; }
+svg.anatomy .g-vas.collateral { stroke: #c0392b; stroke-width: 5; }
+svg.anatomy .clip rect { fill: #4a5568; }
