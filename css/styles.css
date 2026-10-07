@@ -262,3 +262,29 @@ svg.anatomy .drip { fill: var(--urine); stroke: #c9a227; animation: drip 1.5s ea
 @keyframes drip { from { transform: translateY(0); opacity: 1; } to { transform: translateY(26px); opacity: 0; } }
 svg.anatomy.urethra-x, svg.anatomy.ectopic-map { max-height: 460px; margin: 0 auto; }
 svg.anatomy .pale-k .papilla { fill: #d9b3aa; }
+
+/* genital drawings */
+svg.anatomy.genital { max-height: 480px; margin: 0 auto; }
+svg.anatomy .scrotum { fill: #f3d2c4; stroke: #c48b78; stroke-width: 3; }
+svg.anatomy .tunica { fill: rgb(255 255 255 / 0.35); stroke: #b98a7b; stroke-width: 2; stroke-dasharray: 6 4; }
+svg.anatomy .attach { fill: none; stroke: #9c6a5c; stroke-width: 6; stroke-linejoin: round; }
+svg.anatomy .cord-sheath { stroke: #f4ddd3; stroke-linecap: round; }
+svg.anatomy .artery { fill: none; stroke: #c0392b; stroke-width: 5; stroke-linecap: round; }
+svg.anatomy .vein { fill: none; stroke: #4f6fb0; stroke-width: 5; stroke-linecap: round; }
+svg.anatomy .blood { fill: none; stroke: #ffd1cc; stroke-width: 2; stroke-dasharray: 3 10; animation: flow 0.6s linear infinite; }
+svg.anatomy .blood.stopped { display: none; }
+svg.anatomy .testis { fill: #f0b7ad; stroke: #b4766b; stroke-width: 2.5; }
+svg.anatomy .testis.flag { stroke: var(--warn); stroke-width: 3.5; }
+svg.anatomy .epididymis { fill: none; stroke-width: 16; stroke-linecap: round; }
+svg.anatomy .stitch { stroke: #1f4f8a; stroke-width: 3; fill: none; }
+svg.anatomy .prosthesis { fill: #e8eef6; stroke: #8aa6c8; stroke-width: 2.5; }
+svg.anatomy .body-wall { fill: #fbf1ec; stroke: #d9b8aa; stroke-width: 2; }
+svg.anatomy .canal { stroke: #e5c4b6; stroke-width: 26; stroke-linecap: round; }
+svg.anatomy .raphe { stroke: #c48b78; stroke-width: 1.5; stroke-dasharray: 4 4; }
+svg.anatomy .g-vessels { fill: none; stroke: #c0392b; stroke-width: 3; opacity: 0.7; }
+svg.anatomy .g-vas { fill: none; stroke: #8f7cc8; stroke-width: 3; }
+svg.anatomy .guide { stroke: #9c6a5c; stroke-width: 4; stroke-dasharray: 2 5; stroke-linecap: round; }
+svg.anatomy .pull { fill: none; stroke: var(--warn); stroke-width: 3; }
+.meter { height: 14px; border-radius: 7px; background: var(--line); overflow: hidden; margin: 6px 0 2px; }
+.meter > span { display: block; height: 100%; border-radius: 7px; transition: width 0.3s, background 0.3s; }
+.controls > .btn { align-self: flex-start; }

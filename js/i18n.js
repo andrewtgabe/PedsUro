@@ -8,9 +8,11 @@ import enUvj from '../content/en/uvj.js';
 import enDuplex from '../content/en/duplex.js';
 import enPuv from '../content/en/puv.js';
 import enEctopic from '../content/en/ectopic.js';
+import enTorsion from '../content/en/torsion.js';
+import enCryptorchidism from '../content/en/cryptorchidism.js';
 
 const languages = {
-  en: { common: enCommon, vur: enVur, hydronephrosis: enHydronephrosis, upj: enUpj, uvj: enUvj, duplex: enDuplex, puv: enPuv, ectopic: enEctopic },
+  en: { common: enCommon, vur: enVur, hydronephrosis: enHydronephrosis, upj: enUpj, uvj: enUvj, duplex: enDuplex, puv: enPuv, ectopic: enEctopic, torsion: enTorsion, cryptorchidism: enCryptorchidism },
 };
 
 let current = 'en';
