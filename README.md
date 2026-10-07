@@ -12,7 +12,9 @@ Then open http://localhost:8080.
 
 ## Edit wording
 
-All text lives in `content/en/`. Change the values, not the keys. To add Spanish, copy `content/en/` to `content/es/`, translate, and register it in `js/i18n.js`.
+All text lives in `content/<lang>/` (`en`, `es`). Change the values, not the keys. A chapter without a file in `content/es/` falls back to English and shows a notice. To translate one, copy `content/en/<id>.js` to `content/es/<id>.js`, translate the values, and register it in `js/i18n.js`. Links can force a language with `?lang=es`.
+
+Created by Andrew T. Gabrielson, MD.
 
 ## Structure
 

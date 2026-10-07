@@ -1,4 +1,4 @@
-import { t } from './i18n.js';
+import { t, LANGUAGES, getLanguage, setLanguage, isTranslated } from './i18n.js';
 import vur from './chapters/vur.js';
 import hydronephrosis from './chapters/hydronephrosis.js';
 import upj from './chapters/upj.js';
@@ -35,6 +35,19 @@ const CATALOG = {
 const app = document.getElementById('app');
 let cleanup = null;
 
+// English | Español buttons; switching re-renders the current page.
+const langSwitch = () =>
+  `<div class="lang-switch" role="group" aria-label="${t('common.nav.language')}">${LANGUAGES.map(
+    ([code, name]) => `<button data-lang="${code}" aria-pressed="${code === getLanguage()}">${name}</button>`,
+  ).join('')}</div>`;
+
+app.addEventListener('click', (e) => {
+  const b = e.target.closest('[data-lang]');
+  if (!b) return;
+  setLanguage(b.dataset.lang);
+  route();
+});
+
 function route() {
   cleanup?.();
   cleanup = null;
@@ -50,8 +63,10 @@ function renderHome() {
   document.body.classList.remove('present');
   app.innerHTML = `
     <header class="home-head">
+      ${langSwitch()}
       <h1>${t('common.site.title')}</h1>
       <p>${t('common.site.tagline')}</p>
+      <p class="author">${t('common.site.author')}</p>
     </header>
     ${Object.entries(CATALOG)
       .map(
@@ -70,7 +85,7 @@ function renderHome() {
       </section>`,
       )
       .join('')}
-    <footer class="disclaimer">${t('common.site.disclaimer')}</footer>`;
+    <footer class="disclaimer">${t('common.site.disclaimer')}<br>${t('common.site.author')}</footer>`;
 }
 
 function renderChapter(chapter, sectionId) {
@@ -89,8 +104,10 @@ function renderChapter(chapter, sectionId) {
         <button class="btn" data-share>${t('common.nav.share')}</button>
         <button class="btn" data-print>${t('common.nav.print')}</button>
         <button class="btn" data-present></button>
+        ${langSwitch()}
       </div>
     </header>
+    ${isTranslated(chapter.id) ? '' : `<p class="callout lang-note">${t('common.nav.notTranslated')}</p>`}
     <nav class="section-tabs">
       ${sections
         .map(
@@ -107,7 +124,7 @@ function renderChapter(chapter, sectionId) {
       ${index > 0 ? `<a class="btn" href="#/${chapter.id}/${sections[index - 1].id}">← ${t(`common.sections.${sections[index - 1].id}`)}</a>` : '<span></span>'}
       ${index < sections.length - 1 ? `<a class="btn primary" href="#/${chapter.id}/${sections[index + 1].id}">${t(`common.sections.${sections[index + 1].id}`)} →</a>` : '<span></span>'}
     </footer>
-    <footer class="disclaimer">${t('common.site.disclaimer')}</footer>`;
+    <footer class="disclaimer">${t('common.site.disclaimer')}<br>${t('common.site.author')}</footer>`;
 
   const sectionCleanup = section.render(app.querySelector('.section-body'));
   const ink = setupInk(app.querySelector('.stage'), app.querySelector('canvas.ink'));
@@ -199,20 +216,27 @@ function setupInk(stage, canvas) {
   };
 }
 
+// Link to this page that opens in the current language.
+function shareUrl() {
+  const lang = getLanguage();
+  return `${location.origin}${location.pathname}${lang === 'en' ? '' : `?lang=${lang}`}${location.hash}`;
+}
+
 function showShare() {
+  const url = shareUrl();
   const dlg = document.createElement('dialog');
   dlg.className = 'share';
   dlg.innerHTML = `
     <h2>${t('common.share.title')}</h2>
     <p>${t('common.share.body')}</p>
     <div class="qr"></div>
-    <p class="url">${location.href}</p>
+    <p class="url">${url}</p>
     <button class="btn primary">${t('common.nav.close')}</button>`;
   document.body.append(dlg);
   dlg.querySelector('button').addEventListener('click', () => dlg.close());
   dlg.addEventListener('close', () => dlg.remove());
   dlg.showModal();
-  loadQr().then((QRCode) => new QRCode(dlg.querySelector('.qr'), { text: location.href, width: 220, height: 220 }));
+  loadQr().then((QRCode) => new QRCode(dlg.querySelector('.qr'), { text: url, width: 220, height: 220 }));
 }
 
 let qrPromise;

@@ -1,5 +1,6 @@
-// Minimal translation lookup. Add a language by creating content/<lang>/
-// with the same files and registering it below.
+// Translation lookup. Each language is a folder in content/<lang>/ with the
+// same files and keys as content/en/. Text missing from a language falls back
+// to English, so chapters can be translated one at a time.
 import enCommon from '../content/en/common.js';
 import enVur from '../content/en/vur.js';
 import enHydronephrosis from '../content/en/hydronephrosis.js';
@@ -22,20 +23,62 @@ import enHypospadias from '../content/en/hypospadias.js';
 import enEnuresis from '../content/en/enuresis.js';
 import enBbd from '../content/en/bbd.js';
 import enNeurogenic from '../content/en/neurogenic.js';
+import esCommon from '../content/es/common.js';
+import esVur from '../content/es/vur.js';
+import esHydronephrosis from '../content/es/hydronephrosis.js';
+import esUti from '../content/es/uti.js';
+import esEnuresis from '../content/es/enuresis.js';
+
+// [code, name shown in the language switcher]
+export const LANGUAGES = [
+  ['en', 'English'],
+  ['es', 'Español'],
+];
 
 const languages = {
-  en: { common: enCommon, vur: enVur, hydronephrosis: enHydronephrosis, upj: enUpj, uvj: enUvj, duplex: enDuplex, puv: enPuv, ectopic: enEctopic, torsion: enTorsion, cryptorchidism: enCryptorchidism, hydrocele: enHydrocele, hernia: enHernia, varicocele: enVaricocele, phimosis: enPhimosis, meatal: enMeatal, labial: enLabial, uti: enUti, stones: enStones, hypospadias: enHypospadias, enuresis: enEnuresis, bbd: enBbd, neurogenic: enNeurogenic },
+  en: {
+    common: enCommon, vur: enVur, hydronephrosis: enHydronephrosis, upj: enUpj, uvj: enUvj, duplex: enDuplex,
+    puv: enPuv, ectopic: enEctopic, torsion: enTorsion, cryptorchidism: enCryptorchidism, hydrocele: enHydrocele,
+    hernia: enHernia, varicocele: enVaricocele, phimosis: enPhimosis, meatal: enMeatal, labial: enLabial,
+    uti: enUti, stones: enStones, hypospadias: enHypospadias, enuresis: enEnuresis, bbd: enBbd, neurogenic: enNeurogenic,
+  },
+  es: {
+    common: esCommon, vur: esVur, hydronephrosis: esHydronephrosis, uti: esUti, enuresis: esEnuresis,
+  },
 };
 
+// Language comes from ?lang= (shared links), then the viewer's last choice.
 let current = 'en';
+try {
+  const fromUrl = new URLSearchParams(location.search).get('lang');
+  const saved = localStorage.getItem('lang');
+  current = languages[fromUrl] ? fromUrl : languages[saved] ? saved : 'en';
+} catch {
+  current = 'en';
+}
+document.documentElement.lang = current;
+
+export const getLanguage = () => current;
 
 export function setLanguage(lang) {
-  if (languages[lang]) current = lang;
+  if (!languages[lang]) return;
+  current = lang;
+  document.documentElement.lang = lang;
+  try {
+    localStorage.setItem('lang', lang);
+  } catch {
+    // Storage can be blocked; the choice still applies for this visit.
+  }
 }
+
+// Whether a content file (e.g. 'vur') exists in the current language.
+export const isTranslated = (ns) => current === 'en' || Boolean(languages[current][ns]);
+
+const lookup = (lang, path) => path.split('.').reduce((obj, key) => (obj == null ? obj : obj[key]), languages[lang]);
 
 // t('vur.pathology.grades') -> value at that path (string, array or object).
 export function t(path) {
-  const value = path.split('.').reduce((obj, key) => (obj == null ? obj : obj[key]), languages[current]);
+  const value = lookup(current, path) ?? lookup('en', path);
   if (value == null) {
     console.warn(`Missing text: ${path}`);
     return path;

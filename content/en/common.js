@@ -6,6 +6,7 @@ export default {
     tagline: 'Interactive models to help families understand their child’s condition and treatment choices.',
     disclaimer:
       'For education during a visit with your child’s care team. This guide does not replace medical advice for your child.',
+    author: 'Created by Andrew T. Gabrielson, MD',
   },
   nav: {
     home: 'All conditions',
@@ -19,6 +20,8 @@ export default {
     next: 'Next',
     close: 'Close',
     comingSoon: 'Coming soon',
+    language: 'Language',
+    notTranslated: 'This chapter is not translated yet, so it is shown in English.',
   },
   share: {
     title: 'Look at this again at home',

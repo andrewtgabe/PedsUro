@@ -372,3 +372,13 @@ svg.anatomy .stoma { fill: #b0405a; }
 svg.anatomy .bubble rect { fill: #fff; stroke: #8a5cc8; stroke-width: 2; }
 svg.anatomy .bubble text { font: 700 14px var(--font); fill: #5b3a8f; }
 svg.anatomy .graft { fill: none; stroke: #e17f8a; stroke-width: 14; stroke-linecap: round; stroke-dasharray: 10 4; }
+
+/* language switch, author */
+.lang-switch { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--surface); }
+.lang-switch button { font: inherit; font-size: 0.85rem; border: 0; padding: 7px 10px; background: transparent; cursor: pointer; color: var(--ink); }
+.lang-switch button + button { border-left: 1px solid var(--line); }
+.lang-switch button[aria-pressed='true'] { background: var(--accent); color: #fff; }
+.home-head .lang-switch { float: right; }
+.author { color: var(--ink-soft); font-size: 0.9rem; margin-top: 6px; }
+.lang-note { background: var(--accent-soft); border-left: 4px solid var(--accent); margin: 0 0 14px; }
+@media print { .lang-switch { display: none; } }
