@@ -317,3 +317,14 @@ svg.anatomy .balloon-urine { fill: var(--urine); opacity: 0.55; }
 svg.anatomy .tight-ring { fill: none; stroke: var(--warn); stroke-width: 3; }
 svg.anatomy .scar-ring { fill: none; stroke: #f4f4f4; stroke-width: 6; }
 svg.anatomy .circ-line { stroke: #b07a66; stroke-width: 2; stroke-dasharray: 3 3; }
+svg.anatomy .stream { fill: none; }
+svg.anatomy .sore { fill: rgb(214 70 70 / 0.35); }
+svg.anatomy.vulva { max-height: 420px; }
+svg.anatomy .majora { fill: #f0c8b4; stroke: #c69580; stroke-width: 2.5; }
+svg.anatomy .vestibule { fill: #f2b3b3; }
+svg.anatomy .minora { fill: none; stroke: #d98a8f; stroke-width: 10; stroke-linecap: round; }
+svg.anatomy .hood { fill: none; stroke: #d98a8f; stroke-width: 8; stroke-linecap: round; }
+svg.anatomy .urethral { fill: #7a3340; }
+svg.anatomy .vaginal { fill: #a8505d; }
+svg.anatomy .adhesion { fill: #f6dcdc; fill-opacity: 0.93; stroke: #e6b5b5; stroke-width: 2; }
+svg.anatomy .adhesion-line { stroke: #c99a9a; stroke-width: 2; stroke-dasharray: 4 3; }

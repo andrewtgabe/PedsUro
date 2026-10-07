@@ -82,6 +82,8 @@ export default {
     hernia: 'Intestine sliding into the groin or scrotum through an open pouch.',
     varicocele: 'Swollen veins above the testicle, usually on the left.',
     phimosis: 'A tight foreskin, or one stuck behind the head of the penis.',
+    meatal: 'A narrow opening at the tip of the penis.',
+    labial: 'The inner lips of the vulva stick together.',
     puv: 'Extra flaps of tissue in a boy’s urethra that block urine.',
   },
 };

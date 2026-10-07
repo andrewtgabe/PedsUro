@@ -242,8 +242,9 @@ const glansR = (x) => (x <= 255 ? 40 : 40 * Math.sqrt(Math.max(0, 1 - ((x - 255)
 //   limit: 0..1 how far it can go before the opening is too tight
 //   scar: white scarred ring at the opening (lichen sclerosus)
 //   pee: urinating; trapped: paraphimosis; circumcised; widened: preputioplasty
+//   meatus: 0..1 how narrow the urethral opening is; sore: red irritated tip
 //   text: { glans, foreskin, opening, shaft, tight, trapped }
-export function penisSide({ pull = 0, limit = 1, scar = false, pee = false, trapped = false, circumcised = false, widened = false, text }) {
+export function penisSide({ pull = 0, limit = 1, scar = false, pee = false, trapped = false, circumcised = false, widened = false, meatus = 0, sore = false, text }) {
   const k = trapped ? 1 : Math.min(pull, limit);
   const atLimit = !trapped && pull > limit + 0.01;
   const fx = 362 - k * 132;
@@ -271,13 +272,19 @@ export function penisSide({ pull = 0, limit = 1, scar = false, pee = false, trap
     }
   }
 
-  const stream = pee ? `<line class="stream" x1="${balloon ? f(fx + 40) : 356}" y1="200" x2="400" y2="${balloon ? 206 : 200}" style="stroke-width:${balloon ? 1.5 : tight ? 2.5 : 5}"/>` : '';
+  // A narrow opening makes a thin, fast stream that sprays upward.
+  const narrow = meatus > 0.4;
+  let stream = '';
+  if (pee && balloon) stream = `<line class="stream" x1="${f(fx + 40)}" y1="200" x2="440" y2="206" style="stroke-width:1.5"/>`;
+  else if (pee && narrow) stream = `<path class="stream" d="M350 200 Q 392 160 440 ${f(150 - 30 * meatus)}" style="stroke-width:1.8"/><path class="stream" d="M350 200 Q 392 186 440 176" style="stroke-width:1.2"/>`;
+  else if (pee) stream = `<line class="stream" x1="356" y1="200" x2="440" y2="200" style="stroke-width:${tight ? 2.5 : 5}"/>`;
 
   return `<svg class="anatomy genital penis" viewBox="0 110 440 180" role="img" aria-label="${text.foreskin}">
     <rect class="body-wall" x="0" y="80" width="64" height="220"/>
     <rect class="shaft" x="56" y="162" width="206" height="76" rx="14"/>
     <path class="glans" d="M255 ${f(200 - 40 * gs)} C 332 ${f(200 - 40 * gs)} ${f(352 * gs - 4)} 185 ${f(352 * gs - 4)} 200 C ${f(352 * gs - 4)} 215 332 ${f(200 + 40 * gs)} 255 ${f(200 + 40 * gs)} Z" style="fill:${glansFill}"/>
-    <path class="meatus" d="M346 194 L346 206"/>
+    ${sore ? `<circle class="sore" cx="345" cy="200" r="14"/>` : ''}
+    <path class="meatus" d="M346 ${f(194 + 5 * meatus)} L346 ${f(206 - 5 * meatus)}"/>
     ${circumcised ? `<path class="circ-line" d="M232 160 L232 240"/>` : ''}
     ${foreskin}
     ${stream}
@@ -285,5 +292,42 @@ export function penisSide({ pull = 0, limit = 1, scar = false, pee = false, trap
     <text class="lbl small" x="300" y="${fx >= 300 ? 140 : 205}" text-anchor="middle">${text.glans}</text>
     ${circumcised ? '' : `<text class="lbl small ${trapped ? 'accent-text' : ''}" x="${f(Math.max(fx, 232))}" y="${trapped ? 135 : 268}" text-anchor="middle">${trapped ? text.trapped : text.foreskin}</text>`}
     ${atLimit || scar ? `<text class="lbl small accent-text" x="${f(fx)}" y="${f(Math.min(282, 200 + openR + 30))}" text-anchor="middle">${text.tight}</text>` : ''}
+  </svg>`;
+}
+
+// ---------- vulva front view (labial adhesions) ----------
+
+// Half-width of the inner area at height y.
+const vestW = (y) => 46 * Math.sin((Math.PI * (y - 72)) / 220);
+
+//   fused: 0..1 how far up the inner lips are stuck together (from the bottom)
+//   pee: urinating; text: { outer, inner, urethra, vagina, fused, pool }
+export function vulvaFront({ fused = 0, pee = false, text }) {
+  const bottom = 286;
+  const top = bottom - clamp(fused) * 176;
+  const membrane = [];
+  if (fused > 0.02) {
+    for (let y = top; y <= bottom; y += 6) membrane.push(`${f(180 - vestW(y) * 0.92)} ${f(y)}`);
+    for (let y = bottom; y >= top; y -= 6) membrane.push(`${f(180 + vestW(y) * 0.92)} ${f(y)}`);
+  }
+  const pooled = pee && fused > 0.4;
+  return `<svg class="anatomy genital vulva" viewBox="0 0 360 340" role="img" aria-label="${text.inner}">
+    <path class="majora" d="M180 24 C 70 24 54 236 180 330 C 306 236 290 24 180 24 Z"/>
+    <path class="vestibule" d="M180 70 C 126 92 124 240 180 292 C 236 240 234 92 180 70 Z"/>
+    <path class="minora" d="M180 78 C 138 100 132 232 180 288"/>
+    <path class="minora" d="M180 78 C 222 100 228 232 180 288"/>
+    <path class="hood" d="M164 96 Q 180 74 196 96"/>
+    <circle class="urethral" cx="180" cy="150" r="4"/>
+    <ellipse class="vaginal" cx="180" cy="214" rx="13" ry="26"/>
+    ${pooled ? `<ellipse class="balloon-urine" cx="180" cy="${f((top + bottom) / 2 + 10)}" rx="26" ry="${f((bottom - top) / 3)}"/>` : ''}
+    ${membrane.length ? `<path class="adhesion" d="M${membrane.join(' L')} Z"/><line class="adhesion-line" x1="180" y1="${f(top + 4)}" x2="180" y2="${bottom - 4}"/>` : ''}
+    ${pee ? (fused > 0.4
+      ? [0, 1, 2].map((i) => `<circle class="drip" cx="180" cy="${f(top + 2)}" r="3.5" style="animation-delay:${i * 0.5}s"/>`).join('')
+      : `<line class="stream" x1="180" y1="154" x2="180" y2="340" style="stroke-width:4"/>`) : ''}
+    <text class="lbl small" x="40" y="60">${text.outer}</text>
+    <text class="lbl small" x="300" y="250" text-anchor="middle">${text.inner}</text>
+    ${fused < 0.9 ? `<text class="lbl small" x="196" y="148">${text.urethra}</text>` : ''}
+    ${fused < 0.5 ? `<text class="lbl small" x="200" y="218">${text.vagina}</text>` : ''}
+    ${fused > 0.02 ? `<text class="lbl small accent-text" x="180" y="318" text-anchor="middle">${text.fused}</text>` : ''}
   </svg>`;
 }
