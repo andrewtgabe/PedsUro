@@ -10,6 +10,7 @@ export default {
     scrotum: 'Scrotum',
     groove: 'Open groove',
     fistula: 'Small leak',
+    graft: 'Foreskin tissue',
   },
 
   embryology: {
@@ -53,12 +54,23 @@ export default {
       repair: {
         name: 'Hypospadias repair',
         summary:
-          'The surgeon straightens any bend, rolls the open groove into a tube to make a new urethra out to the tip, and closes the skin. The foreskin is either removed (circumcised look) or rebuilt. A small tube (stent) often drains urine into the diaper for about a week.',
+          'For openings closer to the tip without much bend, this is usually one surgery. The surgeon straightens any small bend, rolls the open groove into a tube to make a new urethra out to the tip, and closes the skin. The foreskin is either removed (circumcised look) or rebuilt. A small tube (stent) often drains urine into the diaper for about a week.',
         before: 'Before',
         after: 'After repair',
         pee: 'Peeing',
         pros: ['Opening at the tip and a straight stream', 'Straightens the penis', 'Usually one surgery for openings near the tip'],
-        cons: ['General anesthesia', 'Dressing and stent care for about a week', 'Openings farther back may need two surgeries'],
+        cons: ['General anesthesia', 'Dressing and stent care for about a week'],
+      },
+      staged: {
+        name: 'Staged repair',
+        summary:
+          'Openings farther back, and cases with more bend, are usually fixed in two surgeries. In the first, the strip of tissue on the underside (the urethral plate) is cut across so the penis can be fully straightened, and foreskin tissue is moved to the underside, either still attached to its blood supply (a flap) or as a graft. In the second surgery, usually about 6 months later, that tissue is rolled into a new urethra out to the tip.',
+        before: 'Before',
+        stage1: 'Stage 1',
+        stage2: 'Stage 2',
+        pee: 'Peeing',
+        pros: ['Fully straightens a bigger bend', 'Builds a longer new urethra with healthy tissue'],
+        cons: ['Two surgeries, usually about 6 months apart', 'Higher chance of problems like a fistula than one-stage repairs'],
       },
       complications: {
         name: 'Possible problems later',

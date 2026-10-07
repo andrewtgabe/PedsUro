@@ -355,8 +355,9 @@ const partialPath = (path, u) => {
 //   hood: hooded foreskin (only on top); full: normal foreskin all around
 //   curve: 0..1 bend (down for hypospadias, up for epispadias)
 //   pee: stream; fistula: small leak hole after repair
+//   graft: foreskin tissue placed along the underside (first stage of a staged repair)
 //   text: { glans, shaft, opening, hood, scrotum, groove, fistula }
-export function hypospadiasSide({ opening = 0, top = false, groove = false, hood = false, full = false, curve = 0, pee = false, fistula = false, text }) {
+export function hypospadiasSide({ opening = 0, top = false, groove = false, hood = false, full = false, curve = 0, pee = false, fistula = false, graft = false, text }) {
   const path = top ? TOPSIDE : UNDERSIDE;
   const [mx, my] = alongPath(path, opening);
   const angle = (top ? -1 : 1) * 30 * clamp(curve);
@@ -378,6 +379,7 @@ export function hypospadiasSide({ opening = 0, top = false, groove = false, hood
       <rect class="shaft" x="160" y="162" width="102" height="76" rx="14"/>
       <path class="glans" d="M255 160 C 332 160 348 185 348 200 C 348 215 332 240 255 240 Z" style="fill:#e99c9f"/>
       ${groove && !atTip ? `<path class="groove" d="${partialPath(path, opening)}"/>` : ''}
+      ${graft && !atTip ? `<path class="graft" d="${partialPath(path, opening)}"/>` : ''}
       ${atTip ? `<path class="meatus" d="M346 194 L346 206"/>` : `<ellipse class="meatus-dot" cx="${f(mx)}" cy="${f(my)}" rx="7" ry="4"/>`}
       ${hood ? `<path class="foreskin" d="M150 162 L250 160 C 300 140 344 150 356 184 C 340 172 300 160 252 168 L150 170 Z"/>` : ''}
       ${full ? `<path class="foreskin" d="M150 162 L250 162 C 300 154 340 158 362 197 L 362 203 C 340 242 300 246 250 238 L150 238 Z"/>` : ''}
@@ -388,6 +390,7 @@ export function hypospadiasSide({ opening = 0, top = false, groove = false, hood
     <text class="lbl small" x="300" y="${top ? 268 : 132}" text-anchor="middle">${hood ? text.hood : text.glans}</text>
     ${atTip ? '' : `<text class="lbl small accent-text" x="${f(mx)}" y="${top ? 146 : f(Math.min(330, my + 34 + 40 * curve))}" text-anchor="middle">${text.opening}</text>`}
     ${fistula ? `<text class="lbl small accent-text" x="236" y="290">${text.fistula}</text>` : ''}
+    ${graft && !atTip ? `<text class="lbl small" x="250" y="290">${text.graft}</text>` : ''}
     <text class="lbl small" x="30" y="332">${text.scrotum}</text>
   </svg>`;
 }

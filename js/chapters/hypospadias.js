@@ -71,6 +71,21 @@ const BUILD = {
     draw();
     return () => stop?.();
   },
+  staged(viz, ctl) {
+    const o = T('treatment.options.staged');
+    const s = { stage: 0, pee: true };
+    const STAGES = [
+      { opening: 0.95, hood: true, curve: 0.9 },
+      { opening: 0.95, curve: 0, graft: true },
+      { opening: 0, curve: 0 },
+    ];
+    const draw = () => (viz.innerHTML = view({ ...STAGES[s.stage], pee: s.pee }));
+    ctl.append(
+      segmented('', [[0, o.before], [1, o.stage1], [2, o.stage2]], 0, (v) => { s.stage = v; draw(); }),
+      toggle(o.pee, true, (v) => { s.pee = v; draw(); }),
+    );
+    draw();
+  },
   complications(viz, ctl) {
     const o = T('treatment.options.complications');
     const draw = (on) => (viz.innerHTML = view({ opening: 0, pee: true, fistula: on }));
