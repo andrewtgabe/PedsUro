@@ -28,7 +28,7 @@ const CHAPTERS = { vur, hydronephrosis, upj, uvj, duplex, puv, ectopic, torsion,
 // Order of conditions on the home page.
 const CATALOG = {
   upper: ['hydronephrosis', 'vur', 'upj', 'uvj', 'mcdk', 'duplex', 'ectopic', 'stones', 'pkd'],
-  lower: ['uti', 'enuresis', 'bbd', 'neurogenic', 'puv', 'exstrophy', 'hypospadias', 'bladderStones'],
+  lower: ['uti', 'enuresis', 'bbd', 'neurogenic', 'puv', 'exstrophy', 'hypospadias'],
   genital: ['cryptorchidism', 'hydrocele', 'hernia', 'torsion', 'varicocele', 'phimosis', 'meatal', 'labial', 'dsd'],
 };
 

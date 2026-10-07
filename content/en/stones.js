@@ -1,6 +1,6 @@
 // Kidney stones — all wording shown on the kidney stones chapter.
 export default {
-  title: 'Kidney stones',
+  title: 'Kidney, ureter & bladder stones',
 
   embryology: {
     intro:
@@ -17,6 +17,8 @@ export default {
     },
     riskTitle: 'What raises the risk',
     risks: ['Not drinking enough water', 'Salty and processed foods', 'Family history of stones', 'Some medical conditions, medicines or a urine blockage', 'Not moving much (for example, after surgery or with a disability)'],
+    bladderTitle: 'Stones that form in the bladder',
+    bladder: 'Bladder stones in children usually form when urine sits in the bladder: a bladder that does not empty fully (such as a neurogenic bladder), a bladder made bigger with bowel (augmentation), repeated infections, or mucus. Drinking plenty and emptying the bladder regularly, including flushing (bladder washouts) if prescribed, helps prevent them.',
   },
 
   pathology: {
@@ -25,9 +27,10 @@ export default {
     where: {
       calyx: { name: 'In the kidney', text: 'Usually no pain. It may be found by chance on an ultrasound, or cause blood in the urine.' },
       upj: { name: 'Leaving the kidney', text: 'The stone blocks urine from leaving, so the kidney swells. This can cause sudden, severe side or back pain.' },
-      ureter: { name: 'In the ureter', text: 'The ureter squeezes to push the stone down. Pain comes in waves and can move toward the belly or groin.' },
+      ureter: { name: 'In the ureter', text: 'A ureteral stone is the most painful kind. The ureter squeezes to push the stone down, so pain comes in strong waves (renal colic) and can move from the side toward the belly or groin. Children may not be able to sit still, and often vomit.' },
       uvj: { name: 'Near the bladder', text: 'The narrowest spot. Pain moves low, and there may be an urge to pee often. Once it passes into the bladder, pain usually stops.' },
-      bladder: { name: 'In the bladder', text: 'Most stones that reach the bladder come out with urine.' },
+      bladder: { name: 'Passed into the bladder', text: 'Once a stone from the kidney drops into the bladder, the pain usually stops. Most come out with urine within a few days.' },
+      bladderFormed: { name: 'Formed in the bladder', text: 'A bladder stone that forms in the bladder can grow large. It can cause pain at the end of peeing, blood in the urine, a stream that suddenly stops, infections, or new leaking. In children who catheterize, the catheter may be hard to pass.' },
     },
     sizeLabel: 'Stone size',
     sizes: { small: 'Small', large: 'Large' },
@@ -43,7 +46,7 @@ export default {
     options: {
       pass: {
         name: 'Passing it',
-        summary: 'Drink plenty, take pain medicine, and sometimes a medicine that relaxes the ureter. Strain the urine to catch the stone so it can be tested.',
+        summary: 'Drink plenty, take pain medicine, and sometimes a medicine (such as tamsulosin) that relaxes the ureter to help a ureteral stone pass. Strain the urine to catch the stone so it can be tested.',
         control: 'Days',
         days: 'days',
         pros: ['No procedure', 'Most small stones pass within a few weeks'],
@@ -65,6 +68,16 @@ export default {
         pros: ['No cuts and no camera inside', 'Good for some kidney stones'],
         cons: ['General anesthesia in children', 'Pieces still need to pass', 'May need more than one treatment'],
       },
+      bladderRemoval: {
+        name: 'Removing a bladder stone',
+        summary:
+          'Most bladder stones are broken up with a laser through a small camera passed into the bladder, then washed out. Large stones, or stones in an augmented bladder, may be removed through a small opening in the lower belly instead.',
+        before: 'Before',
+        laser: 'Broken up',
+        after: 'Removed',
+        pros: ['Removes the stone completely', 'Often no cut on the skin'],
+        cons: ['General anesthesia', 'Stones can come back if urine keeps sitting in the bladder'],
+      },
       pcnl: {
         name: 'Through the back (PCNL)',
         summary: 'For large kidney stones, a small tunnel is made through the back directly into the kidney to break up and remove the stone.',
@@ -83,8 +96,9 @@ export default {
 
   takeaways: {
     points: [
-      'Kidney stones form when minerals in concentrated urine stick together.',
-      'Stones hurt when they move and block urine.',
+      'Stones form when minerals in concentrated urine stick together, in the kidney or in the bladder.',
+      'Stones hurt most when they move down the ureter and block urine.',
+      'Bladder stones usually form when the bladder does not empty fully.',
       'Many small stones pass on their own.',
       'Larger stones can be broken up or removed with a camera, sound waves, or a small surgery.',
       'Drinking more water and eating less salt help prevent new stones.',

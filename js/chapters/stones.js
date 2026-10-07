@@ -38,7 +38,8 @@ function renderEmbryology(root) {
     viz.innerHTML = crystalJar(conc, T('embryology.jar'));
     const k = conc > 0.65 ? 'bad' : conc > 0.3 ? 'mid' : 'good';
     explain.innerHTML = `<div class="callout ${k === 'good' ? 'good' : k === 'bad' ? 'warn' : ''}"><p>${T(`embryology.texts.${k}`)}</p></div>
-      <h3>${T('embryology.riskTitle')}</h3><ul>${T('embryology.risks').map((x) => `<li>${x}</li>`).join('')}</ul>`;
+      <h3>${T('embryology.riskTitle')}</h3><ul>${T('embryology.risks').map((x) => `<li>${x}</li>`).join('')}</ul>
+      <h3>${T('embryology.bladderTitle')}</h3><p>${T('embryology.bladder')}</p>`;
   };
   ctl.append(
     segmented(T('embryology.waterLabel'), Object.entries(T('embryology.water')), s.water, (v) => { s.water = v; draw(); }),
@@ -59,6 +60,7 @@ function stoneView(where, size, fragments = false) {
     case 'ureter': return { affected: { stone: { ...stone, at: 0.5 }, pelvisDilation: 0.5, ureterDilation: 0.3, pelvisFill: 1, ureterFillTop: 0.5 } };
     case 'uvj': return { affected: { stone: { ...stone, at: 0.95 }, dilation: 0.45, pelvisFill: 1, ureterFillTop: 0.95 } };
     case 'bladder': return { bladderStone: stone, affected: { pelvisFill: 1 } };
+    case 'bladderFormed': return { bladderStone: { ...stone, size: Math.max(1.2, size * 1.6) }, bladderWall: 0.5, affected: { pelvisFill: 1 } };
     default: return { affected: { pelvisFill: 1 } };
   }
 }
@@ -70,7 +72,7 @@ function renderPathology(root) {
   const draw = () => {
     viz.innerHTML = urinaryTract(stoneView(s.where, s.size === 'small' ? 0.35 : 1));
     explain.innerHTML = `<h3>${where[s.where].name}</h3><p>${where[s.where].text}</p>
-      <div class="callout"><p>${T(`pathology.sizeText.${s.size}`)}</p></div>
+      ${s.where === 'bladderFormed' ? '' : `<div class="callout"><p>${T(`pathology.sizeText.${s.size}`)}</p></div>`}
       <h3>${T('pathology.signsTitle')}</h3><ul>${T('pathology.signs').map((x) => `<li>${x}</li>`).join('')}</ul>`;
   };
   ctl.append(
@@ -107,6 +109,13 @@ const BUILD = {
     beforeAfter(viz, ctl, T('treatment.options.ureteroscopy'), stoneView('ureter', 0.8), { affected: { stent: true, pelvisFill: 1 } }),
   swl: (viz, ctl) =>
     beforeAfter(viz, ctl, T('treatment.options.swl'), stoneView('pelvis', 0.9), stoneView('pelvis', 0.9, true)),
+  bladderRemoval(viz, ctl) {
+    const o = T('treatment.options.bladderRemoval');
+    const draw = (v) =>
+      (viz.innerHTML = urinaryTract(v === 2 ? { bladderWall: 0.5, affected: { pelvisFill: 1 } } : { ...stoneView('bladderFormed', 1, v === 1) }));
+    ctl.append(segmented('', [[0, o.before], [1, o.laser], [2, o.after]], 0, draw));
+    draw(0);
+  },
   pcnl: (viz) => { viz.innerHTML = urinaryTract(stoneView('pelvis', 1)); },
   prevention: (viz) => { viz.innerHTML = urinaryTract({ affected: { pelvisFill: 1, flow: 'down' }, healthy: { flow: 'down' }, voiding: true }); },
 };
