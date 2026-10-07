@@ -563,11 +563,11 @@ export function urethraSection({ valves = 0, opened = 0, voiding = false, text }
 // [x, y, belowSphincter] for each possible opening.
 export const ECTOPIC_SITES = {
   girl: { neck: [150, 160, false], urethra: [150, 300, true], vagina: [262, 290, true] },
-  boy: { neck: [150, 160, false], prostatic: [150, 210, false], seminal: [288, 182, false] },
+  boy: { neck: [150, 160, false], prostatic: [150, 210, false], seminal: [288, 182, false], vas: [318, 136, false] },
 };
 
 //   sex: 'girl' | 'boy'; site: key of ECTOPIC_SITES[sex]
-//   text: { bladder, urethra, sphincter, vagina, prostate, seminal }
+//   text: { bladder, urethra, sphincter, vagina, prostate, seminal, vas }
 export function ectopicMap({ sex, site, text }) {
   const [x, y, below] = ECTOPIC_SITES[sex][site];
   const outlet = site === 'vagina' ? 262 : 150;
@@ -576,6 +576,7 @@ export function ectopicMap({ sex, site, text }) {
   return `<svg class="anatomy ectopic-map" viewBox="0 0 360 420" role="img" aria-label="${text.urethra}">
     ${girl ? `<rect class="vagina" x="248" y="200" width="28" height="186" rx="12"/><text class="lbl small" x="262" y="410" text-anchor="middle">${text.vagina}</text>` : ''}
     ${girl ? '' : `<ellipse class="prostate" cx="150" cy="205" rx="36" ry="30"/><text class="lbl small" x="94" y="200" text-anchor="end">${text.prostate}</text>
+      <path class="g-vas" d="M270 188 C 300 170 312 150 340 112"/><text class="lbl small" x="232" y="148">${text.vas}</text>
       <ellipse class="sv" cx="288" cy="182" rx="24" ry="13"/><text class="lbl small" x="288" y="212" text-anchor="middle">${text.seminal}</text>`}
     <line class="urethra" x1="150" y1="140" x2="150" y2="386"/>
     <rect class="sphincter" x="133" y="238" width="34" height="20" rx="6"/>

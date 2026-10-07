@@ -10,13 +10,13 @@ export default {
     siteLabel: 'Where the ureter opens',
     sites: {
       girl: { neck: 'Bladder neck', urethra: 'Urethra', vagina: 'Vagina' },
-      boy: { neck: 'Bladder neck', prostatic: 'Urethra (inside prostate)', seminal: 'Seminal vesicle' },
+      boy: { neck: 'Bladder neck', prostatic: 'Urethra (inside prostate)', seminal: 'Seminal vesicle', vas: 'Vas deferens' },
     },
     below:
       'This opening is below the control muscle (sphincter). Urine from this ureter leaks out all the time, so the child is always a little wet, even while also peeing normally.',
     above:
       'This opening is above the control muscle, so it does not cause constant wetting. It can cause blockage and infections instead.',
-    boyNote: 'In boys, an ectopic ureter always opens above the control muscle, so boys do not have constant dribbling.',
+    boyNote: 'In boys, an ectopic ureter always opens above the control muscle, so boys do not have constant dribbling. An opening into the seminal vesicle or vas deferens (the tube that carries sperm) can cause infections near the testicle (epididymitis).',
     labels: {
       bladder: 'Bladder',
       urethra: 'Urethra',
@@ -24,6 +24,7 @@ export default {
       vagina: 'Vagina',
       prostate: 'Prostate',
       seminal: 'Seminal vesicle',
+      vas: 'Vas deferens',
     },
   },
 
