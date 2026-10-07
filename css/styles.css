@@ -333,3 +333,14 @@ svg.anatomy .inflamed { fill: rgb(220 60 60 / 0.25); stroke: #d0423a; stroke-wid
 svg.anatomy .bladder-red { fill: none; stroke: rgb(220 60 60 / 0.55); stroke-width: 7; }
 svg.anatomy .crystal { fill: #f7f2e6; stroke: #a3863f; stroke-width: 1.5; }
 svg.anatomy .jar { stroke: #8a9bb0; stroke-width: 3; }
+svg.anatomy .groove { fill: none; stroke: #b0405a; stroke-width: 11; stroke-linecap: round; }
+svg.anatomy .meatus-dot { fill: #7a3340; }
+.chart .curve.night { stroke: #c9962b; }
+.chart .ev-wet circle { fill: #4f8fbf; }
+.chart .ev-alarm circle { fill: #c9962b; }
+.chart .ev-wake circle { fill: var(--good); }
+.chart .ev-dry rect { fill: var(--good); }
+.chart .ev-dry text { fill: #fff; font: 700 15px var(--font); }
+.chart .kid circle, .chart .kid rect { fill: var(--line); }
+.chart .kid.on circle, .chart .kid.on rect { fill: var(--accent); }
+.big-stat strong { font-size: 2.2rem; color: var(--accent); }

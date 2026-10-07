@@ -86,6 +86,8 @@ export default {
     labial: 'The inner lips of the vulva stick together.',
     uti: 'An infection of the bladder or kidney.',
     stones: 'Hard mineral deposits that form in the kidney.',
+    hypospadias: 'The pee opening is on the underside of the penis instead of the tip.',
+    enuresis: 'Wetting the bed during sleep after age 5.',
     puv: 'Extra flaps of tissue in a boy’s urethra that block urine.',
   },
 };

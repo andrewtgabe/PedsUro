@@ -331,3 +331,63 @@ export function vulvaFront({ fused = 0, pee = false, text }) {
     ${fused > 0.02 ? `<text class="lbl small accent-text" x="180" y="318" text-anchor="middle">${text.fused}</text>` : ''}
   </svg>`;
 }
+
+// ---------- hypospadias / epispadias (side view) ----------
+
+// Path along the underside from the tip back to the base, and along the top.
+const UNDERSIDE = [[346, 200], [324, 232], [262, 240], [160, 240], [70, 240]];
+const TOPSIDE = [[346, 200], [324, 168], [262, 160], [160, 160], [70, 160]];
+
+function alongPath(path, u) {
+  const p = clamp(u) * (path.length - 1);
+  const i = Math.min(path.length - 2, Math.floor(p));
+  const k = p - i;
+  return [path[i][0] + (path[i + 1][0] - path[i][0]) * k, path[i][1] + (path[i + 1][1] - path[i][1]) * k];
+}
+const partialPath = (path, u) => {
+  const pts = [];
+  for (let i = 0; i <= 20; i++) pts.push(alongPath(path, (i / 20) * u));
+  return 'M' + pts.map(([x, y]) => `${f(x)} ${f(y)}`).join(' L');
+};
+
+//   opening: 0 (tip) .. 1 (base, near the scrotum) — where the urethra opens
+//   top: opening on the top side (epispadias); groove: show the open groove
+//   hood: hooded foreskin (only on top); full: normal foreskin all around
+//   curve: 0..1 bend (down for hypospadias, up for epispadias)
+//   pee: stream; fistula: small leak hole after repair
+//   text: { glans, shaft, opening, hood, scrotum, groove, fistula }
+export function hypospadiasSide({ opening = 0, top = false, groove = false, hood = false, full = false, curve = 0, pee = false, fistula = false, text }) {
+  const path = top ? TOPSIDE : UNDERSIDE;
+  const [mx, my] = alongPath(path, opening);
+  const angle = (top ? -1 : 1) * 30 * clamp(curve);
+  const atTip = opening < 0.06;
+
+  let stream = '';
+  if (pee) {
+    stream = atTip
+      ? `<line class="stream" x1="352" y1="200" x2="440" y2="200" style="stroke-width:4"/>`
+      : `<path class="stream" d="M${f(mx)} ${f(my)} q 18 ${top ? -30 : 30} 40 ${top ? -80 : 80}" style="stroke-width:4"/>`;
+    if (fistula) stream += `<path class="stream" d="M200 240 q 6 20 10 46" style="stroke-width:1.5"/>`;
+  }
+
+  return `<svg class="anatomy genital penis" viewBox="0 100 440 240" role="img" aria-label="${text.opening}">
+    <ellipse class="scrotum" cx="82" cy="292" rx="62" ry="46"/>
+    <rect class="body-wall" x="0" y="80" width="64" height="200"/>
+    <rect class="shaft" x="56" y="162" width="140" height="76" rx="14"/>
+    <g transform="rotate(${f(angle)} 180 ${top ? 160 : 240})">
+      <rect class="shaft" x="160" y="162" width="102" height="76" rx="14"/>
+      <path class="glans" d="M255 160 C 332 160 348 185 348 200 C 348 215 332 240 255 240 Z" style="fill:#e99c9f"/>
+      ${groove && !atTip ? `<path class="groove" d="${partialPath(path, opening)}"/>` : ''}
+      ${atTip ? `<path class="meatus" d="M346 194 L346 206"/>` : `<ellipse class="meatus-dot" cx="${f(mx)}" cy="${f(my)}" rx="7" ry="4"/>`}
+      ${hood ? `<path class="foreskin" d="M150 162 L250 160 C 300 140 344 150 356 184 C 340 172 300 160 252 168 L150 170 Z"/>` : ''}
+      ${full ? `<path class="foreskin" d="M150 162 L250 162 C 300 154 340 158 362 197 L 362 203 C 340 242 300 246 250 238 L150 238 Z"/>` : ''}
+      ${fistula ? `<circle class="meatus-dot" cx="200" cy="240" r="3"/>` : ''}
+      ${stream}
+    </g>
+    <text class="lbl small" x="150" y="${top ? 260 : 142}" text-anchor="middle">${text.shaft}</text>
+    <text class="lbl small" x="300" y="${top ? 268 : 132}" text-anchor="middle">${hood ? text.hood : text.glans}</text>
+    ${atTip ? '' : `<text class="lbl small accent-text" x="${f(mx)}" y="${top ? 146 : f(Math.min(330, my + 34 + 40 * curve))}" text-anchor="middle">${text.opening}</text>`}
+    ${fistula ? `<text class="lbl small accent-text" x="236" y="290">${text.fistula}</text>` : ''}
+    <text class="lbl small" x="30" y="332">${text.scrotum}</text>
+  </svg>`;
+}

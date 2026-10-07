@@ -16,10 +16,12 @@ import meatal from './chapters/meatal.js';
 import labial from './chapters/labial.js';
 import uti from './chapters/uti.js';
 import stones from './chapters/stones.js';
+import hypospadias from './chapters/hypospadias.js';
+import enuresis from './chapters/enuresis.js';
 
 // Built chapters. To add one: create js/chapters/<id>.js and content/en/<id>.js,
 // register the content in i18n.js, then add it here.
-const CHAPTERS = { vur, hydronephrosis, upj, uvj, duplex, puv, ectopic, torsion, cryptorchidism, hydrocele, hernia, varicocele, phimosis, meatal, labial, uti, stones };
+const CHAPTERS = { vur, hydronephrosis, upj, uvj, duplex, puv, ectopic, torsion, cryptorchidism, hydrocele, hernia, varicocele, phimosis, meatal, labial, uti, stones, hypospadias, enuresis };
 
 // Order of conditions on the home page.
 const CATALOG = {
