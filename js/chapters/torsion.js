@@ -53,7 +53,7 @@ function renderPathology(root) {
     const color = pct > 70 ? 'var(--good)' : pct > 35 ? '#c9962b' : 'var(--warn)';
     explain.innerHTML = `
       <p><strong>${blocked ? T('pathology.flowClosed') : T('pathology.flowOpen')}</strong></p>
-      ${blocked ? `<p>${T('pathology.savedLabel')}: <strong>${chance}</strong></p><div class="meter"><span style="width:${pct}%;background:${color}"></span></div>` : ''}
+      ${blocked ? `<p>${T('pathology.savedLabel')}: <strong>${chance}</strong></p><div class="meter"><span style="width:${pct}%;background:${color}"></span></div><p class="note">${T('pathology.savedNote')}</p>` : ''}
       <div class="callout warn"><strong>${T('pathology.signsTitle')}</strong><ul>${T('pathology.signs').map((x) => `<li>${x}</li>`).join('')}</ul></div>
       <p class="note"><strong>${T('pathology.noteTitle')}:</strong> ${T('pathology.note')}</p>`;
   };

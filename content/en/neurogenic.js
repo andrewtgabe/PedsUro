@@ -97,7 +97,7 @@ export default {
       'Care is lifelong, with regular tests and check-ups.',
     ],
     callTitle: 'Call us or get seen if your child has',
-    call: ['Fever or cloudy, smelly urine with feeling sick', 'Trouble passing the catheter', 'New leaking between caths, or new back pain or leg weakness', 'Shunt symptoms (headache, vomiting, sleepiness) — go to the emergency room'],
+    call: ['Fever or cloudy, smelly urine with feeling sick', 'Trouble passing the catheter', 'New leaking between caths, or new back pain or leg weakness', 'If your child has a shunt: headache, vomiting, or unusual sleepiness — go to the emergency room'],
     planTitle: 'Our plan',
     planHint: 'Type notes here before printing (not saved).',
   },

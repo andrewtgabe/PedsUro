@@ -58,11 +58,11 @@ export default {
       separation: {
         name: 'Gentle separation',
         summary:
-          'If cream does not work or urine is trapped, a doctor can gently separate the lips in the office after numbing cream, or rarely in the operating room.',
+          'If cream does not work or urine is trapped, the lips can be gently separated. This is usually done with sedation or anesthesia so it does not hurt, because separating them while awake is painful and they often stick again.',
         before: 'Before',
         after: 'After',
         pros: ['Works right away'],
-        cons: ['Can be uncomfortable', 'Can come back without aftercare'],
+        cons: ['Usually needs sedation or anesthesia', 'Can come back without aftercare'],
       },
       aftercare: {
         name: 'Preventing it again',

@@ -84,6 +84,7 @@ export default {
     callTitle: 'Call us or get seen if your child has',
     call: [
       'Fever of 101°F (38.3°C) or higher without a clear cause like a cold',
+      'Babies under 3 months: any fever of 100.4°F (38.0°C) or higher',
       'Belly, side or back pain, especially with vomiting',
       'Blood in the urine',
     ],

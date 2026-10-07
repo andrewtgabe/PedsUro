@@ -33,7 +33,7 @@ export default {
       kidney: {
         name: 'Kidney (pyelonephritis)',
         text: 'The kidney gets inflamed. Repeated kidney infections can leave scars.',
-        signs: ['Fever, often 102°F (38.9°C) or higher', 'Pain in the side or back', 'Vomiting, feeling very sick', 'Babies: fever, fussiness, poor feeding — sometimes the only signs'],
+        signs: ['Fever of 101°F (38.3°C) or higher', 'Pain in the side or back', 'Vomiting, feeling very sick', 'Babies: fever, fussiness, poor feeding — sometimes the only signs'],
       },
     },
     babyNote: 'In babies and toddlers, fever may be the only sign. Testing the urine is the only way to know.',
@@ -96,6 +96,7 @@ export default {
     callTitle: 'Call us or get seen if your child has',
     call: [
       'Fever of 101°F (38.3°C) or higher without a clear cause like a cold',
+      'Babies under 3 months: any fever of 100.4°F (38.0°C) or higher',
       'Fever that lasts more than 2 days on antibiotics',
       'Vomiting and unable to keep down medicine or fluids',
       'Babies: fever, fussiness, poor feeding',

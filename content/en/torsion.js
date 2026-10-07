@@ -26,9 +26,10 @@ export default {
     saved: [
       [6, 'Very good: about 9 in 10'],
       [12, 'About half'],
-      [24, 'Lower: about 1 in 5'],
+      [24, 'Lower: roughly 1 in 5'],
       [Infinity, 'Low: fewer than 1 in 10'],
     ],
+    savedNote: 'These are rough numbers from studies. Every case is different, which is why surgery should never wait.',
     flowOpen: 'Blood is still flowing.',
     flowClosed: 'Blood flow is cut off.',
     signsTitle: 'Warning signs: go to the emergency room right away',

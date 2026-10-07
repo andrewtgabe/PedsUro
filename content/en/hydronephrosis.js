@@ -71,16 +71,16 @@ export default {
       scan: {
         name: 'Kidney drainage scan',
         summary:
-          'A renal scan (often called a MAG3 scan) tracks a tiny amount of tracer through an IV as the kidneys make urine. It shows how well each kidney works and how well it drains. A water pill (Lasix) helps tell if the drainage is slow or truly blocked.',
+          'A renal scan (often called a MAG3 scan) tracks a tiny amount of tracer through an IV as the kidneys make urine. It shows how well each kidney works and how well it drains. Partway through, a medicine that makes the kidneys produce more urine (Lasix) is given through the IV. This helps tell if drainage is slow or truly blocked.',
         patternLabel: 'Pattern',
         patterns: {
           normal: 'Drains well',
-          slow: 'Wide, but drains with water pill',
+          slow: 'Wide, but drains after Lasix',
           blocked: 'Blocked',
         },
-        chart: { title: 'Drainage curve', minutes: 'Minutes', amount: 'Tracer in kidney', lasix: 'Water pill' },
+        chart: { title: 'Drainage curve', minutes: 'Minutes', amount: 'Tracer in kidney', lasix: 'Lasix given' },
         pros: ['Shows how much each kidney works', 'Shows if there is a true blockage'],
-        cons: ['Needs an IV and a bladder catheter', 'Small amount of radiation', 'Takes about an hour'],
+        cons: ['Needs an IV', 'Needs a bladder catheter, unless the child is old enough to pee when asked', 'Small amount of radiation', 'Takes about an hour'],
       },
       vcug: {
         name: 'VCUG test',
@@ -123,6 +123,7 @@ export default {
     callTitle: 'Call us or get seen if your child has',
     call: [
       'Fever of 101°F (38.3°C) or higher without a clear cause like a cold',
+      'Babies under 3 months: any fever of 100.4°F (38.0°C) or higher',
       'In babies: fever, fussiness, poor feeding or vomiting',
       'Belly, side or back pain, especially with vomiting',
     ],

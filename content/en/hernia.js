@@ -23,14 +23,14 @@ export default {
 
   treatment: {
     intro:
-      'Hernias do not close on their own in children. Surgery is recommended soon after diagnosis to prevent the intestine from getting stuck.',
+      'Hernias do not close on their own in children. Surgery is scheduled soon after diagnosis to prevent the intestine from getting stuck. It only becomes urgent if the hernia gets stuck.',
     pros: 'Benefits',
     cons: 'Things to consider',
     options: {
       reduce: {
         name: 'Pushing it back',
         summary:
-          'If the intestine gets stuck, a doctor gently squeezes it back into the belly, sometimes after medicine to help the child relax. If it goes back, surgery is planned in the next day or two. If it will not go back, emergency surgery is needed.',
+          'If the intestine gets stuck, a doctor gently squeezes it back into the belly, sometimes after medicine to help the child relax. Because it was stuck, surgery is then planned within the next day or two. If it will not go back, or blood flow is cut off, emergency surgery is needed.',
         action: 'Gently push back',
         pros: ['Relieves the emergency', 'Allows surgery to be planned safely'],
         cons: ['Can be uncomfortable', 'Does not always work', 'Surgery is still needed'],

@@ -82,7 +82,7 @@ export default {
       kidney: {
         name: 'Kidney care',
         summary:
-          'A kidney doctor (nephrologist) checks blood pressure, blood tests and growth over time. Some boys’ kidneys work less well as they grow, and a few will need dialysis or a kidney transplant later in life.',
+          'A kidney doctor (nephrologist) checks blood pressure, blood tests and growth over time. Some boys’ kidneys work less well as they grow. About 1 in 5 or more will eventually need dialysis or a kidney transplant, so regular kidney checks matter.',
         damage: 'Kidneys affected',
         pros: ['Finds problems early', 'Treatments help kidneys last longer'],
         cons: ['Lifelong follow-up'],
@@ -101,6 +101,7 @@ export default {
     callTitle: 'Call us or get seen if your child has',
     call: [
       'Fever of 101°F (38.3°C) or higher without a clear cause like a cold',
+      'Babies under 3 months: any fever of 100.4°F (38.0°C) or higher',
       'A weak stream, straining, or not peeing for many hours',
       'Vomiting, poor feeding, or not acting like himself',
     ],
