@@ -66,7 +66,7 @@ export default {
         before: 'Before surgery',
         after: 'After surgery',
         stent: 'Temporary stent',
-        stentText: 'A stent is a soft, thin tube that holds the new connection open while it heals. It is taken out after a few weeks.',
+        stentText: 'A stent is a soft, thin tube that holds the new connection open while it heals. It is usually taken out after 4 to 6 weeks.',
         pros: ['Works very well, more than 9 out of 10 times', 'Relieves pain and protects the kidney'],
         cons: ['Surgery with general anesthesia', 'Usually 1–2 days in the hospital', 'Sometimes needs a stent or drain for a short time'],
       },
