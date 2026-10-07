@@ -344,3 +344,30 @@ svg.anatomy .meatus-dot { fill: #7a3340; }
 .chart .kid circle, .chart .kid rect { fill: var(--line); }
 .chart .kid.on circle, .chart .kid.on rect { fill: var(--accent); }
 .big-stat strong { font-size: 2.2rem; color: var(--accent); }
+
+/* bladder + nerves */
+svg.anatomy.bladder-nerves { max-height: 500px; margin: 0 auto; }
+svg.anatomy .brain { fill: #efd3d6; stroke: #c49aa0; stroke-width: 2.5; }
+svg.anatomy .brain-fold { fill: none; stroke: #c49aa0; stroke-width: 2; }
+svg.anatomy .cord { fill: none; stroke: #f2d48a; stroke-width: 12; stroke-linecap: round; }
+svg.anatomy .vertebra { fill: none; stroke: #c8bfae; stroke-width: 2; }
+svg.anatomy .nerve { fill: none; stroke: #e2be5c; stroke-width: 4; }
+svg.anatomy .signal { fill: none; stroke: #8a5cc8; stroke-width: 4; stroke-dasharray: 3 12; stroke-linecap: round; }
+svg.anatomy .signal.up { animation: flow 0.7s linear infinite reverse; }
+svg.anatomy .signal.down { stroke: #2f6fb5; animation: flow 0.7s linear infinite; }
+svg.anatomy .lesion path { stroke: var(--warn); stroke-width: 6; stroke-linecap: round; }
+svg.anatomy .stool { fill: #8a6243; stroke: #5e412b; stroke-width: 2; }
+svg.anatomy .bladder-wall { fill: var(--lumen); stroke: var(--muscle); }
+svg.anatomy .bladder-urine { fill: var(--urine); }
+svg.anatomy .ridge { stroke: #b86c5d; stroke-width: 3; }
+svg.anatomy .augment { fill: none; stroke: #e7a3a6; stroke-width: 14; stroke-linecap: round; }
+svg.anatomy .urethra-urine { stroke: var(--urine); }
+svg.anatomy .sphincter.tight { fill: var(--warn); }
+svg.anatomy .squeeze line { stroke: var(--ink-soft); stroke-width: 4; }
+svg.anatomy .squeeze path { fill: var(--ink-soft); }
+svg.anatomy .shaky { animation: shake 0.25s linear infinite; }
+@keyframes shake { 25% { transform: translate(2px, -1px); } 75% { transform: translate(-2px, 1px); } }
+svg.anatomy .channel { fill: none; stroke: var(--wall); stroke-width: 10; stroke-linecap: round; }
+svg.anatomy .stoma { fill: #b0405a; }
+svg.anatomy .bubble rect { fill: #fff; stroke: #8a5cc8; stroke-width: 2; }
+svg.anatomy .bubble text { font: 700 14px var(--font); fill: #5b3a8f; }

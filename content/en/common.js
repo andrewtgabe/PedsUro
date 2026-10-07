@@ -88,6 +88,8 @@ export default {
     stones: 'Hard mineral deposits that form in the kidney.',
     hypospadias: 'The pee opening is on the underside of the penis instead of the tip.',
     enuresis: 'Wetting the bed during sleep after age 5.',
+    bbd: 'Daytime accidents, urgency, and bladder or bowel habits.',
+    neurogenic: 'A bladder affected by nerve problems, such as spina bifida.',
     puv: 'Extra flaps of tissue in a boy’s urethra that block urine.',
   },
 };
