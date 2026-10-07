@@ -38,7 +38,7 @@ export default {
       open: {
         name: 'Open hernia repair',
         summary:
-          'Through a small cut in the groin crease, the surgeon finds the open pouch and ties it off at the top so nothing can slide down again.',
+          'Through a small cut in the groin crease, the surgeon finds the open pouch and ties it off at the top so nothing can slide down again. This is the approach pediatric urologists use most often.',
         before: 'Before',
         after: 'After surgery',
         pros: ['Fixes it for good', 'Usually home the same day', 'Small scar in the skin crease'],
@@ -47,7 +47,7 @@ export default {
       laparoscopic: {
         name: 'Laparoscopic repair',
         summary:
-          'A small camera through the belly button lets the surgeon close the opening from the inside. The surgeon can also check the other side and close it if it is open.',
+          'Another option: a small camera through the belly button lets the surgeon close the opening from the inside. The surgeon can also check the other side and close it if it is open.',
         before: 'Before',
         after: 'After surgery',
         pros: ['Can check and fix both sides', 'Very small cuts'],
