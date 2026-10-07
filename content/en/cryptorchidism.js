@@ -39,7 +39,7 @@ export default {
 
   treatment: {
     intro:
-      'If the testicle is not down by 6 months of age, surgery is recommended, ideally before 18 months. Hormone shots are not usually recommended.',
+      'Surgery has two main goals: to help the testicle make sperm normally later in life, and to put it where it can easily be felt. Children with an undescended testicle have a small increased risk of testicular cancer, and a testicle in the scrotum can be checked for lumps. If the testicle is not down by 6 months of age, surgery is recommended, ideally before 18 months. Hormone shots are not usually recommended.',
     pros: 'Benefits',
     cons: 'Things to consider',
     options: {
@@ -86,7 +86,7 @@ export default {
       'An undescended testicle did not finish its trip from the belly to the scrotum before birth.',
       'Many come down on their own in the first 6 months.',
       'If not, surgery (orchiopexy) is best done between 6 and 18 months of age.',
-      'Surgery helps fertility and makes the testicle easy to check later.',
+      'Surgery helps the testicle make sperm later and lets it be checked for lumps, since the cancer risk is slightly higher.',
       'As teens, boys should learn to check their testicles regularly.',
     ],
     callTitle: 'Call us or get seen if your child has',
