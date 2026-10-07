@@ -10,9 +10,11 @@ import enPuv from '../content/en/puv.js';
 import enEctopic from '../content/en/ectopic.js';
 import enTorsion from '../content/en/torsion.js';
 import enCryptorchidism from '../content/en/cryptorchidism.js';
+import enHydrocele from '../content/en/hydrocele.js';
+import enHernia from '../content/en/hernia.js';
 
 const languages = {
-  en: { common: enCommon, vur: enVur, hydronephrosis: enHydronephrosis, upj: enUpj, uvj: enUvj, duplex: enDuplex, puv: enPuv, ectopic: enEctopic, torsion: enTorsion, cryptorchidism: enCryptorchidism },
+  en: { common: enCommon, vur: enVur, hydronephrosis: enHydronephrosis, upj: enUpj, uvj: enUvj, duplex: enDuplex, puv: enPuv, ectopic: enEctopic, torsion: enTorsion, cryptorchidism: enCryptorchidism, hydrocele: enHydrocele, hernia: enHernia },
 };
 
 let current = 'en';

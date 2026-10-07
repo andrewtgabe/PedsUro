@@ -120,3 +120,60 @@ export function descent({ pos = 1, retractile = false, stitched = false, guberna
     <text class="lbl small" x="280" y="440">${text.scrotum}</text>
   </svg>`;
 }
+
+// ---------- processus vaginalis: hydrocele and hernia (front view) ----------
+
+// Centerline of the pouch: internal ring -> groin canal -> top of testicle.
+const POUCH = [[150, 228], [178, 275], [205, 322], [205, 360], [205, 388]];
+
+function pouchPoint(s) {
+  const p = clamp(s) * (POUCH.length - 1);
+  const i = Math.min(POUCH.length - 2, Math.floor(p));
+  const k = p - i;
+  return [POUCH[i][0] + (POUCH[i + 1][0] - POUCH[i][0]) * k, POUCH[i][1] + (POUCH[i + 1][1] - POUCH[i][1]) * k];
+}
+const pouchPath = (to = 1) => {
+  const pts = [];
+  for (let i = 0; i <= 20; i++) pts.push(pouchPoint((i / 20) * to));
+  return 'M' + pts.map(([x, y]) => `${f(x)} ${f(y)}`).join(' L');
+};
+
+//   opening: 'closed' | 'thin' | 'wide' — how open the pouch stays
+//   fluid: 0..1 fluid around the testicle; bowel: 0..1 how far intestine slides down
+//   stuck: intestine trapped (incarcerated); light: flashlight held behind scrotum
+//   tied: pouch tied off at the top (surgery)
+//   text: { pouch, fluid, bowel, testicle, ring, stuck, tie }
+export function sacView({ opening = 'closed', fluid = 0, bowel = 0, stuck = false, light = false, tied = false, text }) {
+  const open = opening !== 'closed' && !tied;
+  const width = opening === 'wide' ? 34 : opening === 'thin' ? 9 : 2;
+  const sacRx = 30 + 42 * fluid;
+  const sacRy = 36 + 40 * fluid;
+  const sacCy = 418 - 6 * fluid;
+  const bowelEnd = pouchPoint(bowel * 0.95);
+  const bowelColor = stuck ? '#9b3b4a' : '#e7a3a6';
+
+  const loops = [[170, 120], [230, 110], [200, 165], [260, 170], [140, 175]]
+    .map(([x, y]) => `<ellipse class="gut" cx="${x}" cy="${y}" rx="34" ry="20" transform="rotate(${(x * 7) % 40 - 20} ${x} ${y})"/>`)
+    .join('');
+
+  return `<svg class="anatomy genital" viewBox="0 0 400 480" role="img" aria-label="${text.pouch}">
+    <path class="body-wall" d="M20 20 L20 300 C 60 330 120 330 150 340 L250 340 C 280 330 340 330 380 300 L380 20"/>
+    <path class="lining" d="M40 40 L360 40 L360 215 C 300 225 260 225 220 222 L160 222 C 110 225 80 222 40 215 Z"/>
+    ${loops}
+    <path class="canal" d="M140 230 L208 330"/>
+    <path class="scrotum" d="M130 340 C 110 430 150 476 205 472 C 260 476 300 430 280 340"/>
+    <ellipse class="hydro-sac" cx="205" cy="${f(sacCy)}" rx="${f(sacRx)}" ry="${f(sacRy)}"/>
+    ${open ? `<path class="pouch ${opening}" d="${pouchPath()}" stroke-width="${width}"/>` : `<path class="pouch-closed" d="${pouchPath()}"/>`}
+    ${open && opening === 'thin' && fluid > 0 ? `<path class="pouch-flow" d="${pouchPath()}"/>` : ''}
+    ${bowel > 0 && open ? `<path class="bowel-in" d="M150 210 L${pouchPath(bowel * 0.95).slice(1)}" style="stroke:${bowelColor}" stroke-width="${f(22 + (stuck ? 6 : 0))}"/>
+      <circle cx="${f(bowelEnd[0])}" cy="${f(bowelEnd[1])}" r="${f(16 + (stuck ? 5 : 0))}" style="fill:${bowelColor}"/>` : ''}
+    <ellipse class="testis" cx="205" cy="${f(424 + 4 * fluid)}" rx="16" ry="22"/>
+    ${light ? `<ellipse class="glow ${bowel > 0.5 ? 'dark' : ''}" cx="205" cy="${f(sacCy)}" rx="${f(sacRx + 6)}" ry="${f(sacRy + 6)}"/>` : ''}
+    ${tied ? `<path class="tie" d="M136 222 L164 222 M136 230 L164 230"/><text class="lbl small" x="170" y="218">${text.tie}</text>` : ''}
+    <text class="lbl small" x="128" y="236" text-anchor="end">${text.ring}</text>
+    ${fluid > 0.15 ? `<text class="lbl small" x="${f(205 + sacRx + 8)}" y="${f(sacCy - 10)}">${text.fluid}</text>` : ''}
+    ${bowel > 0 && open ? `<text class="lbl small ${stuck ? 'accent-text' : ''}" x="${f(bowelEnd[0] + 26)}" y="${f(bowelEnd[1] + 4)}">${stuck ? text.stuck : text.bowel}</text>` : ''}
+    <text class="lbl small" x="205" y="${f(424 + 4 * fluid + 4)}" text-anchor="middle">${text.testicle}</text>
+    <text class="lbl small" x="${open ? 232 : 214}" y="300">${text.pouch}</text>
+  </svg>`;
+}

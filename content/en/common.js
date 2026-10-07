@@ -78,6 +78,8 @@ export default {
     ectopic: 'A ureter that opens in the wrong place, or a balloon-like pouch at its end.',
     torsion: 'An emergency: the testicle twists and loses its blood supply.',
     cryptorchidism: 'A testicle that did not finish moving down into the scrotum.',
+    hydrocele: 'Fluid around the testicle that causes scrotal swelling.',
+    hernia: 'Intestine sliding into the groin or scrotum through an open pouch.',
     puv: 'Extra flaps of tissue in a boy’s urethra that block urine.',
   },
 };
