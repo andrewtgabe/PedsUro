@@ -63,8 +63,8 @@ const BUILD = {
   steroid(viz, ctl) {
     const o = T('treatment.options.steroid');
     // Over weeks of cream, the opening loosens and the foreskin pulls back further.
-    const draw = (w) => (viz.innerHTML = penisSide({ limit: 0.08 + 0.92 * (w / 8), pull: 1, text: labels() }));
-    ctl.append(slider(o.control, { min: 0, max: 8, step: 1, value: 0, format: (v) => `${v} ${o.weeks}` }, draw));
+    const draw = (w) => (viz.innerHTML = penisSide({ limit: 0.08 + 0.92 * Math.min(1, w / 6), pull: 1, text: labels() }));
+    ctl.append(slider(o.control, { min: 0, max: 6, step: 1, value: 0, format: (v) => `${v} ${o.weeks}` }, draw));
     draw(0);
   },
   preputioplasty: (viz, ctl) => beforeAfter(viz, ctl, T('treatment.options.preputioplasty'), { widened: true, limit: 1 }),

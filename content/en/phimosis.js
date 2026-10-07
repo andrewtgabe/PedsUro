@@ -53,7 +53,7 @@ export default {
       },
       steroid: {
         name: 'Steroid cream',
-        summary: 'A mild steroid cream is put on the tip of the foreskin once or twice a day for 4 to 8 weeks, with gentle stretching. It softens the skin so it can open.',
+        summary: 'A mild steroid cream is put on the tip of the foreskin twice a day for 4 to 6 weeks, with gentle stretching. It softens the skin so it can open.',
         control: 'Weeks of cream',
         weeks: 'weeks',
         pros: ['Works for most boys', 'No surgery', 'Very safe on this skin'],
