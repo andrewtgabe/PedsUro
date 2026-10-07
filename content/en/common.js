@@ -23,6 +23,7 @@ export default {
     language: 'Language',
     notTranslated: 'This chapter is not translated yet, so it is shown in English.',
   },
+  player: { back: 'Back', next: 'Next', play: 'Play all' },
   share: {
     title: 'Look at this again at home',
     body: 'Scan with your phone camera to open this page.',

@@ -22,6 +22,7 @@ export default {
     language: 'Idioma',
     notTranslated: 'Este capítulo todavía no está traducido, por eso se muestra en inglés.',
   },
+  player: { back: 'Atrás', next: 'Siguiente', play: 'Reproducir todo' },
   share: {
     title: 'Vuelva a verlo en casa',
     body: 'Escanee con la cámara de su teléfono para abrir esta página.',

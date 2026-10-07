@@ -15,7 +15,7 @@ export default {
     stopTitle: '¿Dónde se puede quedar un testículo?',
     stopText:
       'Un testículo se puede quedar en cualquier parte del camino. La mayoría de los testículos no descendidos están en la ingle y se pueden sentir. Alrededor de 1 de cada 5 no se pueden sentir porque están dentro de la barriga o no existen.',
-    labels: { kidney: 'Riñón', ring: 'Abertura interna', canal: 'Canal de la ingle', scrotum: 'Escroto', muscle: 'El músculo lo sube', guide: 'Guía', clip: 'Vasos con grapa', collateral: 'Riego de sangre de respaldo' },
+    labels: { kidney: 'Riñón', ring: 'Abertura interna', canal: 'Canal de la ingle', scrotum: 'Escroto', muscle: 'El músculo lo sube', guide: 'Guía', clip: 'Vasos con grapa', collateral: 'Riego de sangre de respaldo', camera: 'Cámara' },
   },
 
   pathology: {
@@ -65,8 +65,14 @@ export default {
         name: 'Fowler-Stephens en una etapa',
         summary:
           'Para un testículo que no se puede sentir, una cámara pequeña por el ombligo lo encuentra. Si sus vasos sanguíneos principales son demasiado cortos para llegar al escroto, el cirujano los engrapa y los corta, y baja el testículo en la misma cirugía. Después, el testículo vive de vasos de respaldo más pequeños que van junto al conducto deferente. Si el testículo es muy pequeño o no existe, se puede quitar en su lugar.',
-        before: 'Encontrado en la barriga',
-        after: 'Después de la cirugía',
+        steps: [
+          'Una cámara pequeña entra por el ombligo, con dos instrumentos muy pequeños.',
+          'Se encuentra el testículo dentro de la barriga, cerca de la abertura interna del canal de la ingle.',
+          'Sus vasos sanguíneos principales son demasiado cortos para llegar al escroto, así que se engrapan y se cortan.',
+          'Ahora el testículo vive de los vasos de respaldo más pequeños que van junto al conducto deferente.',
+          'El testículo se jala con cuidado hacia abajo por un camino nuevo y más corto hasta el escroto.',
+          'Se cose en un pequeño bolsillo en el escroto. Todo se hace en una sola cirugía.',
+        ],
         pros: ['Una sola cirugía', 'Heridas pequeñas', 'Encuentra testículos que no se pueden sentir'],
         cons: ['Anestesia general', 'El testículo se puede hacer más pequeño si el riego de sangre de respaldo no es suficiente'],
       },
@@ -74,9 +80,15 @@ export default {
         name: 'Fowler-Stephens en dos etapas',
         summary:
           'La misma idea, en dos cirugías. En la primera, se engrapan los vasos sanguíneos principales con una cámara pequeña y el testículo se deja en su lugar. Durante unos 6 meses, los vasos de respaldo junto al conducto deferente se hacen más fuertes. En la segunda cirugía, se baja el testículo al escroto.',
-        before: 'Antes',
-        stage1: 'Etapa 1: engrapar',
-        stage2: 'Etapa 2: bajarlo',
+        steps: [
+          'Etapa 1: una cámara pequeña entra por el ombligo.',
+          'Se encuentra el testículo dentro de la barriga.',
+          'Se engrapan los vasos sanguíneos principales. El testículo se deja donde está.',
+          'Durante unos 6 meses, los vasos de respaldo junto al conducto deferente se hacen más fuertes.',
+          'Etapa 2: la cámara vuelve a entrar y se cortan los vasos engrapados.',
+          'El testículo se jala con cuidado hacia abajo hasta el escroto.',
+          'Se cose en un pequeño bolsillo en el escroto.',
+        ],
         pros: ['Da tiempo a que crezca el riego de sangre de respaldo', 'Heridas pequeñas'],
         cons: ['Dos cirugías, con unos 6 meses de diferencia', 'Anestesia general cada vez', 'El testículo todavía se puede hacer más pequeño'],
       },

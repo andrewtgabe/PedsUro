@@ -386,3 +386,10 @@ svg.anatomy .graft { fill: none; stroke: #e17f8a; stroke-width: 14; stroke-linec
 svg.anatomy .g-vessels.cut { stroke-dasharray: 4 5; opacity: 0.35; }
 svg.anatomy .g-vas.collateral { stroke: #c0392b; stroke-width: 5; }
 svg.anatomy .clip rect { fill: #4a5568; }
+svg.anatomy .cutmark { stroke: #fff; stroke-width: 5; stroke-linecap: round; }
+svg.anatomy .spot { fill: none; stroke: var(--accent); stroke-width: 3; stroke-dasharray: 6 4; }
+svg.anatomy .grasper { stroke: #4a5568; stroke-width: 4; stroke-linecap: round; }
+svg.anatomy .scope line { stroke: #2d3748; stroke-width: 5; stroke-linecap: round; }
+svg.anatomy .scope circle { fill: #2d3748; }
+.step-caption { margin: 0; font-size: 1rem; min-height: 3em; }
+.step-caption strong { color: var(--accent); margin-right: 6px; }

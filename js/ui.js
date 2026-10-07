@@ -142,3 +142,55 @@ export function button(label, onClick, cls = 'btn primary') {
   b.addEventListener('click', () => onClick(b));
   return b;
 }
+
+// Step-by-step animation of a procedure. steps: [{ caption, state }].
+// Numbers in `state` animate between steps; other values switch at once.
+//   text: { back, next, play }
+export function stepPlayer(ctl, steps, draw, text) {
+  let i = 0;
+  let cur = { ...steps[0].state };
+  let stop = null;
+  let timer = null;
+  const cap = document.createElement('p');
+  cap.className = 'step-caption';
+  const row = document.createElement('div');
+  row.className = 'row';
+  const back = button(`◀ ${text.back}`, () => { halt(); go(i - 1); }, 'btn');
+  const next = button(`${text.next} ▶`, () => { halt(); go(i + 1); }, 'btn');
+  const play = button(`▶ ${text.play}`, () => { halt(); playFrom(0); });
+  row.append(back, next, play);
+
+  const blend = (from, to, k) => {
+    const out = { ...to };
+    for (const key of Object.keys(to)) {
+      if (typeof to[key] === 'number' && typeof from[key] === 'number') out[key] = from[key] + (to[key] - from[key]) * k;
+    }
+    return out;
+  };
+  function go(n, done) {
+    if (n < 0 || n >= steps.length) return;
+    stop?.();
+    const from = { ...cur };
+    const to = { ...steps[0].state, ...steps[n].state };
+    i = n;
+    cap.innerHTML = `<strong>${n + 1} / ${steps.length}</strong>${steps[n].caption}`;
+    back.disabled = n === 0;
+    next.disabled = n === steps.length - 1;
+    stop = animate(900, (k) => {
+      cur = blend(from, to, k);
+      draw(cur);
+      if (k >= 1) done?.();
+    });
+  }
+  function playFrom(n) {
+    go(n, () => { if (n + 1 < steps.length) timer = setTimeout(() => playFrom(n + 1), 1600); });
+  }
+  function halt() {
+    clearTimeout(timer);
+  }
+
+  ctl.append(cap, row);
+  cur = { ...steps[0].state };
+  go(0);
+  return () => { halt(); stop?.(); };
+}
