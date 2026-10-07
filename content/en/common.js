@@ -84,6 +84,8 @@ export default {
     phimosis: 'A tight foreskin, or one stuck behind the head of the penis.',
     meatal: 'A narrow opening at the tip of the penis.',
     labial: 'The inner lips of the vulva stick together.',
+    uti: 'An infection of the bladder or kidney.',
+    stones: 'Hard mineral deposits that form in the kidney.',
     puv: 'Extra flaps of tissue in a boy’s urethra that block urine.',
   },
 };

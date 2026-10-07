@@ -33,6 +33,23 @@ const at = (pts, s) => pts[Math.round(clamp(s) * (pts.length - 1))];
 export const bacterium = (x, y, rot = 0) =>
   `<rect class="bact" x="${f(x - 6)}" y="${f(y - 2.5)}" width="12" height="5" rx="2.5" transform="rotate(${rot} ${f(x)} ${f(y)})"/>`;
 
+// Jagged stone outline centred on (x, y).
+export function stoneShape(x, y, r) {
+  const pts = [];
+  for (let i = 0; i < 10; i++) {
+    const a = (Math.PI * 2 * i) / 10;
+    const rr = r * (i % 2 ? 0.72 : 1) * (1 + 0.12 * Math.sin(i * 2.3));
+    pts.push(`${f(x + rr * Math.cos(a))} ${f(y + rr * Math.sin(a))}`);
+  }
+  return `<path class="stone" d="M${pts.join(' L')} Z"/>`;
+}
+
+// One stone, or a few fragments after it is broken up.
+const stoneAt = (x, y, r, fragments) =>
+  fragments
+    ? [[-r, -r * 0.4], [r * 0.6, -r * 0.8], [0, r * 0.7], [r, r * 0.4]].map(([dx, dy]) => stoneShape(x + dx, y + dy, r * 0.35)).join('')
+    : stoneShape(x, y, r);
+
 export function bladderGeom(fill) {
   const cx = 300;
   const cy = 432;
@@ -97,6 +114,9 @@ function drawSystem(css, tubes) {
       lumen.push(`<path d="${d}" stroke-width="${f(sg.w)}"/>`);
       const lf = clamp((sg.b - (1 - (tb.fill || 0))) / (sg.b - sg.a));
       if (lf > 0) urine.push(`<path d="${d}" stroke-width="${f(sg.w)}" pathLength="1" stroke-dasharray="0 ${f(1 - lf)} ${f(lf)} 1"/>`);
+      // Urine backed up from the kidney end (above a blockage).
+      const tf = clamp(((tb.fillTop || 0) - sg.a) / (sg.b - sg.a));
+      if (tf > 0) urine.push(`<path d="${d}" stroke-width="${f(sg.w)}" pathLength="1" stroke-dasharray="${f(tf)} 1"/>`);
     }
   }
   for (const c of css) {
@@ -140,12 +160,14 @@ const stentPath = (pts) => {
 // Drawn on the screen-right side; the other side is the same drawing mirrored.
 //   dilation (or pelvisDilation / ureterDilation), tort, blunt: 0..1 shape
 //   ureterFill: fraction of ureter holding urine, from the bladder up
+//   ureterFillTop: fraction holding urine from the kidney down (above a blockage)
 //   pelvisFill: 0..1 urine in the pelvis and calyces
 //   upj / uvj: narrowing at the top / bottom of the ureter; narrowW: its width
 //   mark: circle the narrowing; vessel: crossing blood vessel at the UPJ
 //   flow: '' | 'down' | 'slow' animated urine flow; stent: show a stent
 //   bactSpread: 0..1 bacteria moving up; scar: kidney scar
 //   kidney: { s, dy } scale and vertical shift (fetal kidney ascent)
+//   inflamed: infected kidney; stone: { at: 'calyx' | 'pelvis' | 0..1 along ureter, size, fragments }
 function upperTract(o, g) {
   const pd = clamp(o.pelvisDilation ?? o.dilation ?? 0);
   const ud = clamp(o.ureterDilation ?? o.dilation ?? 0);
@@ -157,7 +179,7 @@ function upperTract(o, g) {
   const start = [cs.pc[0] - 2, cs.pc[1] + cs.pry - 6];
   const pts = wavyLine(start, g.entry, clamp(o.tort || 0));
   const uW = (8 + 18 * ud) * Math.max(s, 0.6);
-  const tube = { pts, segs: ureterSegs(uW, o), fill: o.ureterFill, flow: o.flow };
+  const tube = { pts, segs: ureterSegs(uW, o), fill: o.ureterFill, fillTop: o.ureterFillTop, flow: o.flow };
 
   const spread = clamp(o.bactSpread || 0);
   let bact = spread > 0 ? bacteriaAlong(pts, spread) : '';
@@ -177,7 +199,19 @@ function upperTract(o, g) {
     ${drawSystem([cs], [tube])}
     ${vessel}${mark}
     ${o.stent ? stentPath(pts) : ''}
+    ${o.stone ? stoneMarkup(o.stone, cs, pts) : ''}
+    ${o.inflamed ? `<path class="inflamed" d="${KIDNEY_PATH}"/>` : ''}
     ${bact}</g>`;
+}
+
+function stoneMarkup(st, cs, pts) {
+  const r = 5 + 15 * (st.size ?? 0.5);
+  let x;
+  let y;
+  if (st.at === 'calyx') [x, y] = cs.calyces[2];
+  else if (st.at === 'pelvis') [x, y] = cs.pc;
+  else [x, y] = at(pts, st.at);
+  return stoneAt(x, y, r, st.fragments);
 }
 
 // ---------- duplex kidney ----------
@@ -249,6 +283,8 @@ function duplexTract(o, g) {
 //   bladderWall: 0..1 thickening; urethraBlock: valve in the urethra
 //   catheter: tube draining the bladder through the urethra
 //   vesicostomy: opening from the bladder to the belly skin; vesicostomyLabel
+//   urethraBact: bacteria at the urethra; bladderStone: { size, fragments }
+//   bladderRed: irritated bladder lining (infection)
 //   sideLabels: [left, right]; labels: false hides anatomy labels
 export function urinaryTract({
   affected = {},
@@ -261,6 +297,9 @@ export function urinaryTract({
   catheter = false,
   vesicostomy = false,
   vesicostomyLabel = '',
+  urethraBact = false,
+  bladderStone = null,
+  bladderRed = false,
   sideLabels,
   labels = true,
 } = {}) {
@@ -281,8 +320,11 @@ export function urinaryTract({
     ${urethraBlock ? `<path class="valve" d="M288 ${f(bottom + 16)} L300 ${f(bottom + 24)} L312 ${f(bottom + 16)}"/>` : ''}
     ${voiding ? `<line class="stream" x1="300" y1="512" x2="300" y2="530"/>` : ''}
     <ellipse class="bladder" cx="${g.cx}" cy="${g.cy}" rx="${f(g.rx)}" ry="${f(g.ry)}" style="stroke-width:${f(9 + 14 * bladderWall)}"/>
+    ${bladderRed ? `<ellipse class="bladder-red" cx="${g.cx}" cy="${g.cy}" rx="${f(g.rx - 4)}" ry="${f(g.ry - 4)}"/>` : ''}
     ${right.over}
     ${bact}
+    ${urethraBact ? bacterium(296, 498, 80) + bacterium(304, 486, 100) + bacterium(297, 474, 70) : ''}
+    ${bladderStone ? stoneAt(g.cx + 12, g.cy + g.ry * 0.45, 6 + 12 * (bladderStone.size ?? 0.5), bladderStone.fragments) : ''}
     ${catheter ? `<g class="catheter"><path d="M300 530 L300 ${f(g.cy + g.ry * 0.25)}"/><circle cx="300" cy="${f(g.cy + g.ry * 0.25)}" r="7"/></g>` : ''}
     ${
       vesicostomy

@@ -1,0 +1,97 @@
+// Kidney stones — all wording shown on the kidney stones chapter.
+export default {
+  title: 'Kidney stones',
+
+  embryology: {
+    intro:
+      'Urine has minerals and salts dissolved in it, like sugar stirred into water. When urine is too concentrated, these can form tiny crystals. Over time, crystals can stick together and grow into a stone.',
+    waterLabel: 'Water',
+    water: { low: 'Not enough', ok: 'Some', high: 'Plenty' },
+    saltLabel: 'Salt in food',
+    salt: { low: 'Low', high: 'High' },
+    jar: { urine: 'Urine', crystals: 'Crystals', stone: 'Stone forming' },
+    texts: {
+      bad: 'Dark, concentrated urine lets crystals form and clump together into stones.',
+      mid: 'Some crystals form, but most wash out.',
+      good: 'Pale, watery urine keeps minerals dissolved, so stones cannot form.',
+    },
+    riskTitle: 'What raises the risk',
+    risks: ['Not drinking enough water', 'Salty and processed foods', 'Family history of stones', 'Some medical conditions, medicines or a urine blockage', 'Not moving much (for example, after surgery or with a disability)'],
+  },
+
+  pathology: {
+    intro: 'A stone sitting in the kidney often causes no pain. Pain starts when a stone moves into the ureter and blocks urine.',
+    whereLabel: 'Where is the stone?',
+    where: {
+      calyx: { name: 'In the kidney', text: 'Usually no pain. It may be found by chance on an ultrasound, or cause blood in the urine.' },
+      upj: { name: 'Leaving the kidney', text: 'The stone blocks urine from leaving, so the kidney swells. This can cause sudden, severe side or back pain.' },
+      ureter: { name: 'In the ureter', text: 'The ureter squeezes to push the stone down. Pain comes in waves and can move toward the belly or groin.' },
+      uvj: { name: 'Near the bladder', text: 'The narrowest spot. Pain moves low, and there may be an urge to pee often. Once it passes into the bladder, pain usually stops.' },
+      bladder: { name: 'In the bladder', text: 'Most stones that reach the bladder come out with urine.' },
+    },
+    sizeLabel: 'Stone size',
+    sizes: { small: 'Small', large: 'Large' },
+    sizeText: { small: 'Small stones (under about 5 mm, the size of a pencil eraser tip) usually pass on their own.', large: 'Larger stones are less likely to pass and more likely to need a procedure.' },
+    signsTitle: 'What families may notice',
+    signs: ['Severe pain in the side, back, belly or groin that comes in waves', 'Vomiting', 'Blood in the urine (pink, red or brown)', 'Young children: fussiness or vague belly pain', 'Fever (an emergency if a stone is blocking an infected kidney)'],
+  },
+
+  treatment: {
+    intro: 'Treatment depends on the stone’s size, where it is, and symptoms. Many stones pass on their own.',
+    pros: 'Benefits',
+    cons: 'Things to consider',
+    options: {
+      pass: {
+        name: 'Passing it',
+        summary: 'Drink plenty, take pain medicine, and sometimes a medicine that relaxes the ureter. Strain the urine to catch the stone so it can be tested.',
+        control: 'Days',
+        days: 'days',
+        pros: ['No procedure', 'Most small stones pass within a few weeks'],
+        cons: ['Pain while passing', 'Needs follow-up to make sure it passed'],
+      },
+      ureteroscopy: {
+        name: 'Ureteroscopy',
+        summary: 'A thin camera goes up through the urethra and bladder into the ureter. A laser breaks the stone, and the pieces are removed. A stent (soft tube) may stay in for a short time.',
+        before: 'Before',
+        after: 'After',
+        pros: ['No cuts on the skin', 'Removes the stone directly'],
+        cons: ['General anesthesia', 'A stent can be uncomfortable until removed'],
+      },
+      swl: {
+        name: 'Shock wave lithotripsy',
+        summary: 'Sound waves aimed from outside the body break the stone into small pieces that pass in the urine over the next weeks.',
+        before: 'Before',
+        after: 'After',
+        pros: ['No cuts and no camera inside', 'Good for some kidney stones'],
+        cons: ['General anesthesia in children', 'Pieces still need to pass', 'May need more than one treatment'],
+      },
+      pcnl: {
+        name: 'Through the back (PCNL)',
+        summary: 'For large kidney stones, a small tunnel is made through the back directly into the kidney to break up and remove the stone.',
+        pros: ['Best for large stones', 'Removes the most stone in one surgery'],
+        cons: ['A short hospital stay', 'Higher risk of bleeding than other options'],
+      },
+      prevention: {
+        name: 'Preventing stones',
+        summary: 'Once a child has had a stone, more can form. Simple changes help a lot. A 24-hour urine test can show what to change.',
+        tips: ['Drink water all day; urine should look pale yellow', 'Eat less salt and fewer processed foods', 'Keep normal amounts of dairy (do not cut calcium)', 'Lemon or orange juice can help', 'Limit sugary drinks'],
+        pros: ['Lowers the chance of new stones'],
+        cons: ['Long-term habits'],
+      },
+    },
+  },
+
+  takeaways: {
+    points: [
+      'Kidney stones form when minerals in concentrated urine stick together.',
+      'Stones hurt when they move and block urine.',
+      'Many small stones pass on their own.',
+      'Larger stones can be broken up or removed with a camera, sound waves, or a small surgery.',
+      'Drinking more water and eating less salt help prevent new stones.',
+    ],
+    callTitle: 'Go to the emergency room right away for',
+    call: ['Fever with stone pain', 'Pain that is not controlled with medicine', 'Vomiting and unable to keep fluids down', 'Not able to pee'],
+    planTitle: 'Our plan',
+    planHint: 'Type notes here before printing (not saved).',
+  },
+};

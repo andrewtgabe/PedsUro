@@ -16,9 +16,11 @@ import enVaricocele from '../content/en/varicocele.js';
 import enPhimosis from '../content/en/phimosis.js';
 import enMeatal from '../content/en/meatal.js';
 import enLabial from '../content/en/labial.js';
+import enUti from '../content/en/uti.js';
+import enStones from '../content/en/stones.js';
 
 const languages = {
-  en: { common: enCommon, vur: enVur, hydronephrosis: enHydronephrosis, upj: enUpj, uvj: enUvj, duplex: enDuplex, puv: enPuv, ectopic: enEctopic, torsion: enTorsion, cryptorchidism: enCryptorchidism, hydrocele: enHydrocele, hernia: enHernia, varicocele: enVaricocele, phimosis: enPhimosis, meatal: enMeatal, labial: enLabial },
+  en: { common: enCommon, vur: enVur, hydronephrosis: enHydronephrosis, upj: enUpj, uvj: enUvj, duplex: enDuplex, puv: enPuv, ectopic: enEctopic, torsion: enTorsion, cryptorchidism: enCryptorchidism, hydrocele: enHydrocele, hernia: enHernia, varicocele: enVaricocele, phimosis: enPhimosis, meatal: enMeatal, labial: enLabial, uti: enUti, stones: enStones },
 };
 
 let current = 'en';

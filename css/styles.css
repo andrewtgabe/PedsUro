@@ -328,3 +328,8 @@ svg.anatomy .urethral { fill: #7a3340; }
 svg.anatomy .vaginal { fill: #a8505d; }
 svg.anatomy .adhesion { fill: #f6dcdc; fill-opacity: 0.93; stroke: #e6b5b5; stroke-width: 2; }
 svg.anatomy .adhesion-line { stroke: #c99a9a; stroke-width: 2; stroke-dasharray: 4 3; }
+svg.anatomy .stone { fill: #c9a66b; stroke: #7d5f2e; stroke-width: 2; stroke-linejoin: round; }
+svg.anatomy .inflamed { fill: rgb(220 60 60 / 0.25); stroke: #d0423a; stroke-width: 4; }
+svg.anatomy .bladder-red { fill: none; stroke: rgb(220 60 60 / 0.55); stroke-width: 7; }
+svg.anatomy .crystal { fill: #f7f2e6; stroke: #a3863f; stroke-width: 1.5; }
+svg.anatomy .jar { stroke: #8a9bb0; stroke-width: 3; }
