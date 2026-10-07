@@ -40,6 +40,11 @@ import esUpj from '../content/es/upj.js';
 import esUvj from '../content/es/uvj.js';
 import esDuplex from '../content/es/duplex.js';
 import esEctopic from '../content/es/ectopic.js';
+import esPuv from '../content/es/puv.js';
+import esNeurogenic from '../content/es/neurogenic.js';
+import esVaricocele from '../content/es/varicocele.js';
+import esMeatal from '../content/es/meatal.js';
+import esLabial from '../content/es/labial.js';
 
 // [code, name shown in the language switcher]
 export const LANGUAGES = [
@@ -59,6 +64,7 @@ const languages = {
     cryptorchidism: esCryptorchidism, hernia: esHernia, hydrocele: esHydrocele, phimosis: esPhimosis,
     torsion: esTorsion, stones: esStones, bbd: esBbd, hypospadias: esHypospadias,
     upj: esUpj, uvj: esUvj, duplex: esDuplex, ectopic: esEctopic,
+    puv: esPuv, neurogenic: esNeurogenic, varicocele: esVaricocele, meatal: esMeatal, labial: esLabial,
   },
 };
 
