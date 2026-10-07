@@ -177,3 +177,113 @@ export function sacView({ opening = 'closed', fluid = 0, bowel = 0, stuck = fals
     <text class="lbl small" x="${open ? 232 : 214}" y="300">${text.pouch}</text>
   </svg>`;
 }
+
+// ---------- testicular veins (varicocele, front view) ----------
+
+// Wavy vein cluster above a testicle; size grows with the varicocele.
+function plexus(cx, top, size) {
+  const n = 5;
+  let out = '';
+  for (let i = 0; i < n; i++) {
+    const x0 = cx - 18 + i * 9;
+    const amp = 2 + 9 * size;
+    const pts = [];
+    for (let y = top; y <= top + 70; y += 5) pts.push(`${f(x0 + amp * Math.sin((y - top) / 8 + i))} ${y}`);
+    out += `<path class="plexus" d="M${pts.join(' L')}" style="stroke-width:${f(3 + 5 * size)}"/>`;
+  }
+  return out;
+}
+
+//   grade: 0..3 size of the left varicocele; strain: bearing down (Valsalva)
+//   tied: veins tied (surgery); coils: veins blocked from inside (embolization)
+//   small: 0..1 how much smaller the left testicle is
+//   text: { kidney, ivc, aorta, renalVein, leftVein, rightVein, testicle, plexus, left, right }
+export function veinMap({ grade = 0, strain = false, tied = false, coils = false, small = 0, text }) {
+  const blocked = tied || coils;
+  const size = blocked ? 0.1 : clamp((grade / 3) * (strain ? 1.3 : 1));
+  const reflux = grade > 0 && !blocked;
+  return `<svg class="anatomy genital" viewBox="0 0 400 490" role="img" aria-label="${text.plexus}">
+    <path class="kidney" d="M70 40 C120 40 125 140 70 140 C 40 140 35 40 70 40 Z"/>
+    <path class="kidney" d="M330 40 C280 40 275 140 330 140 C 360 140 365 40 330 40 Z"/>
+    <line class="ivc" x1="180" y1="0" x2="180" y2="330"/>
+    <line class="aorta" x1="214" y1="0" x2="214" y2="330"/>
+    <line class="g-vein" x1="105" y1="92" x2="180" y2="92"/>
+    <line class="g-vein" x1="186" y1="96" x2="296" y2="96"/>
+    <path class="g-vein" d="M180 150 C 150 220 140 300 142 380"/>
+    <path class="g-vein ${reflux ? 'wide' : ''}" d="M280 98 L 270 380" style="stroke-width:${f(5 + 4 * size)}"/>
+    ${reflux ? `<path class="backflow" d="M280 100 L 270 380"/>` : ''}
+    ${tied ? `<path class="tie" d="M258 330 L284 330 M258 338 L284 338"/>` : ''}
+    ${coils ? `<path class="coil" d="M276 230 l8 6 l-12 6 l12 6 l-12 6 l12 6 l-8 6"/>` : ''}
+    <path class="scrotum" d="M95 360 C 75 470 150 490 200 486 C 250 490 325 470 305 360"/>
+    <line class="raphe" x1="200" y1="370" x2="200" y2="480"/>
+    ${plexus(142, 362, 0.1)}
+    ${plexus(270, 362, size)}
+    <ellipse class="testis" cx="142" cy="440" rx="22" ry="30"/>
+    <ellipse class="testis" cx="270" cy="${f(440 + 4 * small)}" rx="${f(22 * (1 - 0.35 * small))}" ry="${f(30 * (1 - 0.35 * small))}"/>
+    <text class="lbl small" x="70" y="160" text-anchor="middle">${text.kidney}</text>
+    <text class="lbl small" x="330" y="160" text-anchor="middle">${text.kidney}</text>
+    <text class="lbl small" x="174" y="350" text-anchor="end">${text.ivc}</text>
+    <text class="lbl small" x="220" y="350">${text.aorta}</text>
+    <text class="lbl small" x="240" y="84" text-anchor="middle">${text.renalVein}</text>
+    <text class="lbl small" x="286" y="250">${text.leftVein}</text>
+    <text class="lbl small" x="130" y="250" text-anchor="end">${text.rightVein}</text>
+    <text class="lbl small" x="${f(300 + 10 * size)}" y="395">${text.plexus}</text>
+    <text class="tag" x="142" y="482" text-anchor="middle">${text.right}</text>
+    <text class="tag accent" x="270" y="482" text-anchor="middle">${text.left}</text>
+  </svg>`;
+}
+
+// ---------- penis side view (phimosis / paraphimosis) ----------
+
+// Glans radius at a point along it, for how wide the foreskin must stretch.
+const glansR = (x) => (x <= 255 ? 40 : 40 * Math.sqrt(Math.max(0, 1 - ((x - 255) / 98) ** 2)));
+
+//   pull: 0..1 how far the foreskin is pulled back (stops at `limit`)
+//   limit: 0..1 how far it can go before the opening is too tight
+//   scar: white scarred ring at the opening (lichen sclerosus)
+//   pee: urinating; trapped: paraphimosis; circumcised; widened: preputioplasty
+//   text: { glans, foreskin, opening, shaft, tight, trapped }
+export function penisSide({ pull = 0, limit = 1, scar = false, pee = false, trapped = false, circumcised = false, widened = false, text }) {
+  const k = trapped ? 1 : Math.min(pull, limit);
+  const atLimit = !trapped && pull > limit + 0.01;
+  const fx = 362 - k * 132;
+  const openR = Math.max(widened ? 16 : limit >= 1 ? 10 : 3, glansR(fx));
+  const tight = limit < 1 && !widened;
+  const balloon = pee && tight && k < 0.05;
+  const glansFill = trapped ? '#b0607a' : '#e99c9f';
+  const gs = trapped ? 1.08 : 1;
+
+  let foreskin = '';
+  if (!circumcised) {
+    if (balloon) {
+      // Urine fills the space between the head and the tight tip.
+      const e = fx + 40;
+      foreskin = `<path class="foreskin" d="M150 162 L250 162 C 300 152 ${f(fx - 12)} 146 ${f(fx + 14)} 164 C ${f(fx + 32)} 178 ${f(e - 2)} 194 ${f(e)} ${f(200 - openR)} L ${f(e)} ${f(200 + openR)} C ${f(e - 2)} 206 ${f(fx + 32)} 222 ${f(fx + 14)} 236 C ${f(fx - 12)} 254 300 248 250 238 L150 238 Z"/>
+        <ellipse class="balloon-urine" cx="${f(fx + 6)}" cy="200" rx="30" ry="30"/>`;
+      if (scar) foreskin += `<ellipse class="scar-ring" cx="${f(e)}" cy="200" rx="5" ry="${f(openR + 3)}"/>`;
+    } else if (fx >= 256) {
+      foreskin = `<path class="foreskin" d="M150 162 L250 162 C 300 154 ${f(fx - 24)} 158 ${f(fx)} ${f(200 - openR)} L ${f(fx)} ${f(200 + openR)} C ${f(fx - 24)} 242 300 246 250 238 L150 238 Z"/>`;
+      if (scar || atLimit) foreskin += `<ellipse class="${scar ? 'scar-ring' : 'tight-ring'}" cx="${f(fx)}" cy="200" rx="5" ry="${f(openR + 3)}"/>`;
+    } else {
+      // Pulled back behind the head: the foreskin bunches into a ring.
+      const swell = trapped ? 12 : 0;
+      foreskin = `<ellipse class="foreskin ${trapped ? 'swollen' : ''}" cx="${f(Math.max(fx, 232))}" cy="200" rx="${f(16 + swell)}" ry="${f(44 + swell)}"/>`;
+    }
+  }
+
+  const stream = pee ? `<line class="stream" x1="${balloon ? f(fx + 40) : 356}" y1="200" x2="400" y2="${balloon ? 206 : 200}" style="stroke-width:${balloon ? 1.5 : tight ? 2.5 : 5}"/>` : '';
+
+  return `<svg class="anatomy genital penis" viewBox="0 110 440 180" role="img" aria-label="${text.foreskin}">
+    <rect class="body-wall" x="0" y="80" width="64" height="220"/>
+    <rect class="shaft" x="56" y="162" width="206" height="76" rx="14"/>
+    <path class="glans" d="M255 ${f(200 - 40 * gs)} C 332 ${f(200 - 40 * gs)} ${f(352 * gs - 4)} 185 ${f(352 * gs - 4)} 200 C ${f(352 * gs - 4)} 215 332 ${f(200 + 40 * gs)} 255 ${f(200 + 40 * gs)} Z" style="fill:${glansFill}"/>
+    <path class="meatus" d="M346 194 L346 206"/>
+    ${circumcised ? `<path class="circ-line" d="M232 160 L232 240"/>` : ''}
+    ${foreskin}
+    ${stream}
+    <text class="lbl small" x="130" y="268" text-anchor="middle">${text.shaft}</text>
+    <text class="lbl small" x="300" y="${fx >= 300 ? 140 : 205}" text-anchor="middle">${text.glans}</text>
+    ${circumcised ? '' : `<text class="lbl small ${trapped ? 'accent-text' : ''}" x="${f(Math.max(fx, 232))}" y="${trapped ? 135 : 268}" text-anchor="middle">${trapped ? text.trapped : text.foreskin}</text>`}
+    ${atLimit || scar ? `<text class="lbl small accent-text" x="${f(fx)}" y="${f(Math.min(282, 200 + openR + 30))}" text-anchor="middle">${text.tight}</text>` : ''}
+  </svg>`;
+}

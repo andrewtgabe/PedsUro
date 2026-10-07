@@ -299,3 +299,21 @@ svg.anatomy .bowel-in { fill: none; stroke-linecap: round; }
 svg.anatomy .glow { fill: rgb(255 236 120 / 0.65); filter: blur(4px); }
 svg.anatomy .glow.dark { fill: rgb(255 236 120 / 0.15); }
 svg.anatomy .tie { stroke: #1f4f8a; stroke-width: 4; stroke-linecap: round; }
+svg.anatomy .ivc, svg.anatomy .g-vein { stroke: #4f6fb0; fill: none; stroke-linecap: round; }
+svg.anatomy .ivc { stroke-width: 16; }
+svg.anatomy .aorta { stroke: #c0392b; stroke-width: 12; stroke-linecap: round; }
+svg.anatomy line.g-vein { stroke-width: 7; }
+svg.anatomy path.g-vein { stroke-width: 5; }
+svg.anatomy .backflow { fill: none; stroke: #c9d6f0; stroke-width: 2; stroke-dasharray: 4 9; animation: flow 0.9s linear infinite; }
+svg.anatomy .plexus { fill: none; stroke: #5a74b8; stroke-linecap: round; opacity: 0.85; }
+svg.anatomy .coil { fill: none; stroke: #444; stroke-width: 3; stroke-linejoin: round; }
+svg.anatomy.penis { max-height: 360px; }
+svg.anatomy .shaft { fill: #f0c8b4; stroke: #c69580; stroke-width: 2.5; }
+svg.anatomy .glans { stroke: #b96c72; stroke-width: 2.5; }
+svg.anatomy .meatus { stroke: #7a3340; stroke-width: 3; stroke-linecap: round; }
+svg.anatomy .foreskin { fill: #f0c8b4; fill-opacity: 0.88; stroke: #c69580; stroke-width: 2.5; }
+svg.anatomy .foreskin.swollen { fill: #f4b49c; fill-opacity: 1; stroke: var(--warn); }
+svg.anatomy .balloon-urine { fill: var(--urine); opacity: 0.55; }
+svg.anatomy .tight-ring { fill: none; stroke: var(--warn); stroke-width: 3; }
+svg.anatomy .scar-ring { fill: none; stroke: #f4f4f4; stroke-width: 6; }
+svg.anatomy .circ-line { stroke: #b07a66; stroke-width: 2; stroke-dasharray: 3 3; }

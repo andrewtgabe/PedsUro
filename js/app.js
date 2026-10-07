@@ -10,10 +10,12 @@ import torsion from './chapters/torsion.js';
 import cryptorchidism from './chapters/cryptorchidism.js';
 import hydrocele from './chapters/hydrocele.js';
 import hernia from './chapters/hernia.js';
+import varicocele from './chapters/varicocele.js';
+import phimosis from './chapters/phimosis.js';
 
 // Built chapters. To add one: create js/chapters/<id>.js and content/en/<id>.js,
 // register the content in i18n.js, then add it here.
-const CHAPTERS = { vur, hydronephrosis, upj, uvj, duplex, puv, ectopic, torsion, cryptorchidism, hydrocele, hernia };
+const CHAPTERS = { vur, hydronephrosis, upj, uvj, duplex, puv, ectopic, torsion, cryptorchidism, hydrocele, hernia, varicocele, phimosis };
 
 // Order of conditions on the home page.
 const CATALOG = {

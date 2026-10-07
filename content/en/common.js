@@ -80,6 +80,8 @@ export default {
     cryptorchidism: 'A testicle that did not finish moving down into the scrotum.',
     hydrocele: 'Fluid around the testicle that causes scrotal swelling.',
     hernia: 'Intestine sliding into the groin or scrotum through an open pouch.',
+    varicocele: 'Swollen veins above the testicle, usually on the left.',
+    phimosis: 'A tight foreskin, or one stuck behind the head of the penis.',
     puv: 'Extra flaps of tissue in a boy’s urethra that block urine.',
   },
 };
