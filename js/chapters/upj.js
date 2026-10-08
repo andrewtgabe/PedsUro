@@ -68,8 +68,9 @@ const BUILD = {
     draw(0);
   },
 
-  // Step-by-step dismembered pyeloplasty.
+  // Step-by-step dismembered pyeloplasty, for a narrow piece or a crossing vessel.
   pyeloplasty(viz, ctl) {
+    const o = T('treatment.options.pyeloplasty');
     const base = { pelvisDilation: 0.75, pelvisFill: 1, upj: true, mark: false, gap: 0, excised: false, stitches: false, stent: false, flow: '' };
     const states = [
       {},
@@ -79,9 +80,27 @@ const BUILD = {
       { upj: false, pelvisDilation: 0.45, stitches: true, stent: true },
       { upj: false, pelvisDilation: 0.25, flow: 'down' },
     ];
-    const captions = T('treatment.options.pyeloplasty.steps');
-    const steps = states.map((st, n) => ({ caption: captions[n], state: { ...base, ...st } }));
-    return stepPlayer(ctl, steps, (s) => (viz.innerHTML = kidneyCloseup(s)), t('common.player'));
+    const holder = document.createElement('div');
+    holder.className = 'controls';
+    let stop = null;
+    const build = (cause) => {
+      stop?.();
+      holder.innerHTML = '';
+      const vessel = cause === 'vessel';
+      const captions = vessel ? o.vesselSteps : o.steps;
+      // With a crossing vessel, the ureter ends up in front of it from step 3 on.
+      const steps = states.map((st, n) => ({
+        caption: captions[n],
+        state: { ...base, ...st, vessel, vesselBehind: vessel && n >= 2 },
+      }));
+      stop = stepPlayer(holder, steps, (s) => (viz.innerHTML = kidneyCloseup(s)), t('common.player'));
+    };
+    ctl.append(
+      segmented(o.causeLabel, Object.entries(T('embryology.causes')).map(([k, v]) => [k, v.name]), 'narrow', build),
+      holder,
+    );
+    build('narrow');
+    return () => stop?.();
   },
 };
 

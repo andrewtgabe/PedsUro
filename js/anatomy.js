@@ -168,7 +168,7 @@ const stentPath = (pts) => {
 //   bactSpread: 0..1 bacteria moving up; scar: kidney scar
 //   kidney: { s, dy } scale and vertical shift (fetal kidney ascent)
 //   gap: 0..1 ureter cut away from the pelvis (pyeloplasty); excised: removed narrow piece shown aside
-//   stitches: new pelvis-to-ureter connection sewn
+//   stitches: new pelvis-to-ureter connection sewn; vesselBehind: crossing vessel behind the ureter
 //   ureterostomy: ureter brought out to the skin; inflamed: infected kidney; stone: { at: 'calyx' | 'pelvis' | 0..1 along ureter, size, fragments }
 function upperTract(o, g) {
   const pd = clamp(o.pelvisDilation ?? o.dilation ?? 0);
@@ -194,16 +194,19 @@ function upperTract(o, g) {
 
   const narrowAt = o.upj ? at(pts, 0.05) : o.uvj ? at(pts, 0.93) : null;
   const mark = o.mark && narrowAt ? `<circle class="mark" cx="${f(narrowAt[0])}" cy="${f(narrowAt[1])}" r="20"/>` : '';
+  // Crossing vessel near the UPJ. Normally drawn in front of the ureter;
+  // vesselBehind shows it after the ureter is moved in front (pyeloplasty).
   const vessel = o.vessel
-    ? `<path class="vessel" d="M330 ${f(start[1] + 30)} C 380 ${f(start[1] + 22)} ${f(start[0] + 10)} ${f(start[1] + 2)} 452 ${f(start[1] + 30)}"/>`
+    ? `<path class="vessel" d="M330 ${f(joint[1] + 30)} C 380 ${f(joint[1] + 22)} ${f(joint[0] + 10)} ${f(joint[1] + 2)} 452 ${f(joint[1] + 30)}"/>`
     : '';
   const scar = o.scar ? `<path class="scar" d="M430 42 Q446 62 456 50 Q466 64 482 54 Q474 36 455 34 Q438 34 430 42 Z"/>` : '';
 
   return `<g class="${o.pale ? 'pale-k' : ''}">
     <path class="kidney ${o.pale ? 'pale' : ''}" d="${KIDNEY_PATH}" ${s !== 1 || dy ? `transform="translate(${f(455 - 455 * s)} ${f(125 - 125 * s + dy)}) scale(${f(s)})"` : ''}/>
     ${scar}
+    ${o.vesselBehind ? vessel : ''}
     ${drawSystem([cs], [tube])}
-    ${vessel}${mark}
+    ${o.vesselBehind ? '' : vessel}${mark}
     ${o.stent ? stentPath(pts) : ''}
     ${gap > 0.05 ? `<path class="cutline" d="M${f(joint[0] - 9)} ${f(joint[1] + 2)} L${f(joint[0] + 9)} ${f(joint[1] + 2)} M${f(start[0] - 8)} ${f(start[1])} L${f(start[0] + 8)} ${f(start[1])}"/>` : ''}
     ${o.excised ? `<g class="excised"><line x1="${f(joint[0] - 46)}" y1="${f(joint[1] + 4)}" x2="${f(joint[0] - 40)}" y2="${f(joint[1] + 30)}"/></g>` : ''}
