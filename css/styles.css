@@ -406,3 +406,11 @@ svg.anatomy .soil { fill: #8a6243; animation: drip 1.6s ease-in infinite; }
 .bristol-row .poo .snake { stroke: #8a6243; }
 .bristol-row .poo .crack { fill: none; stroke: #4a3020; }
 .bristol-row .poo .liquid { fill: #b08a5e; }
+/* cleanout calculator */
+.calc { display: flex; flex-direction: column; gap: 12px; padding: 8px; }
+.calc-weight { display: flex; flex-direction: column; gap: 4px; font-weight: 600; font-size: 0.95rem; }
+.calc-weight input { font: inherit; font-size: 1.3rem; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; width: 200px; }
+.calc-out ul { margin: 6px 0; padding-left: 1.3em; }
+.calc-card { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; margin: 10px 0; background: var(--bg); }
+.calc-card h4 { margin: 0 0 6px; color: var(--accent); }
+.calc-weight-out { margin: 0; font-size: 1.05rem; }
