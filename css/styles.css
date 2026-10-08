@@ -249,6 +249,9 @@ svg.anatomy .u-wall-x { stroke: var(--wall); stroke-linecap: round; }
 svg.anatomy .u-urine-x { stroke: var(--urine); stroke-linecap: butt; }
 svg.anatomy .u-lumen-x { stroke: var(--lumen); stroke-linecap: butt; }
 svg.anatomy .leaflet { fill: #b85f4f; }
+svg.anatomy .scope line { stroke: #6b7280; stroke-width: 7; stroke-linecap: round; }
+svg.anatomy .scope circle { fill: #fde68a; stroke: #b45309; stroke-width: 1.5; }
+svg.anatomy .zap { fill: none; stroke: #f59e0b; stroke-width: 2.5; stroke-linejoin: round; }
 svg.anatomy .accent-text { fill: var(--warn); }
 svg.anatomy .vagina { fill: #f0c6cf; stroke: #c98d9a; stroke-width: 2; }
 svg.anatomy .prostate { fill: #e3c3a8; stroke: #b99272; stroke-width: 2; }

@@ -1,7 +1,7 @@
 // Posterior urethral valves (PUV) chapter.
 import { t } from '../i18n.js';
 import { urinaryTract, urethraSection } from '../anatomy.js';
-import { segmented, toggle, animate, modelLayout, optionTabs, takeaways } from '../ui.js';
+import { segmented, toggle, modelLayout, optionTabs, takeaways, stepPlayer } from '../ui.js';
 
 const T = (k) => t(`puv.${k}`);
 
@@ -71,20 +71,19 @@ const BUILD = {
   },
 
   ablation(viz, ctl) {
-    const o = T('treatment.options.ablation');
-    const s = { k: 0, voiding: true };
-    const draw = () => (viz.innerHTML = urethraSection({ valves: 1, opened: s.k, voiding: s.voiding, text: T('embryology.labels') }));
-    let stop = null;
-    ctl.append(
-      segmented('', [[0, o.before], [1, o.after]], 0, (v) => {
-        stop?.();
-        const from = s.k;
-        stop = animate(900, (e) => { s.k = from + (v - from) * e; draw(); });
-      }),
-      toggle(o.pee, true, (v) => { s.voiding = v; draw(); }),
-    );
-    draw();
-    return () => stop?.();
+    const captions = T('treatment.options.ablation.steps');
+    const base = { opened: 0, voiding: false, scope: 0, zap: false, catheter: false };
+    const states = [
+      { voiding: true },
+      { scope: 0.5 },
+      { scope: 1 },
+      { scope: 1, zap: true, opened: 0.5 },
+      { scope: 1, opened: 1 },
+      { opened: 1, catheter: true },
+      { opened: 1, voiding: true },
+    ];
+    const steps = states.map((st, n) => ({ caption: captions[n], state: { ...base, ...st } }));
+    return stepPlayer(ctl, steps, (st) => (viz.innerHTML = urethraSection({ valves: 1, ...st, text: T('embryology.labels') })), t('common.player'));
   },
 
   vesicostomy(viz, ctl) {

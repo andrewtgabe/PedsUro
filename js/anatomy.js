@@ -550,7 +550,9 @@ export function drainageChart(selected, text) {
 //   valves: 0..1 how much the valve leaflets block; opened: 0..1 removed
 //   voiding: show urine flowing and the stream
 //   text: { bladder, neck, valves, urethra, tip }
-export function urethraSection({ valves = 0, opened = 0, voiding = false, text }) {
+//   scope: 0–1 how far the camera has been passed up the urethra; zap: cutting spark at the valve;
+//   catheter: small drainage tube after the procedure.
+export function urethraSection({ valves = 0, opened = 0, voiding = false, scope = 0, zap = false, catheter = false, text }) {
   const block = clamp(valves) * (1 - clamp(opened));
   const wp = 14 + 24 * block;
   const leaf = wp / 2 - 2;
@@ -569,6 +571,9 @@ export function urethraSection({ valves = 0, opened = 0, voiding = false, text }
     ${leaflets}
     ${voiding ? `<line class="flowline ${block > 0.5 ? 'slow' : 'down'}" x1="160" y1="60" x2="160" y2="412"/>` : ''}
     ${streamW > 0 ? `<line class="stream" x1="160" y1="414" x2="160" y2="450" style="stroke-width:${f(streamW)}"/>` : ''}
+    ${scope > 0.01 ? `<g class="scope"><line x1="160" y1="450" x2="160" y2="${f(450 - 228 * clamp(scope))}"/><circle cx="160" cy="${f(450 - 228 * clamp(scope))}" r="4"/></g>` : ''}
+    ${zap ? `<path class="zap" d="M150 200 l8 6 -6 4 10 8"/><path class="zap" d="M170 200 l-8 6 6 4 -10 8"/>` : ''}
+    ${catheter ? `<g class="catheter"><path d="M160 450 L160 70"/><circle cx="160" cy="70" r="8"/></g>` : ''}
     <text class="lbl" x="160" y="50" text-anchor="middle">${text.bladder}</text>
     <text class="lbl small" x="${f(170 + wp / 2)}" y="118">${text.neck}</text>
     ${block > 0.02 ? `<text class="lbl small accent-text" x="${f(170 + wp / 2)}" y="212">${text.valves}</text>` : ''}

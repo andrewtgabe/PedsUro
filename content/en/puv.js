@@ -51,9 +51,15 @@ export default {
         name: 'Valve ablation',
         summary:
           'The main treatment. A tiny camera is passed through the urethra and the surgeon cuts the valve flaps so urine can flow freely. There is no cut on the skin.',
-        before: 'Before',
-        after: 'After ablation',
-        pee: 'Peeing',
+        steps: [
+          'Before: thin flaps of tissue (the valves) partly block the urethra. The bladder has to squeeze hard, and the urine stream is weak.',
+          'With the baby fully asleep, a tiny camera is gently passed into the urethra through the tip of the penis. There is no cut on the skin.',
+          'The camera is moved up until the surgeon can see the valve flaps blocking the way.',
+          'A very small cutting tool, often using a tiny electric current or laser, cuts the flaps at a few spots.',
+          'The cut flaps fall open, so the urethra is no longer blocked.',
+          'The camera is removed. A small catheter may drain the bladder for a short time, and many babies go home within a day or two.',
+          'Urine now flows out in a stronger stream. Check-ups and imaging make sure the valves are fully open; some boys need a second look later.',
+        ],
         pros: ['Removes the blockage', 'No cut on the skin', 'Usually done in the first weeks of life'],
         cons: ['General anesthesia', 'Sometimes needs a second look later', 'Bladder and kidneys still need follow-up'],
       },

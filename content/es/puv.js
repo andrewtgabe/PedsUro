@@ -51,9 +51,15 @@ export default {
         name: 'Ablación de las válvulas',
         summary:
           'El tratamiento principal. Se pasa una cámara muy pequeña por la uretra y el cirujano corta los pliegues de las válvulas para que la orina fluya libremente. No hay cortes en la piel.',
-        before: 'Antes',
-        after: 'Después de la ablación',
-        pee: 'Orinando',
+        steps: [
+          'Antes: unos pliegues delgados de tejido (las válvulas) bloquean en parte la uretra. La vejiga tiene que apretar fuerte, y el chorro de orina es débil.',
+          'Con el bebé completamente dormido, se pasa con cuidado una cámara muy pequeña por la uretra, por la punta del pene. No hay cortes en la piel.',
+          'La cámara se sube hasta que el cirujano puede ver los pliegues de las válvulas que bloquean el paso.',
+          'Un instrumento de corte muy pequeño, muchas veces con una corriente eléctrica pequeña o un láser, corta los pliegues en algunos puntos.',
+          'Los pliegues cortados se abren, así que la uretra ya no está bloqueada.',
+          'Se saca la cámara. Una sonda pequeña puede drenar la vejiga por un tiempo corto, y muchos bebés se van a casa en uno o dos días.',
+          'Ahora la orina sale con un chorro más fuerte. Las revisiones y los estudios confirman que las válvulas quedaron abiertas; algunos niños necesitan otra revisión después.',
+        ],
         pros: ['Quita la obstrucción', 'Sin cortes en la piel', 'Por lo general se hace en las primeras semanas de vida'],
         cons: ['Anestesia general', 'A veces se necesita revisar de nuevo después', 'La vejiga y los riñones todavía necesitan seguimiento'],
       },
