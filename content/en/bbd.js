@@ -49,6 +49,7 @@ export default {
         text: 'A large amount of poop in the bowel presses on the bladder and irritates its nerves. Treating constipation alone often fixes the wetting.',
       },
     },
+    bowelLink: 'Learn more about bowel and bladder dysfunction',
     signsTitle: 'Common signs',
     signs: ['Sudden urges, rushing to the bathroom', 'Damp underwear', 'Peeing fewer than 4 or more than 7 times a day', 'Holding maneuvers: crossing legs, squatting', 'Hard or infrequent poops', 'Urine infections'],
   },

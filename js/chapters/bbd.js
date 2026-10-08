@@ -45,7 +45,8 @@ function renderPathology(root) {
   const draw = () => {
     viz.innerHTML = view(TYPES[s.type]);
     explain.innerHTML = `<h3>${types[s.type].name}</h3><p>${types[s.type].text}</p>
-      <h3>${T('pathology.signsTitle')}</h3><ul>${T('pathology.signs').map((x) => `<li>${x}</li>`).join('')}</ul>`;
+      <h3>${T('pathology.signsTitle')}</h3><ul>${T('pathology.signs').map((x) => `<li>${x}</li>`).join('')}</ul>
+      <p><a href="#/bowel/pathology">${T('pathology.bowelLink')} →</a></p>`;
   };
   ctl.append(segmented(T('pathology.typeLabel'), Object.entries(types).map(([k, v]) => [k, v.name]), s.type, (v) => { s.type = v; draw(); }));
   draw();

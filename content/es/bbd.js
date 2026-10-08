@@ -49,6 +49,7 @@ export default {
         text: 'Mucho excremento en el intestino aprieta la vejiga e irrita sus nervios. Muchas veces, tratar solo el estreñimiento quita los escapes.',
       },
     },
+    bowelLink: 'Aprenda más sobre la disfunción de vejiga e intestino',
     signsTitle: 'Señales comunes',
     signs: ['Ganas repentinas, correr al baño', 'Ropa interior húmeda', 'Orinar menos de 4 o más de 7 veces al día', 'Maniobras para aguantar: cruzar las piernas, agacharse', 'Excremento duro o evacuar pocas veces', 'Infecciones de orina'],
   },

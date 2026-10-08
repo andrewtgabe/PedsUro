@@ -23,6 +23,7 @@ import enHypospadias from '../content/en/hypospadias.js';
 import enEnuresis from '../content/en/enuresis.js';
 import enBbd from '../content/en/bbd.js';
 import enNeurogenic from '../content/en/neurogenic.js';
+import enBowel from '../content/en/bowel.js';
 import esCommon from '../content/es/common.js';
 import esVur from '../content/es/vur.js';
 import esHydronephrosis from '../content/es/hydronephrosis.js';
@@ -45,6 +46,7 @@ import esNeurogenic from '../content/es/neurogenic.js';
 import esVaricocele from '../content/es/varicocele.js';
 import esMeatal from '../content/es/meatal.js';
 import esLabial from '../content/es/labial.js';
+import esBowel from '../content/es/bowel.js';
 
 // [code, name shown in the language switcher]
 export const LANGUAGES = [
@@ -57,14 +59,14 @@ const languages = {
     common: enCommon, vur: enVur, hydronephrosis: enHydronephrosis, upj: enUpj, uvj: enUvj, duplex: enDuplex,
     puv: enPuv, ectopic: enEctopic, torsion: enTorsion, cryptorchidism: enCryptorchidism, hydrocele: enHydrocele,
     hernia: enHernia, varicocele: enVaricocele, phimosis: enPhimosis, meatal: enMeatal, labial: enLabial,
-    uti: enUti, stones: enStones, hypospadias: enHypospadias, enuresis: enEnuresis, bbd: enBbd, neurogenic: enNeurogenic,
+    uti: enUti, stones: enStones, hypospadias: enHypospadias, enuresis: enEnuresis, bbd: enBbd, neurogenic: enNeurogenic, bowel: enBowel,
   },
   es: {
     common: esCommon, vur: esVur, hydronephrosis: esHydronephrosis, uti: esUti, enuresis: esEnuresis,
     cryptorchidism: esCryptorchidism, hernia: esHernia, hydrocele: esHydrocele, phimosis: esPhimosis,
     torsion: esTorsion, stones: esStones, bbd: esBbd, hypospadias: esHypospadias,
     upj: esUpj, uvj: esUvj, duplex: esDuplex, ectopic: esEctopic,
-    puv: esPuv, neurogenic: esNeurogenic, varicocele: esVaricocele, meatal: esMeatal, labial: esLabial,
+    puv: esPuv, neurogenic: esNeurogenic, varicocele: esVaricocele, meatal: esMeatal, labial: esLabial, bowel: esBowel,
   },
 };
 

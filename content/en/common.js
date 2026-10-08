@@ -59,6 +59,7 @@ export default {
     enuresis: 'Bedwetting',
     bbd: 'Daytime wetting & voiding dysfunction',
     neurogenic: 'Neurogenic bladder',
+    bowel: 'Bowel & bladder dysfunction',
     puv: 'Posterior urethral valves',
     exstrophy: 'Bladder exstrophy',
     hypospadias: 'Hypospadias / epispadias',
@@ -93,6 +94,7 @@ export default {
     enuresis: 'Wetting the bed during sleep after age 5.',
     bbd: 'Daytime accidents, urgency, and bladder or bowel habits.',
     neurogenic: 'A bladder affected by nerve problems, such as spina bifida.',
+    bowel: 'How constipation and holding poop affect the bladder.',
     puv: 'Extra flaps of tissue in a boy’s urethra that block urine.',
   },
 };

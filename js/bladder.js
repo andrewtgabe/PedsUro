@@ -97,3 +97,71 @@ export function bladderNerves({
     ${augment ? `<text class="lbl small" x="${cx}" y="${f(cy - ry - 30)}" text-anchor="middle">${text.augment}</text>` : ''}
   </svg>`;
 }
+
+// ---------- bladder and rectum, side view (bowel and bladder dysfunction) ----------
+
+//   stool: 0..1 how full and stretched the rectum is; hard: hard, dry stool
+//   squeeze: bladder squeezing too early (urge); leak: urine drips; soil: stool leaking
+//   text: { bladder, rectum, poop, front, back, pressing }
+export function pelvisSide({ stool = 0, hard = false, squeeze = false, leak = false, soil = false, text }) {
+  const s = clamp(stool);
+  // A full rectum pushes forward into the back of the bladder.
+  const bx = 140 - 10 * s;
+  const brx = 64 - 18 * s;
+  const bry = 56 - 10 * s;
+  const rw = 26 + 46 * s;
+  const rectum = `M300 40 C 300 120 ${f(300 + rw * 0.3)} 200 ${f(296 + rw * 0.15)} 260 C 290 320 300 350 300 392`;
+  const lumpR = 10 + 40 * s;
+  const lumps = hard
+    ? Array.from({ length: 5 }, (_, i) => `<circle class="stool-lump" cx="${f(292 + ((i * 13) % 20) - 8)}" cy="${f(300 - i * 22 * (0.4 + s))}" r="${f(6 + 10 * s)}"/>`).join('')
+    : '';
+  return `<svg class="anatomy bladder-nerves" viewBox="0 0 420 430" role="img" aria-label="${text.bladder}, ${text.rectum}">
+    <path class="body-side" d="M60 20 C 30 120 30 300 80 400 L360 400 C 390 300 390 120 360 20 Z"/>
+    <text class="lbl small" x="44" y="40">${text.front}</text>
+    <text class="lbl small" x="376" y="40" text-anchor="end">${text.back}</text>
+    <path class="rectum-wall" d="${rectum}" style="stroke-width:${f(rw + 12)}"/>
+    <path class="rectum-lumen" d="${rectum}" style="stroke-width:${f(rw)}"/>
+    ${s > 0.05 ? `<ellipse class="stool" cx="${f(300 + rw * 0.12)}" cy="${f(300 - 30 * s)}" rx="${f(rw * 0.42)}" ry="${f(lumpR)}"/>` : ''}
+    ${lumps}
+    <line class="urethra" x1="${f(bx + 6)}" y1="${f(250 + bry)}" x2="150" y2="404"/>
+    <g class="${squeeze ? 'shaky' : ''}">
+      <ellipse class="bladder-wall" cx="${f(bx)}" cy="250" rx="${f(brx)}" ry="${f(bry)}" style="stroke-width:9"/>
+      <ellipse class="bladder-urine" cx="${f(bx)}" cy="258" rx="${f(brx - 10)}" ry="${f(bry - 14)}"/>
+    </g>
+    ${s > 0.5 ? [220, 255, 290].map((y) => `<g class="squeeze" transform="translate(${f(262 - rw * 0.2)} ${y}) rotate(180)"><line x1="-12" y1="0" x2="8" y2="0"/><path d="M14 0 L4 -6 L4 6 Z"/></g>`).join('') + `<text class="lbl small accent-text" x="${f(bx)}" y="${f(180 - bry * 0.2)}" text-anchor="middle">${text.pressing}</text>` : ''}
+    ${leak ? [0, 1, 2].map((i) => `<circle class="drip" cx="150" cy="404" r="4" style="animation-delay:${i * 0.5}s"/>`).join('') : ''}
+    ${soil ? [0, 1].map((i) => `<circle class="soil" cx="300" cy="398" r="4" style="animation-delay:${i * 0.7}s"/>`).join('') : ''}
+    <text class="lbl" x="${f(bx)}" y="255" text-anchor="middle">${text.bladder}</text>
+    <text class="lbl small" x="330" y="120">${text.rectum}</text>
+    ${s > 0.05 ? `<text class="lbl small" x="${f(300 + rw * 0.6 + 6)}" y="${f(300 - 30 * s)}">${text.poop}</text>` : ''}
+  </svg>`;
+}
+
+// ---------- Bristol stool chart ----------
+
+// Simple pictures of the 7 stool types; type 4 is the goal.
+//   type: 1..7 selected; text: { goal }
+export function bristolChart(type, text) {
+  const shape = (n, x, y) => {
+    switch (n) {
+      case 1: return [0, 1, 2, 3].map((i) => `<circle cx="${x - 22 + i * 15}" cy="${y + (i % 2) * 4}" r="6"/>`).join('');
+      case 2: return `<path d="M${x - 30} ${y} q8 -12 16 0 q8 -12 16 0 q8 -12 16 0 q8 -12 12 2 q-30 16 -60 -2z"/>`;
+      case 3: return `<rect x="${x - 32}" y="${y - 8}" width="64" height="16" rx="8"/><path class="crack" d="M${x - 14} ${y - 8} l3 7 M${x + 4} ${y - 8} l3 8 M${x + 20} ${y - 8} l2 6"/>`;
+      case 4: return `<path d="M${x - 34} ${y} C ${x - 20} ${y - 14} ${x + 20} ${y + 14} ${x + 34} ${y}" style="stroke-width:16;stroke-linecap:round;fill:none" class="snake"/>`;
+      case 5: return [0, 1, 2].map((i) => `<ellipse cx="${x - 20 + i * 20}" cy="${y}" rx="9" ry="7"/>`).join('');
+      case 6: return `<path d="M${x - 30} ${y + 4} q6 -14 14 -4 q6 -12 14 0 q8 -10 14 2 q8 -8 16 4 q-28 12 -58 -2z"/>`;
+      default: return `<path d="M${x - 30} ${y + 6} q15 -10 30 -2 q15 -8 30 2 q-30 8 -60 0z" class="liquid"/>`;
+    }
+  };
+  let rows = '';
+  for (let n = 1; n <= 7; n++) {
+    const y = 30 + (n - 1) * 52;
+    rows += `<g class="bristol-row ${n === type ? 'on' : ''} ${n === 4 ? 'goal' : ''}">
+      <rect x="10" y="${y - 22}" width="360" height="44" rx="10"/>
+      <text class="lbl small" x="30" y="${y + 5}">${n}</text>
+      <g class="poo">${shape(n, 120, y)}</g>
+      ${n === 4 ? `<text class="lbl small" x="352" y="${y + 5}" text-anchor="end">★ ${text.goal}</text>` : ''}
+    </g>`;
+  }
+  return `<svg class="anatomy bladder-nerves" viewBox="0 0 380 380" role="img" aria-label="Bristol">${rows}</svg>`;
+}

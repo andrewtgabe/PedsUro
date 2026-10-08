@@ -58,6 +58,7 @@ export default {
     enuresis: 'Mojar la cama',
     bbd: 'Escapes de orina durante el día',
     neurogenic: 'Vejiga neurogénica',
+    bowel: 'Disfunción de vejiga e intestino',
     puv: 'Válvulas uretrales posteriores',
     exstrophy: 'Extrofia vesical',
     hypospadias: 'Hipospadias / epispadias',
@@ -92,6 +93,7 @@ export default {
     enuresis: 'Mojar la cama al dormir después de los 5 años.',
     bbd: 'Accidentes durante el día, urgencia y hábitos de vejiga o intestino.',
     neurogenic: 'Una vejiga afectada por problemas de los nervios, como la espina bífida.',
+    bowel: 'Cómo el estreñimiento y aguantar el excremento afectan la vejiga.',
     puv: 'Pliegues de tejido de más en la uretra de un niño que bloquean la orina.',
   },
 };
