@@ -1,7 +1,7 @@
 // Hypospadias / epispadias chapter.
 import { t } from '../i18n.js';
 import { hypospadiasSide } from '../genital.js';
-import { segmented, toggle, animate, modelLayout, optionTabs, takeaways } from '../ui.js';
+import { segmented, toggle, animate, modelLayout, optionTabs, takeaways, stepPlayer } from '../ui.js';
 
 const T = (k) => t(`hypospadias.${k}`);
 const labels = () => T('labels');
@@ -71,20 +71,21 @@ const BUILD = {
     draw();
     return () => stop?.();
   },
+  // Step-by-step two-stage repair.
   staged(viz, ctl) {
-    const o = T('treatment.options.staged');
-    const s = { stage: 0, pee: true };
-    const STAGES = [
-      { opening: 0.95, hood: true, curve: 0.9 },
-      { opening: 0.95, curve: 0, graft: true },
-      { opening: 0, curve: 0 },
+    const base = { opening: 0.95, hood: false, curve: 0, plateCut: false, graft: false, graftHealed: false, stentOut: false, pee: false };
+    const states = [
+      { hood: true, curve: 0.9, pee: true },
+      { hood: true, plateCut: true },
+      { plateCut: true, graft: true },
+      { graft: true, graftHealed: true },
+      { opening: 0, graft: true, graftHealed: true },
+      { opening: 0, stentOut: true },
+      { opening: 0, pee: true },
     ];
-    const draw = () => (viz.innerHTML = view({ ...STAGES[s.stage], pee: s.pee }));
-    ctl.append(
-      segmented('', [[0, o.before], [1, o.stage1], [2, o.stage2]], 0, (v) => { s.stage = v; draw(); }),
-      toggle(o.pee, true, (v) => { s.pee = v; draw(); }),
-    );
-    draw();
+    const captions = T('treatment.options.staged.steps');
+    const steps = states.map((st, n) => ({ caption: captions[n], state: { ...base, ...st } }));
+    return stepPlayer(ctl, steps, (s) => (viz.innerHTML = view(s)), t('common.player'));
   },
   complications(viz, ctl) {
     const o = T('treatment.options.complications');

@@ -416,3 +416,6 @@ svg.anatomy .soil { fill: #8a6243; animation: drip 1.6s ease-in infinite; }
 .calc-weight-out { margin: 0; font-size: 1.05rem; }
 svg.anatomy .excised line { stroke: #c9b2ab; stroke-width: 10; stroke-linecap: round; opacity: 0.8; }
 svg.anatomy .incision { stroke: #b0405a; stroke-width: 4; stroke-linecap: round; stroke-dasharray: 2 0; }
+svg.anatomy .graft.healed { stroke: #e9a3a0; stroke-dasharray: none; }
+svg.anatomy .platecut { stroke: var(--warn); stroke-width: 6; stroke-linecap: round; }
+svg.anatomy .stent-out { fill: none; stroke: #3b82c4; stroke-width: 3; stroke-linecap: round; }

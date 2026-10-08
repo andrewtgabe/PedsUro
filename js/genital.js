@@ -385,7 +385,11 @@ const partialPath = (path, u) => {
 //   pee: stream; fistula: small leak hole after repair
 //   graft: foreskin tissue placed along the underside (first stage of a staged repair)
 //   text: { glans, shaft, opening, hood, scrotum, groove, fistula }
-export function hypospadiasSide({ opening = 0, top = false, groove = false, hood = false, full = false, curve = 0, pee = false, fistula = false, graft = false, text }) {
+//   staged repair: plateCut (urethral plate divided), graftHealed (graft has taken), stentOut (stent from the tip)
+export function hypospadiasSide({
+  opening = 0, top = false, groove = false, hood = false, full = false, curve = 0, pee = false, fistula = false, graft = false,
+  plateCut = false, graftHealed = false, stentOut = false, text,
+}) {
   const path = top ? TOPSIDE : UNDERSIDE;
   const [mx, my] = alongPath(path, opening);
   const angle = (top ? -1 : 1) * 30 * clamp(curve);
@@ -407,7 +411,9 @@ export function hypospadiasSide({ opening = 0, top = false, groove = false, hood
       <rect class="shaft" x="160" y="162" width="102" height="76" rx="14"/>
       <path class="glans" d="M255 160 C 332 160 348 185 348 200 C 348 215 332 240 255 240 Z" style="fill:#e99c9f"/>
       ${groove && !atTip ? `<path class="groove" d="${partialPath(path, opening)}"/>` : ''}
-      ${graft && !atTip ? `<path class="graft" d="${partialPath(path, opening)}"/>` : ''}
+      ${graft && !atTip ? `<path class="graft ${graftHealed ? 'healed' : ''}" d="${partialPath(path, opening)}"/>` : ''}
+      ${plateCut && !atTip ? (() => { const [cx, cy] = alongPath(path, opening * 0.55); return `<path class="platecut" d="M${f(cx - 6)} ${f(cy - 20)} L${f(cx + 6)} ${f(cy + 14)}"/>`; })() : ''}
+      ${stentOut ? `<path class="stent-out" d="M348 200 Q 390 204 430 222"/>` : ''}
       ${atTip ? `<path class="meatus" d="M346 194 L346 206"/>` : `<ellipse class="meatus-dot" cx="${f(mx)}" cy="${f(my)}" rx="7" ry="4"/>`}
       ${hood ? `<path class="foreskin" d="M150 162 L250 160 C 300 140 344 150 356 184 C 340 172 300 160 252 168 L150 170 Z"/>` : ''}
       ${full ? `<path class="foreskin" d="M150 162 L250 162 C 300 154 340 158 362 197 L 362 203 C 340 242 300 246 250 238 L150 238 Z"/>` : ''}
