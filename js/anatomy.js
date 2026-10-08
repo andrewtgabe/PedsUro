@@ -167,6 +167,8 @@ const stentPath = (pts) => {
 //   flow: '' | 'down' | 'slow' animated urine flow; stent: show a stent
 //   bactSpread: 0..1 bacteria moving up; scar: kidney scar
 //   kidney: { s, dy } scale and vertical shift (fetal kidney ascent)
+//   gap: 0..1 ureter cut away from the pelvis (pyeloplasty); excised: removed narrow piece shown aside
+//   stitches: new pelvis-to-ureter connection sewn
 //   ureterostomy: ureter brought out to the skin; inflamed: infected kidney; stone: { at: 'calyx' | 'pelvis' | 0..1 along ureter, size, fragments }
 function upperTract(o, g) {
   const pd = clamp(o.pelvisDilation ?? o.dilation ?? 0);
@@ -176,7 +178,9 @@ function upperTract(o, g) {
   const xf = ([x, y]) => [455 + (x - 455) * s, 125 + (y - 125) * s + dy];
 
   const cs = makeCS({ pc: [414, 128], tips: [[466, 74], [484, 126], [466, 178]], d: pd, blunt: o.blunt || 0, fill: o.pelvisFill, xf, scale: s });
-  const start = [cs.pc[0] - 2, cs.pc[1] + cs.pry - 6];
+  const joint = [cs.pc[0] - 2, cs.pc[1] + cs.pry - 6];
+  const gap = clamp(o.gap || 0);
+  const start = [joint[0] + 6 * gap, joint[1] + 34 * gap];
   // A ureterostomy brings the ureter out to the skin of the lower belly.
   const end = o.ureterostomy ? [520, 330] : g.entry;
   const pts = wavyLine(start, end, clamp(o.tort || 0));
@@ -201,6 +205,9 @@ function upperTract(o, g) {
     ${drawSystem([cs], [tube])}
     ${vessel}${mark}
     ${o.stent ? stentPath(pts) : ''}
+    ${gap > 0.05 ? `<path class="cutline" d="M${f(joint[0] - 9)} ${f(joint[1] + 2)} L${f(joint[0] + 9)} ${f(joint[1] + 2)} M${f(start[0] - 8)} ${f(start[1])} L${f(start[0] + 8)} ${f(start[1])}"/>` : ''}
+    ${o.excised ? `<g class="excised"><line x1="${f(joint[0] - 46)}" y1="${f(joint[1] + 4)}" x2="${f(joint[0] - 40)}" y2="${f(joint[1] + 30)}"/></g>` : ''}
+    ${o.stitches ? [-10, 0, 10].map((dx) => `<path class="stitch" d="M${f(joint[0] + dx - 4)} ${f(joint[1])} l8 8 m0 -8 l-8 8"/>`).join('') : ''}
     ${o.ureterostomy ? `<line class="skin" x1="530" y1="270" x2="530" y2="390"/><circle class="stoma" cx="528" cy="330" r="9"/>` : ''}
     ${o.stone ? stoneMarkup(o.stone, cs, pts) : ''}
     ${o.inflamed ? `<path class="inflamed" d="${KIDNEY_PATH}"/>` : ''}

@@ -1,7 +1,7 @@
 // Ureteropelvic junction (UPJ) obstruction chapter.
 import { t } from '../i18n.js';
 import { urinaryTract, kidneyCloseup, peristalsis } from '../anatomy.js';
-import { segmented, toggle, slider, animate, modelLayout, optionTabs, takeaways } from '../ui.js';
+import { segmented, toggle, slider, animate, modelLayout, optionTabs, takeaways, stepPlayer } from '../ui.js';
 
 const T = (k) => t(`upj.${k}`);
 const SEVERITY = [0.35, 0.65, 1];
@@ -68,36 +68,20 @@ const BUILD = {
     draw(0);
   },
 
+  // Step-by-step dismembered pyeloplasty.
   pyeloplasty(viz, ctl) {
-    const o = T('treatment.options.pyeloplasty');
-    const s = { k: 0, stent: false };
-    const draw = () =>
-      (viz.innerHTML = kidneyCloseup({
-        pelvisDilation: 0.75 - 0.45 * s.k,
-        pelvisFill: 1,
-        upj: s.k < 1,
-        narrowW: 3 + 5 * s.k,
-        mark: s.k === 0,
-        stent: s.stent && s.k === 1,
-      }));
-    let stop = null;
-    const stentNote = document.createElement('p');
-    stentNote.className = 'note';
-    ctl.append(
-      segmented('', [[0, o.before], [1, o.after]], 0, (v) => {
-        stop?.();
-        const from = s.k;
-        stop = animate(900, (k) => { s.k = from + (v - from) * k; draw(); });
-      }),
-      toggle(o.stent, false, (v) => {
-        s.stent = v;
-        stentNote.textContent = v ? o.stentText : '';
-        draw();
-      }),
-      stentNote,
-    );
-    draw();
-    return () => stop?.();
+    const base = { pelvisDilation: 0.75, pelvisFill: 1, upj: true, mark: false, gap: 0, excised: false, stitches: false, stent: false, flow: '' };
+    const states = [
+      {},
+      { mark: true },
+      { upj: false, gap: 1, excised: true, pelvisDilation: 0.45 },
+      { upj: false, gap: 0, excised: true, pelvisDilation: 0.45, stitches: true },
+      { upj: false, pelvisDilation: 0.45, stitches: true, stent: true },
+      { upj: false, pelvisDilation: 0.25, flow: 'down' },
+    ];
+    const captions = T('treatment.options.pyeloplasty.steps');
+    const steps = states.map((st, n) => ({ caption: captions[n], state: { ...base, ...st } }));
+    return stepPlayer(ctl, steps, (s) => (viz.innerHTML = kidneyCloseup(s)), t('common.player'));
   },
 };
 

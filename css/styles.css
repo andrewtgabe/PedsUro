@@ -414,3 +414,4 @@ svg.anatomy .soil { fill: #8a6243; animation: drip 1.6s ease-in infinite; }
 .calc-card { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; margin: 10px 0; background: var(--bg); }
 .calc-card h4 { margin: 0 0 6px; color: var(--accent); }
 .calc-weight-out { margin: 0; font-size: 1.05rem; }
+svg.anatomy .excised line { stroke: #c9b2ab; stroke-width: 10; stroke-linecap: round; opacity: 0.8; }

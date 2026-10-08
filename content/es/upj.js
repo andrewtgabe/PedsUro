@@ -63,10 +63,14 @@ export default {
         name: 'Cirugía de pieloplastia',
         summary:
           'El cirujano quita el tramo estrecho y cose la parte ancha del riñón al uréter sano. Si un vaso sanguíneo está apretando, el uréter se pasa por delante de él. Se puede hacer por una pequeña herida o con cirugía laparoscópica o robótica.',
-        before: 'Antes de la cirugía',
-        after: 'Después de la cirugía',
-        stent: 'Stent temporal',
-        stentText: 'Un stent es un tubo blando y delgado que mantiene abierta la nueva unión mientras sana. Por lo general se quita después de 4 a 6 semanas.',
+        steps: [
+          'Por una pequeña herida, o por pequeños puertos para cirugía laparoscópica o robótica, el cirujano llega al riñón.',
+          'Se encuentra el tramo estrecho donde el riñón se une al uréter.',
+          'Se corta el uréter justo debajo del tramo estrecho. Se quita el tramo estrecho, junto con parte de la pelvis del riñón que estaba estirada. Si un vaso sanguíneo estaba apretando, el uréter se pasa por delante de él.',
+          'El extremo del uréter sano se abre un poco para que la nueva unión quede ancha, y luego se cose a la parte de abajo de la pelvis del riñón.',
+          'Muchas veces se pone un stent (un tubo blando y delgado) a través de la nueva unión para mantenerla abierta mientras sana.',
+          'Al sanar, la orina drena libremente y la hinchazón baja con el tiempo. Por lo general el stent se quita después de 4 a 6 semanas.',
+        ],
         pros: ['Funciona muy bien, más de 9 de cada 10 veces', 'Quita el dolor y protege el riñón'],
         cons: ['Cirugía con anestesia general', 'Por lo general 1–2 días en el hospital', 'A veces necesita un stent o un drenaje por un tiempo corto'],
       },

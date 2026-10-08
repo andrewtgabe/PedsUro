@@ -63,10 +63,14 @@ export default {
         name: 'Pyeloplasty surgery',
         summary:
           'The surgeon removes the narrow piece and sews the wide part of the kidney to the healthy ureter. If a blood vessel is pressing, the ureter is moved in front of it. This can be done through a small cut or with a laparoscopic or robotic approach.',
-        before: 'Before surgery',
-        after: 'After surgery',
-        stent: 'Temporary stent',
-        stentText: 'A stent is a soft, thin tube that holds the new connection open while it heals. It is usually taken out after 4 to 6 weeks.',
+        steps: [
+          'Through a small cut, or small ports for laparoscopic or robotic surgery, the surgeon reaches the kidney.',
+          'The narrow piece where the kidney meets the ureter is found.',
+          'The ureter is cut just below the narrow piece. The narrow piece is removed, along with some of the stretched kidney pelvis. If a blood vessel was pressing, the ureter is moved in front of it.',
+          'The end of the healthy ureter is opened up a little so the new connection is wide, then sewn to the bottom of the kidney pelvis.',
+          'A stent (a soft, thin tube) is often placed across the new connection to hold it open while it heals.',
+          'As it heals, urine drains freely and the swelling goes down over time. The stent is usually taken out after 4 to 6 weeks.',
+        ],
         pros: ['Works very well, more than 9 out of 10 times', 'Relieves pain and protects the kidney'],
         cons: ['Surgery with general anesthesia', 'Usually 1–2 days in the hospital', 'Sometimes needs a stent or drain for a short time'],
       },
