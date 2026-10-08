@@ -55,7 +55,7 @@ export default {
           'Before: thin flaps of tissue (the valves) partly block the urethra. The bladder has to squeeze hard, and the urine stream is weak.',
           'With the baby fully asleep, a tiny camera is gently passed into the urethra through the tip of the penis. There is no cut on the skin.',
           'The camera is moved up until the surgeon can see the valve flaps blocking the way.',
-          'A very small cutting tool, often using a tiny electric current or laser, cuts the flaps at a few spots.',
+          'A tiny blade (often a small hooked knife) cuts the flaps at a few spots. Sometimes a small electric current or a laser is used instead.',
           'The cut flaps fall open, so the urethra is no longer blocked.',
           'The camera is removed. A small catheter may drain the bladder for a short time, and many babies go home within a day or two.',
           'Urine now flows out in a stronger stream. Check-ups and imaging make sure the valves are fully open; some boys need a second look later.',
