@@ -157,7 +157,7 @@ export default {
           'Se hace un túnel nuevo y más largo debajo del revestimiento de la vejiga, muchas veces hacia el otro lado de la vejiga.',
           'El uréter se pasa por el túnel, y su abertura se cose en su nuevo lugar.',
           'Cuando la vejiga aprieta, el túnel largo se cierra, así que la orina ya no regresa.',
-          'Una sonda drena la vejiga por unos días. Los espasmos de la vejiga son comunes por un tiempo corto, y por lo general los niños se quedan unos días en el hospital.',
+          'Una sonda por lo general drena la vejiga por alrededor de un día. Los espasmos de la vejiga son comunes por un tiempo corto, y la mayoría de los niños se van a casa en 1–2 días.',
         ],
         pros: ['La tasa de éxito más alta', 'Funciona en grados altos'],
         cons: ['Cirugía con anestesia general', 'Muchas veces una estancia corta en el hospital', 'Espasmos de la vejiga por un tiempo corto después'],

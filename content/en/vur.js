@@ -157,7 +157,7 @@ export default {
           'A new, longer tunnel is made under the bladder lining, often across to the other side of the bladder.',
           'The ureter is passed through the tunnel, and its opening is stitched in its new spot.',
           'When the bladder squeezes, the long tunnel is pressed shut, so urine no longer flows back up.',
-          'A catheter drains the bladder for a few days. Bladder spasms are common for a short time, and children usually stay in the hospital for a few days.',
+          'A catheter usually drains the bladder for about a day. Bladder spasms are common for a short time, and most children go home in 1–2 days.',
         ],
         pros: ['Highest success rate', 'Works for high grades'],
         cons: ['Surgery with general anesthesia', 'Often a short hospital stay', 'Bladder spasms for a short time after'],
