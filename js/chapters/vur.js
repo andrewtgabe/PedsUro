@@ -1,7 +1,7 @@
 // Vesicoureteral reflux chapter.
 import { t } from '../i18n.js';
 import { urinaryTract, uvjSection, clamp } from '../anatomy.js';
-import { segmented, toggle, animate, optionTabs, takeaways } from '../ui.js';
+import { segmented, toggle, animate, optionTabs, takeaways, stepPlayer } from '../ui.js';
 
 const T = (k) => t(`vur.${k}`);
 
@@ -280,20 +280,41 @@ const OPTIONS = {
     draw();
   },
 
+  // Step-by-step reimplant, from outside (extravesical) or inside (intravesical) the bladder.
   reimplant(viz, ctl) {
-    const s = { squeeze: false, tunnel: 0.25 };
     const o = T('treatment.options.reimplant');
-    const draw = () => (viz.innerHTML = uvjSection({ ...s, text: uvjText() }));
+    const base = { tunnel: 0.25, squeeze: false, muscleCut: 0, trough: false, stitches: false, spot: false };
+    const STATES = {
+      extra: [
+        { spot: true },
+        { muscleCut: 1 },
+        { muscleCut: 1, tunnel: 0.95 },
+        { tunnel: 0.95, stitches: true },
+        { tunnel: 0.95, stitches: true, squeeze: true },
+        { tunnel: 0.95 },
+      ],
+      intra: [
+        {},
+        { spot: true },
+        { trough: true },
+        { tunnel: 0.95, stitches: true },
+        { tunnel: 0.95, squeeze: true },
+        { tunnel: 0.95 },
+      ],
+    };
+    const holder = document.createElement('div');
+    holder.className = 'controls';
     let stop = null;
-    ctl.append(
-      segmented('', [[0.25, o.before], [0.95, o.after]], 0.25, (v) => {
-        stop?.();
-        const from = s.tunnel;
-        stop = animate(900, (k) => { s.tunnel = from + (v - from) * k; draw(); });
-      }),
-      squeezeButton(s, draw),
-    );
-    draw();
+    const build = (approach) => {
+      stop?.();
+      holder.innerHTML = '';
+      const captions = o[`${approach}Steps`];
+      const steps = STATES[approach].map((st, n) => ({ caption: captions[n], state: { ...base, ...st } }));
+      stop = stepPlayer(holder, steps, (s) => (viz.innerHTML = uvjSection({ ...s, text: uvjText() })), t('common.player'));
+    };
+    ctl.append(segmented(o.approachLabel, Object.entries(o.approaches), 'extra', build), holder);
+    build('extra');
+    return () => stop?.();
   },
 };
 

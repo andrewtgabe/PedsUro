@@ -382,7 +382,12 @@ export function uvjRefluxes({ tunnel, squeeze, pressure = 0.6, deflux = 0 }) {
 
 //   tunnel: 0..1 length of the submucosal tunnel
 //   squeeze: bladder contracting; pressure: 0..1; deflux: 0..1 mound size
-export function uvjSection({ tunnel = 0.6, squeeze = false, pressure = 0.6, deflux = 0, text }) {
+//   reimplant steps: muscleCut 0..1 (bladder muscle opened, extravesical), trough (new tunnel path
+//   under the lining), stitches (closed over the ureter), spot (highlight where the ureter enters)
+export function uvjSection({
+  tunnel = 0.6, squeeze = false, pressure = 0.6, deflux = 0,
+  muscleCut = 0, trough = false, stitches = false, spot = false, text,
+}) {
   const L = 40 + 150 * clamp(tunnel);
   const refluxing = uvjRefluxes({ tunnel, squeeze, pressure, deflux });
   const closed = squeeze && !refluxing;
@@ -414,12 +419,16 @@ export function uvjSection({ tunnel = 0.6, squeeze = false, pressure = 0.6, defl
     <rect class="muscle" x="170" y="0" width="66" height="330"/>
     <rect class="submucosa" x="236" y="0" width="40" height="330"/>
     <line class="mucosa" x1="276" y1="0" x2="276" y2="330"/>
+    ${muscleCut > 0.02 ? `<rect class="muscle-cut" x="184" y="88" width="38" height="${f(200 * clamp(muscleCut))}" rx="6"/>` : ''}
+    ${trough ? `<rect class="trough" x="240" y="96" width="32" height="196" rx="8"/>` : ''}
     <path class="uvj-wall" d="${outer}"/>
     <path class="uvj-wall" d="${inner}"/>
     <path class="${lumen}" d="${outer}" stroke-width="12"/>
     <path class="${lumen}" d="${inner}" stroke-width="${tunnelW}"/>
     <path class="flow ${refluxing ? 'up' : squeeze ? 'still' : 'down'}" d="${outer} ${inner.replace('M236 92', 'L236 92')}"/>
     ${mound}
+    ${stitches ? [120, 160, 200, 240, 280].map((y) => `<path class="stitch" d="M197 ${y - 6} l12 12 m0 -12 l-12 12"/>`).join('') : ''}
+    ${spot ? `<circle class="spot" cx="236" cy="92" r="26"/>` : ''}
     ${arrows}
     <line class="bracket" x1="318" y1="104" x2="318" y2="${f(100 + L)}"/>
     <line class="bracket" x1="312" y1="104" x2="324" y2="104"/>
