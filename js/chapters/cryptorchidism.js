@@ -55,19 +55,21 @@ function renderPathology(root) {
 // ---------- 3. Treatment ----------
 
 // Before/after toggle that moves the testicle from `from` into the scrotum.
-function bringDown(viz, ctl, o, start) {
-  let pos = start;
-  let stop = null;
-  const draw = () => (viz.innerHTML = descent({ pos, stitched: pos >= 0.999, text: labels() }));
-  ctl.append(
-    segmented('', [[start, o.before], [1, o.after]], start, (v) => {
-      stop?.();
-      const from = pos;
-      stop = animate(1400, (k) => { pos = from + (v - from) * k; draw(); });
-    }),
-  );
-  draw();
-  return () => stop?.();
+// Step-by-step inguinal orchiopexy.
+const ORCHIOPEXY = [
+  { incision: true },
+  { incision: true, spot: true },
+  { incision: true, sacTied: true },
+  { incision: true, sacTied: true, pos: DESCENT_STOPS.high, grasper: true },
+  { incision: true, sacTied: true, scrotalCut: true, pos: 1, grasper: true },
+  { incision: true, sacTied: true, scrotalCut: true, pos: 1, stitched: true, skinStitches: true },
+];
+
+function orchiopexySteps(viz, ctl) {
+  const base = { pos: DESCENT_STOPS.canal, incision: false, spot: false, sacTied: false, grasper: false, scrotalCut: false, stitched: false, skinStitches: false };
+  const captions = T('treatment.options.orchiopexy.steps');
+  const steps = ORCHIOPEXY.map((st, n) => ({ caption: captions[n], state: { ...base, ...st } }));
+  return stepPlayer(ctl, steps, (s) => (viz.innerHTML = descent({ ...s, text: labels() })), t('common.player'));
 }
 
 const ABD = DESCENT_STOPS.abdomen;
@@ -105,7 +107,7 @@ const BUILD = {
     ctl.append(slider(o.control, { min: 0, max: 6, step: 1, value: 0, format: (v) => `${v} ${o.months}` }, draw));
     draw(0);
   },
-  orchiopexy: (viz, ctl) => bringDown(viz, ctl, T('treatment.options.orchiopexy'), DESCENT_STOPS.canal),
+  orchiopexy: orchiopexySteps,
   // Step-through animations of the two Fowler-Stephens approaches.
   fsOne: (viz, ctl) => fowlerStephens(viz, ctl, 'fsOne', FS_ONE),
   fsTwo: (viz, ctl) => fowlerStephens(viz, ctl, 'fsTwo', FS_TWO),

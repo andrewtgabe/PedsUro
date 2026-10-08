@@ -15,7 +15,7 @@ export default {
     stopTitle: '¿Dónde se puede quedar un testículo?',
     stopText:
       'Un testículo se puede quedar en cualquier parte del camino. La mayoría de los testículos no descendidos están en la ingle y se pueden sentir. Alrededor de 1 de cada 5 no se pueden sentir porque están dentro de la barriga o no existen.',
-    labels: { kidney: 'Riñón', ring: 'Abertura interna', canal: 'Canal de la ingle', scrotum: 'Escroto', muscle: 'El músculo lo sube', guide: 'Guía', clip: 'Vasos con grapa', collateral: 'Riego de sangre de respaldo', camera: 'Cámara' },
+    labels: { kidney: 'Riñón', ring: 'Abertura interna', canal: 'Canal de la ingle', scrotum: 'Escroto', muscle: 'El músculo lo sube', guide: 'Guía', clip: 'Vasos con grapa', collateral: 'Riego de sangre de respaldo', camera: 'Cámara', sacTie: 'Bolsa amarrada' },
   },
 
   pathology: {
@@ -56,8 +56,14 @@ export default {
         name: 'Orquidopexia',
         summary:
           'Por una pequeña herida en la ingle o en el escroto, el cirujano libera el testículo, cierra cualquier bolsa de hernia y baja el testículo a un pequeño bolsillo en el escroto. Un punto lo mantiene ahí.',
-        before: 'Antes',
-        after: 'Después de la cirugía',
+        steps: [
+          'Se hace una pequeña herida en el pliegue de la piel de la ingle.',
+          'Se encuentra el testículo en el canal de la ingle y se libera del tejido que lo sujeta ahí.',
+          'La mayoría de los testículos no descendidos tienen una bolsa abierta (saco de hernia) junto al cordón. Se separa del cordón y se amarra muy arriba.',
+          'Los vasos sanguíneos y el conducto deferente se liberan con cuidado para que haya suficiente largo para llegar al escroto.',
+          'Se hace una segunda herida pequeña en el escroto para hacer un bolsillo debajo de la piel, y se baja el testículo hasta ahí.',
+          'El testículo se cose en su lugar en el bolsillo, y las dos heridas se cierran con puntos que se disuelven. La mayoría de los niños se van a casa el mismo día.',
+        ],
         pros: ['Pone el testículo donde puede funcionar y revisarse', 'Por lo general se va a casa el mismo día', 'Funciona muy bien, más de 9 de cada 10 veces'],
         cons: ['Anestesia general', 'Rara vez el testículo vuelve a subir o se hace más pequeño'],
       },

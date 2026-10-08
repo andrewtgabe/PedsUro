@@ -94,10 +94,12 @@ function along(pos) {
 //   clipped: testicular vessels clipped (Fowler-Stephens); divided: clipped vessels cut
 //   collateral: 0..1 strength of the backup blood supply along the vas
 //   scope: laparoscope and ports; spot: highlight the testicle; grasper: instrument pulling it down
+//   orchiopexy steps: incision (groin cut), scrotalCut, sacTied (hernia sac tied at the ring), skinStitches
 //   text: { kidney, ring, canal, scrotum, muscle, guide }
 export function descent({
   pos = 1, retractile = false, stitched = false, gubernaculum = false,
-  clipped = false, divided = false, collateral = clipped ? 1 : 0, scope = false, spot = false, grasper = false, text,
+  clipped = false, divided = false, collateral = clipped ? 1 : 0, scope = false, spot = false, grasper = false,
+  incision = false, scrotalCut = false, sacTied = false, skinStitches = false, text,
 }) {
   const [x, y] = along(pos);
   const vessels = `M150 70 C 128 120 ${f(x)} ${f(Math.max(150, y - 120))} ${f(x)} ${f(y - 20)}`;
@@ -124,6 +126,10 @@ export function descent({
     ${retractile ? `<path class="pull" d="M${f(x - 30)} ${f(y + 10)} L${f(x - 30)} ${f(y - 40)} M${f(x - 38)} ${f(y - 30)} L${f(x - 30)} ${f(y - 42)} L${f(x - 22)} ${f(y - 30)}"/><text class="lbl small" x="${f(x - 38)}" y="${f(y + 30)}" text-anchor="end">${text.muscle}</text>` : ''}
     ${stitched ? `<path class="stitch" d="M${f(x - 7)} ${f(y + 20)} l14 14 m0 -14 l-14 14"/>` : ''}
     ${spot ? `<circle class="spot" cx="${f(x)}" cy="${f(y)}" r="30"/>` : ''}
+    ${incision ? `<path class="incision" d="M120 300 L180 286"/>` : ''}
+    ${scrotalCut ? `<path class="incision" d="M164 400 L192 404"/>` : ''}
+    ${sacTied ? `<path class="tie" d="M110 244 L134 252 M108 252 L132 260"/><text class="lbl small" x="96" y="274" text-anchor="end">${text.sacTie}</text>` : ''}
+    ${skinStitches ? [128, 146, 164].map((sx) => `<path class="stitch" d="M${sx - 4} ${f(296 - (sx - 120) * 0.23)} l8 8 m0 -8 l-8 8"/>`).join('') + `<path class="stitch" d="M174 398 l8 8 m0 -8 l-8 8"/>` : ''}
     ${grasper ? `<line class="grasper" x1="252" y1="214" x2="${f(x + 10)}" y2="${f(y - 6)}"/>` : ''}
     ${scope ? `<g class="scope"><line x1="200" y1="190" x2="${f(x + 14)}" y2="${f(y - 18)}"/><circle cx="200" cy="190" r="7"/><circle cx="150" cy="214" r="5"/><circle cx="252" cy="214" r="5"/><text class="lbl small" x="212" y="186">${text.camera}</text></g>` : ''}
     <text class="lbl small" x="100" y="140" text-anchor="middle">${text.kidney}</text>

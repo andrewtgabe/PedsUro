@@ -15,7 +15,7 @@ export default {
     stopTitle: 'Where can a testicle stop?',
     stopText:
       'A testicle can stop anywhere along the path. Most undescended testicles are in the groin and can be felt. About 1 in 5 cannot be felt because they are inside the belly or missing.',
-    labels: { kidney: 'Kidney', ring: 'Inside opening', canal: 'Groin canal', scrotum: 'Scrotum', muscle: 'Muscle pulls up', guide: 'Guide', clip: 'Vessels clipped', collateral: 'Backup blood supply', camera: 'Camera' },
+    labels: { kidney: 'Kidney', ring: 'Inside opening', canal: 'Groin canal', scrotum: 'Scrotum', muscle: 'Muscle pulls up', guide: 'Guide', clip: 'Vessels clipped', collateral: 'Backup blood supply', camera: 'Camera', sacTie: 'Sac tied' },
   },
 
   pathology: {
@@ -56,8 +56,14 @@ export default {
         name: 'Orchiopexy',
         summary:
           'Through a small cut in the groin or scrotum, the surgeon frees the testicle, closes any hernia sac, and brings the testicle down into a small pocket in the scrotum. A stitch keeps it there.',
-        before: 'Before',
-        after: 'After surgery',
+        steps: [
+          'A small cut is made in the skin crease of the groin.',
+          'The testicle is found in the groin canal and freed from the tissue holding it there.',
+          'Most undescended testicles have an open pouch (hernia sac) next to the cord. It is separated from the cord and tied off high up.',
+          'The blood vessels and the vas deferens are gently freed so there is enough length to reach the scrotum.',
+          'A second small cut is made in the scrotum to make a pocket under the skin, and the testicle is brought down into it.',
+          'The testicle is stitched in place in the pocket, and both cuts are closed with dissolving stitches. Most children go home the same day.',
+        ],
         pros: ['Puts the testicle where it can work and be checked', 'Usually home the same day', 'Works very well, more than 9 out of 10 times'],
         cons: ['General anesthesia', 'Rarely the testicle moves back up or shrinks'],
       },
