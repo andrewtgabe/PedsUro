@@ -11,6 +11,7 @@ export default {
     groove: 'Surco abierto',
     fistula: 'Pequeña fuga',
     graft: 'Tejido del prepucio',
+    tape: 'Cinta de silicona',
   },
 
   embryology: {
@@ -67,11 +68,13 @@ export default {
           'Los orificios más atrás, y los casos con más curvatura, por lo general se corrigen en dos cirugías. En la primera, la tira de tejido de la parte de abajo (la placa uretral) se corta de lado a lado para poder enderezar el pene por completo, y se pasa tejido del prepucio a la parte de abajo, ya sea todavía unido a su riego de sangre (un colgajo) o como un injerto. En la segunda cirugía, por lo general unos 6 meses después, ese tejido se enrolla para hacer una uretra nueva hasta la punta.',
         steps: [
           'Antes: el orificio está cerca del escroto, el pene se dobla hacia abajo y el prepucio queda como una capucha arriba.',
-          'Etapa 1: la tira de tejido de la parte de abajo (la placa uretral) se corta de lado a lado, y así el pene se puede enderezar por completo.',
-          'Se pasa tejido del prepucio a la parte de abajo, ya sea todavía unido a su riego de sangre (un colgajo) o como un injerto. Se convertirá en el revestimiento de la uretra nueva.',
+          'Etapa 1: la tira de tejido de la parte de abajo (la placa uretral) se corta de lado a lado, y así el pene se puede enderezar.',
+          'Si todavía queda una curvatura, se hacen pequeños cortes de liberación (corporotomías) en la cubierta firme de las cámaras de la erección para que el pene quede derecho.',
+          'Se pasa tejido del prepucio a la parte de abajo, ya sea todavía unido a su riego de sangre (un colgajo) o como un injerto. Se convertirá en el revestimiento de la uretra nueva. Todo el prepucio que queda se deja en su lugar después de esta primera cirugía.',
+          'En casa, el pene se pega hacia arriba contra la parte baja de la barriga con cinta de silicona todos los días hasta la segunda cirugía. Esto ayuda a que el tejido nuevo sane bien y baja la probabilidad de que la curvatura regrese.',
           'Durante unos 6 meses, el tejido que se movió sana y se convierte en un revestimiento sano y elástico.',
           'Etapa 2: el tejido sano se enrolla en forma de tubo para hacer una uretra nueva hasta la punta del pene.',
-          'Se cierra la piel sobre la uretra nueva. Un tubito (stent) drena la orina al pañal por alrededor de una semana.',
+          'La piel, incluyendo el prepucio que se guardó en la primera cirugía, se reacomoda para cubrir la uretra nueva. Un tubito (stent) drena la orina al pañal por alrededor de una semana.',
           'Resultado: un pene derecho con el orificio en la punta y un chorro derecho.',
         ],
         pros: ['Endereza por completo una curvatura mayor', 'Construye una uretra nueva más larga con tejido sano'],

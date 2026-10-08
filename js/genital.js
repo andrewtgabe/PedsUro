@@ -385,10 +385,11 @@ const partialPath = (path, u) => {
 //   pee: stream; fistula: small leak hole after repair
 //   graft: foreskin tissue placed along the underside (first stage of a staged repair)
 //   text: { glans, shaft, opening, hood, scrotum, groove, fistula }
-//   staged repair: plateCut (urethral plate divided), graftHealed (graft has taken), stentOut (stent from the tip)
+//   staged repair: plateCut (urethral plate divided), corpCuts (corporotomies), graftHealed (graft has taken),
+//   taped (penis taped up to the lower belly with silicone tape), stentOut (stent from the tip)
 export function hypospadiasSide({
   opening = 0, top = false, groove = false, hood = false, full = false, curve = 0, pee = false, fistula = false, graft = false,
-  plateCut = false, graftHealed = false, stentOut = false, text,
+  plateCut = false, corpCuts = false, graftHealed = false, taped = false, stentOut = false, text,
 }) {
   const path = top ? TOPSIDE : UNDERSIDE;
   const [mx, my] = alongPath(path, opening);
@@ -406,6 +407,7 @@ export function hypospadiasSide({
   return `<svg class="anatomy genital penis" viewBox="0 100 440 240" role="img" aria-label="${text.opening}">
     <ellipse class="scrotum" cx="82" cy="292" rx="62" ry="46"/>
     <rect class="body-wall" x="0" y="80" width="64" height="200"/>
+    <g transform="rotate(${taped ? -18 : 0} 60 200)">
     <rect class="shaft" x="56" y="162" width="140" height="76" rx="14"/>
     <g transform="rotate(${f(angle)} 180 ${top ? 160 : 240})">
       <rect class="shaft" x="160" y="162" width="102" height="76" rx="14"/>
@@ -418,8 +420,12 @@ export function hypospadiasSide({
       ${hood ? `<path class="foreskin" d="M150 162 L250 160 C 300 140 344 150 356 184 C 340 172 300 160 252 168 L150 170 Z"/>` : ''}
       ${full ? `<path class="foreskin" d="M150 162 L250 162 C 300 154 340 158 362 197 L 362 203 C 340 242 300 246 250 238 L150 238 Z"/>` : ''}
       ${fistula ? `<circle class="meatus-dot" cx="200" cy="240" r="3"/>` : ''}
+      ${corpCuts ? `<path class="corpcut" d="M196 230 l7 14 M218 230 l7 14 M240 230 l7 14"/>` : ''}
       ${stream}
     </g>
+    ${taped ? `<rect class="tape" x="40" y="168" width="110" height="64" rx="8"/>` : ''}
+    </g>
+    ${taped ? `<text class="lbl small" x="150" y="290">${text.tape}</text>` : ''}
     <text class="lbl small" x="150" y="${top ? 260 : 142}" text-anchor="middle">${text.shaft}</text>
     <text class="lbl small" x="300" y="${top ? 268 : 132}" text-anchor="middle">${hood ? text.hood : text.glans}</text>
     ${atTip ? '' : `<text class="lbl small accent-text" x="${f(mx)}" y="${top ? 146 : f(Math.min(330, my + 34 + 40 * curve))}" text-anchor="middle">${text.opening}</text>`}

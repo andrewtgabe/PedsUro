@@ -419,3 +419,5 @@ svg.anatomy .incision { stroke: #b0405a; stroke-width: 4; stroke-linecap: round;
 svg.anatomy .graft.healed { stroke: #e9a3a0; stroke-dasharray: none; }
 svg.anatomy .platecut { stroke: var(--warn); stroke-width: 6; stroke-linecap: round; }
 svg.anatomy .stent-out { fill: none; stroke: #3b82c4; stroke-width: 3; stroke-linecap: round; }
+svg.anatomy .corpcut { stroke: #1f4f8a; stroke-width: 4; stroke-linecap: round; }
+svg.anatomy .tape { fill: rgb(200 220 240 / 0.7); stroke: #8aa6c8; stroke-width: 2; }

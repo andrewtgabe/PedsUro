@@ -11,6 +11,7 @@ export default {
     groove: 'Open groove',
     fistula: 'Small leak',
     graft: 'Foreskin tissue',
+    tape: 'Silicone tape',
   },
 
   embryology: {
@@ -67,11 +68,13 @@ export default {
           'Openings farther back, and cases with more bend, are usually fixed in two surgeries. In the first, the strip of tissue on the underside (the urethral plate) is cut across so the penis can be fully straightened, and foreskin tissue is moved to the underside, either still attached to its blood supply (a flap) or as a graft. In the second surgery, usually about 6 months later, that tissue is rolled into a new urethra out to the tip.',
         steps: [
           'Before: the opening is near the scrotum, the penis bends downward, and the foreskin sits like a hood on top.',
-          'Stage 1: the strip of tissue on the underside (the urethral plate) is cut across, letting the penis straighten fully.',
-          'Foreskin tissue is moved to the underside, either still attached to its blood supply (a flap) or as a graft. It will become the lining of the new urethra.',
+          'Stage 1: the strip of tissue on the underside (the urethral plate) is cut across, letting the penis straighten.',
+          'If a bend remains, small releasing cuts (corporotomies) are made in the tough covering of the erection chambers so the penis lies straight.',
+          'Foreskin tissue is moved to the underside, either still attached to its blood supply (a flap) or as a graft. It will become the lining of the new urethra. All of the remaining foreskin is left in place after this first surgery.',
+          'At home, the penis is taped up against the lower belly with silicone tape every day until the second surgery. This helps the new tissue heal well and lowers the chance the bend comes back.',
           'Over about 6 months, the moved tissue heals and becomes healthy, stretchy lining.',
           'Stage 2: the healed tissue is rolled into a tube to make a new urethra out to the tip of the penis.',
-          'The skin is closed over the new urethra. A small tube (stent) drains urine into the diaper for about a week.',
+          'The skin, including the foreskin saved from the first surgery, is refashioned to cover the new urethra. A small tube (stent) drains urine into the diaper for about a week.',
           'Result: a straight penis with the opening at the tip and a straight stream.',
         ],
         pros: ['Fully straightens a bigger bend', 'Builds a longer new urethra with healthy tissue'],

@@ -73,13 +73,15 @@ const BUILD = {
   },
   // Step-by-step two-stage repair.
   staged(viz, ctl) {
-    const base = { opening: 0.95, hood: false, curve: 0, plateCut: false, graft: false, graftHealed: false, stentOut: false, pee: false };
+    const base = { opening: 0.95, hood: false, curve: 0, plateCut: false, corpCuts: false, graft: false, graftHealed: false, taped: false, stentOut: false, pee: false };
     const states = [
       { hood: true, curve: 0.9, pee: true },
-      { hood: true, plateCut: true },
-      { plateCut: true, graft: true },
-      { graft: true, graftHealed: true },
-      { opening: 0, graft: true, graftHealed: true },
+      { hood: true, plateCut: true, curve: 0.45 },
+      { hood: true, plateCut: true, corpCuts: true },
+      { hood: true, graft: true },
+      { hood: true, graft: true, taped: true },
+      { hood: true, graft: true, graftHealed: true },
+      { hood: true, opening: 0, graft: true, graftHealed: true },
       { opening: 0, stentOut: true },
       { opening: 0, pee: true },
     ];
