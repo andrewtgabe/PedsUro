@@ -39,8 +39,13 @@ export default {
         name: 'Open hernia repair',
         summary:
           'Through a small cut in the groin crease, the surgeon finds the open pouch and ties it off at the top so nothing can slide down again. This is the approach pediatric urologists use most often.',
-        before: 'Before',
-        after: 'After surgery',
+        steps: [
+          'A small cut is made in the skin crease of the groin.',
+          'Under the muscle layer, the surgeon finds the open pouch next to the spermatic cord.',
+          'Any intestine in the pouch is gently pushed back into the belly.',
+          'The pouch is carefully separated from the cord, then tied off high up, right at the opening from the belly.',
+          'The extra pouch is removed, and the layers and skin are closed with dissolving stitches. Most children go home the same day.',
+        ],
         pros: ['Fixes it for good', 'Usually home the same day', 'Small scar in the skin crease'],
         cons: ['General anesthesia', 'Rarely comes back (about 1 in 100)', 'Babies born early may need to stay overnight to watch their breathing'],
       },
@@ -48,8 +53,13 @@ export default {
         name: 'Laparoscopic repair',
         summary:
           'Another option: a small camera through the belly button lets the surgeon close the opening from the inside. The surgeon can also check the other side and close it if it is open.',
-        before: 'Before',
-        after: 'After surgery',
+        steps: [
+          'A small camera goes in through the belly button, with one or two tiny tools.',
+          'From inside the belly, the surgeon sees the open ring at the top of the pouch.',
+          'Any intestine in the pouch is gently eased back into the belly.',
+          'A stitch is placed around the opening and tied, closing it from the inside.',
+          'The other side is checked and closed too if it is open. The tiny cuts are closed with glue or a stitch.',
+        ],
         pros: ['Can check and fix both sides', 'Very small cuts'],
         cons: ['General anesthesia', 'Not used for every child'],
       },

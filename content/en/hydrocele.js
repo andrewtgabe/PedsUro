@@ -11,6 +11,7 @@ export default {
     ring: 'Opening from belly',
     stuck: 'Stuck!',
     tie: 'Tied off',
+    camera: 'Camera',
   },
 
   embryology: {

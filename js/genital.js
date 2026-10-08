@@ -155,8 +155,13 @@ const pouchPath = (to = 1) => {
 //   stuck: intestine trapped (incarcerated); light: flashlight held behind scrotum
 //   tied: pouch tied off at the top (surgery)
 //   text: { pouch, fluid, bowel, testicle, ring, stuck, tie }
-export function sacView({ opening = 'closed', fluid = 0, bowel = 0, stuck = false, light = false, tied = false, text }) {
-  const open = opening !== 'closed' && !tied;
+//   surgery steps: incision (groin skin cut), skinStitches, spot: 'ring' | 'pouch' highlight,
+//   scope (laparoscope through the belly button), keepPouch (pouch still shown after tying)
+export function sacView({
+  opening = 'closed', fluid = 0, bowel = 0, stuck = false, light = false, tied = false,
+  incision = false, skinStitches = false, spot = '', scope = false, keepPouch = false, text,
+}) {
+  const open = opening !== 'closed' && (!tied || keepPouch);
   const width = opening === 'wide' ? 34 : opening === 'thin' ? 9 : 2;
   const sacRx = 30 + 42 * fluid;
   const sacRy = 36 + 40 * fluid;
@@ -182,6 +187,11 @@ export function sacView({ opening = 'closed', fluid = 0, bowel = 0, stuck = fals
     <ellipse class="testis" cx="205" cy="${f(424 + 4 * fluid)}" rx="16" ry="22"/>
     ${light ? `<ellipse class="glow ${bowel > 0.5 ? 'dark' : ''}" cx="205" cy="${f(sacCy)}" rx="${f(sacRx + 6)}" ry="${f(sacRy + 6)}"/>` : ''}
     ${tied ? `<path class="tie" d="M136 222 L164 222 M136 230 L164 230"/><text class="lbl small" x="170" y="218">${text.tie}</text>` : ''}
+    ${spot === 'ring' ? `<circle class="spot" cx="150" cy="226" r="24"/>` : ''}
+    ${spot === 'pouch' ? `<ellipse class="spot" cx="180" cy="282" rx="34" ry="56" transform="rotate(-30 180 282)"/>` : ''}
+    ${incision ? `<path class="incision" d="M118 300 L188 288"/>` : ''}
+    ${skinStitches ? [128, 146, 164, 180].map((x) => `<path class="stitch" d="M${x - 4} ${f(298 - (x - 118) * 0.17)} l8 8 m0 -8 l-8 8"/>`).join('') : ''}
+    ${scope ? `<g class="scope"><line x1="200" y1="70" x2="158" y2="214"/><circle cx="200" cy="70" r="7"/><circle cx="150" cy="96" r="5"/><circle cx="252" cy="96" r="5"/><text class="lbl small" x="212" y="66">${text.camera}</text></g>` : ''}
     <text class="lbl small" x="128" y="236" text-anchor="end">${text.ring}</text>
     ${fluid > 0.15 ? `<text class="lbl small" x="${f(205 + sacRx + 8)}" y="${f(sacCy - 10)}">${text.fluid}</text>` : ''}
     ${bowel > 0 && open ? `<text class="lbl small ${stuck ? 'accent-text' : ''}" x="${f(bowelEnd[0] + 26)}" y="${f(bowelEnd[1] + 4)}">${stuck ? text.stuck : text.bowel}</text>` : ''}

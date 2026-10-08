@@ -1,7 +1,7 @@
 // Inguinal hernia chapter.
 import { t } from '../i18n.js';
 import { sacView } from '../genital.js';
-import { segmented, toggle, button, animate, modelLayout, optionTabs, takeaways } from '../ui.js';
+import { segmented, toggle, button, animate, modelLayout, optionTabs, takeaways, stepPlayer } from '../ui.js';
 import { renderPouchEmbryology, sacLabels } from './hydrocele.js';
 
 const T = (k) => t(`hernia.${k}`);
@@ -28,17 +28,27 @@ function renderPathology(root) {
 
 // ---------- 3. Treatment ----------
 
-function repair(viz, ctl, o) {
-  let k = 0;
-  let stop = null;
-  const draw = () => (viz.innerHTML = sacView({ opening: 'wide', bowel: 0.8 * (1 - Math.min(1, k * 2)), tied: k > 0.6, text: sacLabels() }));
-  ctl.append(segmented('', [[0, o.before], [1, o.after]], 0, (v) => {
-    stop?.();
-    const from = k;
-    stop = animate(1200, (e) => { k = from + (v - from) * e; draw(); });
-  }));
-  draw();
-  return () => stop?.();
+// Step-by-step hernia repairs. Each state is drawn with the pouch drawing.
+const REPAIR_BASE = { opening: 'wide', bowel: 0.8, tied: false, keepPouch: false, incision: false, skinStitches: false, spot: '', scope: false };
+const OPEN_STEPS = [
+  { incision: true },
+  { incision: true, spot: 'pouch' },
+  { incision: true, spot: 'pouch', bowel: 0 },
+  { incision: true, bowel: 0, tied: true, keepPouch: true, spot: 'ring' },
+  { incision: true, bowel: 0, tied: true, skinStitches: true },
+];
+const LAP_STEPS = [
+  { scope: true },
+  { scope: true, spot: 'ring' },
+  { scope: true, spot: 'ring', bowel: 0 },
+  { scope: true, bowel: 0, tied: true },
+  { bowel: 0, tied: true },
+];
+
+function repairSteps(viz, ctl, key, states) {
+  const captions = T(`treatment.options.${key}.steps`);
+  const steps = states.map((st, n) => ({ caption: captions[n], state: { ...REPAIR_BASE, ...st } }));
+  return stepPlayer(ctl, steps, (s) => (viz.innerHTML = sacView({ ...s, text: sacLabels() })), t('common.player'));
 }
 
 const BUILD = {
@@ -53,8 +63,8 @@ const BUILD = {
     draw(0.9, true);
     return () => stop?.();
   },
-  open: (viz, ctl) => repair(viz, ctl, T('treatment.options.open')),
-  laparoscopic: (viz, ctl) => repair(viz, ctl, T('treatment.options.laparoscopic')),
+  open: (viz, ctl) => repairSteps(viz, ctl, 'open', OPEN_STEPS),
+  laparoscopic: (viz, ctl) => repairSteps(viz, ctl, 'laparoscopic', LAP_STEPS),
 };
 
 function renderTreatment(root) {

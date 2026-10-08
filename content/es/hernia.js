@@ -39,8 +39,13 @@ export default {
         name: 'Reparación abierta de la hernia',
         summary:
           'Por una pequeña herida en el pliegue de la ingle, el cirujano encuentra la bolsa abierta y la amarra arriba para que nada pueda volver a bajar. Es el método que más usan los urólogos pediatras.',
-        before: 'Antes',
-        after: 'Después de la cirugía',
+        steps: [
+          'Se hace una pequeña herida en el pliegue de la piel de la ingle.',
+          'Debajo de la capa de músculo, el cirujano encuentra la bolsa abierta junto al cordón espermático.',
+          'Si hay intestino en la bolsa, se regresa con cuidado a la barriga.',
+          'La bolsa se separa con cuidado del cordón y luego se amarra muy arriba, justo en la abertura de la barriga.',
+          'Se quita el resto de la bolsa y se cierran las capas y la piel con puntos que se disuelven. La mayoría de los niños se van a casa el mismo día.',
+        ],
         pros: ['La corrige para siempre', 'Por lo general se va a casa el mismo día', 'Cicatriz pequeña en el pliegue de la piel'],
         cons: ['Anestesia general', 'Rara vez regresa (alrededor de 1 de cada 100)', 'Los bebés que nacieron antes de tiempo pueden necesitar quedarse una noche para vigilar su respiración'],
       },
@@ -48,8 +53,13 @@ export default {
         name: 'Reparación laparoscópica',
         summary:
           'Otra opción: una cámara pequeña por el ombligo permite al cirujano cerrar la abertura desde adentro. El cirujano también puede revisar el otro lado y cerrarlo si está abierto.',
-        before: 'Antes',
-        after: 'Después de la cirugía',
+        steps: [
+          'Una cámara pequeña entra por el ombligo, con uno o dos instrumentos muy pequeños.',
+          'Desde dentro de la barriga, el cirujano ve el anillo abierto en la parte de arriba de la bolsa.',
+          'Si hay intestino en la bolsa, se regresa con cuidado a la barriga.',
+          'Se pone un punto alrededor de la abertura y se amarra, cerrándola desde adentro.',
+          'También se revisa el otro lado y se cierra si está abierto. Las heridas muy pequeñas se cierran con pegamento o un punto.',
+        ],
         pros: ['Puede revisar y corregir ambos lados', 'Heridas muy pequeñas'],
         cons: ['Anestesia general', 'No se usa en todos los niños'],
       },

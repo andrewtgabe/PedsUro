@@ -11,6 +11,7 @@ export default {
     ring: 'Abertura de la barriga',
     stuck: '¡Atorado!',
     tie: 'Amarrado',
+    camera: 'Cámara',
   },
 
   embryology: {
