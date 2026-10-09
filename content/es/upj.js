@@ -59,6 +59,25 @@ export default {
         pros: ['Sin cirugía', 'Muchos bebés mejoran por sí solos'],
         cons: ['Ultrasonidos y estudios repetidos', 'Todavía puede necesitarse cirugía más adelante'],
       },
+      drain: {
+        name: 'Drenaje temporal',
+        summary:
+          'Si un riñón bloqueado se infecta, o el niño o la niña está muy enfermo por la infección, hay que drenar la orina de inmediato. Se pone un tubo por un tiempo corto, junto con antibióticos, hasta que el niño o la niña esté bien para la pieloplastia. La mayoría de los niños no lo necesitan.',
+        methodLabel: 'Tipo de tubo',
+        methods: { stent: 'Stent doble J', neph: 'Tubo de nefrostomía' },
+        stentSteps: [
+          'Hay una infección atrapada en el riñón bloqueado e hinchado. El niño o la niña puede tener fiebre alta y verse muy enfermo.',
+          'Con el niño o la niña dormido, se pasa una cámara pequeña a la vejiga (sin cortes en la piel). Un tubo suave y delgado con una curva en cada punta (un stent doble J) se sube por el uréter más allá de la parte estrecha, para que la orina drene del riñón a la vejiga.',
+          'Con el riñón drenando y los antibióticos funcionando, la infección se quita y la hinchazón baja. El stent se queda dentro del cuerpo hasta la pieloplastia, y se saca después.',
+        ],
+        nephSteps: [
+          'Hay una infección atrapada en el riñón bloqueado e hinchado. El niño o la niña puede tener fiebre alta y verse muy enfermo.',
+          'Con ayuda de ultrasonido o rayos X, se pasa un tubo delgado (un tubo de nefrostomía) por la piel del costado o la espalda directo al riñón. La orina drena hacia una bolsa.',
+          'Con el riñón drenando y los antibióticos funcionando, la infección se quita y la hinchazón baja. El tubo se queda en su lugar hasta la pieloplastia.',
+        ],
+        pros: ['Drena rápido el riñón infectado', 'Ayuda a quitar la infección y protege el riñón', 'Permite hacer la cirugía después, cuando el niño o la niña esté bien'],
+        cons: ['Solo es una solución a corto plazo; todavía se necesita cirugía', 'Un stent puede causar molestia en la vejiga o sangre en la orina', 'El tubo de nefrostomía y la bolsa necesitan cuidado en casa'],
+      },
       pyeloplasty: {
         name: 'Cirugía de pieloplastia',
         summary:

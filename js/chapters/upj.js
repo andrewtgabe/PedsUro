@@ -68,6 +68,30 @@ const BUILD = {
     draw(0);
   },
 
+  // Temporary drainage for an infected, blocked kidney: double-J stent or nephrostomy tube.
+  drain(viz, ctl) {
+    const o = T('treatment.options.drain');
+    const sick = { pelvisDilation: 0.8, pelvisFill: 1, upj: true, inflamed: true, bactPelvis: true };
+    const holder = document.createElement('div');
+    holder.className = 'controls';
+    let stop = null;
+    const build = (method) => {
+      stop?.();
+      holder.innerHTML = '';
+      const tube = method === 'stent' ? { stent: true, flow: 'down' } : { nephrostomy: true };
+      const states = [
+        { ...sick },
+        { ...sick, ...tube, pelvisDilation: 0.55 },
+        { pelvisDilation: 0.35, pelvisFill: 1, upj: true, ...tube },
+      ];
+      const steps = states.map((st, n) => ({ caption: o[`${method}Steps`][n], state: st }));
+      stop = stepPlayer(holder, steps, (st) => (viz.innerHTML = urinaryTract({ affected: st, bladderFill: 0.4 })), t('common.player'));
+    };
+    ctl.append(segmented(o.methodLabel, Object.entries(o.methods), 'stent', build), holder);
+    build('stent');
+    return () => stop?.();
+  },
+
   // Step-by-step dismembered pyeloplasty, for a narrow piece or a crossing vessel.
   pyeloplasty(viz, ctl) {
     const o = T('treatment.options.pyeloplasty');

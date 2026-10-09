@@ -169,6 +169,7 @@ const stentPath = (pts) => {
 //   kidney: { s, dy } scale and vertical shift (fetal kidney ascent)
 //   gap: 0..1 ureter cut away from the pelvis (pyeloplasty); excised: removed narrow piece shown aside
 //   stitches: new pelvis-to-ureter connection sewn; vesselBehind: crossing vessel behind the ureter
+//   nephrostomy: tube from the kidney out through the skin of the side/back, draining outside;
 //   ureterostomy: ureter brought out to the skin; inflamed: infected kidney; stone: { at: 'calyx' | 'pelvis' | 0..1 along ureter, size, fragments }
 function upperTract(o, g) {
   const pd = clamp(o.pelvisDilation ?? o.dilation ?? 0);
@@ -211,6 +212,8 @@ function upperTract(o, g) {
     ${gap > 0.05 ? `<path class="cutline" d="M${f(joint[0] - 9)} ${f(joint[1] + 2)} L${f(joint[0] + 9)} ${f(joint[1] + 2)} M${f(start[0] - 8)} ${f(start[1])} L${f(start[0] + 8)} ${f(start[1])}"/>` : ''}
     ${o.excised ? `<g class="excised"><line x1="${f(joint[0] - 46)}" y1="${f(joint[1] + 4)}" x2="${f(joint[0] - 40)}" y2="${f(joint[1] + 30)}"/></g>` : ''}
     ${o.stitches ? [-10, 0, 10].map((dx) => `<path class="stitch" d="M${f(joint[0] + dx - 4)} ${f(joint[1])} l8 8 m0 -8 l-8 8"/>`).join('') : ''}
+    ${o.nephrostomy ? `<g class="stent"><circle cx="${f(cs.pc[0] + 4)}" cy="${f(cs.pc[1] - 2)}" r="8"/><path d="M${f(cs.pc[0] + 4)} ${f(cs.pc[1] + 6)} L${f(cs.calyces[2][0])} ${f(cs.calyces[2][1])} L578 ${f(cs.calyces[2][1] + 40)}"/></g>
+      <line class="skin" x1="566" y1="150" x2="566" y2="290"/><path class="stream" d="M580 ${f(cs.calyces[2][1] + 42)} L582 ${f(cs.calyces[2][1] + 70)}"/>` : ''}
     ${o.ureterostomy ? `<line class="skin" x1="530" y1="270" x2="530" y2="390"/><circle class="stoma" cx="528" cy="330" r="9"/>` : ''}
     ${o.stone ? stoneMarkup(o.stone, cs, pts) : ''}
     ${o.inflamed ? `<path class="inflamed" d="${KIDNEY_PATH}"/>` : ''}

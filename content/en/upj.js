@@ -59,6 +59,25 @@ export default {
         pros: ['No surgery', 'Many babies improve on their own'],
         cons: ['Repeat ultrasounds and scans', 'Surgery may still be needed later'],
       },
+      drain: {
+        name: 'Temporary drainage',
+        summary:
+          'If a blocked kidney gets infected, or a child is very sick from the infection, the urine has to be drained right away. A tube is placed for a short time, along with antibiotics, until the child is well enough for pyeloplasty. This is not needed for most children.',
+        methodLabel: 'Type of tube',
+        methods: { stent: 'Double-J stent', neph: 'Nephrostomy tube' },
+        stentSteps: [
+          'An infection is trapped in the blocked, swollen kidney. The child may have a high fever and look very sick.',
+          'With the child asleep, a small camera is passed into the bladder (no cut on the skin). A soft, thin tube with a curl at each end (a double-J stent) is slid up the ureter past the narrow piece, so urine can drain from the kidney into the bladder.',
+          'With the kidney draining and antibiotics working, the infection clears and the swelling goes down. The stent stays inside the body until the pyeloplasty, and is taken out later.',
+        ],
+        nephSteps: [
+          'An infection is trapped in the blocked, swollen kidney. The child may have a high fever and look very sick.',
+          'Using ultrasound or x-ray to guide it, a thin tube (a nephrostomy tube) is passed through the skin of the side or back straight into the kidney. Urine drains out into a bag.',
+          'With the kidney draining and antibiotics working, the infection clears and the swelling goes down. The tube stays in place until the pyeloplasty.',
+        ],
+        pros: ['Drains the infected kidney quickly', 'Helps the infection clear and protects the kidney', 'Lets surgery be done later, when the child is well'],
+        cons: ['Only a short-term fix; surgery is still needed', 'A stent can cause bladder discomfort or blood in the urine', 'A nephrostomy tube and bag need care at home'],
+      },
       pyeloplasty: {
         name: 'Pyeloplasty surgery',
         summary:
