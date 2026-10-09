@@ -32,7 +32,7 @@ export default {
     causes: {
       transient: {
         name: 'Nada atorado',
-        text: 'La parte que recoge la orina está más ancha de lo normal, pero la orina drena bien. Es la causa más común y muchas veces mejora conforme el bebé crece.',
+        text: 'La parte que recoge la orina está más ancha de lo normal, pero la orina drena bien. Es la causa más común. Alrededor de 9 de cada 10 casos leves se quitan solos, por lo general antes de los 2 a 3 años.',
       },
       upj: {
         name: 'Parte alta del uréter',
@@ -102,7 +102,7 @@ export default {
       surgery: {
         name: 'Cuándo ayuda la cirugía',
         summary:
-          'La cirugía solo se necesita si hay una obstrucción real que está dañando el riñón, si la hinchazón sigue empeorando o si hay infecciones repetidas. El tipo de cirugía depende de la causa:',
+          'La cirugía solo se necesita en algunos niños: episodios de dolor, un riñón que hace menos de su parte del trabajo (menos de alrededor de 40%) o que pierde función en estudios repetidos, infecciones, piedras, o hinchazón que sigue empeorando. El tipo de cirugía depende de la causa:',
         links: [
           ['upj', 'Estrechamiento en la parte alta del uréter'],
           ['uvj', 'Estrechamiento en la parte baja del uréter'],

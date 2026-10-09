@@ -9,12 +9,12 @@ export default {
     stages: [
       { name: 'Early', title: 'Near the kidneys', text: 'The testicles form high in the belly, near the kidneys.', pos: 0.05 },
       { name: '3 months', title: 'Down to the groin', text: 'By about 3 months of pregnancy, the testicles have moved down to the inside opening of the groin canal.', pos: 0.25 },
-      { name: '7 months', title: 'Through the canal', text: 'Around 7 months of pregnancy, the testicles move through the groin canal. Hormones from the testicles help with this.', pos: 0.6 },
+      { name: '6–7 months', title: 'Through the canal', text: 'Around 6 to 7 months of pregnancy, the testicles move through the groin canal. Hormones from the testicles help with this.', pos: 0.6 },
       { name: 'Birth', title: 'In the scrotum', text: 'Most testicles reach the scrotum by birth. Babies born early are more likely to have a testicle that has not finished the trip.', pos: 1 },
     ],
     stopTitle: 'Where can a testicle stop?',
     stopText:
-      'A testicle can stop anywhere along the path. Most undescended testicles are in the groin and can be felt. About 1 in 5 cannot be felt because they are inside the belly or missing.',
+      'A testicle can stop anywhere along the path. Most undescended testicles are in the groin and can be felt. About 3 in 10 cannot be felt because they are inside the belly or missing.',
     labels: { kidney: 'Kidney', ring: 'Inside opening', canal: 'Groin canal', scrotum: 'Scrotum', muscle: 'Muscle pulls up', guide: 'Guide', clip: 'Vessels clipped', collateral: 'Backup blood supply', camera: 'Camera', sacTie: 'Sac tied' },
   },
 

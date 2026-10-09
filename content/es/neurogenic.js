@@ -63,13 +63,13 @@ export default {
       },
       botox: {
         name: 'Inyecciones de Botox',
-        summary: 'Se inyecta Botox en la pared de la vejiga con una cámara pequeña. Calma la vejiga por alrededor de 6 a 9 meses.',
+        summary: 'Se inyecta Botox en la pared de la vejiga con una cámara pequeña. Calma la vejiga por alrededor de 6 a 12 meses.',
         steps: [
           'Antes: la vejiga aprieta fuerte en momentos equivocados. La presión es alta y la pared está gruesa.',
           'Con el niño o la niña dormido, se pasa una cámara pequeña por la uretra hasta la vejiga. No hay cortes en la piel.',
           'Una aguja muy pequeña que pasa por la cámara inyecta Botox en muchos puntos de la pared de la vejiga.',
           'En las siguientes 1 a 2 semanas, el Botox relaja el músculo de la vejiga. La vejiga guarda más orina con menos presión. Todavía se necesita pasar la sonda.',
-          'El efecto se quita después de unos 6 a 9 meses, así que las inyecciones se repiten cuando se necesitan.',
+          'El efecto se quita después de unos 6 a 12 meses, así que las inyecciones se repiten cuando se necesitan.',
         ],
         pros: ['Baja la presión sin una cirugía mayor', 'Se puede repetir'],
         cons: ['Necesita procedimientos repetidos', 'Anestesia cada vez'],

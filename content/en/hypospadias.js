@@ -26,7 +26,7 @@ export default {
     ],
     stopTitle: 'If the zipper stops early',
     stopText:
-      'The opening ends up on the underside instead of the tip. This is hypospadias. The foreskin often does not close underneath, so it looks like a hood on top. The penis may also bend downward. It happens in about 1 in 200 to 300 boys, and nobody caused it.',
+      'The opening ends up on the underside instead of the tip. This is hypospadias. The foreskin often does not close underneath, so it looks like a hood on top. The penis may also bend downward. It happens in about 1 in 125 to 250 boys, and nobody caused it.',
   },
 
   pathology: {

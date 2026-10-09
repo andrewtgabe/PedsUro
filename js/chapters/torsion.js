@@ -46,10 +46,14 @@ function renderPathology(root) {
 
   const draw = () => {
     const blocked = s.twist >= 360;
-    const isch = blocked ? clamp(s.hours / 24) : clamp(s.twist / 360) * clamp(s.hours / 48);
+    const isch = blocked ? clamp(s.hours / 36) : clamp(s.twist / 360) * clamp(s.hours / 48);
     viz.innerHTML = testisSide({ bellClapper: true, twist: s.twist, isch, text: labels() });
     const [, chance] = T('pathology.saved').find(([h]) => s.hours <= h);
-    const pct = blocked ? 100 - 92 * clamp(s.hours / 24) : 100;
+    // Salvage by hours since pain began (meta-analysis cited in the AUA Core Curriculum).
+    const pts = [[0, 98], [6, 97], [12, 79], [18, 61], [24, 43], [48, 24], [60, 7]];
+    const i = Math.max(0, pts.findIndex(([h]) => h >= s.hours) - 1);
+    const [[h0, p0], [h1, p1]] = [pts[i], pts[Math.min(i + 1, pts.length - 1)]];
+    const pct = blocked ? (h1 === h0 ? p1 : p0 + ((p1 - p0) * (s.hours - h0)) / (h1 - h0)) : 100;
     const color = pct > 70 ? 'var(--good)' : pct > 35 ? '#c9962b' : 'var(--warn)';
     explain.innerHTML = `
       <p><strong>${blocked ? T('pathology.flowClosed') : T('pathology.flowOpen')}</strong></p>
@@ -60,7 +64,7 @@ function renderPathology(root) {
 
   ctl.append(
     slider(T('pathology.twistLabel'), { min: 0, max: 720, step: 90, value: s.twist, format: (v) => `${v}°` }, (v) => { s.twist = v; draw(); }),
-    slider(T('pathology.hoursLabel'), { min: 0, max: 30, step: 1, value: s.hours, format: (v) => `${v} ${T('pathology.hoursUnit')}` }, (v) => { s.hours = v; draw(); }),
+    slider(T('pathology.hoursLabel'), { min: 0, max: 60, step: 1, value: s.hours, format: (v) => `${v} ${T('pathology.hoursUnit')}` }, (v) => { s.hours = v; draw(); }),
   );
   draw();
 }

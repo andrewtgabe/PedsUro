@@ -34,7 +34,7 @@ export default {
         text: 'A mass can also start next to the testicle, in the cord or tissue around it (paratesticular). The most important of these in children is rhabdomyosarcoma, a cancer of muscle-type cells. Leukemia and lymphoma can also show up in the testicle.',
       },
     },
-    ages: 'Testicular masses are rare in children. They show up most often in two age groups: babies and toddlers under about 3, and teens after puberty. The types are quite different in these two groups.',
+    ages: 'Testicular masses are rare in children. They show up most often in two age groups: young children (most often under about 4), and teens after puberty. The types are quite different in these two groups.',
     note: 'Nothing a parent did causes a testicular mass. A testicle that did not come down on its own (undescended) raises the chance of a germ cell tumor later in life.',
   },
 

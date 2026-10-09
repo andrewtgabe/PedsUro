@@ -9,12 +9,12 @@ export default {
     stages: [
       { name: 'Al inicio', title: 'Cerca de los riñones', text: 'Los testículos se forman arriba en la barriga, cerca de los riñones.', pos: 0.05 },
       { name: '3 meses', title: 'Bajan a la ingle', text: 'Alrededor de los 3 meses de embarazo, los testículos han bajado hasta la abertura interna del canal de la ingle.', pos: 0.25 },
-      { name: '7 meses', title: 'Por el canal', text: 'Alrededor de los 7 meses de embarazo, los testículos pasan por el canal de la ingle. Las hormonas de los testículos ayudan con esto.', pos: 0.6 },
+      { name: '6–7 meses', title: 'Por el canal', text: 'Alrededor de los 6 a 7 meses de embarazo, los testículos pasan por el canal de la ingle. Las hormonas de los testículos ayudan con esto.', pos: 0.6 },
       { name: 'Nacimiento', title: 'En el escroto', text: 'La mayoría de los testículos llegan al escroto al nacer. Los bebés que nacen antes de tiempo tienen más probabilidad de tener un testículo que no terminó el viaje.', pos: 1 },
     ],
     stopTitle: '¿Dónde se puede quedar un testículo?',
     stopText:
-      'Un testículo se puede quedar en cualquier parte del camino. La mayoría de los testículos no descendidos están en la ingle y se pueden sentir. Alrededor de 1 de cada 5 no se pueden sentir porque están dentro de la barriga o no existen.',
+      'Un testículo se puede quedar en cualquier parte del camino. La mayoría de los testículos no descendidos están en la ingle y se pueden sentir. Alrededor de 3 de cada 10 no se pueden sentir porque están dentro de la barriga o no existen.',
     labels: { kidney: 'Riñón', ring: 'Abertura interna', canal: 'Canal de la ingle', scrotum: 'Escroto', muscle: 'El músculo lo sube', guide: 'Guía', clip: 'Vasos con grapa', collateral: 'Riego de sangre de respaldo', camera: 'Cámara', sacTie: 'Bolsa amarrada' },
   },
 

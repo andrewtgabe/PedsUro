@@ -32,7 +32,7 @@ export default {
     causes: {
       transient: {
         name: 'Nothing stuck',
-        text: 'The collecting area is wider than usual, but urine still drains well. This is the most common reason, and it often gets better as the baby grows.',
+        text: 'The collecting area is wider than usual, but urine still drains well. This is the most common reason. About 9 in 10 mild cases go away on their own, usually by age 2 to 3.',
       },
       upj: {
         name: 'Top of the ureter',
@@ -102,7 +102,7 @@ export default {
       surgery: {
         name: 'When surgery helps',
         summary:
-          'Surgery is only needed if there is a true blockage that is hurting the kidney, if swelling keeps getting worse, or with repeated infections. The type of surgery depends on the cause:',
+          'Surgery is only needed for some children: episodes of pain, a kidney doing less than its share of the work (under about 40%) or losing function on repeat scans, infections, stones, or swelling that keeps getting worse. The type of surgery depends on the cause:',
         links: [
           ['upj', 'Narrow spot at the top of the ureter'],
           ['uvj', 'Narrow spot at the bottom of the ureter'],

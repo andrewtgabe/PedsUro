@@ -63,13 +63,13 @@ export default {
       },
       botox: {
         name: 'Botox injections',
-        summary: 'Botox is injected into the bladder wall through a small camera. It calms the bladder for about 6 to 9 months.',
+        summary: 'Botox is injected into the bladder wall through a small camera. It calms the bladder for about 6 to 12 months.',
         steps: [
           'Before: the bladder squeezes hard at the wrong times. Pressure is high, and the wall is thick.',
           'With the child asleep, a small camera is passed through the urethra into the bladder. There is no cut on the skin.',
           'A tiny needle through the camera injects Botox into many spots in the bladder wall.',
           'Over the next 1 to 2 weeks, the Botox relaxes the bladder muscle. The bladder holds more urine at lower pressure. Catheterizing is still needed.',
-          'The effect wears off after about 6 to 9 months, so the injections are repeated as needed.',
+          'The effect wears off after about 6 to 12 months, so the injections are repeated as needed.',
         ],
         pros: ['Lowers pressure without major surgery', 'Can be repeated'],
         cons: ['Needs repeat procedures', 'Anesthesia each time'],

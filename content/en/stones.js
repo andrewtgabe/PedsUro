@@ -123,7 +123,7 @@ export default {
       },
       pcnl: {
         name: 'Through the back (PCNL)',
-        summary: 'For large kidney stones, a small tunnel is made through the back directly into the kidney to break up and remove the stone.',
+        summary: 'For large kidney stones (over about 2 cm), a small tunnel is made through the back directly into the kidney to break up and remove the stone.',
         steps: [
           'A large stone fills the drainage area inside the kidney. It is too big to pass or to treat easily another way.',
           'With the child asleep, using x-ray or ultrasound, a needle is passed through the skin of the back into the kidney.',
@@ -137,7 +137,7 @@ export default {
       },
       prevention: {
         name: 'Preventing stones',
-        summary: 'Once a child has had a stone, more can form. Simple changes help a lot. A 24-hour urine test can show what to change.',
+        summary: 'About half of children who have a stone get another within 3 years. Every child with a stone should have blood tests and a 24-hour urine test to show what to change. Simple changes help a lot.',
         tips: ['Drink water all day; urine should look pale yellow', 'Eat less salt and fewer processed foods', 'Keep normal amounts of dairy (do not cut calcium)', 'Lemon or orange juice can help', 'Limit sugary drinks'],
         pros: ['Lowers the chance of new stones'],
         cons: ['Long-term habits'],

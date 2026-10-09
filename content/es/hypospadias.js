@@ -26,7 +26,7 @@ export default {
     ],
     stopTitle: 'Si el zíper se detiene antes',
     stopText:
-      'El orificio queda en la parte de abajo en lugar de en la punta. Esto es el hipospadias. Muchas veces el prepucio no se cierra por abajo, así que se ve como una capucha arriba. El pene también se puede doblar hacia abajo. Pasa en alrededor de 1 de cada 200 a 300 niños, y nadie lo causó.',
+      'El orificio queda en la parte de abajo en lugar de en la punta. Esto es el hipospadias. Muchas veces el prepucio no se cierra por abajo, así que se ve como una capucha arriba. El pene también se puede doblar hacia abajo. Pasa en alrededor de 1 de cada 125 a 250 niños, y nadie lo causó.',
   },
 
   pathology: {

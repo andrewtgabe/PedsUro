@@ -34,7 +34,7 @@ export default {
         text: 'Una masa también puede empezar junto al testículo, en el cordón o el tejido alrededor (paratesticular). La más importante en niños es el rabdomiosarcoma, un cáncer de células de tipo muscular. La leucemia y el linfoma también pueden aparecer en el testículo.',
       },
     },
-    ages: 'Las masas testiculares son raras en niños. Aparecen más seguido en dos grupos de edad: bebés y niños pequeños menores de unos 3 años, y adolescentes después de la pubertad. Los tipos son muy diferentes en estos dos grupos.',
+    ages: 'Las masas testiculares son raras en niños. Aparecen más seguido en dos grupos de edad: niños pequeños (más seguido menores de unos 4 años), y adolescentes después de la pubertad. Los tipos son muy diferentes en estos dos grupos.',
     note: 'Nada de lo que hicieron los padres causa una masa testicular. Un testículo que no bajó solo (no descendido) aumenta la probabilidad de un tumor de células germinales más adelante en la vida.',
   },
 

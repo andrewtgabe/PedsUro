@@ -113,7 +113,7 @@ const GRADES = [
   { fill: 0, pelvis: 0, dilation: 0, tort: 0, blunt: 0 },
   { fill: 0.55, pelvis: 0, dilation: 0, tort: 0, blunt: 0 },
   { fill: 1, pelvis: 1, dilation: 0, tort: 0, blunt: 0 },
-  { fill: 1, pelvis: 1, dilation: 0.35, tort: 0.1, blunt: 0.45 },
+  { fill: 1, pelvis: 1, dilation: 0.35, tort: 0.1, blunt: 0.12 },
   { fill: 1, pelvis: 1, dilation: 0.65, tort: 0.45, blunt: 0.8 },
   { fill: 1, pelvis: 1, dilation: 1, tort: 1, blunt: 1 },
 ];

@@ -123,7 +123,7 @@ export default {
       },
       pcnl: {
         name: 'Por la espalda (NLPC)',
-        summary: 'Para piedras grandes del riñón, se hace un pequeño túnel por la espalda directo al riñón para romper y sacar la piedra.',
+        summary: 'Para piedras grandes del riñón (de más de unos 2 cm), se hace un pequeño túnel por la espalda directo al riñón para romper y sacar la piedra.',
         steps: [
           'Una piedra grande llena la zona de drenaje dentro del riñón. Es demasiado grande para salir sola o tratarse fácilmente de otra forma.',
           'Con el niño o la niña dormido, con ayuda de rayos X o ultrasonido, se pasa una aguja por la piel de la espalda hasta el riñón.',
@@ -137,7 +137,7 @@ export default {
       },
       prevention: {
         name: 'Prevenir las piedras',
-        summary: 'Cuando un niño ya tuvo una piedra, se pueden formar más. Cambios sencillos ayudan mucho. Un examen de orina de 24 horas puede mostrar qué cambiar.',
+        summary: 'Alrededor de la mitad de los niños que tienen una piedra tienen otra en menos de 3 años. Todo niño con una piedra debe hacerse análisis de sangre y un examen de orina de 24 horas para ver qué cambiar. Cambios sencillos ayudan mucho.',
         tips: ['Tomar agua todo el día; la orina debe verse amarillo claro', 'Comer menos sal y menos comida procesada', 'Mantener cantidades normales de lácteos (no quitar el calcio)', 'El jugo de limón o de naranja puede ayudar', 'Limitar las bebidas azucaradas'],
         pros: ['Baja la probabilidad de piedras nuevas'],
         cons: ['Hábitos a largo plazo'],

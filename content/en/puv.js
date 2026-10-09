@@ -86,7 +86,7 @@ export default {
         tips: [
           'Pee on a schedule, and pee twice each time (double voiding)',
           'Treat constipation',
-          'Medicines to relax the bladder, if needed',
+          'Medicines to relax the bladder or the bladder outlet, if needed',
           'Some boys need a catheter to empty the bladder, a few times a day or at night',
         ],
         pros: ['Protects kidney function', 'Helps with wetting'],

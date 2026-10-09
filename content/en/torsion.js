@@ -24,9 +24,10 @@ export default {
     hoursUnit: 'hours',
     savedLabel: 'Chance the testicle can be saved',
     saved: [
-      [6, 'Very good: about 9 in 10'],
-      [12, 'About half'],
-      [24, 'Lower: roughly 1 in 5'],
+      [6, 'Very good: nearly all (about 97 in 100)'],
+      [12, 'Good: about 8 in 10'],
+      [24, 'About half'],
+      [48, 'Lower: about 1 in 4'],
       [Infinity, 'Low: fewer than 1 in 10'],
     ],
     savedNote: 'These are rough numbers from studies. Every case is different, which is why surgery should never wait.',

@@ -24,9 +24,10 @@ export default {
     hoursUnit: 'horas',
     savedLabel: 'Probabilidad de salvar el testículo',
     saved: [
-      [6, 'Muy buena: alrededor de 9 de cada 10'],
-      [12, 'Alrededor de la mitad'],
-      [24, 'Más baja: más o menos 1 de cada 5'],
+      [6, 'Muy buena: casi todos (alrededor de 97 de cada 100)'],
+      [12, 'Buena: alrededor de 8 de cada 10'],
+      [24, 'Alrededor de la mitad'],
+      [48, 'Más baja: alrededor de 1 de cada 4'],
       [Infinity, 'Baja: menos de 1 de cada 10'],
     ],
     savedNote: 'Estos son números aproximados de estudios. Cada caso es diferente, por eso la cirugía nunca debe esperar.',

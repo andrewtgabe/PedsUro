@@ -4,7 +4,7 @@ export default {
 
   embryology: {
     intro:
-      'A duplicated kidney has two drainage systems instead of one: a top part and a bottom part. It is common (about 1 in 125 people), and most people never know they have it.',
+      'A duplicated kidney has two drainage systems instead of one: a top part and a bottom part. It is common (about 1 to 5 in 100 people), and most people never know they have it.',
     typeLabel: 'Type',
     types: { single: 'Typical', partial: 'Partial', complete: 'Complete' },
     texts: {

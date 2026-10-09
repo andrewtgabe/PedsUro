@@ -86,7 +86,7 @@ export default {
         tips: [
           'Orinar con horario, y orinar dos veces cada vez (doble micción)',
           'Tratar el estreñimiento',
-          'Medicamentos para relajar la vejiga, si se necesitan',
+          'Medicamentos para relajar la vejiga o la salida de la vejiga, si se necesitan',
           'Algunos niños necesitan una sonda para vaciar la vejiga, unas veces al día o en la noche',
         ],
         pros: ['Protege la función de los riñones', 'Ayuda con los escapes de orina'],
