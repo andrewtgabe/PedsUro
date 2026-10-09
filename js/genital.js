@@ -336,7 +336,7 @@ export function penisSide({ pull = 0, limit = 1, scar = false, pee = false, trap
     ${mark ? `<path class="cutline" d="M232 150 L232 250"/>` : ''}
     ${ventral === 1 ? `<rect class="clamp" x="340" y="204" width="12" height="18" rx="2"/>` : ''}
     ${ventral === 2 ? `<path class="cutline" d="M346 206 L346 222"/>` : ''}
-    ${meatusStitches ? [190, 214].map((y) => `<path class="stitch" d="M${341} ${y - 5} l10 10 m0 -10 l-10 10"/>`).join('') : ''}
+    ${meatusStitches ? [[338, 194], [354, 194], [338, 214], [354, 214]].map(([x, y]) => `<path class="stitch" d="M${x - 4} ${y - 4} l8 8 m0 -8 l-8 8"/>`).join('') : ''}
     ${tipCream ? `<ellipse class="cream" cx="350" cy="200" rx="10" ry="16"/>` : ''}
     <text class="lbl small" x="130" y="268" text-anchor="middle">${text.shaft}</text>
     <text class="lbl small" x="300" y="${fx >= 300 ? 140 : 205}" text-anchor="middle">${text.glans}</text>
