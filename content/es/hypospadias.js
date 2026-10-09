@@ -1,4 +1,4 @@
-// Hipospadias / epispadias — textos del capítulo en español.
+// Hipospadias — textos del capítulo en español.
 export default {
   title: 'Hipospadias',
 
@@ -36,7 +36,6 @@ export default {
       distal: { name: 'Cerca de la punta', opening: 0.2, text: 'El tipo más común (alrededor de 7 de cada 10). Muchas veces solo hay una pequeña diferencia en cómo se ve y cómo sale el chorro.' },
       mid: { name: 'A la mitad del tronco', opening: 0.55, text: 'Menos común. El chorro apunta hacia abajo y es más probable que el pene esté doblado.' },
       proximal: { name: 'Cerca del escroto', opening: 0.95, text: 'El tipo menos común. Por lo general está más doblado, y se puede revisar si hay otras diferencias en el desarrollo.' },
-      epispadias: { name: 'Arriba (epispadias)', opening: 0.6, top: true, text: 'El epispadias es una condición rara y diferente: el orificio está en la parte de arriba y el pene se puede doblar hacia arriba. Muchas veces se presenta con extrofia vesical y se repara de otra forma.' },
     },
     curve: 'Curvatura (cuerda)',
     curveText: 'Un tejido apretado en la parte de abajo puede hacer que el pene se doble hacia abajo, muchas veces más notorio con las erecciones.',

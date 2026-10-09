@@ -1,4 +1,4 @@
-// Hypospadias / epispadias chapter.
+// Hypospadias chapter.
 import { t } from '../i18n.js';
 import { hypospadiasSide } from '../genital.js';
 import { segmented, toggle, animate, modelLayout, optionTabs, takeaways, stepPlayer } from '../ui.js';

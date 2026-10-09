@@ -1,4 +1,4 @@
-// Hypospadias / epispadias — all wording shown on that chapter.
+// Hypospadias — all wording shown on that chapter.
 export default {
   title: 'Hypospadias',
 
@@ -36,7 +36,6 @@ export default {
       distal: { name: 'Near the tip', opening: 0.2, text: 'The most common type (about 7 in 10). Often only a small difference in how it looks and how urine sprays.' },
       mid: { name: 'Middle of shaft', opening: 0.55, text: 'Less common. The stream points down, and the penis is more likely to bend.' },
       proximal: { name: 'Near the scrotum', opening: 0.95, text: 'The least common type. Usually has more bend, and may be checked for other differences in development.' },
-      epispadias: { name: 'On top (epispadias)', opening: 0.6, top: true, text: 'Epispadias is a rare, different condition: the opening is on the top side and the penis may bend upward. It often happens with bladder exstrophy and is repaired differently.' },
     },
     curve: 'Bend (chordee)',
     curveText: 'Tight tissue on the underside can make the penis bend downward, often more noticeable with erections.',
