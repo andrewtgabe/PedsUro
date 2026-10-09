@@ -425,7 +425,7 @@ export function uvjSection({
       }</text></g>`
     : '';
 
-  return `<svg class="anatomy uvj" viewBox="0 0 520 330" role="img" aria-label="${text.labelTunnel}">
+  return `<svg class="anatomy uvj" viewBox="0 -120 520 450" role="img" aria-label="${text.labelTunnel}">
     <rect class="lumen-bg ${squeeze ? 'squeeze' : ''}" x="276" y="0" width="244" height="330"/>
     <rect class="muscle" x="170" y="0" width="66" height="330"/>
     <rect class="submucosa" x="236" y="0" width="40" height="330"/>
@@ -433,6 +433,9 @@ export function uvjSection({
     ${muscleCut > 0.02 ? `<rect class="muscle-cut" x="184" y="88" width="38" height="${f(200 * clamp(muscleCut))}" rx="6"/>` : ''}
     ${trough ? `<rect class="trough" x="240" y="96" width="32" height="196" rx="8"/>` : ''}
     ${mound}
+    <path class="kidney" d="M50 -116 C 86 -116 104 -88 98 -62 C 94 -46 80 -44 70 -40 C 62 -36 64 -22 46 -20 C 18 -18 4 -44 6 -70 C 8 -98 24 -116 50 -116 Z"/>
+    <path class="uvj-wall" d="M68 -38 C 66 -10 10 4 20 22"/>
+    <path class="${lumen}" d="M68 -38 C 66 -10 10 4 20 22" stroke-width="12"/>
     <path class="uvj-wall" d="${outer}"/>
     <path class="uvj-wall" d="${inner}"/>
     <path class="${lumen}" d="${outer}" stroke-width="12"/>
@@ -448,7 +451,7 @@ export function uvjSection({
     <text class="lbl small" x="330" y="${f(106 + L / 2)}">${text.labelTunnel}</text>
     <text class="lbl small" x="203" y="320" text-anchor="middle">${text.labelMuscle}</text>
     <text class="lbl small" x="500" y="24" text-anchor="end">${text.labelInside}</text>
-    <text class="lbl small" x="20" y="60">${text.labelFromKidney}</text>
+    <text class="lbl small" x="110" y="-80">${t('common.labels.kidney')}</text>
     ${status}
   </svg>`;
 }
