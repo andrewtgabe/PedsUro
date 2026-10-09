@@ -461,3 +461,87 @@ export function hypospadiasSide({
     <text class="lbl small" x="30" y="332">${text.scrotum}</text>
   </svg>`;
 }
+
+// ---------- testicle close-up: the kinds of tissue (testicular mass) ----------
+
+//   highlight: 'germ' | 'stromal' | 'para' — which tissue to emphasize
+//   text: { germ, stromal, para, covering, epididymis }
+export function testisCells({ highlight = '', text }) {
+  const tubules = [[150, 130], [228, 118], [120, 210], [196, 196], [270, 186], [170, 270], [246, 262]];
+  const ring = ([cx, cy]) =>
+    Array.from({ length: 9 }, (_, i) => {
+      const a = (Math.PI * 2 * i) / 9;
+      return `<circle class="germ-cell" cx="${f(cx + 24 * Math.cos(a))}" cy="${f(cy + 24 * Math.sin(a))}" r="4.5"/>`;
+    }).join('');
+  const sertoli = ([cx, cy]) =>
+    [0.4, 2.5, 4.6].map((a) => `<ellipse class="sertoli" cx="${f(cx + 29 * Math.cos(a))}" cy="${f(cy + 29 * Math.sin(a))}" rx="3" ry="6" transform="rotate(${f((a * 180) / Math.PI + 90)} ${f(cx + 29 * Math.cos(a))} ${f(cy + 29 * Math.sin(a))})"/>`).join('');
+  const leydig = [[188, 160], [112, 166], [236, 226], [150, 238], [208, 232], [290, 230], [270, 140]]
+    .map(([x, y]) => `<circle class="leydig" cx="${x}" cy="${y}" r="5"/>`).join('');
+  const hl = (k) => (highlight === k ? 'hl' : highlight ? 'dim' : '');
+  return `<svg class="anatomy genital cells" viewBox="0 0 400 364" role="img" aria-label="${text.covering}">
+    <g class="${hl('para')}"><path class="epididymis-x" d="M318 90 C 370 120 372 250 318 300"/><path class="para-tissue" d="M200 28 C 300 20 350 40 362 70"/></g>
+    <ellipse class="testis-x" cx="200" cy="196" rx="146" ry="134"/>
+    <g class="${hl('germ')}">${tubules.map((p) => `<circle class="tubule" cx="${p[0]}" cy="${p[1]}" r="32"/>${ring(p)}`).join('')}</g>
+    <g class="${hl('stromal')}">${tubules.map(sertoli).join('')}${leydig}</g>
+    <circle class="germ-cell" cx="26" cy="348" r="5"/><text class="lbl small ${highlight === 'germ' ? 'accent-text' : ''}" x="36" y="352">${text.germ}</text>
+    <circle class="leydig" cx="176" cy="348" r="5"/><text class="lbl small ${highlight === 'stromal' ? 'accent-text' : ''}" x="186" y="352">${text.stromal}</text>
+    <text class="lbl small ${highlight === 'para' ? 'accent-text' : ''}" x="396" y="22" text-anchor="end">${text.para}</text>
+    <text class="lbl small" x="54" y="70">${text.covering}</text>
+  </svg>`;
+}
+
+// ---------- groin and scrotum, front view (testicular mass and its surgery) ----------
+
+// Irregular solid lump outline centred on (x, y).
+function lump(x, y, r) {
+  const pts = Array.from({ length: 12 }, (_, i) => {
+    const a = (Math.PI * 2 * i) / 12;
+    const rr = r * (1 + 0.16 * Math.sin(i * 2.3));
+    return `${f(x + rr * Math.cos(a))} ${f(y + rr * Math.sin(a))}`;
+  });
+  return `M${pts.join(' L')} Z`;
+}
+
+//   kind: '' | 'solid' | 'cyst' | 'teratoma' | 'para' (beside the testicle); size: 0..1
+//   incision: groin skin cut; clamp: soft clamp on the cord near the top of the groin canal
+//   delivered: 0..1 testicle lifted from the scrotum up into the groin wound
+//   repaired: mass removed and the testicle stitched (partial orchiectomy)
+//   tied: cord tied high; removed: testicle and lower cord removed; prosthesis: artificial testicle
+//   text: { testicle, mass, cord, scrotum, clamp, prosthesis }
+export function massView({ kind = 'solid', size = 0.5, incision = false, clamp: clamped = false, delivered = 0, repaired = false, tied = false, removed = false, prosthesis = false, text }) {
+  const d = clamp(delivered);
+  const tx = 232 + (172 - 232) * d;
+  const ty = 380 + (206 - 380) * d;
+  const ring = [112, 146];
+  const ext = [196, 246];
+  const cordD = `M96 100 L${ring[0]} ${ring[1]} L${ext[0]} ${ext[1]} Q ${f((ext[0] + tx) / 2 + 20)} ${f((ext[1] + ty - 46) / 2)} ${f(tx)} ${f(ty - 46)}`;
+  const r = 9 + 15 * clamp(size);
+  let mass = '';
+  if (!removed && !repaired) {
+    if (kind === 'solid') mass = `<path class="mass" d="${lump(tx - 6, ty + 6, r)}"/>`;
+    else if (kind === 'cyst') mass = `<circle class="mass-cyst" cx="${f(tx - 6)}" cy="${f(ty + 6)}" r="${f(r)}"/><circle class="mass-ring" cx="${f(tx - 6)}" cy="${f(ty + 6)}" r="${f(r * 0.66)}"/><circle class="mass-ring" cx="${f(tx - 6)}" cy="${f(ty + 6)}" r="${f(r * 0.33)}"/>`;
+    else if (kind === 'teratoma') mass = `<path class="mass-mixed" d="${lump(tx - 6, ty + 6, r)}"/>${[[-5, -4], [5, 3], [-3, 6]].map(([dx, dy]) => `<circle class="mass-cyst" cx="${f(tx - 6 + dx * r / 12)}" cy="${f(ty + 6 + dy * r / 12)}" r="${f(r / 4)}"/>`).join('')}`;
+    else if (kind === 'para') mass = `<path class="mass" d="${lump(tx + 44, ty + 4, r)}"/>`;
+  }
+  const massLbl = mass ? `<text class="lbl small accent-text" x="${f(kind === 'para' ? tx + 44 : tx - 50)}" y="${f(ty + (kind === 'para' ? 46 : 60))}" text-anchor="middle">${text.mass}</text>` : '';
+  const testis = removed
+    ? prosthesis ? `<ellipse class="prosthesis" cx="232" cy="380" rx="32" ry="44"/><text class="lbl small" x="232" y="446" text-anchor="middle">${text.prosthesis}</text>` : ''
+    : `<ellipse class="testis" cx="${f(tx)}" cy="${f(ty)}" rx="34" ry="46"/>
+       <path class="epididymis" style="stroke:#d99584;stroke-width:10" d="M${f(tx + 22)} ${f(ty - 40)} C ${f(tx + 46)} ${f(ty - 20)} ${f(tx + 46)} ${f(ty + 26)} ${f(tx + 26)} ${f(ty + 40)}"/>
+       ${mass}${repaired ? [-10, 0, 10].map((dy) => `<path class="stitch" d="M${f(tx - 10)} ${f(ty + 6 + dy - 4)} l8 8 m0 -8 l-8 8"/>`).join('') : ''}`;
+  return `<svg class="anatomy genital" viewBox="0 0 400 460" role="img" aria-label="${text.testicle}">
+    <path class="body-front" d="M0 0 L400 0 L400 300 C 330 300 310 316 300 336 L164 336 C 150 300 90 270 0 250 Z"/>
+    <ellipse class="scrotum" cx="232" cy="384" rx="80" ry="70"/>
+    <path class="canal" d="M${ring[0]} ${ring[1]} L${ext[0]} ${ext[1]}"/>
+    ${removed ? `<path class="cord" d="M96 100 L${ring[0]} ${ring[1]}"/>` : `<path class="cord" d="${cordD}"/>`}
+    ${clamped && !removed ? `<rect class="cord-clamp" x="${ring[0] + 8}" y="${ring[1] - 8}" width="34" height="10" rx="4" transform="rotate(-50 ${ring[0] + 16} ${ring[1] + 6})"/>` : ''}
+    ${tied ? `<path class="tie" d="M${ring[0] - 8} ${ring[1] - 4} l16 -6 M${ring[0] - 6} ${ring[1] + 4} l16 -6"/>` : ''}
+    ${incision ? `<path class="cutline" d="M118 196 Q 160 214 206 222"/>` : ''}
+    ${testis}
+    ${massLbl}
+    <text class="lbl small" x="60" y="96">${text.cord}</text>
+    ${!removed && d < 0.5 ? `<text class="lbl small" x="${f(tx + 52)}" y="${f(ty - 48)}">${text.testicle}</text>` : ''}
+    ${clamped && !removed ? `<text class="lbl small" x="160" y="140">${text.clamp}</text>` : ''}
+    <text class="lbl small" x="330" y="440">${text.scrotum}</text>
+  </svg>`;
+}

@@ -454,3 +454,20 @@ svg.anatomy .cream { fill: #fffbe8; stroke: #d6c58a; stroke-width: 1.5; }
 svg.anatomy .hemostat path { fill: none; stroke: #6b7280; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
 svg.anatomy .hemostat circle { fill: none; stroke: #6b7280; stroke-width: 2.5; }
 svg.anatomy .midcut { fill: none; stroke: #ffffff; stroke-width: 2.5; stroke-dasharray: 5 4; }
+svg.anatomy .testis-x { fill: #f6d3cb; stroke: #b4766b; stroke-width: 5; }
+svg.anatomy .tubule { fill: #fbe7e2; stroke: #d39b8f; stroke-width: 2; }
+svg.anatomy .germ-cell { fill: #6b8fd6; }
+svg.anatomy .sertoli { fill: #b6862c; }
+svg.anatomy .leydig { fill: #e0b33a; }
+svg.anatomy .epididymis-x { fill: none; stroke: #d99584; stroke-width: 16; stroke-linecap: round; }
+svg.anatomy .para-tissue { fill: none; stroke: #c9a3c9; stroke-width: 10; stroke-linecap: round; }
+svg.anatomy.cells .dim { opacity: 0.3; }
+svg.anatomy.cells .hl { filter: drop-shadow(0 0 3px var(--accent)); }
+svg.anatomy .body-front { fill: #f7e1d7; }
+svg.anatomy .canal { fill: none; stroke: #e9c6b9; stroke-width: 22; stroke-linecap: round; }
+svg.anatomy .cord { fill: none; stroke: #c98f80; stroke-width: 8; stroke-linecap: round; }
+svg.anatomy .cord-clamp { fill: #9ca3af; stroke: #4b5563; stroke-width: 1.5; }
+svg.anatomy .mass { fill: #8a4a5a; stroke: #5c2c3a; stroke-width: 2; }
+svg.anatomy .mass-cyst { fill: #f3e7c9; stroke: #b9a26b; stroke-width: 2; }
+svg.anatomy .mass-ring { fill: none; stroke: #b9a26b; stroke-width: 1.5; }
+svg.anatomy .mass-mixed { fill: #cdb48d; stroke: #8c7346; stroke-width: 2; }
