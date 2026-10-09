@@ -409,9 +409,11 @@ const partialPath = (path, u) => {
 //   text: { glans, shaft, opening, hood, scrotum, groove, fistula }
 //   staged repair: plateCut (urethral plate divided), corpCuts (corporotomies), graftHealed (graft has taken),
 //   taped (penis taped up to the lower belly with silicone tape), stentOut (stent from the tip)
+//   TIP repair: incised (plate outlined and incised down the middle), tubedTo (0–1: stitched tube from the tip back to here),
+//   check (exam ring around the opening)
 export function hypospadiasSide({
   opening = 0, top = false, groove = false, hood = false, full = false, curve = 0, pee = false, fistula = false, graft = false,
-  plateCut = false, corpCuts = false, graftHealed = false, taped = false, stentOut = false, text,
+  plateCut = false, corpCuts = false, graftHealed = false, taped = false, stentOut = false, incised = false, tubedTo = 0, check = false, text,
 }) {
   const path = top ? TOPSIDE : UNDERSIDE;
   const [mx, my] = alongPath(path, opening);
@@ -437,6 +439,9 @@ export function hypospadiasSide({
       ${groove && !atTip ? `<path class="groove" d="${partialPath(path, opening)}"/>` : ''}
       ${graft && !atTip ? `<path class="graft ${graftHealed ? 'healed' : ''}" d="${partialPath(path, opening)}"/>` : ''}
       ${plateCut && !atTip ? (() => { const [cx, cy] = alongPath(path, opening * 0.55); return `<path class="platecut" d="M${f(cx - 6)} ${f(cy - 20)} L${f(cx + 6)} ${f(cy + 14)}"/>`; })() : ''}
+      ${incised && !atTip ? `<path class="midcut" d="${partialPath(path, opening)}"/>` : ''}
+      ${tubedTo > 0.02 ? Array.from({ length: 5 }, (_, i) => { const [x, y] = alongPath(path, (tubedTo * (i + 0.5)) / 5); return `<path class="stitch" d="M${f(x - 4)} ${f(y - 4)} l8 8 m0 -8 l-8 8"/>`; }).join('') : ''}
+      ${check && !atTip ? `<circle class="mark" cx="${f(mx)}" cy="${f(my)}" r="18"/>` : ''}
       ${stentOut ? `<path class="stent-out" d="M348 200 Q 390 204 430 222"/>` : ''}
       ${atTip ? `<path class="meatus" d="M346 194 L346 206"/>` : `<ellipse class="meatus-dot" cx="${f(mx)}" cy="${f(my)}" rx="7" ry="4"/>`}
       ${hood ? `<path class="foreskin" d="M150 162 L250 160 C 300 140 344 150 356 184 C 340 172 300 160 252 168 L150 170 Z"/>` : ''}

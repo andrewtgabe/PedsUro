@@ -55,10 +55,16 @@ export default {
       repair: {
         name: 'Hypospadias repair',
         summary:
-          'For openings closer to the tip without much bend, this is usually one surgery. The surgeon straightens any small bend, rolls the open groove into a tube to make a new urethra out to the tip, and closes the skin. The foreskin is either removed (circumcised look) or rebuilt. A small tube (stent) often drains urine into the diaper for about a week.',
-        before: 'Before',
-        after: 'After repair',
-        pee: 'Peeing',
+          'There are many ways to repair hypospadias. This shows one common method for openings near the tip, the tubularized incised plate (TIP) repair. The exact approach is chosen on the day of surgery, after the surgeon examines your child under anesthesia. A tube (stent) often drains urine into the diaper for about a week.',
+        steps: [
+          'Before: the opening is on the underside, near the tip. The foreskin is like a hood on top, and the stream points down.',
+          'With the child asleep, the surgeon examines the penis closely: where the opening is, the shape of the tissue strip on the underside (the urethral plate), and any bend. There are many repair techniques, and the best one for your child is chosen now.',
+          'The skin is gently moved back, and any small bend is straightened. The open strip of tissue on the underside is outlined from the opening to the tip.',
+          'A cut is made down the middle of the strip. This lets it widen so it can be rolled into a roomy tube.',
+          'The strip is rolled around a small tube (stent) and stitched to make a new urethra out to the tip. The head of the penis is closed around it, and a layer of tissue is placed over the repair to protect it.',
+          'The skin is closed. The foreskin is removed (circumcised look) or rebuilt. The stent drains urine into the diaper for about a week.',
+          'After the stent comes out, the opening is at the tip and the stream is straight.',
+        ],
         pros: ['Opening at the tip and a straight stream', 'Straightens the penis', 'Usually one surgery for openings near the tip'],
         cons: ['General anesthesia', 'Dressing and stent care for about a week'],
       },

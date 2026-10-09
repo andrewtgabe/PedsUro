@@ -55,10 +55,16 @@ export default {
       repair: {
         name: 'Reparación del hipospadias',
         summary:
-          'Para orificios más cerca de la punta y sin mucha curvatura, por lo general es una sola cirugía. El cirujano endereza cualquier curvatura pequeña, enrolla el surco abierto en forma de tubo para hacer una uretra nueva hasta la punta y cierra la piel. El prepucio se quita (apariencia circuncidada) o se reconstruye. Muchas veces un tubito (stent) drena la orina al pañal por alrededor de una semana.',
-        before: 'Antes',
-        after: 'Después de la reparación',
-        pee: 'Orinando',
+          'Hay muchas formas de reparar el hipospadias. Aquí se muestra un método común para orificios cerca de la punta, la reparación de placa incidida tubularizada (TIP). El método exacto se elige el día de la cirugía, después de que el cirujano examina a su hijo bajo anestesia. Muchas veces un tubito (stent) drena la orina al pañal por alrededor de una semana.',
+        steps: [
+          'Antes: el orificio está en la parte de abajo, cerca de la punta. El prepucio queda como una capucha arriba, y el chorro sale hacia abajo.',
+          'Con el niño dormido, el cirujano examina el pene con cuidado: dónde está el orificio, la forma de la tira de tejido de la parte de abajo (la placa uretral) y si hay curvatura. Hay muchas técnicas de reparación, y en este momento se elige la mejor para su hijo.',
+          'La piel se mueve con cuidado hacia atrás, y se endereza cualquier curvatura pequeña. Se marca la tira de tejido abierta de la parte de abajo, desde el orificio hasta la punta.',
+          'Se hace un corte por el centro de la tira. Esto permite que se ensanche para poder enrollarla en un tubo amplio.',
+          'La tira se enrolla alrededor de un tubito (stent) y se cose para hacer una uretra nueva hasta la punta. La cabeza del pene se cierra alrededor, y se pone una capa de tejido sobre la reparación para protegerla.',
+          'Se cierra la piel. El prepucio se quita (apariencia circuncidada) o se reconstruye. El stent drena la orina al pañal por alrededor de una semana.',
+          'Cuando se saca el stent, el orificio queda en la punta y el chorro sale derecho.',
+        ],
         pros: ['Orificio en la punta y chorro derecho', 'Endereza el pene', 'Por lo general una sola cirugía para orificios cerca de la punta'],
         cons: ['Anestesia general', 'Cuidado del vendaje y del stent por alrededor de una semana'],
       },

@@ -453,3 +453,4 @@ svg.anatomy .shiny { fill: #ffffff; opacity: 0.85; }
 svg.anatomy .cream { fill: #fffbe8; stroke: #d6c58a; stroke-width: 1.5; }
 svg.anatomy .hemostat path { fill: none; stroke: #6b7280; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
 svg.anatomy .hemostat circle { fill: none; stroke: #6b7280; stroke-width: 2.5; }
+svg.anatomy .midcut { fill: none; stroke: #ffffff; stroke-width: 2.5; stroke-dasharray: 5 4; }

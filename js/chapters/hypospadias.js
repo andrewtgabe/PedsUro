@@ -54,22 +54,21 @@ function renderPathology(root) {
 // ---------- 3. Treatment ----------
 
 const BUILD = {
+  // Step-by-step distal repair, shown as a tubularized incised plate (TIP) repair.
   repair(viz, ctl) {
-    const o = T('treatment.options.repair');
-    const s = { k: 0, pee: true };
-    let stop = null;
-    const draw = () =>
-      (viz.innerHTML = view({ opening: 0.55 * (1 - s.k), hood: s.k < 0.5, curve: 0.8 * (1 - s.k), groove: s.k > 0 && s.k < 1, pee: s.pee }));
-    ctl.append(
-      segmented('', [[0, o.before], [1, o.after]], 0, (v) => {
-        stop?.();
-        const from = s.k;
-        stop = animate(1400, (e) => { s.k = from + (v - from) * e; draw(); });
-      }),
-      toggle(o.pee, true, (v) => { s.pee = v; draw(); }),
-    );
-    draw();
-    return () => stop?.();
+    const base = { opening: 0.25, hood: true, curve: 0.2, pee: false, check: false, groove: false, incised: false, tubedTo: 0, stentOut: false };
+    const states = [
+      { pee: true },
+      { check: true },
+      { hood: false, curve: 0, groove: true },
+      { hood: false, curve: 0, groove: true, incised: true },
+      { hood: false, curve: 0, opening: 0, tubedTo: 0.25, stentOut: true },
+      { hood: false, curve: 0, opening: 0, stentOut: true },
+      { hood: false, curve: 0, opening: 0, pee: true },
+    ];
+    const captions = T('treatment.options.repair.steps');
+    const steps = states.map((st, n) => ({ caption: captions[n], state: { ...base, ...st } }));
+    return stepPlayer(ctl, steps, (st) => (viz.innerHTML = view(st)), t('common.player'));
   },
   // Step-by-step two-stage repair.
   staged(viz, ctl) {
