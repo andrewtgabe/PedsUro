@@ -1,7 +1,7 @@
 // Kidney stones chapter.
 import { t } from '../i18n.js';
 import { urinaryTract, stoneShape, clamp } from '../anatomy.js';
-import { segmented, slider, animate, modelLayout, optionTabs, takeaways } from '../ui.js';
+import { segmented, slider, animate, modelLayout, optionTabs, takeaways, stepPlayer } from '../ui.js';
 
 const T = (k) => t(`stones.${k}`);
 
@@ -84,10 +84,49 @@ function renderPathology(root) {
 
 // ---------- 3. Treatment ----------
 
-function beforeAfter(viz, ctl, o, before, after) {
-  const draw = (v) => (viz.innerHTML = urinaryTract(v ? after : before));
-  ctl.append(segmented('', [[0, o.before], [1, o.after]], 0, draw));
-  draw(0);
+// Step-by-step procedures. Each state is flat so numbers (dilation, scope, sheath) animate between steps.
+const PROC_BASE = { at: 'pelvis', size: 0.6, frag: false, stone: true, pd: 0.2, ud: 0, uft: 0, scope: 0, sheath: 0, laser: false, aim: false, shock: false, stent: false, neph: false, flow: '' };
+const PROCS = {
+  ureteroscopy: [
+    { at: 0.5, size: 0.8, pd: 0.5, ud: 0.3, uft: 0.5 },
+    { at: 0.5, size: 0.8, pd: 0.5, ud: 0.3, uft: 0.5, scope: 0.5 },
+    { at: 0.5, size: 0.8, pd: 0.5, ud: 0.3, uft: 0.5, scope: 0.5, laser: true, frag: true },
+    { stone: false, pd: 0.4, ud: 0.2, scope: 0.5 },
+    { stone: false, pd: 0.3, stent: true },
+    { stone: false, flow: 'down' },
+  ],
+  pcnl: [
+    { size: 1 },
+    { size: 1, sheath: 0.5 },
+    { size: 1, sheath: 1 },
+    { size: 1, sheath: 1, laser: true, frag: true },
+    { stone: false, sheath: 1 },
+    { stone: false, neph: true },
+  ],
+  swl: [
+    {},
+    { aim: true },
+    { aim: true, shock: true },
+    { shock: true, frag: true },
+    { at: 0.55, size: 0.4, frag: true, flow: 'down' },
+    { stone: false, flow: 'down' },
+  ],
+};
+
+function procedure(key) {
+  return (viz, ctl) => {
+    const captions = T(`treatment.options.${key}.steps`);
+    const steps = PROCS[key].map((st, n) => ({ caption: captions[n], state: { ...PROC_BASE, ...st } }));
+    return stepPlayer(ctl, steps, (st) => {
+      const stone = st.stone ? { at: st.at, size: st.size, fragments: st.frag } : null;
+      viz.innerHTML = urinaryTract({
+        affected: {
+          pelvisFill: 1, pelvisDilation: st.pd, ureterDilation: st.ud, ureterFillTop: st.uft, stone, target: { at: st.at },
+          scope: st.scope, sheath: st.sheath, laser: st.laser, aim: st.aim, shock: st.shock, stent: st.stent, nephrostomy: st.neph, flow: st.flow,
+        },
+      });
+    }, t('common.player'));
+  };
 }
 
 const BUILD = {
@@ -105,10 +144,8 @@ const BUILD = {
     ctl.append(slider(o.control, { min: 0, max: 14, step: 1, value: 0, format: (v) => `${v} ${o.days}` }, draw));
     draw(0);
   },
-  ureteroscopy: (viz, ctl) =>
-    beforeAfter(viz, ctl, T('treatment.options.ureteroscopy'), stoneView('ureter', 0.8), { affected: { stent: true, pelvisFill: 1 } }),
-  swl: (viz, ctl) =>
-    beforeAfter(viz, ctl, T('treatment.options.swl'), stoneView('pelvis', 0.9), stoneView('pelvis', 0.9, true)),
+  ureteroscopy: procedure('ureteroscopy'),
+  swl: procedure('swl'),
   bladderRemoval(viz, ctl) {
     const o = T('treatment.options.bladderRemoval');
     const draw = (v) =>
@@ -116,7 +153,7 @@ const BUILD = {
     ctl.append(segmented('', [[0, o.before], [1, o.laser], [2, o.after]], 0, draw));
     draw(0);
   },
-  pcnl: (viz) => { viz.innerHTML = urinaryTract(stoneView('pelvis', 1)); },
+  pcnl: procedure('pcnl'),
   prevention: (viz) => { viz.innerHTML = urinaryTract({ affected: { pelvisFill: 1, flow: 'down' }, healthy: { flow: 'down' }, voiding: true }); },
 };
 

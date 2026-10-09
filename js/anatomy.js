@@ -216,18 +216,64 @@ function upperTract(o, g) {
       <line class="skin" x1="566" y1="150" x2="566" y2="290"/><path class="stream" d="M580 ${f(cs.calyces[2][1] + 42)} L582 ${f(cs.calyces[2][1] + 70)}"/>` : ''}
     ${o.ureterostomy ? `<line class="skin" x1="530" y1="270" x2="530" y2="390"/><circle class="stoma" cx="528" cy="330" r="9"/>` : ''}
     ${o.stone ? stoneMarkup(o.stone, cs, pts) : ''}
+    ${procedureMarkup(o, cs, pts, g)}
     ${o.inflamed ? `<path class="inflamed" d="${KIDNEY_PATH}"/>` : ''}
     ${bact}</g>`;
 }
 
+function stonePos(st, cs, pts) {
+  if (st.at === 'calyx') return cs.calyces[2];
+  if (st.at === 'pelvis') return cs.pc;
+  return at(pts, st.at);
+}
+
 function stoneMarkup(st, cs, pts) {
-  const r = 5 + 15 * (st.size ?? 0.5);
-  let x;
-  let y;
-  if (st.at === 'calyx') [x, y] = cs.calyces[2];
-  else if (st.at === 'pelvis') [x, y] = cs.pc;
-  else [x, y] = at(pts, st.at);
-  return stoneAt(x, y, r, st.fragments);
+  const [x, y] = stonePos(st, cs, pts);
+  return stoneAt(x, y, 5 + 15 * (st.size ?? 0.5), st.fragments);
+}
+
+// Stone procedures. scope: 0–1 how far a ureteroscope has gone up the ureter from the bladder;
+// sheath: 0–1 PCNL access from the back (0.5 needle, 1 working tunnel); laser: sparks at `target`;
+// shock: shock waves aimed at `target`; aim: targeting crosshair at `target`.
+function procedureMarkup(o, cs, pts, g) {
+  const target = o.target ? stonePos(o.target, cs, pts) : cs.pc;
+  let out = '';
+  const scope = clamp(o.scope || 0);
+  if (scope > 0.01) {
+    const n = pts.length - 1;
+    const from = Math.round(n * (1 - scope));
+    const path = [[300, 530], [300, g.cy + g.ry], [g.cx + g.rx * 0.4, g.cy - g.ry * 0.3], ...pts.slice(from).reverse()];
+    const tip = pts[from];
+    out += `<g class="scope"><path d="${polyPath(path)}"/><circle cx="${f(tip[0])}" cy="${f(tip[1])}" r="4"/></g>`;
+  }
+  const sheath = clamp(o.sheath || 0);
+  if (sheath > 0.01) {
+    const [cx, cy] = cs.calyces[2];
+    const sx = 600;
+    const sy = cy + 60;
+    const ex = sx + (cx - sx) * Math.min(1, sheath * 1.05);
+    const ey = sy + (cy - sy) * Math.min(1, sheath * 1.05);
+    out += `<line class="skin" x1="566" y1="150" x2="566" y2="300"/>
+      <line class="${sheath > 0.6 ? 'sheath' : 'needle'}" x1="${sx}" y1="${sy}" x2="${f(ex)}" y2="${f(ey)}"/>`;
+  }
+  const [tx, ty] = target;
+  if (o.laser) out += [0, 72, 144, 216, 288].map((a) => {
+    const r = (a * Math.PI) / 180;
+    return `<line class="zap" x1="${f(tx + 9 * Math.cos(r))}" y1="${f(ty + 9 * Math.sin(r))}" x2="${f(tx + 20 * Math.cos(r))}" y2="${f(ty + 20 * Math.sin(r))}"/>`;
+  }).join('');
+  if (o.aim) out += `<g class="aim"><circle cx="${f(tx)}" cy="${f(ty)}" r="22"/><path d="M${f(tx - 32)} ${f(ty)} h18 M${f(tx + 14)} ${f(ty)} h18 M${f(tx)} ${f(ty - 32)} v18 M${f(tx)} ${f(ty + 14)} v18"/></g>`;
+  if (o.shock) {
+    const sx = 590;
+    const sy = ty + 150;
+    out += `<path class="swl-head" d="M${sx - 40} ${sy + 10} Q${sx} ${sy - 30} ${sx + 40} ${sy + 10} Z"/>`;
+    out += [0.25, 0.5, 0.75].map((k) => {
+      const x = sx + (tx - sx) * k;
+      const y = sy + (ty - sy) * k;
+      const w = 30 * (1 - k) + 8;
+      return `<path class="wave" d="M${f(x - w)} ${f(y + w * 0.3)} Q${f(x)} ${f(y - w * 0.7)} ${f(x + w)} ${f(y + w * 0.3)}" style="animation-delay:${f(k * 0.6)}s"/>`;
+    }).join('');
+  }
+  return out;
 }
 
 // ---------- duplex kidney ----------

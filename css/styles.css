@@ -429,3 +429,10 @@ svg.anatomy .tape { fill: rgb(200 220 240 / 0.7); stroke: #8aa6c8; stroke-width:
 svg.anatomy .muscle-cut { fill: var(--submucosa); stroke: var(--warn); stroke-width: 2; stroke-dasharray: 5 4; }
 svg.anatomy .trough { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-dasharray: 6 4; }
 svg.anatomy .needle { stroke: #6b7280; stroke-width: 3; stroke-linecap: round; }
+svg.anatomy .scope path { fill: none; stroke: #6b7280; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+svg.anatomy .sheath { stroke: #6b7280; stroke-width: 10; stroke-linecap: round; }
+svg.anatomy .aim circle, svg.anatomy .aim path { fill: none; stroke: #16a34a; stroke-width: 2; }
+svg.anatomy .swl-head { fill: #cbd5e1; stroke: #64748b; stroke-width: 2; }
+svg.anatomy .wave { fill: none; stroke: #f59e0b; stroke-width: 3; stroke-linecap: round; animation: wavepulse 1.2s ease-in-out infinite; }
+@keyframes wavepulse { 0%, 100% { opacity: 0.25; } 50% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { svg.anatomy .wave { animation: none; } }
