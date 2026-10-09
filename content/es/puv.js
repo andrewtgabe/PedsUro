@@ -67,7 +67,14 @@ export default {
         name: 'Vesicostomía',
         summary:
           'Para bebés demasiado pequeños para la cámara, o si los riñones necesitan más ayuda, la vejiga se puede abrir a la piel justo debajo del ombligo. La orina drena al pañal. Se cierra más adelante.',
-        toggle: 'Vesicostomía',
+        steps: [
+          'Antes: las válvulas bloquean la orina, así que la vejiga se mantiene llena y los riñones están hinchados.',
+          'Con el bebé dormido, se hace una pequeña herida de lado a lado en la piel, más o menos a la mitad entre el ombligo y el hueso del pubis.',
+          'La parte de arriba de la vejiga (la cúpula) se libera y se sube a través de la capa de músculo de la barriga, donde se fija con puntos.',
+          'Se abre la parte de arriba de la vejiga y sus bordes se cosen a la piel. Esto forma una pequeña abertura (una vesicostomía).',
+          'Ahora la orina drena libremente al pañal. La vejiga se mantiene vacía y baja la presión sobre los riñones. No se usa bolsa.',
+          'Más adelante, por lo general cuando el bebé es más grande y ya se trataron las válvulas, la abertura se cierra con otra cirugía.',
+        ],
         stomaLabel: 'Abertura en la barriga',
         pros: ['Drena bien la vejiga', 'Protege los riñones en bebés muy pequeños'],
         cons: ['Cirugía ahora y otra después para cerrarla', 'Cuidado de la abertura'],

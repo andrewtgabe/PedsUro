@@ -88,15 +88,23 @@ const BUILD = {
 
   vesicostomy(viz, ctl) {
     const o = T('treatment.options.vesicostomy');
-    const draw = (on) => {
-      const side = on ? relieved : swollen;
+    const states = [
+      { v: 0, relief: 0, fill: 0.9 },
+      { v: 1, relief: 0, fill: 0.9 },
+      { v: 2, relief: 0, fill: 0.9 },
+      { v: 3, relief: 0.3, fill: 0.5 },
+      { v: 3, relief: 1, fill: 0.25 },
+      { v: 0, relief: 1, fill: 0.5, closed: true },
+    ];
+    const mix = (k) => Object.fromEntries(Object.keys(swollen).map((key) => [key, swollen[key] + (relieved[key] - swollen[key]) * k]));
+    const steps = states.map((st, n) => ({ caption: o.steps[n], state: { closed: false, ...st } }));
+    return stepPlayer(ctl, steps, (st) => {
+      const side = mix(st.relief);
       viz.innerHTML = urinaryTract({
-        affected: side, healthy: side, urethraBlock: true, bladderWall: 1, bladderFill: on ? 0.25 : 0.9,
-        vesicostomy: on, vesicostomyLabel: o.stomaLabel,
+        affected: side, healthy: side, urethraBlock: !st.closed, bladderWall: 1, bladderFill: st.fill,
+        vesicostomy: st.v, vesicostomyClosed: st.closed, vesicostomyLabel: o.stomaLabel,
       });
-    };
-    ctl.append(toggle(o.toggle, false, draw));
-    draw(false);
+    }, t('common.player'));
   },
 
   bladder(viz) {

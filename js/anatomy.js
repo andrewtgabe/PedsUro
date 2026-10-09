@@ -295,7 +295,8 @@ function duplexTract(o, g) {
 //   bladderFill: 0..1; bladderBact: number of bacteria; voiding: urine stream
 //   bladderWall: 0..1 thickening; urethraBlock: valve in the urethra
 //   catheter: tube draining the bladder through the urethra
-//   vesicostomy: opening from the bladder to the belly skin; vesicostomyLabel
+//   vesicostomy: opening from the bladder to the belly skin; vesicostomyLabel. A number 0–3 draws the
+//   build-up (1 skin cut, 2 dome brought up, 3 open and draining); `true` = 3. vesicostomyClosed: healed scar.
 //   urethraBact: bacteria at the urethra; bladderStone: { size, fragments }
 //   bladderRed: irritated bladder lining (infection)
 //   sideLabels: [left, right]; labels: false hides anatomy labels
@@ -310,6 +311,7 @@ export function urinaryTract({
   catheter = false,
   vesicostomy = false,
   vesicostomyLabel = '',
+  vesicostomyClosed = false,
   urethraBact = false,
   bladderStone = null,
   bladderRed = false,
@@ -339,13 +341,19 @@ export function urinaryTract({
     ${urethraBact ? bacterium(296, 498, 80) + bacterium(304, 486, 100) + bacterium(297, 474, 70) : ''}
     ${bladderStone ? stoneAt(g.cx + 12, g.cy + g.ry * 0.45, 6 + 12 * (bladderStone.size ?? 0.5), bladderStone.fragments) : ''}
     ${catheter ? `<g class="catheter"><path d="M300 530 L300 ${f(g.cy + g.ry * 0.25)}"/><circle cx="300" cy="${f(g.cy + g.ry * 0.25)}" r="7"/></g>` : ''}
-    ${
-      vesicostomy
-        ? `<g class="vesicostomy"><path d="M${g.cx} ${f(g.cy - g.ry)} L${g.cx} ${f(g.cy - g.ry - 40)}"/><path class="stream" d="M${g.cx} ${f(g.cy - g.ry - 42)} L${g.cx} ${f(g.cy - g.ry - 60)}"/>
-           <line class="skin" x1="${g.cx - 70}" y1="${f(g.cy - g.ry - 40)}" x2="${g.cx + 70}" y2="${f(g.cy - g.ry - 40)}"/>
-           <text class="lbl small" x="${g.cx + 76}" y="${f(g.cy - g.ry - 36)}">${vesicostomyLabel}</text></g>`
-        : ''
-    }
+    ${(() => {
+      const v = vesicostomy === true ? 3 : +vesicostomy || 0;
+      const top = g.cy - g.ry, sk = top - 40;
+      if (v < 0.05 && !vesicostomyClosed) return '';
+      const skin = `<line class="skin" x1="${g.cx - 70}" y1="${f(sk)}" x2="${g.cx + 70}" y2="${f(sk)}"/>`;
+      if (vesicostomyClosed) return `<g class="vesicostomy">${skin}<path class="scar" d="M${g.cx - 14} ${f(sk)} h28"/></g>`;
+      const rise = clamp(v - 1);
+      const tube = rise > 0 ? `<path d="M${g.cx} ${f(top)} L${g.cx} ${f(top - 40 * rise)}"/>` : '<path d="M0 0"/>';
+      const cut = v < 2.5 ? `<path class="incision" d="M${g.cx - 16} ${f(sk)} h32"/>` : '';
+      const open = v >= 2.5 ? `<path class="stream" d="M${g.cx} ${f(sk - 2)} L${g.cx} ${f(sk - 20)}"/>
+           <text class="lbl small" x="${g.cx + 76}" y="${f(sk + 4)}">${vesicostomyLabel}</text>` : '';
+      return `<g class="vesicostomy">${tube}${skin}${cut}${open}</g>`;
+    })()}
     ${
       labels
         ? `<text class="lbl" x="455" y="${f(150 + 90 * (affected.kidney?.s ?? 1) + (affected.kidney?.dy ?? 0))}" text-anchor="middle">${t('common.labels.kidney')}</text>

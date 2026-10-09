@@ -67,7 +67,14 @@ export default {
         name: 'Vesicostomy',
         summary:
           'For babies too small for the camera, or if the kidneys need more help, the bladder can be opened to the skin just below the belly button. Urine drains into the diaper. It is closed later.',
-        toggle: 'Vesicostomy',
+        steps: [
+          'Before: the valves block urine, so the bladder stays full and the kidneys are swollen.',
+          'With the baby asleep, a small crosswise cut is made in the skin about halfway between the belly button and the pubic bone.',
+          'The top of the bladder (the dome) is freed and brought up through the belly muscle layer, where it is stitched in place.',
+          'The top of the bladder is opened, and its edges are stitched to the skin. This makes a small opening (a vesicostomy).',
+          'Urine now drains freely into the diaper. The bladder stays empty, and pressure comes off the kidneys. There is no bag.',
+          'Later, usually once the baby is bigger and the valves have been treated, the opening is closed in another surgery.',
+        ],
         stomaLabel: 'Opening on belly',
         pros: ['Drains the bladder well', 'Protects the kidneys in very small babies'],
         cons: ['Surgery now and again later to close it', 'Care of the opening'],

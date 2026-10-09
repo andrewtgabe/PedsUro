@@ -243,6 +243,8 @@ body.present .chapter-head { padding-top: 8px; }
 svg.anatomy .kidney.pale { fill: #d9b3aa; stroke: #a88d86; }
 svg.anatomy .catheter path { fill: none; stroke: #3b82c4; stroke-width: 4; }
 svg.anatomy .catheter circle { fill: #9cc3e6; stroke: #3b82c4; stroke-width: 2; }
+svg.anatomy .vesicostomy .incision { stroke: var(--warn); stroke-width: 3; stroke-dasharray: 4 3; }
+svg.anatomy .vesicostomy .scar { stroke: #c08a7a; stroke-width: 3; }
 svg.anatomy .vesicostomy > path:first-child { stroke: var(--wall); stroke-width: 16; stroke-linecap: round; }
 svg.anatomy .skin { stroke: var(--kidney-edge); stroke-width: 3; stroke-dasharray: 8 5; }
 svg.anatomy .u-wall-x { stroke: var(--wall); stroke-linecap: round; }
