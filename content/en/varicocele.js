@@ -47,19 +47,19 @@ export default {
     strainText: 'Bearing down raises pressure in the belly and pushes more blood backward, so the veins swell more. This is how we check during the exam.',
     small: 'Testicle smaller',
     smallText:
-      'The extra warm blood can keep the testicle from growing normally. A testicle that is much smaller than the other one (about 1/5 smaller) is a main reason to consider treatment.',
+      'The extra warm blood can keep the testicle from growing normally. A testicle that stays more than about 20% smaller than the other one (or 2 mL smaller) on two checks about 6 months apart is a main reason to consider treatment. Smaller differences often even out on their own during puberty.',
     whyTitle: 'Why it can matter',
     whyList: ['The testicle on that side may grow less', 'It may affect sperm and fertility later', 'Some boys have aching pain'],
   },
 
   treatment: {
-    intro: 'Most teens with a varicocele only need check-ups. Treatment is considered for a testicle that is not growing, ongoing pain, or abnormal semen tests in older teens.',
+    intro: 'Most teens with a varicocele only need check-ups. Treatment is considered for a testicle that stays much smaller, ongoing pain, varicoceles on both sides, or abnormal semen tests in older teens. A varicocele only on the right side, or one that does not go down when lying flat, needs an ultrasound of the belly.',
     pros: 'Benefits',
     cons: 'Things to consider',
     options: {
       watch: {
         name: 'Check-ups',
-        summary: 'We measure both testicles about once a year, often with an ultrasound, to make sure the left one keeps growing.',
+        summary: 'We measure both testicles every 6 to 12 months, often with an ultrasound, to make sure the left one keeps growing. Many boys with a small size difference catch up on their own, so the difference is confirmed on repeat checks before deciding on surgery. In older teens, semen and hormone tests can add information.',
         pros: ['No procedure', 'Many boys never need treatment'],
         cons: ['Yearly visits until growth is done'],
       },
@@ -85,8 +85,8 @@ export default {
           'Blood now returns through other, healthy veins, and the swelling settles over the next months.',
           'Most boys go home the same day. Sparing the lymph channels lowers the chance of fluid building up around the testicle (hydrocele). Check-ups make sure the testicle keeps growing.',
         ],
-        pros: ['Works well', 'Testicle often catches up in size', 'Usually home the same day'],
-        cons: ['General anesthesia', 'Fluid around the testicle (hydrocele) afterward: more common with the laparoscopic approach, but uncommon when the lymph channels are spared', 'Can come back'],
+        pros: ['Works well', 'Testicle often catches up in size', 'Very good at relieving varicocele pain', 'Usually home the same day'],
+        cons: ['General anesthesia', 'Fluid around the testicle (hydrocele) afterward: more common with the laparoscopic approach, but uncommon when the lymph channels are spared', 'Can come back', 'The effect on future fertility is not fully known'],
       },
       embolization: {
         name: 'Embolization',

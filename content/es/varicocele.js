@@ -47,19 +47,19 @@ export default {
     strainText: 'Pujar sube la presión en la barriga y empuja más sangre de regreso, así que las venas se hinchan más. Así lo revisamos durante el examen.',
     small: 'Testículo más pequeño',
     smallText:
-      'La sangre caliente de más puede impedir que el testículo crezca normalmente. Un testículo mucho más pequeño que el otro (alrededor de 1/5 más pequeño) es una razón principal para considerar el tratamiento.',
+      'La sangre caliente de más puede impedir que el testículo crezca normalmente. Un testículo que sigue más de un 20% más pequeño que el otro (o 2 mL más pequeño) en dos revisiones con unos 6 meses de diferencia es una razón principal para considerar el tratamiento. Las diferencias más pequeñas muchas veces se emparejan solas durante la pubertad.',
     whyTitle: 'Por qué puede importar',
     whyList: ['El testículo de ese lado puede crecer menos', 'Puede afectar los espermatozoides y la fertilidad más adelante', 'Algunos niños tienen dolor'],
   },
 
   treatment: {
-    intro: 'La mayoría de los adolescentes con varicocele solo necesitan revisiones. Se considera el tratamiento si el testículo no está creciendo, si hay dolor que no se quita o si hay estudios de semen anormales en adolescentes mayores.',
+    intro: 'La mayoría de los adolescentes con varicocele solo necesitan revisiones. Se considera el tratamiento si el testículo sigue mucho más pequeño, si hay dolor que no se quita, si hay varicocele de los dos lados o si hay estudios de semen anormales en adolescentes mayores. Un varicocele solo del lado derecho, o uno que no baja al acostarse, necesita un ultrasonido de la barriga.',
     pros: 'Beneficios',
     cons: 'A tomar en cuenta',
     options: {
       watch: {
         name: 'Revisiones',
-        summary: 'Medimos los dos testículos alrededor de una vez al año, muchas veces con un ultrasonido, para asegurarnos de que el izquierdo sigue creciendo.',
+        summary: 'Medimos los dos testículos cada 6 a 12 meses, muchas veces con un ultrasonido, para asegurarnos de que el izquierdo sigue creciendo. Muchos niños con una diferencia pequeña de tamaño se emparejan solos, así que la diferencia se confirma en revisiones repetidas antes de decidir la cirugía. En adolescentes mayores, los estudios de semen y de hormonas pueden dar más información.',
         pros: ['Sin procedimiento', 'Muchos niños nunca necesitan tratamiento'],
         cons: ['Visitas una vez al año hasta que termina el crecimiento'],
       },
@@ -85,8 +85,8 @@ export default {
           'Ahora la sangre regresa por otras venas sanas, y la hinchazón baja en los siguientes meses.',
           'La mayoría de los niños se van a casa el mismo día. Proteger los canales linfáticos baja la probabilidad de que se junte líquido alrededor del testículo (hidrocele). Las revisiones confirman que el testículo siga creciendo.',
         ],
-        pros: ['Funciona bien', 'Muchas veces el testículo alcanza su tamaño', 'Por lo general se va a casa el mismo día'],
-        cons: ['Anestesia general', 'Líquido alrededor del testículo (hidrocele) después: más común con el método laparoscópico, pero poco común cuando se respetan los canales linfáticos', 'Puede regresar'],
+        pros: ['Funciona bien', 'Muchas veces el testículo alcanza su tamaño', 'Muy buena para quitar el dolor del varicocele', 'Por lo general se va a casa el mismo día'],
+        cons: ['Anestesia general', 'Líquido alrededor del testículo (hidrocele) después: más común con el método laparoscópico, pero poco común cuando se respetan los canales linfáticos', 'Puede regresar', 'No se sabe del todo su efecto en la fertilidad futura'],
       },
       embolization: {
         name: 'Embolización',
