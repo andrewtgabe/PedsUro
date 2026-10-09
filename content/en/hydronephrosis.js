@@ -13,6 +13,16 @@ export default {
       { name: 'Birth', title: 'After birth', text: 'Babies with swelling seen before birth get an ultrasound after birth to check again.' },
     ],
     extra: 'Extra fluid seen in the kidney',
+    modes: { growth: 'How the kidneys grow', transient: 'Temporary (physiologic) swelling' },
+    transient: {
+      title: 'Temporary (physiologic) hydronephrosis',
+      text: 'This is the most common cause of hydronephrosis. Nothing is truly blocked. The drainage system is still growing up: a spot that is a little narrow, or a normal variation in shape, slows urine for a while. As the kidneys and ureters mature, urine drains more easily and the swelling usually goes away with time.',
+      steps: [
+        { name: 'Before or at birth', text: 'The drainage pathway is still maturing. A slightly narrow spot, or a normal variation in shape, slows urine leaving the kidney, so the collecting area stretches a little.' },
+        { name: 'First months', text: 'As the kidney and ureter grow and mature, the narrow spot widens and urine drains more easily. The swelling gets smaller.' },
+        { name: 'Usually by age 1 to 3', text: 'In most children the swelling goes away on its own. Follow-up ultrasounds check this; no surgery is needed.' },
+      ],
+    },
     extraText:
       'Here, the kidney’s collecting area looks wider than usual. Often the drainage system is just still maturing, and the swelling gets better on its own. Sometimes it is a sign of a blockage or of urine flowing backward.',
   },

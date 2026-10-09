@@ -1,7 +1,7 @@
 // Hydronephrosis chapter: overview of kidney swelling and its causes.
 import { t } from '../i18n.js';
 import { urinaryTract, drainageChart } from '../anatomy.js';
-import { segmented, toggle, slider, modelLayout, optionTabs, takeaways } from '../ui.js';
+import { segmented, toggle, slider, modelLayout, optionTabs, takeaways, stepPlayer } from '../ui.js';
 import { refluxSide } from './vur.js';
 
 const T = (k) => t(`hydronephrosis.${k}`);
@@ -37,11 +37,48 @@ function renderEmbryology(root) {
       ${showExtra ? `<div class="callout warn"><p>${T('embryology.extraText')}</p></div>` : ''}`;
   };
 
-  ctl.append(
+  // Growth view (default) or the step-through of temporary (physiologic) hydronephrosis.
+  const growth = document.createElement('div');
+  growth.className = 'controls';
+  growth.append(
     segmented(T('embryology.weekLabel'), stages.map((x, i) => [i, x.name]), 0, (v) => { s.stage = v; draw(); }),
     toggle(T('embryology.extra'), false, (v) => { s.extra = v; draw(); }),
   );
+  const transient = document.createElement('div');
+  transient.className = 'controls';
+  let stop = null;
+  const showTransient = () => {
+    const tr = T('embryology.transient');
+    const states = [
+      { d: 0.6, w: 4, flow: 'slow' },
+      { d: 0.35, w: 7, flow: 'down' },
+      { d: 0.05, w: 12, flow: 'down' },
+    ];
+    const steps = states.map((st, n) => ({ caption: `<strong>${tr.steps[n].name}:</strong> ${tr.steps[n].text}`, state: st }));
+    transient.innerHTML = '';
+    stop = stepPlayer(transient, steps, (st) => {
+      viz.innerHTML = urinaryTract({
+        healthy: { pelvisFill: 1, flow: 'down' },
+        affected: { pelvisDilation: st.d, blunt: st.d * 0.3, pelvisFill: 1, upj: st.w < 11, narrowW: st.w, flow: st.flow },
+        bladderFill: 0.6,
+      });
+    }, t('common.player'));
+    explain.innerHTML = `<h3>${tr.title}</h3><p>${tr.text}</p>`;
+  };
+  ctl.append(
+    segmented('', [['growth', T('embryology.modes.growth')], ['transient', T('embryology.modes.transient')]], 'growth', (v) => {
+      stop?.();
+      stop = null;
+      growth.style.display = v === 'growth' ? '' : 'none';
+      transient.style.display = v === 'growth' ? 'none' : '';
+      if (v === 'growth') draw();
+      else showTransient();
+    }),
+    growth,
+    transient,
+  );
   draw();
+  return () => stop?.();
 }
 
 // ---------- 2. What's happening ----------

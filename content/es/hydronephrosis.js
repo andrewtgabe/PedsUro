@@ -13,6 +13,16 @@ export default {
       { name: 'Nacimiento', title: 'Después de nacer', text: 'A los bebés con hinchazón vista antes de nacer se les hace otro ultrasonido después de nacer para revisar de nuevo.' },
     ],
     extra: 'Líquido de más en el riñón',
+    modes: { growth: 'Cómo crecen los riñones', transient: 'Hinchazón temporal (fisiológica)' },
+    transient: {
+      title: 'Hidronefrosis temporal (fisiológica)',
+      text: 'Es la causa más común de hidronefrosis. Nada está realmente bloqueado. El sistema de drenaje todavía está madurando: un lugar un poco estrecho, o una variación normal de forma, hace que la orina salga más despacio por un tiempo. Conforme maduran los riñones y los uréteres, la orina drena con más facilidad y la hinchazón por lo general se quita con el tiempo.',
+      steps: [
+        { name: 'Antes o al nacer', text: 'El camino de drenaje todavía está madurando. Un lugar un poco estrecho, o una variación normal de forma, hace que la orina salga más despacio del riñón, así que la zona que recoge la orina se estira un poco.' },
+        { name: 'Primeros meses', text: 'Conforme el riñón y el uréter crecen y maduran, el lugar estrecho se ensancha y la orina drena con más facilidad. La hinchazón se hace más pequeña.' },
+        { name: 'Por lo general entre 1 y 3 años', text: 'En la mayoría de los niños la hinchazón se quita sola. Los ultrasonidos de seguimiento lo confirman; no se necesita cirugía.' },
+      ],
+    },
     extraText:
       'Aquí, la parte del riñón que recoge la orina se ve más ancha de lo normal. Muchas veces el sistema de drenaje todavía está madurando y la hinchazón mejora sola. A veces es señal de una obstrucción o de orina que regresa.',
   },
