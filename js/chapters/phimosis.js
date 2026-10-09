@@ -1,7 +1,7 @@
 // Phimosis & paraphimosis chapter.
 import { t } from '../i18n.js';
 import { penisSide } from '../genital.js';
-import { segmented, toggle, slider, button, animate, modelLayout, optionTabs, takeaways } from '../ui.js';
+import { segmented, toggle, slider, button, animate, modelLayout, optionTabs, takeaways, stepPlayer } from '../ui.js';
 
 const T = (k) => t(`phimosis.${k}`);
 const labels = () => T('labels');
@@ -52,23 +52,44 @@ function renderPathology(root) {
 
 // ---------- 3. Treatment ----------
 
-function beforeAfter(viz, ctl, o, after) {
-  const draw = (v) => (viz.innerHTML = penisSide({ limit: 0.08, pull: v ? 1 : 0, pee: true, ...(v ? after : {}), text: labels() }));
-  ctl.append(segmented('', [[0, o.before], [1, o.after]], 0, draw));
-  draw(0);
-}
+// Step-by-step treatments. pull and limit animate between steps.
+const PROC_BASE = { pull: 0, limit: 0.08, shiny: false, cream: false, slit: false, stitches: false, mark: false, widened: false, circumcised: false };
+const PROCS = {
+  steroid: [
+    {},
+    { pull: 1, shiny: true },
+    { pull: 1, shiny: true, cream: true },
+    { cream: true },
+    { pull: 1, limit: 0.5, shiny: true, cream: true },
+    { pull: 1, limit: 1 },
+    { limit: 1 },
+  ],
+  preputioplasty: [
+    {},
+    { pull: 1 },
+    { pull: 1, slit: true },
+    { pull: 1, limit: 1, widened: true, stitches: true },
+    { limit: 1, widened: true },
+  ],
+  circumcision: [
+    {},
+    { mark: true },
+    { circumcised: true },
+    { circumcised: true, stitches: true },
+    { circumcised: true },
+  ],
+};
+const procedure = (key) => (viz, ctl) => {
+  const captions = T(`treatment.options.${key}.steps`);
+  const steps = PROCS[key].map((st, n) => ({ caption: captions[n], state: { ...PROC_BASE, ...st } }));
+  return stepPlayer(ctl, steps, (st) => (viz.innerHTML = penisSide({ ...st, text: labels() })), t('common.player'));
+};
 
 const BUILD = {
   care: (viz) => { viz.innerHTML = penisSide({ limit: 0.3, text: labels() }); },
-  steroid(viz, ctl) {
-    const o = T('treatment.options.steroid');
-    // Over weeks of cream, the opening loosens and the foreskin pulls back further.
-    const draw = (w) => (viz.innerHTML = penisSide({ limit: 0.08 + 0.92 * Math.min(1, w / 6), pull: 1, text: labels() }));
-    ctl.append(slider(o.control, { min: 0, max: 6, step: 1, value: 0, format: (v) => `${v} ${o.weeks}` }, draw));
-    draw(0);
-  },
-  preputioplasty: (viz, ctl) => beforeAfter(viz, ctl, T('treatment.options.preputioplasty'), { widened: true, limit: 1 }),
-  circumcision: (viz, ctl) => beforeAfter(viz, ctl, T('treatment.options.circumcision'), { circumcised: true }),
+  steroid: procedure('steroid'),
+  preputioplasty: procedure('preputioplasty'),
+  circumcision: procedure('circumcision'),
   reduction(viz, ctl) {
     const o = T('treatment.options.reduction');
     let stop = null;

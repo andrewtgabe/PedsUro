@@ -281,8 +281,10 @@ const glansR = (x) => (x <= 255 ? 40 : 40 * Math.sqrt(Math.max(0, 1 - ((x - 255)
 //   scar: white scarred ring at the opening (lichen sclerosus)
 //   pee: urinating; trapped: paraphimosis; circumcised; widened: preputioplasty
 //   meatus: 0..1 how narrow the urethral opening is; sore: red irritated tip
+//   shiny: stretched, shiny skin at the tight ring; cream: ointment on the ring; slit: short cut across the ring;
+//   stitches: stitches at the ring (or the circumcision line); mark: planned circumcision line
 //   text: { glans, foreskin, opening, shaft, tight, trapped }
-export function penisSide({ pull = 0, limit = 1, scar = false, pee = false, trapped = false, circumcised = false, widened = false, meatus = 0, sore = false, text }) {
+export function penisSide({ pull = 0, limit = 1, scar = false, pee = false, trapped = false, circumcised = false, widened = false, meatus = 0, sore = false, shiny = false, cream = false, slit = false, stitches = false, mark = false, text }) {
   const k = trapped ? 1 : Math.min(pull, limit);
   const atLimit = !trapped && pull > limit + 0.01;
   const fx = 362 - k * 132;
@@ -326,6 +328,11 @@ export function penisSide({ pull = 0, limit = 1, scar = false, pee = false, trap
     ${circumcised ? `<path class="circ-line" d="M232 160 L232 240"/>` : ''}
     ${foreskin}
     ${stream}
+    ${shiny && !circumcised ? `<ellipse class="shiny" cx="${f(fx - 6)}" cy="${f(200 - openR - 8)}" rx="10" ry="4"/><ellipse class="shiny" cx="${f(fx - 6)}" cy="${f(200 + openR + 8)}" rx="10" ry="4"/>` : ''}
+    ${cream && !circumcised ? `<ellipse class="cream" cx="${f(fx)}" cy="${f(200 - openR - 6)}" rx="8" ry="7"/><ellipse class="cream" cx="${f(fx)}" cy="${f(200 + openR + 6)}" rx="8" ry="7"/>` : ''}
+    ${slit ? `<path class="cutline" d="M${f(fx - 14)} ${f(200 - openR - 10)} l28 0"/>` : ''}
+    ${stitches ? [-1, 0, 1].map((i) => { const x = circumcised ? 232 : fx; const y = circumcised ? 176 + 24 * (i + 1) : 200 - openR - 10 + 6 * i; return `<path class="stitch" d="M${f(x - 5)} ${f(y - 5)} l10 10 m0 -10 l-10 10"/>`; }).join('') : ''}
+    ${mark ? `<path class="cutline" d="M232 150 L232 250"/>` : ''}
     <text class="lbl small" x="130" y="268" text-anchor="middle">${text.shaft}</text>
     <text class="lbl small" x="300" y="${fx >= 300 ? 140 : 205}" text-anchor="middle">${text.glans}</text>
     ${circumcised ? '' : `<text class="lbl small ${trapped ? 'accent-text' : ''}" x="${f(Math.max(fx, 232))}" y="${trapped ? 135 : 268}" text-anchor="middle">${trapped ? text.trapped : text.foreskin}</text>`}
