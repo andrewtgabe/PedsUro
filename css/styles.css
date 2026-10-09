@@ -451,4 +451,5 @@ svg.anatomy .emb-cath { fill: none; stroke: #111827; stroke-width: 2.5; stroke-l
 svg.anatomy .venogram { fill: none; stroke: #1f2937; stroke-width: 7; opacity: 0.55; }
 svg.anatomy .shiny { fill: #ffffff; opacity: 0.85; }
 svg.anatomy .cream { fill: #fffbe8; stroke: #d6c58a; stroke-width: 1.5; }
-svg.anatomy .clamp { fill: #9ca3af; stroke: #4b5563; stroke-width: 1.5; }
+svg.anatomy .hemostat path { fill: none; stroke: #6b7280; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+svg.anatomy .hemostat circle { fill: none; stroke: #6b7280; stroke-width: 2.5; }

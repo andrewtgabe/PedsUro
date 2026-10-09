@@ -54,7 +54,7 @@ export default {
         steps: [
           'The opening at the tip is too narrow. The stream is thin and sprays upward.',
           'The child is given medicine to sleep (general anesthesia) or to be deeply relaxed and sleepy (sedation), so he does not feel it.',
-          'A small clamp is placed for a moment on the underside of the opening. This presses the tissue so there is little or no bleeding.',
+          'A small surgical clamp (hemostat) is closed for a moment on the underside of the opening. This presses the tissue so there is little or no bleeding.',
           'A tiny cut is made along that pressed line on the underside. The opening becomes wider.',
           'Usually 3 to 5 tiny dissolving stitches are placed along the edges to keep the opening wide as it heals.',
           'At home, put ointment (like petroleum jelly) on the tip several times a day. If shown how, gently spread the opening for a few weeks so it does not stick shut. Peeing may sting for a few days.',

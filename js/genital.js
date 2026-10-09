@@ -334,7 +334,7 @@ export function penisSide({ pull = 0, limit = 1, scar = false, pee = false, trap
     ${slit ? `<path class="cutline" d="M${f(fx - 14)} ${f(200 - openR - 10)} l28 0"/>` : ''}
     ${stitches ? [-1, 0, 1].map((i) => { const x = circumcised ? 232 : fx; const y = circumcised ? 176 + 24 * (i + 1) : 200 - openR - 10 + 6 * i; return `<path class="stitch" d="M${f(x - 5)} ${f(y - 5)} l10 10 m0 -10 l-10 10"/>`; }).join('') : ''}
     ${mark ? `<path class="cutline" d="M232 150 L232 250"/>` : ''}
-    ${ventral === 1 ? `<rect class="clamp" x="340" y="204" width="12" height="18" rx="2"/>` : ''}
+    ${ventral === 1 ? `<g class="hemostat"><path d="M336 208 L372 214 L404 252"/><path d="M336 214 L372 216 L394 258"/><circle cx="372" cy="215" r="3"/><circle cx="408" cy="260" r="8"/><circle cx="394" cy="266" r="8"/></g>` : ''}
     ${ventral === 2 ? `<path class="cutline" d="M346 206 L346 222"/>` : ''}
     ${meatusStitches ? [[338, 194], [354, 194], [338, 214], [354, 214]].map(([x, y]) => `<path class="stitch" d="M${x - 4} ${y - 4} l8 8 m0 -8 l-8 8"/>`).join('') : ''}
     ${tipCream ? `<ellipse class="cream" cx="350" cy="200" rx="10" ry="16"/>` : ''}
