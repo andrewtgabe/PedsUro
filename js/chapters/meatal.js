@@ -1,7 +1,7 @@
 // Meatal stenosis chapter.
 import { t } from '../i18n.js';
 import { penisSide } from '../genital.js';
-import { segmented, toggle, animate, modelLayout, optionTabs, takeaways } from '../ui.js';
+import { segmented, toggle, animate, modelLayout, optionTabs, takeaways, stepPlayer } from '../ui.js';
 
 const T = (k) => t(`meatal.${k}`);
 const labels = () => T('labels');
@@ -42,21 +42,21 @@ function renderPathology(root) {
 // ---------- 3. Treatment ----------
 
 const BUILD = {
+  // Step by step; meatus (opening width) animates between steps.
   meatotomy(viz, ctl) {
-    const o = T('treatment.options.meatotomy');
-    const s = { k: 0, pee: true };
-    let stop = null;
-    const draw = () => (viz.innerHTML = view({ meatus: 0.9 * (1 - s.k), pee: s.pee }));
-    ctl.append(
-      segmented('', [[0, o.before], [1, o.after]], 0, (v) => {
-        stop?.();
-        const from = s.k;
-        stop = animate(900, (e) => { s.k = from + (v - from) * e; draw(); });
-      }),
-      toggle(o.pee, true, (v) => { s.pee = v; draw(); }),
-    );
-    draw();
-    return () => stop?.();
+    const base = { meatus: 0.9, pee: false, ventral: 0, meatusStitches: false, tipCream: false };
+    const states = [
+      { pee: true },
+      {},
+      { ventral: 1 },
+      { meatus: 0, ventral: 2 },
+      { meatus: 0, meatusStitches: true },
+      { meatus: 0, tipCream: true },
+      { meatus: 0, pee: true },
+    ];
+    const captions = T('treatment.options.meatotomy.steps');
+    const steps = states.map((st, n) => ({ caption: captions[n], state: { ...base, ...st } }));
+    return stepPlayer(ctl, steps, (st) => (viz.innerHTML = view(st)), t('common.player'));
   },
   aftercare: (viz) => { viz.innerHTML = view({ meatus: 0 }); },
 };

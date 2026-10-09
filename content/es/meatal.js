@@ -51,9 +51,15 @@ export default {
         name: 'Meatotomía',
         summary:
           'El médico hace un corte muy pequeño en la parte de abajo de la abertura para agrandarla, a veces con uno o dos puntos. Se puede hacer con crema para adormecer en el consultorio, o con anestesia general corta.',
-        before: 'Antes',
-        after: 'Después',
-        pee: 'Orinando',
+        steps: [
+          'La abertura en la punta está demasiado estrecha. El chorro es delgado y sale hacia arriba.',
+          'La punta se adormece con una crema (muchas veces por alrededor de una hora) en el consultorio, o el niño recibe una anestesia general corta.',
+          'Se pone por un momento una pinza pequeña en la parte de abajo de la abertura. Esto aprieta el tejido para que haya poco o nada de sangrado.',
+          'Se hace un corte muy pequeño a lo largo de esa línea apretada en la parte de abajo. La abertura queda más ancha.',
+          'A veces se pone uno o dos puntos de cada lado para que los bordes se mantengan abiertos mientras sanan.',
+          'En casa, ponga pomada (como vaselina) en la punta varias veces al día. Si se le enseñó cómo, abra con cuidado la abertura por unas semanas para que no se pegue. Orinar puede arder por unos días.',
+          'Ahora el chorro sale derecho y fuerte.',
+        ],
         pros: ['Rápida: solo unos minutos', 'Endereza el chorro de inmediato', 'Funciona muy bien'],
         cons: ['Arde al orinar por unos días', 'Se puede volver a estrechar si no se hacen los cuidados'],
       },

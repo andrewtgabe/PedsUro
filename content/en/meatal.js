@@ -51,9 +51,15 @@ export default {
         name: 'Meatotomy',
         summary:
           'The doctor makes a tiny cut on the underside of the opening to widen it, sometimes with a stitch or two. It can be done with numbing cream in the office, or with short general anesthesia.',
-        before: 'Before',
-        after: 'After',
-        pee: 'Peeing',
+        steps: [
+          'The opening at the tip is too narrow. The stream is thin and sprays upward.',
+          'The tip is numbed with cream (often for about an hour) in the office, or the child has a short general anesthetic.',
+          'A small clamp is placed for a moment on the underside of the opening. This presses the tissue so there is little or no bleeding.',
+          'A tiny cut is made along that pressed line on the underside. The opening becomes wider.',
+          'Sometimes a stitch or two is placed on each side to keep the edges open as they heal.',
+          'At home, put ointment (like petroleum jelly) on the tip several times a day. If shown how, gently spread the opening for a few weeks so it does not stick shut. Peeing may sting for a few days.',
+          'The stream is now straight and strong.',
+        ],
         pros: ['Quick: just a few minutes', 'Straightens the stream right away', 'Works very well'],
         cons: ['Stings for a few days when peeing', 'Can narrow again if aftercare is skipped'],
       },
