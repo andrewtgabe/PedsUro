@@ -60,7 +60,7 @@ const CAUSES = {
 const LINKS = { upj: 'upj', uvj: 'uvj', reflux: 'vur', puv: 'puv' };
 
 function renderPathology(root) {
-  const s = { cause: 'upj', sev: 1 };
+  const s = { cause: 'transient', sev: 0 };
   const { viz, ctl, explain } = modelLayout(root, T('pathology.intro'));
   const causes = T('pathology.causes');
   const sevNames = T('pathology.severity');
