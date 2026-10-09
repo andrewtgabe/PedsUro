@@ -146,12 +146,33 @@ const BUILD = {
   },
   ureteroscopy: procedure('ureteroscopy'),
   swl: procedure('swl'),
+  // Bladder stone removal: transurethral, percutaneous or open, each step by step.
   bladderRemoval(viz, ctl) {
     const o = T('treatment.options.bladderRemoval');
-    const draw = (v) =>
-      (viz.innerHTML = urinaryTract(v === 2 ? { bladderWall: 0.5, affected: { pelvisFill: 1 } } : { ...stoneView('bladderFormed', 1, v === 1) }));
-    ctl.append(segmented('', [[0, o.before], [1, o.laser], [2, o.after]], 0, draw));
-    draw(0);
+    const base = { stone: true, frag: false, lift: 0, scope: 0, sheath: 0, cut: 0, closed: false, laser: false, catheter: false };
+    const STATES = {
+      transurethral: [{}, { scope: 1 }, { scope: 1, laser: true, frag: true }, { stone: false, scope: 1 }, { stone: false, catheter: true }, { stone: false }],
+      percutaneous: [{}, { sheath: 0.5 }, { sheath: 1 }, { sheath: 1, laser: true, frag: true }, { stone: false, sheath: 1 }, { stone: false, catheter: true }],
+      open: [{}, { cut: 1 }, { cut: 2 }, { cut: 2, lift: 1 }, { stone: false, closed: true, cut: 1 }, { stone: false, closed: true, catheter: true }],
+    };
+    const holder = document.createElement('div');
+    holder.className = 'controls';
+    let stop = null;
+    const build = (method) => {
+      stop?.();
+      holder.innerHTML = '';
+      const steps = STATES[method].map((st, n) => ({ caption: o[`${method}Steps`][n], state: { ...base, ...st } }));
+      stop = stepPlayer(holder, steps, (st) => {
+        viz.innerHTML = urinaryTract({
+          bladderStone: st.stone ? { size: 1.2, fragments: st.frag, lift: st.lift } : null,
+          bladderWall: 0.5, bladderFill: 0.7, catheter: st.catheter, affected: { pelvisFill: 1 },
+          bladderProc: { scope: st.scope, sheath: st.sheath, cut: st.cut, closed: st.closed, laser: st.laser },
+        });
+      }, t('common.player'));
+    };
+    ctl.append(segmented(o.methodLabel, Object.entries(o.methods), 'transurethral', build), holder);
+    build('transurethral');
+    return () => stop?.();
   },
   pcnl: procedure('pcnl'),
   prevention: (viz) => { viz.innerHTML = urinaryTract({ affected: { pelvisFill: 1, flow: 'down' }, healthy: { flow: 'down' }, voiding: true }); },

@@ -436,3 +436,4 @@ svg.anatomy .swl-head { fill: #cbd5e1; stroke: #64748b; stroke-width: 2; }
 svg.anatomy .wave { fill: none; stroke: #f59e0b; stroke-width: 3; stroke-linecap: round; animation: wavepulse 1.2s ease-in-out infinite; }
 @keyframes wavepulse { 0%, 100% { opacity: 0.25; } 50% { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { svg.anatomy .wave { animation: none; } }
+svg.anatomy .bladder-opening { fill: var(--urine, #f3d36b); stroke: #b85f4f; stroke-width: 3; }

@@ -337,6 +337,37 @@ function duplexTract(o, g) {
   return { under, over, upperPts, lowerPts };
 }
 
+// Bladder stone procedures, drawn over the bladder (see urinaryTract's bladderProc).
+function bladderProcMarkup(p, g) {
+  const top = g.cy - g.ry;
+  const sk = top - 40;
+  const sx = g.cx + 12;
+  const sy = g.cy + g.ry * 0.45;
+  let out = '';
+  const scope = clamp(p.scope || 0);
+  if (scope > 0.01) {
+    const tipY = 530 - (530 - (g.cy + g.ry * 0.1)) * scope;
+    out += `<g class="scope"><path d="M300 530 L300 ${f(tipY)}"/><circle cx="300" cy="${f(tipY)}" r="4"/></g>`;
+  }
+  const sheath = clamp(p.sheath || 0);
+  if (sheath > 0.01) {
+    const endY = sk - 30 + (sy - 18 - (sk - 30)) * Math.min(1, sheath * 1.05);
+    out += `<line class="skin" x1="${g.cx - 70}" y1="${f(sk)}" x2="${g.cx + 70}" y2="${f(sk)}"/>
+      <line class="${sheath > 0.6 ? 'sheath' : 'needle'}" x1="${sx}" y1="${f(sk - 30)}" x2="${sx}" y2="${f(endY)}"/>`;
+  }
+  if (p.cut) {
+    out += `<line class="skin" x1="${g.cx - 70}" y1="${f(sk)}" x2="${g.cx + 70}" y2="${f(sk)}"/>
+      <path class="cutline" d="M${g.cx - 22} ${f(sk)} h44"/>`;
+    if (p.cut >= 2) out += `<path class="bladder-opening" d="M${g.cx - 26} ${f(top)} Q${g.cx} ${f(top + 26)} ${g.cx + 26} ${f(top)}"/>`;
+  }
+  if (p.closed) out += [-16, 0, 16].map((dx) => `<path class="stitch" d="M${g.cx + dx - 5} ${f(top - 5)} l10 10 m0 -10 l-10 10"/>`).join('');
+  if (p.laser) out += [0, 72, 144, 216, 288].map((a) => {
+    const r = (a * Math.PI) / 180;
+    return `<line class="zap" x1="${f(sx + 14 * Math.cos(r))}" y1="${f(sy + 14 * Math.sin(r))}" x2="${f(sx + 28 * Math.cos(r))}" y2="${f(sy + 28 * Math.sin(r))}"/>`;
+  }).join('');
+  return out;
+}
+
 // ---------- whole urinary tract ----------
 
 //   affected / healthy: options for upperTract (screen right / left);
@@ -346,7 +377,9 @@ function duplexTract(o, g) {
 //   catheter: tube draining the bladder through the urethra
 //   vesicostomy: opening from the bladder to the belly skin; vesicostomyLabel. A number 0–3 draws the
 //   build-up (1 skin cut, 2 dome brought up, 3 open and draining); `true` = 3. vesicostomyClosed: healed scar.
-//   urethraBact: bacteria at the urethra; bladderStone: { size, fragments }
+//   urethraBact: bacteria at the urethra; bladderStone: { size, fragments, lift: 0–1 lifted out the top }
+//   bladderProc: { scope: 0–1 camera up the urethra, sheath: 0–1 access through the lower belly (0.5 needle,
+//     1 tunnel), cut: 1 skin cut, 2 bladder opened, closed: bladder sewn shut, laser: sparks at the stone }
 //   bladderRed: irritated bladder lining (infection)
 //   sideLabels: [left, right]; labels: false hides anatomy labels
 export function urinaryTract({
@@ -363,6 +396,7 @@ export function urinaryTract({
   vesicostomyClosed = false,
   urethraBact = false,
   bladderStone = null,
+  bladderProc = {},
   bladderRed = false,
   sideLabels,
   labels = true,
@@ -388,7 +422,8 @@ export function urinaryTract({
     ${right.over}
     ${bact}
     ${urethraBact ? bacterium(296, 498, 80) + bacterium(304, 486, 100) + bacterium(297, 474, 70) : ''}
-    ${bladderStone ? stoneAt(g.cx + 12, g.cy + g.ry * 0.45, 6 + 12 * (bladderStone.size ?? 0.5), bladderStone.fragments) : ''}
+    ${bladderStone ? stoneAt(g.cx + 12, g.cy + g.ry * 0.45 - (g.ry * 1.45 + 70) * clamp(bladderStone.lift || 0), 6 + 12 * (bladderStone.size ?? 0.5), bladderStone.fragments) : ''}
+    ${bladderProcMarkup(bladderProc, g)}
     ${catheter ? `<g class="catheter"><path d="M300 530 L300 ${f(g.cy + g.ry * 0.25)}"/><circle cx="300" cy="${f(g.cy + g.ry * 0.25)}" r="7"/></g>` : ''}
     ${(() => {
       const v = vesicostomy === true ? 3 : +vesicostomy || 0;
