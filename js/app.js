@@ -35,6 +35,17 @@ const CATALOG = {
 };
 
 const app = document.getElementById('app');
+
+// Page-view badge from hits.sh. Created once per visit and moved into each new header, so
+// switching sections does not count again. Only counts on the published site.
+const viewCounter = (() => {
+  if (!location.hostname.endsWith('github.io')) return null;
+  const img = document.createElement('img');
+  img.className = 'view-counter';
+  img.alt = 'Page views';
+  img.src = 'https://hits.sh/andrewtgabe.github.io/PedsUro.svg?label=views&color=2f6fb5';
+  return img;
+})();
 let cleanup = null;
 
 // English | Español buttons; switching re-renders the current page.
@@ -57,6 +68,7 @@ function route() {
   const chapter = CHAPTERS[chapterId];
   if (chapter) renderChapter(chapter, sectionId);
   else renderHome();
+  if (viewCounter) app.querySelector('.lang-switch')?.after(viewCounter);
   window.scrollTo(0, 0);
 }
 
