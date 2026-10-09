@@ -2,7 +2,7 @@
 import { t } from '../i18n.js';
 import { clamp } from '../anatomy.js';
 import { testisSide } from '../genital.js';
-import { segmented, toggle, slider, button, animate, modelLayout, optionTabs, takeaways } from '../ui.js';
+import { segmented, toggle, slider, button, animate, modelLayout, optionTabs, takeaways, stepPlayer } from '../ui.js';
 
 const T = (k) => t(`torsion.${k}`);
 const labels = () => T('embryology.labels');
@@ -67,28 +67,26 @@ function renderPathology(root) {
 
 // ---------- 3. Treatment ----------
 
+// Step-by-step surgery; twist and isch (color) animate between steps.
+const PROC_BASE = { twist: 540, isch: 0.4, incision: false, stitches: false, removed: false, prosthesis: false };
+function procedure(key, states) {
+  return (viz, ctl) => {
+    const captions = T(`treatment.options.${key}.steps`);
+    const steps = states.map((st, n) => ({ caption: captions[n], state: { ...PROC_BASE, ...st } }));
+    return stepPlayer(ctl, steps, (st) => (viz.innerHTML = testisSide({ bellClapper: true, ...st, text: labels() })), t('common.player'));
+  };
+}
+
 const BUILD = {
-  surgery(viz, ctl) {
-    const o = T('treatment.options.surgery');
-    const s = { twist: 540, isch: 0.4, stitches: false };
-    const draw = () => (viz.innerHTML = testisSide({ bellClapper: true, ...s, text: labels() }));
-    let stop = null;
-    ctl.append(
-      segmented('', [['before', o.before], ['untwist', o.untwist], ['fix', o.fix]], 'before', (v) => {
-        stop?.();
-        const from = { ...s };
-        const to = v === 'before' ? { twist: 540, isch: 0.4 } : { twist: 0, isch: 0 };
-        s.stitches = v === 'fix';
-        stop = animate(1200, (k) => {
-          s.twist = from.twist + (to.twist - from.twist) * k;
-          s.isch = from.isch + (to.isch - from.isch) * k;
-          draw();
-        });
-      }),
-    );
-    draw();
-    return () => stop?.();
-  },
+  surgery: procedure('surgery', [
+    {},
+    { incision: true },
+    { incision: true },
+    { incision: true, twist: 0 },
+    { incision: true, twist: 0, isch: 0 },
+    { twist: 0, isch: 0, stitches: true },
+    { twist: 0, isch: 0, stitches: true },
+  ]),
 
   manual(viz, ctl) {
     const o = T('treatment.options.manual');
@@ -106,17 +104,13 @@ const BUILD = {
     return () => stop?.();
   },
 
-  removal(viz, ctl) {
-    const o = T('treatment.options.removal');
-    const s = { removed: false, prosthesis: false };
-    const draw = () =>
-      (viz.innerHTML = testisSide({ bellClapper: true, twist: s.removed ? 0 : 720, isch: 1, removed: s.removed, prosthesis: s.prosthesis, text: labels() }));
-    ctl.append(
-      toggle(o.removed, false, (v) => { s.removed = v; draw(); }),
-      toggle(o.prosthesis, false, (v) => { s.prosthesis = v; s.removed = s.removed || v; draw(); }),
-    );
-    draw();
-  },
+  removal: procedure('removal', [
+    { twist: 720, isch: 1 },
+    { twist: 720, isch: 1, incision: true },
+    { twist: 0, isch: 1, incision: true },
+    { twist: 0, isch: 1, removed: true },
+    { twist: 0, isch: 1, removed: true, prosthesis: true },
+  ]),
 };
 
 function renderTreatment(root) {

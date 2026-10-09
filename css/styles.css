@@ -146,7 +146,7 @@ svg.anatomy .vessel { fill: none; stroke: #c0392b; stroke-width: 9; stroke-linec
 svg.anatomy .stent path { fill: none; stroke: #3b82c4; stroke-width: 2.5; }
 svg.anatomy .stent circle { fill: none; stroke: #3b82c4; stroke-width: 2.5; }
 svg.anatomy .removed { fill: var(--surface); stroke: var(--ink-soft); stroke-width: 2; stroke-dasharray: 6 5; }
-svg.anatomy .cutline { stroke: var(--ink-soft); stroke-width: 2; stroke-dasharray: 6 5; }
+svg.anatomy .cutline { fill: none; stroke: var(--ink-soft); stroke-width: 2; stroke-dasharray: 6 5; }
 svg.anatomy .ureterocele { fill: #f7dd8a; stroke: #b85f4f; stroke-width: 3; }
 svg.anatomy .ureterocele.cut { stroke-dasharray: 10 4; }
 svg.anatomy .slit { stroke: #6b2f25; stroke-width: 3; }

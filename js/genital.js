@@ -16,9 +16,9 @@ function mix(a, b, k) {
 //   twist: degrees the cord is twisted (0, 360, 720...)
 //   isch: 0..1 how long blood flow has been cut off (color change)
 //   stitches: testicle fixed to the scrotal wall (orchiopexy)
-//   removed: testicle removed; prosthesis: artificial testicle in place
+//   removed: testicle removed; prosthesis: artificial testicle in place; incision: cut in the scrotal skin
 //   text: { cord, testicle, epididymis, sac, attached, artery }
-export function testisSide({ bellClapper = true, twist = 0, isch = 0, stitches = false, removed = false, prosthesis = false, text }) {
+export function testisSide({ bellClapper = true, twist = 0, isch = 0, stitches = false, removed = false, prosthesis = false, incision = false, text }) {
   const occl = clamp(twist / 360);
   const turns = twist / 360;
   const lift = 26 * occl;
@@ -67,6 +67,7 @@ export function testisSide({ bellClapper = true, twist = 0, isch = 0, stitches =
     <path class="blood ${occl >= 1 ? 'stopped' : ''}" d="${cordPts(0)}" style="opacity:${f(1 - occl)}"/>
     ${testis}
     ${stitchMarks}
+    ${incision ? `<path class="cutline" d="M120 ${f(250 - lift / 2)} C 112 300 116 350 132 390"/>` : ''}
     <text class="lbl small" x="226" y="40">${text.cord}</text>
     ${removed ? '' : `<text class="lbl small" x="200" y="${f(cy + 5)}" text-anchor="middle">${text.testicle}</text>`}
     ${removed ? '' : `<text class="lbl small" x="${bellClapper ? 286 : 306}" y="${f(cy + 4)}">${text.epididymis}</text>`}
