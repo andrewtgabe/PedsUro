@@ -1,7 +1,7 @@
 // Varicocele chapter.
 import { t } from '../i18n.js';
 import { veinMap } from '../genital.js';
-import { segmented, toggle, animate, modelLayout, optionTabs, takeaways } from '../ui.js';
+import { segmented, toggle, animate, modelLayout, optionTabs, takeaways, stepPlayer } from '../ui.js';
 
 const T = (k) => t(`varicocele.${k}`);
 const labels = () => T('labels');
@@ -44,23 +44,55 @@ function renderPathology(root) {
 
 // ---------- 3. Treatment ----------
 
-function beforeAfter(viz, ctl, o, key) {
-  let k = 0;
-  let stop = null;
-  const draw = () => (viz.innerHTML = veinMap({ grade: 3 * (1 - k), [key]: k > 0.5, small: 1 - 0.6 * k, text: labels() }));
-  ctl.append(segmented('', [[0, o.before], [1, o.after]], 0, (v) => {
-    stop?.();
-    const from = k;
-    stop = animate(1000, (e) => { k = from + (v - from) * e; draw(); });
-  }));
-  draw();
-  return () => stop?.();
+// Step-by-step treatments. grade, small and cath animate between steps.
+const PROC_BASE = { grade: 2.5, small: 1, tied: false, coils: false, tieAt: 330, cord: false, lymphDye: false, ports: false, incision: false, microscope: false, cath: 0, venogram: false };
+const AFTER = { grade: 0, small: 0.4 };
+const PROCS = {
+  laparoscopic: [
+    {},
+    { ports: true },
+    { ports: true, cord: true, lymphDye: true },
+    { ports: true, cord: true, lymphDye: true, tied: true, tieAt: 296 },
+    { cord: true, tied: true, tieAt: 296, ...AFTER },
+    { tied: true, tieAt: 296, ...AFTER },
+  ],
+  microsurgical: [
+    {},
+    { incision: true },
+    { incision: true, cord: true, microscope: true },
+    { incision: true, cord: true, microscope: true, tied: true, tieAt: 342 },
+    { cord: true, tied: true, tieAt: 342, ...AFTER },
+    { tied: true, tieAt: 342, ...AFTER },
+  ],
+  embolization: [
+    {},
+    { cath: 0.3 },
+    { cath: 1 },
+    { cath: 1, venogram: true },
+    { cath: 1, coils: true },
+    { coils: true, ...AFTER },
+  ],
+};
+
+function procedure(viz, ctl, key) {
+  const captions = T(key === 'embolization' ? 'treatment.options.embolization.steps' : `treatment.options.surgery.${key}Steps`);
+  const steps = PROCS[key].map((st, n) => ({ caption: captions[n], state: { ...PROC_BASE, ...st } }));
+  return stepPlayer(ctl, steps, (st) => (viz.innerHTML = veinMap({ ...st, text: labels() })), t('common.player'));
 }
 
 const BUILD = {
   watch: (viz) => { viz.innerHTML = veinMap({ grade: 2, text: labels() }); },
-  surgery: (viz, ctl) => beforeAfter(viz, ctl, T('treatment.options.surgery'), 'tied'),
-  embolization: (viz, ctl) => beforeAfter(viz, ctl, T('treatment.options.embolization'), 'coils'),
+  surgery(viz, ctl) {
+    const o = T('treatment.options.surgery');
+    const holder = document.createElement('div');
+    holder.className = 'controls';
+    let stop = null;
+    const build = (key) => { stop?.(); holder.innerHTML = ''; stop = procedure(viz, holder, key); };
+    ctl.append(segmented(o.approachLabel, Object.entries(o.approaches), 'microsurgical', build), holder);
+    build('microsurgical');
+    return () => stop?.();
+  },
+  embolization: (viz, ctl) => procedure(viz, ctl, 'embolization'),
 };
 
 function renderTreatment(root) {

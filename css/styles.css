@@ -441,3 +441,11 @@ svg.anatomy .channel { fill: none; stroke: #e2a99b; stroke-width: 12; stroke-lin
 svg.anatomy .botox { fill: #7c3aed; opacity: 0.8; }
 svg.anatomy .bowel-patch { fill: none; stroke: #e7a3a6; stroke-width: 16; stroke-linecap: round; }
 svg.anatomy .appendix { fill: none; stroke: #e2a99b; stroke-width: 10; stroke-linecap: round; }
+svg.anatomy .t-artery { fill: none; stroke: #d0423a; stroke-width: 2.5; }
+svg.anatomy .lymph { fill: none; stroke: #9ca3af; stroke-width: 2; stroke-dasharray: 3 3; }
+svg.anatomy .lymph.dyed { stroke: #2563eb; stroke-width: 3; }
+svg.anatomy .ports circle { fill: #6b7280; }
+svg.anatomy .scope-line { stroke: #6b7280; stroke-width: 4; stroke-linecap: round; }
+svg.anatomy .lens { fill: rgb(255 255 255 / 0.15); stroke: #374151; stroke-width: 3; }
+svg.anatomy .emb-cath { fill: none; stroke: #111827; stroke-width: 2.5; stroke-linejoin: round; }
+svg.anatomy .venogram { fill: none; stroke: #1f2937; stroke-width: 7; opacity: 0.55; }

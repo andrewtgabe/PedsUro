@@ -226,8 +226,11 @@ function plexus(cx, top, size) {
 //   grade: 0..3 size of the left varicocele; strain: bearing down (Valsalva)
 //   tied: veins tied (surgery); coils: veins blocked from inside (embolization)
 //   small: 0..1 how much smaller the left testicle is
+//   tieAt: height of the tie (default 330); cord: show the left testicular artery and lymph channels;
+//   lymphDye: lymph channels stained blue; ports: laparoscopic camera and tools; incision: cut below the groin;
+//   microscope: magnified view ring over the cord; cath: 0–1 embolization tube from the groin vein; venogram: dye in the vein
 //   text: { kidney, ivc, aorta, renalVein, leftVein, rightVein, testicle, plexus, left, right }
-export function veinMap({ grade = 0, strain = false, tied = false, coils = false, small = 0, text }) {
+export function veinMap({ grade = 0, strain = false, tied = false, coils = false, small = 0, tieAt = 330, cord = false, lymphDye = false, ports = false, incision = false, microscope = false, cath = 0, venogram = false, text }) {
   const blocked = tied || coils;
   const size = blocked ? 0.1 : clamp((grade / 3) * (strain ? 1.3 : 1));
   const reflux = grade > 0 && !blocked;
@@ -241,7 +244,13 @@ export function veinMap({ grade = 0, strain = false, tied = false, coils = false
     <path class="g-vein" d="M180 150 C 150 220 140 300 142 380"/>
     <path class="g-vein ${reflux ? 'wide' : ''}" d="M280 98 L 270 380" style="stroke-width:${f(5 + 4 * size)}"/>
     ${reflux ? `<path class="backflow" d="M280 100 L 270 380"/>` : ''}
-    ${tied ? `<path class="tie" d="M258 330 L284 330 M258 338 L284 338"/>` : ''}
+    ${venogram ? `<path class="venogram" d="M280 98 L 270 380"/>` : ''}
+    ${cord ? `<path class="t-artery" d="M300 98 C 296 200 290 300 282 380"/><path class="lymph ${lymphDye ? 'dyed' : ''}" d="M292 140 C 290 240 284 320 278 380"/>` : ''}
+    ${tied ? `<path class="tie" d="M${f(258 + (tieAt - 330) * -0.03)} ${tieAt} l18 0 M${f(258 + (tieAt - 330) * -0.03)} ${tieAt + 8} l18 0"/>` : ''}
+    ${ports ? `<g class="ports"><circle cx="200" cy="230" r="7"/><line class="scope-line" x1="200" y1="230" x2="262" y2="296"/><line class="scope-line" x1="330" y1="200" x2="276" y2="294"/><circle cx="330" cy="200" r="5"/></g>` : ''}
+    ${incision ? `<path class="cutline" d="M300 338 l46 10"/>` : ''}
+    ${microscope ? `<circle class="lens" cx="282" cy="342" r="36"/>` : ''}
+    ${cath > 0.01 ? `<path class="emb-cath" d="M180 330 L180 96 L278 98 L276 230" pathLength="1" stroke-dasharray="${f(clamp(cath))} 2"/>` : ''}
     ${coils ? `<path class="coil" d="M276 230 l8 6 l-12 6 l12 6 l-12 6 l12 6 l-8 6"/>` : ''}
     <path class="scrotum" d="M95 360 C 75 470 150 490 200 486 C 250 490 325 470 305 360"/>
     <line class="raphe" x1="200" y1="370" x2="200" y2="480"/>
