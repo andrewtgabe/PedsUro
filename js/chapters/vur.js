@@ -273,7 +273,7 @@ const OPTIONS = {
       segmented('', [[0, o.undo], [1, o.action]], 0, (v) => {
         stop?.();
         const from = s.deflux;
-        stop = animate(700, (k) => { s.deflux = from + (v - from) * k; draw(); });
+        stop = animate(1800, (k) => { s.deflux = from + (v - from) * k; draw(); });
       }),
       squeezeButton(s, draw),
     );

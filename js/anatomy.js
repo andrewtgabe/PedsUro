@@ -413,8 +413,11 @@ export function uvjSection({
         .join('')
     : '';
 
+  // Gel sits in the submucosa just under the ureteral opening, lifting it; a needle shows while injecting.
   const mound =
-    deflux > 0 ? `<ellipse class="mound" cx="282" cy="${f(126 + L)}" rx="${f(6 + 14 * deflux)}" ry="${f(8 + 16 * deflux)}"/>` : '';
+    deflux > 0 ? `<ellipse class="mound" cx="${f(266 + 4 * deflux)}" cy="${f(134 + L)}" rx="${f(3 + 8 * deflux)}" ry="${f(4 + 9 * deflux)}"/>` : '';
+  const needle =
+    deflux > 0 && deflux < 0.98 ? `<line class="needle" x1="400" y1="${f(176 + L)}" x2="266" y2="${f(136 + L)}"/>` : '';
 
   const status = squeeze
     ? `<g class="status ${refluxing ? 'bad' : 'good'}"><rect x="330" y="292" width="180" height="30" rx="15"/><text x="420" y="312" text-anchor="middle">${
@@ -429,12 +432,13 @@ export function uvjSection({
     <line class="mucosa" x1="276" y1="0" x2="276" y2="330"/>
     ${muscleCut > 0.02 ? `<rect class="muscle-cut" x="184" y="88" width="38" height="${f(200 * clamp(muscleCut))}" rx="6"/>` : ''}
     ${trough ? `<rect class="trough" x="240" y="96" width="32" height="196" rx="8"/>` : ''}
+    ${mound}
     <path class="uvj-wall" d="${outer}"/>
     <path class="uvj-wall" d="${inner}"/>
     <path class="${lumen}" d="${outer}" stroke-width="12"/>
     <path class="${lumen}" d="${inner}" stroke-width="${tunnelW}"/>
     <path class="flow ${refluxing ? 'up' : squeeze ? 'still' : 'down'}" d="${outer} ${inner.replace('M236 92', 'L236 92')}"/>
-    ${mound}
+    ${needle}
     ${stitches ? [120, 160, 200, 240, 280].map((y) => `<path class="stitch" d="M197 ${y - 6} l12 12 m0 -12 l-12 12"/>`).join('') : ''}
     ${spot ? `<circle class="spot" cx="236" cy="92" r="26"/>` : ''}
     ${arrows}
