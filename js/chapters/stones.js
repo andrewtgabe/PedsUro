@@ -149,10 +149,14 @@ const BUILD = {
   // Bladder stone removal: transurethral, percutaneous or open, each step by step.
   bladderRemoval(viz, ctl) {
     const o = T('treatment.options.bladderRemoval');
-    const base = { stone: true, frag: false, lift: 0, scope: 0, sheath: 0, cut: 0, closed: false, laser: false, catheter: false };
+    const base = { stone: true, frag: false, lift: 0, scope: 0, sheath: 0, cut: 0, closed: false, laser: false, catheter: false, channel: false, cs: 0 };
     const STATES = {
       transurethral: [{}, { scope: 1 }, { scope: 1, laser: true, frag: true }, { stone: false, scope: 1 }, { stone: false, catheter: true }, { stone: false }],
       percutaneous: [{}, { sheath: 0.5 }, { sheath: 1 }, { sheath: 1, laser: true, frag: true }, { stone: false, sheath: 1 }, { stone: false, catheter: true }],
+      channel: [
+        { channel: true }, { channel: true, cs: 1 }, { channel: true, cs: 1, laser: true, frag: true },
+        { channel: true, cs: 1, stone: false }, { channel: true, stone: false }, { channel: true, stone: false },
+      ],
       open: [{}, { cut: 1 }, { cut: 2 }, { cut: 2, lift: 1 }, { stone: false, closed: true, cut: 1 }, { stone: false, closed: true, catheter: true }],
     };
     const holder = document.createElement('div');
@@ -166,7 +170,7 @@ const BUILD = {
         viz.innerHTML = urinaryTract({
           bladderStone: st.stone ? { size: 1.2, fragments: st.frag, lift: st.lift } : null,
           bladderWall: 0.5, bladderFill: 0.7, catheter: st.catheter, affected: { pelvisFill: 1 },
-          bladderProc: { scope: st.scope, sheath: st.sheath, cut: st.cut, closed: st.closed, laser: st.laser },
+          bladderProc: { scope: st.scope, sheath: st.sheath, cut: st.cut, closed: st.closed, laser: st.laser, channel: st.channel, channelScope: st.cs },
         });
       }, t('common.player'));
     };

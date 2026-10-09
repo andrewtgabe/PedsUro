@@ -85,7 +85,7 @@ export default {
         summary:
           'La mayoría de las piedras de la vejiga se rompen con un láser usando una cámara pequeña dentro de la vejiga, y luego se lavan hacia afuera. Las piedras grandes, o las piedras en una vejiga ampliada, se pueden sacar por una pequeña abertura en la parte baja de la barriga.',
         methodLabel: 'Método',
-        methods: { transurethral: 'Por la uretra', percutaneous: 'Por un túnel pequeño', open: 'Cirugía abierta' },
+        methods: { transurethral: 'Por la uretra', percutaneous: 'Por un túnel pequeño', channel: 'Por un canal para sonda', open: 'Cirugía abierta' },
         transurethralSteps: [
           'Se formó una piedra en la vejiga.',
           'Con el niño o la niña dormido, se pasa una cámara delgada por la uretra hasta la vejiga. No hay cortes en la piel.',
@@ -101,6 +101,14 @@ export default {
           'Se pasa una cámara por el túnel, y un láser u otro instrumento rompe la piedra.',
           'Los pedazos se sacan por el túnel, que es más ancho que la uretra, así que es más rápido.',
           'Se cierra el túnel. Una sonda drena la vejiga por un tiempo corto mientras sana.',
+        ],
+        channelSteps: [
+          'Se formó una piedra en la vejiga de un niño o niña que tiene un canal para sonda (como un Mitrofanoff), un tubo pequeño de la barriga a la vejiga que se usa para vaciarla con una sonda.',
+          'Con el niño o la niña dormido, se pasa una cámara delgada por la abertura del canal en la barriga hasta la vejiga. No hay cortes en la piel.',
+          'Un láser que pasa por la cámara rompe la piedra en pedazos pequeños.',
+          'Los pedazos se sacan con agua o se atrapan y se sacan, con cuidado de proteger el canal.',
+          'Se saca la cámara. Se puede dejar una sonda en el canal por un tiempo corto para drenar la vejiga.',
+          'La mayoría de los niños se van a casa el mismo día o al día siguiente. Pasar la sonda con regularidad y hacer lavados de la vejiga baja la probabilidad de que se forme otra piedra.',
         ],
         openSteps: [
           'Se formó una piedra grande en la vejiga. La cirugía abierta se puede usar para piedras muy grandes, o piedras en una vejiga que se agrandó con intestino (ampliada).',

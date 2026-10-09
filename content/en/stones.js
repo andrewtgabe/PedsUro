@@ -85,7 +85,7 @@ export default {
         summary:
           'Most bladder stones are broken up with a laser through a small camera passed into the bladder, then washed out. Large stones, or stones in an augmented bladder, may be removed through a small opening in the lower belly instead.',
         methodLabel: 'Method',
-        methods: { transurethral: 'Through the urethra', percutaneous: 'Through a small tunnel', open: 'Open surgery' },
+        methods: { transurethral: 'Through the urethra', percutaneous: 'Through a small tunnel', channel: 'Through a catheterizable channel', open: 'Open surgery' },
         transurethralSteps: [
           'A stone has formed in the bladder.',
           'With the child asleep, a thin camera is passed through the urethra into the bladder. There is no cut on the skin.',
@@ -101,6 +101,14 @@ export default {
           'A camera goes through the tunnel, and a laser or other tool breaks up the stone.',
           'The pieces are removed through the tunnel, which is wider than the urethra, so this goes faster.',
           'The tunnel is closed. A catheter drains the bladder for a short time while it heals.',
+        ],
+        channelSteps: [
+          'A stone has formed in the bladder of a child who has a catheterizable channel (such as a Mitrofanoff), a small tube from the belly into the bladder used to empty it with a catheter.',
+          'With the child asleep, a thin camera is passed through the channel opening on the belly into the bladder. There is no cut on the skin.',
+          'A laser through the camera breaks the stone into small pieces.',
+          'The pieces are rinsed out or grabbed and removed, taking care to protect the channel.',
+          'The camera is removed. A catheter may be left in the channel for a short time to drain the bladder.',
+          'Most children go home the same day or the next day. Regular catheterizing and bladder washouts lower the chance of a new stone.',
         ],
         openSteps: [
           'A large stone has formed in the bladder. Open surgery may be used for very large stones, or stones in a bladder that was made bigger with bowel (augmented).',

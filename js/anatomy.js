@@ -344,6 +344,19 @@ function bladderProcMarkup(p, g) {
   const sx = g.cx + 12;
   const sy = g.cy + g.ry * 0.45;
   let out = '';
+  // Catheterizable channel (e.g. Mitrofanoff) from the belly skin into the top of the bladder.
+  if (p.channel) {
+    const ch = [[g.cx - 120, sk - 20], [g.cx - 100, top - 10], [g.cx - 50, top + 4]];
+    const d = `M${ch[0][0]} ${f(ch[0][1])} Q${ch[1][0]} ${f(ch[1][1])} ${ch[2][0]} ${f(ch[2][1])}`;
+    out += `<line class="skin" x1="${g.cx - 150}" y1="${f(sk - 20)}" x2="${g.cx - 90}" y2="${f(sk - 20)}"/>
+      <path class="channel" d="${d}"/><circle class="stoma" cx="${ch[0][0]}" cy="${f(ch[0][1])}" r="7"/>`;
+    const cs = clamp(p.channelScope || 0);
+    if (cs > 0.01) {
+      const tip = [g.cx - 120 + (sx - 6 - (g.cx - 120)) * cs, sk - 20 + (sy - 16 - (sk - 20)) * cs];
+      const mid = cs > 0.5 ? ` L${ch[2][0]} ${f(ch[2][1])}` : '';
+      out += `<g class="scope"><path d="M${ch[0][0]} ${f(ch[0][1] - 30)} L${ch[0][0]} ${f(ch[0][1])} Q${ch[1][0]} ${f(ch[1][1])} ${ch[2][0]} ${f(ch[2][1])}${cs > 0.5 ? ` L${f(tip[0])} ${f(tip[1])}` : ''}"/><circle cx="${f(cs > 0.5 ? tip[0] : ch[2][0])}" cy="${f(cs > 0.5 ? tip[1] : ch[2][1])}" r="4"/></g>`;
+    }
+  }
   const scope = clamp(p.scope || 0);
   if (scope > 0.01) {
     const tipY = 530 - (530 - (g.cy + g.ry * 0.1)) * scope;
@@ -379,7 +392,8 @@ function bladderProcMarkup(p, g) {
 //   build-up (1 skin cut, 2 dome brought up, 3 open and draining); `true` = 3. vesicostomyClosed: healed scar.
 //   urethraBact: bacteria at the urethra; bladderStone: { size, fragments, lift: 0–1 lifted out the top }
 //   bladderProc: { scope: 0–1 camera up the urethra, sheath: 0–1 access through the lower belly (0.5 needle,
-//     1 tunnel), cut: 1 skin cut, 2 bladder opened, closed: bladder sewn shut, laser: sparks at the stone }
+//     1 tunnel), cut: 1 skin cut, 2 bladder opened, closed: bladder sewn shut, laser: sparks at the stone,
+//     channel: catheterizable channel to the belly, channelScope: 0–1 camera through it }
 //   bladderRed: irritated bladder lining (infection)
 //   sideLabels: [left, right]; labels: false hides anatomy labels
 export function urinaryTract({
