@@ -31,7 +31,7 @@ const CHAPTERS = { vur, hydronephrosis, upj, uvj, duplex, puv, ectopic, torsion,
 const CATALOG = {
   upper: ['hydronephrosis', 'vur', 'upj', 'uvj', 'mcdk', 'duplex', 'ectopic', 'stones', 'pkd'],
   lower: ['uti', 'enuresis', 'bbd', 'bowel', 'neurogenic', 'puv', 'exstrophy', 'hypospadias'],
-  genital: ['cryptorchidism', 'hydrocele', 'hernia', 'torsion', 'testismass', 'varicocele', 'phimosis', 'meatal', 'labial', 'dsd'],
+  genital: ['cryptorchidism', 'hydrocele', 'hernia', 'torsion', 'testismass', 'varicocele', 'phimosis', 'meatal', 'labial'],
 };
 
 const app = document.getElementById('app');

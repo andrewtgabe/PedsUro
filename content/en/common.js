@@ -72,7 +72,6 @@ export default {
     phimosis: 'Phimosis & paraphimosis',
     meatal: 'Meatal stenosis',
     labial: 'Labial adhesions',
-    dsd: 'DSD / CAH',
   },
   blurbs: {
     hydronephrosis: 'Swelling of the part of the kidney that collects urine.',

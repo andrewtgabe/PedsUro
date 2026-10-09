@@ -71,7 +71,6 @@ export default {
     phimosis: 'Fimosis y parafimosis',
     meatal: 'Estenosis del meato',
     labial: 'Adherencias de labios vulvares',
-    dsd: 'DSD / HSC',
   },
   blurbs: {
     hydronephrosis: 'Hinchazón de la parte del riñón que recoge la orina.',
