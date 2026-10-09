@@ -1,7 +1,7 @@
 // Neurogenic bladder chapter.
 import { t } from '../i18n.js';
 import { bladderNerves } from '../bladder.js';
-import { segmented, toggle, button, animate, modelLayout, optionTabs, takeaways } from '../ui.js';
+import { segmented, toggle, button, animate, modelLayout, optionTabs, takeaways, stepPlayer } from '../ui.js';
 import { bladderLabels } from './bbd.js';
 
 const T = (k) => t(`neurogenic.${k}`);
@@ -55,11 +55,43 @@ function renderPathology(root) {
 
 const HIGH = TYPES.high.view;
 
-function beforeAfter(viz, ctl, o, after) {
-  const draw = (v) => (viz.innerHTML = view(v ? after : HIGH));
-  ctl.append(segmented('', [[0, o.before], [1, o.after]], 0, draw));
-  draw(0);
+// Step-by-step procedures. HIGH is the starting bladder; numbers (fill, thick, inject, channel) animate between steps.
+const PROC_BASE = { ...HIGH, scope: false, inject: 0, opened: false, patch: false, augment: false, appendix: false, channel: 0, channelCath: false, catheter: false };
+const CALM = { squeeze: false, shaky: false, sphincter: 'closed', signals: 'none' };
+const PROCS = {
+  botox: [
+    {},
+    { scope: true },
+    { scope: true, inject: 1 },
+    { ...CALM, inject: 1, fill: 0.7, thick: 0.5 },
+    { ...CALM, fill: 0.7, thick: 0.5 },
+  ],
+  augment: [
+    {},
+    { ...CALM, opened: true },
+    { ...CALM, opened: true, patch: true },
+    { ...CALM, augment: true, fill: 0.6, thick: 0.4 },
+    { ...CALM, augment: true, fill: 0.8, thick: 0.3 },
+    { ...CALM, augment: true, fill: 0.2, thick: 0.3, catheter: true },
+  ],
+  channel: [
+    { ...CALM, fill: 0.6, thick: 0.3, catheter: true },
+    { ...CALM, fill: 0.6, thick: 0.3, appendix: true },
+    { ...CALM, fill: 0.6, thick: 0.3, channel: 0.4 },
+    { ...CALM, fill: 0.6, thick: 0.3, channel: 1 },
+    { ...CALM, fill: 0.6, thick: 0.3, channel: 1, channelCath: true },
+    { ...CALM, fill: 0.1, thick: 0.3, channel: 1, channelCath: true },
+  ],
+};
+
+function procedure(key) {
+  return (viz, ctl) => {
+    const captions = T(`treatment.options.${key}.steps`);
+    const steps = PROCS[key].map((st, n) => ({ caption: captions[n], state: { ...PROC_BASE, ...st } }));
+    return stepPlayer(ctl, steps, (st) => (viz.innerHTML = view(st)), t('common.player'));
+  };
 }
+
 
 const BUILD = {
   cic(viz, ctl) {
@@ -79,9 +111,9 @@ const BUILD = {
     ctl.append(toggle(o.dose, false, draw));
     draw(false);
   },
-  botox: (viz, ctl) => beforeAfter(viz, ctl, T('treatment.options.botox'), { fill: 0.7, lesion: true, thick: 0.5 }),
-  augment: (viz, ctl) => beforeAfter(viz, ctl, T('treatment.options.augment'), { fill: 0.7, lesion: true, thick: 0.3, augment: true }),
-  channel: (viz, ctl) => beforeAfter(viz, ctl, T('treatment.options.channel'), { fill: 0.6, lesion: true, thick: 0.3, channel: true }),
+  botox: procedure('botox'),
+  augment: procedure('augment'),
+  channel: procedure('channel'),
 };
 
 function renderTreatment(root) {

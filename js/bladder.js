@@ -12,7 +12,10 @@ const f = (n) => n.toFixed(1);
 //   signals: 'none' | 'up' (full message) | 'down' (go / hold message) | 'both'
 //   lesion: spinal cord problem blocking signals; lesionLabel
 //   stool: 0..1 poop in the rectum pressing on the bladder
-//   catheter, augment (bigger bladder made with bowel), channel (belly-button channel)
+//   catheter, augment (bigger bladder made with bowel), channel (belly-button channel; a number 0–1 draws it part way)
+//   scope: camera up the urethra; inject: 0–1 share of Botox spots placed in the wall
+//   opened: bladder opened across the top; patch: bowel piece set aside; appendix: appendix set aside
+//   channelCath: catheter left in the channel
 //   message: short text shown near the brain
 //   text: { brain, cord, bladder, sphincter, poop, lesion, augment, channel }
 export function bladderNerves({
@@ -29,6 +32,12 @@ export function bladderNerves({
   catheter = false,
   augment = false,
   channel = false,
+  scope = false,
+  inject = 0,
+  opened = false,
+  patch = false,
+  appendix = false,
+  channelCath = false,
   message = '',
   text,
 }) {
@@ -88,7 +97,21 @@ export function bladderNerves({
     ${stream ? `<line class="stream" x1="${cx}" y1="494" x2="${cx}" y2="500" style="stroke-width:6"/>` : ''}
     ${leak ? [0, 1, 2].map((i) => `<circle class="drip" cx="${cx}" cy="470" r="4" style="animation-delay:${i * 0.5}s"/>`).join('') : ''}
     ${catheter ? `<g class="catheter"><path d="M${cx} 500 L${cx} ${f(cy + ry * 0.4)}"/><circle cx="${cx}" cy="${f(cy + ry * 0.4)}" r="7"/></g>` : ''}
-    ${channel ? `<path class="channel" d="M${f(cx - rx * 0.5)} ${f(cy - ry * 0.8)} C ${f(cx - rx)} 150 330 130 380 120"/><circle class="stoma" cx="380" cy="120" r="7"/><text class="lbl small" x="392" y="114">${text.channel}</text>` : ''}
+    ${(() => {
+      const c = channel === true ? 1 : +channel || 0;
+      if (c < 0.02) return '';
+      const d = `M${f(cx - rx * 0.5)} ${f(cy - ry * 0.8)} C ${f(cx - rx)} 150 330 130 380 120`;
+      return `<path class="channel" d="${d}" pathLength="1" stroke-dasharray="${f(c)} 2"/>${c > 0.95 ? `<circle class="stoma" cx="380" cy="120" r="7"/><text class="lbl small" x="372" y="100" text-anchor="end">${text.channel}</text>` : ''}
+        ${channelCath ? `<g class="catheter"><path d="M404 96 L380 120"/><path d="${d}" style="stroke-width:3"/></g>` : ''}`;
+    })()}
+    ${scope ? `<g class="scope"><line x1="${cx}" y1="500" x2="${cx}" y2="${f(cy + ry * 0.3)}"/><circle cx="${cx}" cy="${f(cy + ry * 0.3)}" r="4"/></g>` : ''}
+    ${inject > 0 ? Array.from({ length: Math.round(12 * clamp(inject)) }, (_, i) => {
+      const ang = -Math.PI * 0.1 - (Math.PI * 0.8 * i) / 11;
+      return `<circle class="botox" cx="${f(cx + (rx - 10) * Math.cos(ang))}" cy="${f(cy + (ry - 10) * Math.sin(ang))}" r="5"/>`;
+    }).join('') : ''}
+    ${opened ? `<path class="cutline" d="M${f(cx - rx * 0.7)} ${f(cy - ry * 0.7)} Q ${cx} ${f(cy - ry - 10)} ${f(cx + rx * 0.7)} ${f(cy - ry * 0.7)}"/>` : ''}
+    ${patch ? `<path class="bowel-patch" d="M330 150 q20 -24 40 0 t40 0"/><text class="lbl small" x="370" y="182" text-anchor="middle">${text.augment}</text>` : ''}
+    ${appendix ? `<path class="appendix" d="M360 230 q22 -10 34 -34"/><text class="lbl small" x="404" y="196">${text.appendix ?? ''}</text>` : ''}
     ${message ? `<g class="bubble"><rect x="170" y="30" width="${message.length * 8.5 + 24}" height="34" rx="17"/><text x="${182}" y="52">${message}</text></g>` : ''}
     <text class="lbl small" x="100" y="20" text-anchor="middle">${text.brain}</text>
     <text class="lbl small" x="60" y="360">${text.cord}</text>
