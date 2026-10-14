@@ -203,7 +203,7 @@ function upperTract(o, g) {
   const scar = o.scar ? `<path class="scar" d="M430 42 Q446 62 456 50 Q466 64 482 54 Q474 36 455 34 Q438 34 430 42 Z"/>` : '';
 
   return `<g class="${o.pale ? 'pale-k' : ''}">
-    <path class="kidney ${o.pale ? 'pale' : ''}" d="${KIDNEY_PATH}" ${s !== 1 || dy ? `transform="translate(${f(455 - 455 * s)} ${f(125 - 125 * s + dy)}) scale(${f(s)})"` : ''}/>
+    <path class="kidney ${o.pale ? 'pale' : ''}" d="${KIDNEY_PATH}" ${s !== 1 || dy ? `transform="translate(${f(455 - 455 * s)} ${f(125 - 125 * s + dy)}) scale(${s.toFixed(3)})"` : ''}/>
     ${scar}
     ${o.vesselBehind ? vessel : ''}
     ${drawSystem([cs], [tube])}
