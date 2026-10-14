@@ -125,7 +125,7 @@ function renderHome() {
   app.innerHTML = `
     <header class="home-head">
       <div class="top-row">${langSwitch()}${themeToggle()}</div>
-      <h1>${t('common.site.title')}</h1>
+      <h1>${t('common.site.title').replace(/(\S+ \S+)$/, '<span class="keep">$1</span>')}</h1>
       <p>${t('common.site.tagline')}</p>
       <p class="author">${t('common.site.author')}</p>
       <input type="search" class="search" placeholder="${t('common.nav.search')}" aria-label="${t('common.nav.search')}">
