@@ -32,6 +32,11 @@ export default {
     pathology: 'Qué está pasando',
     treatment: 'Opciones de tratamiento',
     takeaways: 'Puntos clave',
+    ultrasound: 'Ultrasonido',
+    mag3: 'Estudio MAG3',
+    dmsa: 'Estudio DMSA',
+    vcug: 'CUGM',
+    prep: 'Cómo prepararse',
   },
   labels: {
     kidney: 'Riñón',
@@ -43,6 +48,7 @@ export default {
     upper: 'Riñón y vías urinarias altas',
     lower: 'Vejiga y vías urinarias bajas',
     genital: 'Condiciones genitales y del escroto',
+    tests: 'Estudios e imágenes',
   },
   conditions: {
     hydronephrosis: 'Hidronefrosis',
@@ -69,6 +75,7 @@ export default {
     phimosis: 'Fimosis y parafimosis',
     meatal: 'Estenosis del meato',
     labial: 'Adherencias de labios vulvares',
+    imaging: 'Estudios de riñones y vejiga',
   },
   blurbs: {
     hydronephrosis: 'Hinchazón de la parte del riñón que recoge la orina.',
@@ -94,5 +101,6 @@ export default {
     neurogenic: 'Una vejiga afectada por problemas de los nervios, como la espina bífida.',
     bowel: 'Cómo el estreñimiento y aguantar el excremento afectan la vejiga.',
     puv: 'Pliegues de tejido de más en la uretra de un niño que bloquean la orina.',
+    imaging: 'Ultrasonido, MAG3, DMSA y CUGM: qué muestra cada estudio y qué esperar.',
   },
 };

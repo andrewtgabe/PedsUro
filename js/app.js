@@ -22,16 +22,18 @@ import bbd from './chapters/bbd.js';
 import neurogenic from './chapters/neurogenic.js';
 import bowel from './chapters/bowel.js';
 import testismass from './chapters/testismass.js';
+import imaging from './chapters/imaging.js';
 
 // Built chapters. To add one: create js/chapters/<id>.js and content/en/<id>.js,
 // register the content in i18n.js, then add it here.
-const CHAPTERS = { vur, hydronephrosis, upj, uvj, duplex, puv, ectopic, torsion, cryptorchidism, hydrocele, hernia, varicocele, phimosis, meatal, labial, uti, stones, hypospadias, enuresis, bbd, neurogenic, bowel, testismass };
+const CHAPTERS = { vur, hydronephrosis, upj, uvj, duplex, puv, ectopic, torsion, cryptorchidism, hydrocele, hernia, varicocele, phimosis, meatal, labial, uti, stones, hypospadias, enuresis, bbd, neurogenic, bowel, testismass, imaging };
 
 // Order of conditions on the home page.
 const CATALOG = {
   upper: ['hydronephrosis', 'vur', 'upj', 'uvj', 'duplex', 'ectopic', 'stones'],
   lower: ['uti', 'enuresis', 'bbd', 'bowel', 'neurogenic', 'puv', 'exstrophy', 'hypospadias'],
   genital: ['cryptorchidism', 'hydrocele', 'hernia', 'torsion', 'testismass', 'varicocele', 'phimosis', 'meatal', 'labial'],
+  tests: ['imaging'],
 };
 
 const app = document.getElementById('app');

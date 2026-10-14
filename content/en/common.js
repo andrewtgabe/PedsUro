@@ -33,6 +33,11 @@ export default {
     pathology: 'What’s happening',
     treatment: 'Treatment options',
     takeaways: 'Key points',
+    ultrasound: 'Ultrasound',
+    mag3: 'MAG3 scan',
+    dmsa: 'DMSA scan',
+    vcug: 'VCUG',
+    prep: 'Getting ready',
   },
   labels: {
     kidney: 'Kidney',
@@ -44,6 +49,7 @@ export default {
     upper: 'Kidney and upper urinary tract',
     lower: 'Bladder and lower urinary tract',
     genital: 'Genital and scrotal conditions',
+    tests: 'Tests and imaging',
   },
   conditions: {
     hydronephrosis: 'Hydronephrosis',
@@ -70,6 +76,7 @@ export default {
     phimosis: 'Phimosis & paraphimosis',
     meatal: 'Meatal stenosis',
     labial: 'Labial adhesions',
+    imaging: 'Kidney and bladder tests',
   },
   blurbs: {
     hydronephrosis: 'Swelling of the part of the kidney that collects urine.',
@@ -95,5 +102,6 @@ export default {
     neurogenic: 'A bladder affected by nerve problems, such as spina bifida.',
     bowel: 'How constipation and holding poop affect the bladder.',
     puv: 'Extra flaps of tissue in a boy’s urethra that block urine.',
+    imaging: 'Ultrasound, MAG3, DMSA and VCUG: what each test shows and what to expect.',
   },
 };
