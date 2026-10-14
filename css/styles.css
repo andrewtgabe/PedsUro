@@ -105,7 +105,7 @@ canvas.ink.active { pointer-events: auto; cursor: crosshair; }
 .toggle input { width: 18px; height: 18px; accent-color: var(--accent); }
 
 .option-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
-.option-tabs button { font: inherit; font-size: 0.9rem; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); cursor: pointer; }
+.option-tabs button { font: inherit; font-size: 0.9rem; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; }
 .option-tabs button[aria-selected='true'] { background: var(--accent); color: #fff; border-color: var(--accent); }
 .proscons { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .proscons h4 { font-size: 0.9rem; color: var(--ink-soft); }
@@ -225,7 +225,9 @@ svg.anatomy .tunnel-bar { fill: var(--bud); }
 body.present { --bg: #fff; }
 body.present #app { max-width: none; padding: 0 28px; }
 body.present html, body.present { font-size: 20px; }
-body.present .home-link, body.present .disclaimer, body.present [data-print], body.present [data-share] { display: none; }
+body.present .home-link, body.present .disclaimer, body.present [data-print] { display: none; }
+body.present svg.anatomy .lbl { font-size: 17px; }
+body.present svg.anatomy .lbl.small { font-size: 15px; }
 body.present .chapter-head { padding-top: 8px; }
 
 @media (max-width: 900px) {
@@ -384,7 +386,7 @@ svg.anatomy .graft { fill: none; stroke: #e17f8a; stroke-width: 14; stroke-linec
 .lang-switch button + button { border-left: 1px solid var(--line); }
 .lang-switch button[aria-pressed='true'] { background: var(--accent); color: #fff; }
 .home-head .lang-switch { float: right; }
-.author { color: var(--ink-soft); font-size: 0.9rem; margin-top: 14px; }
+.home-head .author { color: var(--ink-soft); font-size: 0.9rem; margin-top: 14px; }
 .lang-note { background: var(--accent-soft); border-left: 4px solid var(--accent); margin: 0 0 14px; }
 @media print { .lang-switch { display: none; } }
 
@@ -503,3 +505,43 @@ svg.anatomy.chart .zone-mid { fill: rgb(220 160 40 / 0.12); }
 svg.anatomy.chart .zone-high { fill: rgb(220 60 60 / 0.10); }
 svg.anatomy.chart .zone-line { stroke: var(--ink-soft); stroke-width: 1; stroke-dasharray: 4 4; }
 svg.anatomy.chart .zone-lbl { font-weight: 600; }
+
+/* ---------- usability pass ---------- */
+.home-head h1, .chapter-head h1 { hyphens: auto; overflow-wrap: break-word; }
+.search { display: block; width: 100%; max-width: 480px; margin-top: 18px; font: inherit; padding: 10px 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--ink); }
+.search:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.no-match { color: var(--ink-soft); margin-top: 24px; }
+.group[hidden], .tile[hidden] { display: none; }
+.tile.ready { display: grid; grid-template-columns: 32px 1fr; column-gap: 12px; row-gap: 4px; align-items: start; }
+.tile .tile-icon { grid-row: span 2; width: 32px; height: 32px; color: var(--accent); opacity: 0.8; margin-top: 2px; }
+.tools-toggle { display: none; }
+.viz { transition: box-shadow 0.3s; }
+.viz.flash { animation: vizflash 0.6s ease-out; }
+@keyframes vizflash { 0% { box-shadow: 0 0 0 4px var(--accent-soft), 0 0 0 6px var(--accent); } 100% { box-shadow: 0 0 0 0 transparent; } }
+@media (prefers-reduced-motion: reduce) { .viz.flash { animation: none; } }
+
+@media (max-width: 640px) {
+  .home-head .lang-switch { float: none; display: flex; width: fit-content; margin: 0 0 14px auto; }
+  .home-head .view-counter { float: none; }
+  .home-head { padding-top: 16px; }
+  .chapter-head { gap: 8px 12px; }
+  .chapter-head h1 { flex-basis: 100%; order: 3; }
+  .tools-toggle { display: inline-flex; margin-left: auto; }
+  .tools { display: none; flex-basis: 100%; order: 4; }
+  .tools.open { display: flex; }
+  .section-tabs { flex-wrap: nowrap; scrollbar-width: none; }
+  .section-tabs a { padding: 10px 12px; }
+  /* keep the picture on screen while reading the explanation */
+  .model .viz-col { display: contents; }
+  .model > .viz-col > .viz:not(.two) { position: sticky; top: 0; z-index: 4; box-shadow: 0 4px 10px rgb(0 0 0 / 0.08); }
+  .model > .viz-col > .viz svg.anatomy { max-height: 38vh; }
+}
+
+/* ---------- dark mode: page chrome goes dark, drawings stay on a light panel ---------- */
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #11161d; --surface: #1a212b; --line: #2e3845; --ink: #e6ebf2; --ink-soft: #a5b0bf; --accent: #6aa7e8; --accent-soft: #1d2d42; --good-soft: #15291f; --warn-soft: #33201c; }
+  body.present { --bg: #11161d; }
+  .viz { --surface: #ffffff; --line: #dde2ea; --ink: #1b2430; --ink-soft: #5a6676; --accent: #2f6fb5; --accent-soft: #e6eef8; background: #fff; color: #1b2430; }
+  .tile .tile-icon { opacity: 1; }
+  dialog.share { background: var(--surface); color: var(--ink); }
+}

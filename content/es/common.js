@@ -9,6 +9,9 @@ export default {
   },
   nav: {
     home: 'Todas las condiciones',
+    search: 'Buscar condiciones y pruebas',
+    noMatch: 'No hay resultados. Pruebe otra palabra.',
+    tools: 'Herramientas',
     present: 'Presentar',
     exitPresent: 'Salir',
     draw: 'Dibujar',

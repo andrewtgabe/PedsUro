@@ -10,6 +10,9 @@ export default {
   },
   nav: {
     home: 'All conditions',
+    search: 'Search conditions and tests',
+    noMatch: 'No matches. Try another word.',
+    tools: 'Tools',
     present: 'Present',
     exitPresent: 'Exit',
     draw: 'Draw',

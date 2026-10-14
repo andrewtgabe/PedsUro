@@ -36,6 +36,43 @@ const CATALOG = {
   tests: ['imaging'],
 };
 
+// Extra lay search words (English and Spanish) for the home page filter.
+const KEYWORDS = {
+  hydronephrosis: 'swollen kidney dilation riñón hinchado dilatación',
+  vur: 'reflux backward urine reflujo',
+  upj: 'blockage kidney obstruction pyeloplasty bloqueo pieloplastia',
+  uvj: 'megaureter blockage wide ureter bloqueo',
+  duplex: 'duplicated double kidney two ureters doble',
+  ectopic: 'ureterocele leaking wet ectópico',
+  stones: 'kidney stone bladder stone pain cálculo piedra',
+  uti: 'infection fever bladder infection infección fiebre',
+  enuresis: 'bedwetting night wetting alarm mojar la cama noche',
+  bbd: 'daytime wetting accidents urgency accidentes urgencia',
+  bowel: 'constipation poop stool estreñimiento popó',
+  neurogenic: 'spina bifida catheter botox augmentation mitrofanoff cateterismo',
+  puv: 'posterior urethral valves boys valvas',
+  hypospadias: 'penis opening pee hole pene',
+  cryptorchidism: 'undescended testicle orchiopexy testículo no descendido',
+  hydrocele: 'fluid scrotum swelling líquido escroto',
+  hernia: 'inguinal bulge groin bulto ingle',
+  torsion: 'twisted testicle emergency pain torcido dolor emergencia',
+  testismass: 'testicular tumor lump cancer orchiectomy tumor bulto',
+  varicocele: 'veins scrotum venas',
+  phimosis: 'tight foreskin circumcision prepucio circuncisión',
+  meatal: 'meatal stenosis narrow opening meatotomy estrechez',
+  labial: 'labial adhesions girls fused labios niñas',
+  imaging: 'ultrasound mag3 dmsa vcug uroflow urodynamics scan tests ultrasonido estudios pruebas',
+};
+// Small outline icon for each home-page group.
+const GROUP_ICONS = {
+  upper: '<path d="M14 4c-6 0-9 5-9 11s3 11 9 11c3 0 4-3 3-6-1-2-1-4 0-6 2-3 3-10-3-10z"/>',
+  lower: '<path d="M8 8h16c0 10-3 15-8 15S8 18 8 8z"/><path d="M16 23v6"/>',
+  genital: '<ellipse cx="11" cy="19" rx="5" ry="7"/><ellipse cx="21" cy="19" rx="5" ry="7"/><path d="M16 4v8"/>',
+  tests: '<rect x="6" y="5" width="20" height="22" rx="3"/><path d="M11 12h10M11 17h10M11 22h6"/>',
+};
+const groupIcon = (g) =>
+  `<svg class="tile-icon" viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">${GROUP_ICONS[g]}</svg>`;
+
 const app = document.getElementById('app');
 
 // Page-view badge from hits.sh. Created once per visit and moved into each new header, so
@@ -83,7 +120,9 @@ function renderHome() {
       <h1>${t('common.site.title')}</h1>
       <p>${t('common.site.tagline')}</p>
       <p class="author">${t('common.site.author')}</p>
+      <input type="search" class="search" placeholder="${t('common.nav.search')}" aria-label="${t('common.nav.search')}">
     </header>
+    <p class="no-match" hidden>${t('common.nav.noMatch')}</p>
     ${Object.entries(CATALOG)
       .map(
         ([group, ids]) => `
@@ -93,7 +132,7 @@ function renderHome() {
           ${ids
             .map((id) =>
               CHAPTERS[id]
-                ? `<a class="tile ready" href="#/${id}/embryology"><strong>${t(`common.conditions.${id}`)}</strong><span>${t(`common.blurbs.${id}`)}</span></a>`
+                ? `<a class="tile ready" href="#/${id}/embryology" data-find="${`${t(`common.conditions.${id}`)} ${t(`common.blurbs.${id}`)} ${KEYWORDS[id] || ''}`.toLowerCase().replace(/"/g, '')}">${groupIcon(group)}<strong>${t(`common.conditions.${id}`)}</strong><span>${t(`common.blurbs.${id}`)}</span></a>`
                 : `<div class="tile"><strong>${t(`common.conditions.${id}`)}</strong><span>${t('common.nav.comingSoon')}</span></div>`,
             )
             .join('')}
@@ -102,6 +141,25 @@ function renderHome() {
       )
       .join('')}
     <footer class="disclaimer">${t('common.site.disclaimer')}<br>${t('common.site.author')}</footer>`;
+
+  // Filter tiles as the user types; hide groups with no matches.
+  const plain = (x) => x.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  app.querySelector('.search').addEventListener('input', (e) => {
+    const words = plain(e.target.value).split(/\s+/).filter(Boolean);
+    let any = false;
+    app.querySelectorAll('.group').forEach((g) => {
+      let shown = 0;
+      g.querySelectorAll('.tile').forEach((tile) => {
+        const hay = plain(tile.dataset.find || tile.textContent);
+        const ok = words.every((w) => hay.includes(w));
+        tile.hidden = !ok;
+        shown += ok;
+      });
+      g.hidden = !shown;
+      any ||= shown > 0;
+    });
+    app.querySelector('.no-match').hidden = any;
+  });
 }
 
 function renderChapter(chapter, sectionId) {
@@ -114,6 +172,7 @@ function renderChapter(chapter, sectionId) {
     <header class="chapter-head">
       <a class="home-link" href="#/">← ${t('common.nav.home')}</a>
       <h1>${chapter.title()}</h1>
+      <button class="btn tools-toggle" aria-expanded="false">⋯ ${t('common.nav.tools')}</button>
       <div class="tools">
         <button class="btn" data-draw aria-pressed="false">✎ ${t('common.nav.draw')}</button>
         <button class="btn" data-clear>${t('common.nav.clear')}</button>
@@ -143,6 +202,12 @@ function renderChapter(chapter, sectionId) {
     <footer class="disclaimer">${t('common.site.disclaimer')}<br>${t('common.site.author')}</footer>`;
 
   const sectionCleanup = section.render(app.querySelector('.section-body'));
+  labelDrawings(`${chapter.title()} · ${t(`common.sections.${section.id}`)}`);
+  app.querySelector('.tools-toggle').addEventListener('click', (e) => {
+    const open = e.currentTarget.getAttribute('aria-expanded') !== 'true';
+    e.currentTarget.setAttribute('aria-expanded', open);
+    app.querySelector('.tools').classList.toggle('open', open);
+  });
   const ink = setupInk(app.querySelector('.stage'), app.querySelector('canvas.ink'));
 
   const presentBtn = app.querySelector('[data-present]');
@@ -180,6 +245,26 @@ function renderChapter(chapter, sectionId) {
     document.removeEventListener('keydown', onKey);
   };
 }
+
+// Give each drawing a screen-reader name (its caption, or the page name).
+function labelDrawings(fallback) {
+  app.querySelectorAll('svg.anatomy').forEach((svg) => {
+    if (svg.hasAttribute('aria-label')) return;
+    const cap = svg.closest('figure')?.querySelector('figcaption')?.textContent;
+    svg.setAttribute('role', 'img');
+    svg.setAttribute('aria-label', cap || fallback);
+  });
+}
+
+// When a picture-changing button is pressed, briefly highlight the drawing.
+app.addEventListener('click', (e) => {
+  const b = e.target.closest('.seg-group button, .option-tabs button');
+  const viz = b?.closest('.viz-col, .model')?.querySelector('.viz');
+  if (!viz) return;
+  viz.classList.remove('flash');
+  void viz.offsetWidth;
+  viz.classList.add('flash');
+});
 
 // Freehand pen layer over the model, for drawing during counseling.
 function setupInk(stage, canvas) {
