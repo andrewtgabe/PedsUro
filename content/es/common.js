@@ -37,6 +37,8 @@ export default {
     dmsa: 'Estudio DMSA',
     vcug: 'CUGM',
     prep: 'Cómo prepararse',
+    uroflow: 'Uroflujometría',
+    urodynamics: 'Urodinamia',
   },
   labels: {
     kidney: 'Riñón',
@@ -101,6 +103,6 @@ export default {
     neurogenic: 'Una vejiga afectada por problemas de los nervios, como la espina bífida.',
     bowel: 'Cómo el estreñimiento y aguantar el excremento afectan la vejiga.',
     puv: 'Pliegues de tejido de más en la uretra de un niño que bloquean la orina.',
-    imaging: 'Ultrasonido, MAG3, DMSA y CUGM: qué muestra cada estudio y qué esperar.',
+    imaging: 'Ultrasonido, MAG3, DMSA, CUGM, uroflujometría y urodinamia: qué muestra cada estudio y qué esperar.',
   },
 };

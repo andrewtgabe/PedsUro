@@ -1,4 +1,4 @@
-// Imaging tests chapter: renal bladder ultrasound, MAG3, DMSA and VCUG.
+// Kidney and bladder tests chapter: renal bladder ultrasound, MAG3, DMSA, VCUG, uroflow and urodynamics.
 // Each test tab has "What it shows" (interactive) and "Test day" (step by step).
 import { t } from '../i18n.js';
 import { urinaryTract, drainageChart } from '../anatomy.js';
@@ -193,6 +193,106 @@ const vcug = testSection(
   vcugDraw,
 );
 
+
+// ---------- Uroflow ----------
+
+// Flow-rate curve shapes (ICCS patterns), as flow (0..1) over time (0..1).
+const FLOWS = {
+  bell: (x) => Math.sin(Math.PI * x) ** 1.4,
+  tower: (x) => (x < 0.12 ? x / 0.12 : Math.exp(-(x - 0.12) * 4.2)) * (x < 0.75 ? 1 : 1 - (x - 0.75) * 4),
+  staccato: (x) => Math.max(0, 0.75 * Math.sin(Math.PI * x) ** 0.8 * (0.72 + 0.28 * Math.sin(x * 40))),
+  interrupted: (x) => Math.max(0, Math.sin(Math.PI * ((x * 3) % 1)) * 0.75 * (Math.floor(x * 3) < 3 ? 1 : 0)),
+  plateau: (x) => (x < 0.08 ? (x / 0.08) * 0.32 : x > 0.92 ? ((1 - x) / 0.08) * 0.32 : 0.32),
+};
+
+function flowChart(pattern, text) {
+  const X = (v) => 60 + v * 470;
+  const Y = (v) => 220 - v * 170;
+  const pts = Array.from({ length: 161 }, (_, i) => i / 160).map((v) => `${f(X(v))} ${f(Y(Math.max(0, Math.min(1, FLOWS[pattern](v)))))}`);
+  return `<svg class="anatomy chart" viewBox="0 0 560 260" role="img" aria-label="${text.title}">
+    <line class="axis" x1="60" y1="220" x2="545" y2="220"/><line class="axis" x1="60" y1="30" x2="60" y2="220"/>
+    <text class="tick" x="300" y="248" text-anchor="middle">${text.time}</text>
+    <text class="tick" x="22" y="125" text-anchor="middle" transform="rotate(-90 22 125)">${text.flow}</text>
+    <path class="flow-line" d="M${X(0)} ${Y(0)} L${pts.join(' L')} L${X(1)} ${Y(0)}"/>
+  </svg>`;
+}
+
+const uroflowDraw = (st) => addToSvg(
+  urinaryTract({ affected: { pelvisFill: 1 }, healthy: { pelvisFill: 1 }, bladderFill: st.fill, voiding: !!st.pee }),
+  (st.funnel ? `<path class="funnel" d="M270 525 L330 525 L310 530 L290 530 Z"/>` : '') +
+  (st.pads ? `<circle class="emg-pad" cx="250" cy="505" r="9"/><circle class="emg-pad" cx="350" cy="505" r="9"/>` : '') +
+  (st.scan ? probe(300, 300, 180) : ''),
+);
+
+const uroflow = testSection(
+  'uroflow',
+  (viz, ctl, explain, facts) => {
+    const o = T('uroflow.shows');
+    const s = { pattern: 'bell' };
+    const draw = () => {
+      viz.innerHTML = flowChart(s.pattern, o.chart);
+      explain.innerHTML = `<p>${o.texts[s.pattern]}</p>${facts()}`;
+    };
+    ctl.append(segmented(o.label, Object.entries(o.patterns), s.pattern, (v) => { s.pattern = v; draw(); }));
+    draw();
+  },
+  [{ fill: 0.85 }, { fill: 0.85, pads: true }, { fill: 0.4, pee: true, funnel: true, pads: true }, { fill: 0.08, scan: true }, { fill: 0.3 }],
+  uroflowDraw,
+);
+
+// ---------- Urodynamics ----------
+
+// Bladder pressure (0..1) as the bladder fills (0..1).
+const PRESSURES = {
+  normal: (v) => 0.08 + 0.06 * v + (v > 0.92 ? (v - 0.92) * 6 : 0),
+  overactive: (v) => 0.1 + 0.05 * v + 0.24 * Math.exp(-(((v - 0.45) / 0.05) ** 2)) + 0.18 * Math.exp(-(((v - 0.72) / 0.04) ** 2)),
+  stiff: (v) => 0.08 + 0.75 * v ** 2.2,
+};
+
+function pressureChart(pattern, text) {
+  const X = (v) => 60 + v * 470;
+  const Y = (v) => 220 - v * 170;
+  const pts = Array.from({ length: 121 }, (_, i) => i / 120).map((v) => `${f(X(v))} ${f(Y(Math.min(1, PRESSURES[pattern](v))))}`);
+  return `<svg class="anatomy chart" viewBox="0 0 560 260" role="img" aria-label="${text.title}">
+    <rect class="danger-zone" x="60" y="${f(Y(1))}" width="470" height="${f(Y(0.4) - Y(1))}"/>
+    <text class="tick" x="525" y="${f(Y(0.95))}" text-anchor="end">${text.high}</text>
+    <line class="axis" x1="60" y1="220" x2="545" y2="220"/><line class="axis" x1="60" y1="30" x2="60" y2="220"/>
+    <text class="tick" x="300" y="248" text-anchor="middle">${text.volume}</text>
+    <text class="tick" x="22" y="125" text-anchor="middle" transform="rotate(-90 22 125)">${text.pressure}</text>
+    <path class="flow-line" d="M${pts.join(' L')}"/>
+  </svg>`;
+}
+
+const udsDraw = (st) => addToSvg(
+  urinaryTract({ affected: { pelvisFill: 1 }, healthy: { pelvisFill: 1 }, bladderFill: st.fill, catheter: !!st.cath && !st.pee, voiding: !!st.pee }),
+  (st.rectal ? `<g class="rectal"><path d="M360 530 C 370 480 380 460 392 440"/><circle cx="392" cy="440" r="6"/></g>` : '') +
+  (st.pads ? `<circle class="emg-pad" cx="250" cy="505" r="9"/><circle class="emg-pad" cx="350" cy="505" r="9"/>` : '') +
+  (st.filling ? `<text class="lbl small accent-text" x="300" y="300" text-anchor="middle">↓ ${T('urodynamics.shows.warm')}</text>` : ''),
+);
+
+const urodynamics = testSection(
+  'urodynamics',
+  (viz, ctl, explain, facts) => {
+    const o = T('urodynamics.shows');
+    const s = { pattern: 'normal' };
+    const draw = () => {
+      viz.innerHTML = pressureChart(s.pattern, o.chart);
+      explain.innerHTML = `<p>${o.texts[s.pattern]}</p>${facts()}`;
+    };
+    ctl.append(segmented(o.label, Object.entries(o.patterns), s.pattern, (v) => { s.pattern = v; draw(); }));
+    draw();
+  },
+  [
+    { fill: 0.5 },
+    { fill: 0.1, cath: true },
+    { fill: 0.1, cath: true, rectal: true, pads: true },
+    { fill: 0.8, cath: true, rectal: true, pads: true, filling: true },
+    { fill: 0.3, cath: true, rectal: true, pads: true, pee: true },
+    { fill: 0.2 },
+  ],
+  udsDraw,
+);
+
 export default {
   id: 'imaging',
   title: () => T('title'),
@@ -201,6 +301,8 @@ export default {
     { id: 'mag3', render: mag3 },
     { id: 'dmsa', render: dmsa },
     { id: 'vcug', render: vcug },
+    { id: 'uroflow', render: uroflow },
+    { id: 'urodynamics', render: urodynamics },
     { id: 'prep', render: (root) => takeaways(root, { title: T('title'), ...T('prep') }) },
   ],
 };

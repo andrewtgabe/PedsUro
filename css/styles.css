@@ -56,7 +56,7 @@ a { color: var(--accent); }
 .home-link { text-decoration: none; font-size: 0.9rem; }
 .tools { display: flex; gap: 6px; flex-wrap: wrap; }
 
-.section-tabs { display: flex; gap: 6px; border-bottom: 2px solid var(--line); margin-bottom: 16px; overflow-x: auto; }
+.section-tabs { display: flex; gap: 6px; border-bottom: 2px solid var(--line); margin-bottom: 16px; overflow-x: auto; flex-wrap: wrap; }
 .section-tabs a { display: flex; align-items: center; gap: 8px; padding: 10px 16px; text-decoration: none; color: var(--ink-soft); font-weight: 600; border-bottom: 3px solid transparent; margin-bottom: -2px; white-space: nowrap; }
 .section-tabs a[aria-current] { color: var(--accent); border-bottom-color: var(--accent); }
 .section-tabs .num { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--line); color: var(--ink); font-size: 0.8rem; }
@@ -492,3 +492,9 @@ svg.anatomy.dmsa .dmsa-lbl.small { font-size: 13px; font-weight: 400; fill: var(
 .split-bar span { padding: 6px 8px; background: var(--accent-soft); color: var(--ink); white-space: nowrap; }
 .split-bar span + span { background: #dbeafe; border-left: 2px solid #fff; }
 .split-bar span.warn { background: #fde2e1; }
+svg.anatomy .funnel { fill: #cbd5e1; stroke: #64748b; stroke-width: 1.5; }
+svg.anatomy .emg-pad { fill: #fef3c7; stroke: #b45309; stroke-width: 2; }
+svg.anatomy .rectal path { fill: none; stroke: #3b82c4; stroke-width: 3; }
+svg.anatomy .rectal circle { fill: #9cc3e6; stroke: #3b82c4; stroke-width: 2; }
+svg.anatomy.chart .danger-zone { fill: rgb(220 60 60 / 0.08); }
+svg.anatomy.chart .flow-line { fill: none; stroke: var(--accent); stroke-width: 3.5; stroke-linejoin: round; }

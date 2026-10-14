@@ -108,6 +108,56 @@ export default {
     ],
   },
 
+  uroflow: {
+    intro:
+      'A uroflow measures how fast urine comes out while your child pees into a special toilet. The shape of the flow curve shows how the bladder and the control muscle are working together.',
+    facts: ['Come with a full bladder: drink water beforehand', 'No needles and no radiation', 'Your child pees in private, as normally as possible', 'A quick bladder ultrasound afterward checks for leftover urine', 'Sometimes repeated 2 times for a good reading'],
+    shows: {
+      label: 'Flow curve',
+      patterns: { bell: 'Bell', tower: 'Tower', staccato: 'Staccato', interrupted: 'Interrupted', plateau: 'Flat' },
+      texts: {
+        bell: 'A smooth, rounded curve. This is a normal pee: the bladder squeezes and the control muscle relaxes.',
+        tower: 'A sudden, very high flow that ends quickly. This often goes with an overactive bladder that squeezes hard.',
+        staccato: 'A bumpy curve. The control muscle tightens off and on while peeing. This is common in dysfunctional voiding.',
+        interrupted: 'The flow stops and starts in separate bursts. The bladder squeeze is weak, and the child pushes with the belly to pee.',
+        plateau: 'A low, flat curve. Urine comes out slowly the whole time, which can mean a narrow spot or a tight control muscle.',
+      },
+      chart: { title: 'Uroflow curve', time: 'Time', flow: 'Flow rate' },
+    },
+    steps: [
+      'Your child drinks water and waits until the bladder feels full.',
+      'Sometimes small sticky pads are placed near the bottom to check the control muscle. They do not hurt.',
+      'Your child pees into a special toilet or funnel, in private, as normally as possible. A machine records how fast the urine flows.',
+      'Right after, a quick ultrasound of the lower belly checks how much urine is left in the bladder.',
+      'You are done. The curve and the leftover urine are reviewed together with a bladder and bowel diary.',
+    ],
+  },
+
+  urodynamics: {
+    intro:
+      'Urodynamics measures pressure inside the bladder as it fills and empties. It shows how much the bladder holds, how stretchy it is, and whether pressure gets high enough to harm the kidneys. It is often used for neurogenic bladder, posterior urethral valves, or hard-to-treat wetting.',
+    facts: ['Takes about 1 hour', 'A thin catheter in the bladder and a small soft tube in the bottom; numbing jelly is used', 'Sticky pads near the bottom check the control muscle', 'Usually no sedation, because your child needs to tell us how the bladder feels and to pee', 'Sometimes done with x-ray pictures (video urodynamics)'],
+    shows: {
+      label: 'Bladder pressure while filling',
+      patterns: { normal: 'Normal', overactive: 'Overactive', stiff: 'Stiff, high pressure' },
+      texts: {
+        normal: 'Pressure stays low while the bladder fills, until it is full. The bladder is stretchy and holds urine safely.',
+        overactive: 'The bladder squeezes on its own while it is filling. This can cause sudden urges and leaks.',
+        stiff: 'Pressure keeps climbing as the bladder fills. High pressure (in the red zone) can push back on the kidneys and harm them over time, so treatment is needed to keep pressure low.',
+      },
+      warm: 'Warm fluid filling the bladder',
+      chart: { title: 'Bladder pressure', volume: 'Amount in bladder', pressure: 'Pressure', high: 'High pressure: risk to kidneys' },
+    },
+    steps: [
+      'Your child may pee first, sometimes into a uroflow toilet.',
+      'Numbing jelly is used, and a very thin catheter is passed into the bladder to measure bladder pressure.',
+      'A small soft tube goes just inside the bottom to measure belly pressure, and sticky pads are placed near the bottom. These do not hurt.',
+      'Warm fluid slowly fills the bladder through the catheter. Your child tells us when they first feel the need to pee and when they feel full.',
+      'When full, your child pees with the tubes in place so we can see how the bladder empties.',
+      'The tubes come out and you are done. Peeing may sting a little at first. Drink extra fluids, and call if your child gets a fever.',
+    ],
+  },
+
   prep: {
     points: [
       'Explain the test in simple, honest words a day or two before. Avoid saying it will not hurt if a needle or catheter is part of it.',
@@ -115,11 +165,11 @@ export default {
       'Ask whether a child life specialist can help. They are experts at helping children cope.',
       'A parent can usually stay in the room.',
       'Ask the imaging team about drinking, eating, or sedation instructions for your child’s test.',
-      'Ultrasound uses no radiation. MAG3, DMSA and VCUG use small amounts, kept as low as possible for children.',
+      'Ultrasound and uroflow use no radiation. MAG3, DMSA and VCUG use small amounts, kept as low as possible for children.',
     ],
     callTitle: 'Call us after a test if your child has',
     call: [
-      'Fever after a VCUG or a test with a catheter',
+      'Fever after a VCUG, urodynamics, or another test with a catheter',
       'Burning when peeing, or blood in the urine, that lasts more than a day or two',
       'Redness, swelling or pain at the IV site that gets worse',
     ],

@@ -108,6 +108,56 @@ export default {
     ],
   },
 
+  uroflow: {
+    intro:
+      'Una uroflujometría mide qué tan rápido sale la orina mientras su hijo o hija orina en un baño especial. La forma de la curva muestra cómo trabajan juntos la vejiga y el músculo de control.',
+    facts: ['Venga con la vejiga llena: tome agua antes', 'Sin agujas y sin radiación', 'Su hijo o hija orina en privado, de la forma más normal posible', 'Después, un ultrasonido rápido revisa si queda orina', 'A veces se repite 2 veces para tener una buena lectura'],
+    shows: {
+      label: 'Curva de flujo',
+      patterns: { bell: 'Campana', tower: 'Torre', staccato: 'Entrecortada', interrupted: 'Interrumpida', plateau: 'Plana' },
+      texts: {
+        bell: 'Una curva suave y redonda. Es una orinada normal: la vejiga aprieta y el músculo de control se relaja.',
+        tower: 'Un flujo repentino y muy alto que termina rápido. Muchas veces se ve con una vejiga hiperactiva que aprieta fuerte.',
+        staccato: 'Una curva con altibajos. El músculo de control se aprieta y se suelta mientras orina. Es común en la micción disfuncional.',
+        interrupted: 'El flujo se detiene y vuelve a empezar en chorros separados. La vejiga aprieta poco, y el niño o la niña puja con la barriga para orinar.',
+        plateau: 'Una curva baja y plana. La orina sale despacio todo el tiempo, lo que puede significar un lugar estrecho o un músculo de control apretado.',
+      },
+      chart: { title: 'Curva de uroflujometría', time: 'Tiempo', flow: 'Velocidad del flujo' },
+    },
+    steps: [
+      'Su hijo o hija toma agua y espera hasta sentir la vejiga llena.',
+      'A veces se ponen almohadillas pequeñas adhesivas cerca de las nalgas para revisar el músculo de control. No duelen.',
+      'Su hijo o hija orina en un baño o embudo especial, en privado, de la forma más normal posible. Una máquina registra qué tan rápido sale la orina.',
+      'Justo después, un ultrasonido rápido de la parte baja de la barriga revisa cuánta orina queda en la vejiga.',
+      'Terminaron. La curva y la orina que queda se revisan junto con un diario de vejiga e intestino.',
+    ],
+  },
+
+  urodynamics: {
+    intro:
+      'La urodinamia mide la presión dentro de la vejiga mientras se llena y se vacía. Muestra cuánto guarda la vejiga, qué tan elástica es y si la presión sube tanto que puede dañar los riñones. Muchas veces se usa en la vejiga neurogénica, las válvulas de uretra posterior o los escapes de orina difíciles de tratar.',
+    facts: ['Dura alrededor de 1 hora', 'Una sonda delgada en la vejiga y un tubo suave y pequeño en el recto; se usa un gel para adormecer', 'Almohadillas adhesivas cerca de las nalgas revisan el músculo de control', 'Por lo general sin sedación, porque su hijo o hija necesita decirnos cómo siente la vejiga y orinar', 'A veces se hace con imágenes de rayos X (videourodinamia)'],
+    shows: {
+      label: 'Presión de la vejiga al llenarse',
+      patterns: { normal: 'Normal', overactive: 'Hiperactiva', stiff: 'Rígida, presión alta' },
+      texts: {
+        normal: 'La presión se mantiene baja mientras la vejiga se llena, hasta que está llena. La vejiga es elástica y guarda la orina con seguridad.',
+        overactive: 'La vejiga aprieta sola mientras se está llenando. Esto puede causar ganas repentinas y escapes.',
+        stiff: 'La presión sigue subiendo mientras la vejiga se llena. La presión alta (en la zona roja) puede empujar hacia los riñones y dañarlos con el tiempo, así que se necesita tratamiento para mantener la presión baja.',
+      },
+      warm: 'Líquido tibio llenando la vejiga',
+      chart: { title: 'Presión de la vejiga', volume: 'Cantidad en la vejiga', pressure: 'Presión', high: 'Presión alta: riesgo para los riñones' },
+    },
+    steps: [
+      'Su hijo o hija puede orinar primero, a veces en un baño de uroflujometría.',
+      'Se usa un gel para adormecer y se pasa una sonda muy delgada a la vejiga para medir la presión de la vejiga.',
+      'Un tubo suave y pequeño se pone justo dentro del recto para medir la presión de la barriga, y se ponen almohadillas adhesivas cerca de las nalgas. No duelen.',
+      'Líquido tibio llena despacio la vejiga por la sonda. Su hijo o hija nos dice cuándo siente las primeras ganas de orinar y cuándo se siente lleno.',
+      'Cuando está lleno, su hijo o hija orina con los tubos puestos para ver cómo se vacía la vejiga.',
+      'Se quitan los tubos y terminaron. Orinar puede arder un poco al principio. Tome líquidos extra y llame si su hijo o hija tiene fiebre.',
+    ],
+  },
+
   prep: {
     points: [
       'Explique el estudio con palabras sencillas y honestas uno o dos días antes. No diga que no va a doler si hay una aguja o una sonda.',
@@ -115,11 +165,11 @@ export default {
       'Pregunte si un especialista en vida infantil puede ayudar. Son expertos en ayudar a los niños a sobrellevar estas situaciones.',
       'Por lo general un papá o mamá puede quedarse en el cuarto.',
       'Pregunte al equipo de imágenes sobre las instrucciones de tomar, comer o sedación para el estudio de su hijo o hija.',
-      'El ultrasonido no usa radiación. El MAG3, el DMSA y el CUGM usan cantidades pequeñas, lo más bajas posible para niños.',
+      'El ultrasonido y la uroflujometría no usan radiación. El MAG3, el DMSA y el CUGM usan cantidades pequeñas, lo más bajas posible para niños.',
     ],
     callTitle: 'Llámenos después de un estudio si su hijo o hija tiene',
     call: [
-      'Fiebre después de un CUGM o de un estudio con sonda',
+      'Fiebre después de un CUGM, una urodinamia u otro estudio con sonda',
       'Ardor al orinar, o sangre en la orina, que dura más de uno o dos días',
       'Enrojecimiento, hinchazón o dolor en el lugar de la vía que empeora',
     ],

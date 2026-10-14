@@ -38,6 +38,8 @@ export default {
     dmsa: 'DMSA scan',
     vcug: 'VCUG',
     prep: 'Getting ready',
+    uroflow: 'Uroflow',
+    urodynamics: 'Urodynamics',
   },
   labels: {
     kidney: 'Kidney',
@@ -102,6 +104,6 @@ export default {
     neurogenic: 'A bladder affected by nerve problems, such as spina bifida.',
     bowel: 'How constipation and holding poop affect the bladder.',
     puv: 'Extra flaps of tissue in a boy’s urethra that block urine.',
-    imaging: 'Ultrasound, MAG3, DMSA and VCUG: what each test shows and what to expect.',
+    imaging: 'Ultrasound, MAG3, DMSA, VCUG, uroflow and urodynamics: what each test shows and what to expect.',
   },
 };
