@@ -498,3 +498,8 @@ svg.anatomy .rectal path { fill: none; stroke: #3b82c4; stroke-width: 3; }
 svg.anatomy .rectal circle { fill: #9cc3e6; stroke: #3b82c4; stroke-width: 2; }
 svg.anatomy.chart .danger-zone { fill: rgb(220 60 60 / 0.08); }
 svg.anatomy.chart .flow-line { fill: none; stroke: var(--accent); stroke-width: 3.5; stroke-linejoin: round; }
+svg.anatomy.chart .zone-low { fill: rgb(34 160 90 / 0.08); }
+svg.anatomy.chart .zone-mid { fill: rgb(220 160 40 / 0.12); }
+svg.anatomy.chart .zone-high { fill: rgb(220 60 60 / 0.10); }
+svg.anatomy.chart .zone-line { stroke: var(--ink-soft); stroke-width: 1; stroke-dasharray: 4 4; }
+svg.anatomy.chart .zone-lbl { font-weight: 600; }

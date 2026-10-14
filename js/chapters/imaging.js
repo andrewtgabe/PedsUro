@@ -242,23 +242,27 @@ const uroflow = testSection(
 
 // ---------- Urodynamics ----------
 
-// Bladder pressure (0..1) as the bladder fills (0..1).
+// Bladder pressure (cm H2O) as the bladder fills (0..1), one example per revised UMPIRE category
+// (Tanaka et al., J Pediatr Urol 2021): low < 25, intermediate 25–39 or detrusor overactivity, high ≥ 40.
 const PRESSURES = {
-  normal: (v) => 0.08 + 0.06 * v + (v > 0.92 ? (v - 0.92) * 6 : 0),
-  overactive: (v) => 0.1 + 0.05 * v + 0.24 * Math.exp(-(((v - 0.45) / 0.05) ** 2)) + 0.18 * Math.exp(-(((v - 0.72) / 0.04) ** 2)),
-  stiff: (v) => 0.08 + 0.75 * v ** 2.2,
+  low: (v) => 6 + 9 * v,
+  intPressure: (v) => 6 + 28 * v ** 2,
+  intDO: (v) => 6 + 6 * v + 16 * Math.exp(-(((v - 0.45) / 0.05) ** 2)) + 14 * Math.exp(-(((v - 0.72) / 0.04) ** 2)),
+  high: (v) => 6 + 52 * v ** 2.2,
 };
 
 function pressureChart(pattern, text) {
-  const X = (v) => 60 + v * 470;
-  const Y = (v) => 220 - v * 170;
-  const pts = Array.from({ length: 121 }, (_, i) => i / 120).map((v) => `${f(X(v))} ${f(Y(Math.min(1, PRESSURES[pattern](v))))}`);
+  const X = (v) => 70 + v * 460;
+  const Y = (p) => 220 - (Math.min(p, 60) / 60) * 180;
+  const pts = Array.from({ length: 121 }, (_, i) => i / 120).map((v) => `${f(X(v))} ${f(Y(PRESSURES[pattern](v)))}`);
+  const band = (lo, hi, cls, label) => `<rect class="${cls}" x="70" y="${f(Y(hi))}" width="460" height="${f(Y(lo) - Y(hi))}"/>
+    <text class="tick zone-lbl" x="524" y="${f(Y(hi) + 14)}" text-anchor="end">${label}</text>`;
   return `<svg class="anatomy chart" viewBox="0 0 560 260" role="img" aria-label="${text.title}">
-    <rect class="danger-zone" x="60" y="${f(Y(1))}" width="470" height="${f(Y(0.4) - Y(1))}"/>
-    <text class="tick" x="525" y="${f(Y(0.95))}" text-anchor="end">${text.high}</text>
-    <line class="axis" x1="60" y1="220" x2="545" y2="220"/><line class="axis" x1="60" y1="30" x2="60" y2="220"/>
+    ${band(0, 25, 'zone-low', text.low)}${band(25, 40, 'zone-mid', text.mid)}${band(40, 60, 'zone-high', text.high)}
+    ${[25, 40].map((p) => `<line class="zone-line" x1="70" y1="${f(Y(p))}" x2="530" y2="${f(Y(p))}"/><text class="tick" x="64" y="${f(Y(p) + 4)}" text-anchor="end">${p}</text>`).join('')}
+    <line class="axis" x1="70" y1="220" x2="545" y2="220"/><line class="axis" x1="70" y1="40" x2="70" y2="220"/>
     <text class="tick" x="300" y="248" text-anchor="middle">${text.volume}</text>
-    <text class="tick" x="22" y="125" text-anchor="middle" transform="rotate(-90 22 125)">${text.pressure}</text>
+    <text class="tick" x="20" y="130" text-anchor="middle" transform="rotate(-90 20 130)">${text.pressure}</text>
     <path class="flow-line" d="M${pts.join(' L')}"/>
   </svg>`;
 }
@@ -274,10 +278,10 @@ const urodynamics = testSection(
   'urodynamics',
   (viz, ctl, explain, facts) => {
     const o = T('urodynamics.shows');
-    const s = { pattern: 'normal' };
+    const s = { pattern: 'low' };
     const draw = () => {
       viz.innerHTML = pressureChart(s.pattern, o.chart);
-      explain.innerHTML = `<p>${o.texts[s.pattern]}</p>${facts()}`;
+      explain.innerHTML = `<p>${o.texts[s.pattern]}</p><p class="note">${o.criteria[s.pattern]}</p><p class="note">${o.source}</p>${facts()}`;
     };
     ctl.append(segmented(o.label, Object.entries(o.patterns), s.pattern, (v) => { s.pattern = v; draw(); }));
     draw();
