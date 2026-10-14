@@ -1,4 +1,4 @@
-# Pediatric Urology Visual Guide
+# Visual Guide to Pediatric Urology
 
 Interactive models for counseling families during clinic visits. Plain HTML/CSS/JS — no build step, no server-side code, no patient data.
 

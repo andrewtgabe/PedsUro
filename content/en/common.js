@@ -2,7 +2,7 @@
 // translate the values — never the keys.
 export default {
   site: {
-    title: 'Pediatric Urology Visual Guide',
+    title: 'Visual Guide to Pediatric Urology',
     tagline: 'Interactive visual models to help families understand their child’s condition, testing modalities, and treatment choices.',
     disclaimer:
       'For education during a visit with your child’s care team. This guide does not replace medical advice for your child.',
