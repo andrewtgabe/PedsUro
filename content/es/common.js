@@ -12,6 +12,8 @@ export default {
     search: 'Buscar condiciones y pruebas',
     noMatch: 'No hay resultados. Pruebe otra palabra.',
     tools: 'Herramientas',
+    darkMode: 'Cambiar a modo oscuro',
+    lightMode: 'Cambiar a modo claro',
     present: 'Presentar',
     exitPresent: 'Salir',
     draw: 'Dibujar',

@@ -83,6 +83,24 @@ const langSwitch = () =>
     ([code, name]) => `<button data-lang="${code}" aria-pressed="${code === getLanguage()}">${name}</button>`,
   ).join('')}</div>`;
 
+// Light/dark switch. Without a saved choice the page follows the device setting.
+const darkQuery = matchMedia('(prefers-color-scheme: dark)');
+const store = { get: () => { try { return localStorage.getItem('theme'); } catch { return null; } },
+  set: (v) => { try { localStorage.setItem('theme', v); } catch {} } };
+if (store.get()) document.documentElement.dataset.theme = store.get();
+const isDark = () => (document.documentElement.dataset.theme || (darkQuery.matches ? 'dark' : 'light')) === 'dark';
+const themeToggle = () =>
+  `<button class="theme-toggle" data-theme-toggle aria-label="${t(isDark() ? 'common.nav.lightMode' : 'common.nav.darkMode')}" title="${t(isDark() ? 'common.nav.lightMode' : 'common.nav.darkMode')}">${isDark() ? '☀' : '☾'}</button>`;
+app.addEventListener('click', (e) => {
+  const b = e.target.closest('[data-theme-toggle]');
+  if (!b) return;
+  const next = isDark() ? 'light' : 'dark';
+  document.documentElement.dataset.theme = next;
+  store.set(next);
+  b.outerHTML = themeToggle();
+});
+darkQuery.addEventListener('change', () => app.querySelector('[data-theme-toggle]')?.replaceWith(Object.assign(document.createElement('template'), { innerHTML: themeToggle() }).content));
+
 app.addEventListener('click', (e) => {
   const b = e.target.closest('[data-lang]');
   if (!b) return;
@@ -106,7 +124,7 @@ function renderHome() {
   document.body.classList.remove('present');
   app.innerHTML = `
     <header class="home-head">
-      ${langSwitch()}
+      <div class="top-row">${langSwitch()}${themeToggle()}</div>
       <h1>${t('common.site.title')}</h1>
       <p>${t('common.site.tagline')}</p>
       <p class="author">${t('common.site.author')}</p>
@@ -170,6 +188,7 @@ function renderChapter(chapter, sectionId) {
         <button class="btn" data-print>${t('common.nav.print')}</button>
         <button class="btn" data-present></button>
         ${langSwitch()}
+        ${themeToggle()}
       </div>
     </header>
     ${isTranslated(chapter.id) ? '' : `<p class="callout lang-note">${t('common.nav.notTranslated')}</p>`}

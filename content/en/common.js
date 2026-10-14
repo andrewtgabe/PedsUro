@@ -13,6 +13,8 @@ export default {
     search: 'Search conditions and tests',
     noMatch: 'No matches. Try another word.',
     tools: 'Tools',
+    darkMode: 'Switch to dark mode',
+    lightMode: 'Switch to light mode',
     present: 'Present',
     exitPresent: 'Exit',
     draw: 'Draw',
