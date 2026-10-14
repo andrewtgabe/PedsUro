@@ -17,6 +17,12 @@ export default {
       },
     },
     strip: { stiff: 'Tramo rígido', kidney: 'Riñón', bladder: 'A la vejiga' },
+    buildup: [
+      'Una cantidad normal de orina pasa apretada junto al vaso sanguíneo y drena.',
+      'Después de tomar mucho líquido, el riñón hace mucha más orina. El vaso aprieta el uréter, así que la orina se regresa.',
+      'La zona que recoge la orina se estira como un globo. Este estiramiento puede causar un episodio repentino de dolor de barriga, de costado o de espalda, muchas veces con vómito.',
+      'En las siguientes horas, la orina drena despacio junto al vaso y la hinchazón baja, hasta que vuelve a pasar.',
+    ],
     stripCaption: 'Mire cómo las olas llevan la orina por el uréter',
   },
 

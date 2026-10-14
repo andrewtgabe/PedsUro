@@ -8,6 +8,33 @@ const SEVERITY = [0.35, 0.65, 1];
 
 // ---------- 1. How it forms ----------
 
+// Crossing vessel: on a loop, extra urine backs up behind the vessel, the kidney swells
+// (a pain episode), then slowly drains. Returns a stop function.
+function vesselBuildup(box, viz) {
+  const phases = T('embryology.buildup');
+  const cap = document.createElement('p');
+  cap.className = 'caption';
+  viz.append(cap);
+  const CYCLE = 9000;
+  const start = performance.now();
+  let id;
+  const frame = (now) => {
+    const t = ((now - start) % CYCLE) / 1000;
+    let d;
+    let i;
+    if (t < 2) { d = 0.25; i = 0; }
+    else if (t < 5) { d = 0.25 + 0.6 * ((t - 2) / 3); i = 1; }
+    else if (t < 6.5) { d = 0.85; i = 2; }
+    else { d = 0.85 - 0.6 * ((t - 6.5) / 2.5); i = 3; }
+    box.innerHTML = kidneyCloseup({ pelvisDilation: d, pelvisFill: 1, upj: true, vessel: true, flow: 'slow' })
+      .replace(/<\/svg>\s*$/, i === 2 ? '<text class="lbl accent-text" x="520" y="60" text-anchor="end">⚡</text></svg>' : '</svg>');
+    if (cap.dataset.i !== String(i)) { cap.dataset.i = String(i); cap.innerHTML = `<strong>${i + 1} / 4</strong> ${phases[i]}`; }
+    id = requestAnimationFrame(frame);
+  };
+  id = requestAnimationFrame(frame);
+  return () => cancelAnimationFrame(id);
+}
+
 function renderEmbryology(root) {
   const s = { cause: 'narrow' };
   const { viz, ctl, explain } = modelLayout(root, T('embryology.intro'));
@@ -21,6 +48,7 @@ function renderEmbryology(root) {
       <div class="closeup">${kidneyCloseup({ pelvisDilation: 0.6, pelvisFill: 1, upj: true, mark: true, vessel: !narrow })}</div>
       ${narrow ? `<p class="caption">${T('embryology.stripCaption')}</p><div data-strip></div>` : ''}`;
     if (narrow) stop = peristalsis(viz.querySelector('[data-strip]'), { block: 'top', text: T('embryology.strip') });
+    else stop = vesselBuildup(viz.querySelector('.closeup'), viz);
     explain.innerHTML = `<h3>${causes[s.cause].name}</h3><p>${causes[s.cause].text}</p>`;
   };
 

@@ -17,6 +17,12 @@ export default {
       },
     },
     strip: { stiff: 'Stiff piece', kidney: 'Kidney', bladder: 'To bladder' },
+    buildup: [
+      'A normal amount of urine squeezes past the blood vessel and drains.',
+      'After drinking a lot, the kidney makes much more urine. The vessel pinches the ureter, so urine backs up.',
+      'The collecting area stretches like a balloon. This stretching can cause a sudden episode of belly, side or back pain, often with vomiting.',
+      'Over the next hours, urine slowly drains past the vessel and the swelling goes down, until it happens again.',
+    ],
     stripCaption: 'Watch the squeezing waves carry urine down the ureter',
   },
 
