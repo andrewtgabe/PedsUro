@@ -63,16 +63,6 @@ const KEYWORDS = {
   labial: 'labial adhesions girls fused labios niñas',
   imaging: 'ultrasound mag3 dmsa vcug uroflow urodynamics scan tests ultrasonido estudios pruebas',
 };
-// Small outline icon for each home-page group.
-const GROUP_ICONS = {
-  upper: '<path d="M14 4c-6 0-9 5-9 11s3 11 9 11c3 0 4-3 3-6-1-2-1-4 0-6 2-3 3-10-3-10z"/>',
-  lower: '<path d="M8 8h16c0 10-3 15-8 15S8 18 8 8z"/><path d="M16 23v6"/>',
-  genital: '<ellipse cx="11" cy="19" rx="5" ry="7"/><ellipse cx="21" cy="19" rx="5" ry="7"/><path d="M16 4v8"/>',
-  tests: '<rect x="6" y="5" width="20" height="22" rx="3"/><path d="M11 12h10M11 17h10M11 22h6"/>',
-};
-const groupIcon = (g) =>
-  `<svg class="tile-icon" viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">${GROUP_ICONS[g]}</svg>`;
-
 const app = document.getElementById('app');
 
 // Page-view badge from hits.sh. Created once per visit and moved into each new header, so
@@ -132,7 +122,7 @@ function renderHome() {
           ${ids
             .map((id) =>
               CHAPTERS[id]
-                ? `<a class="tile ready" href="#/${id}/embryology" data-find="${`${t(`common.conditions.${id}`)} ${t(`common.blurbs.${id}`)} ${KEYWORDS[id] || ''}`.toLowerCase().replace(/"/g, '')}">${groupIcon(group)}<strong>${t(`common.conditions.${id}`)}</strong><span>${t(`common.blurbs.${id}`)}</span></a>`
+                ? `<a class="tile ready" href="#/${id}/embryology" data-find="${`${t(`common.conditions.${id}`)} ${t(`common.blurbs.${id}`)} ${KEYWORDS[id] || ''}`.toLowerCase().replace(/"/g, '')}"><strong>${t(`common.conditions.${id}`)}</strong><span>${t(`common.blurbs.${id}`)}</span></a>`
                 : `<div class="tile"><strong>${t(`common.conditions.${id}`)}</strong><span>${t('common.nav.comingSoon')}</span></div>`,
             )
             .join('')}

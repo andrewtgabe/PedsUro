@@ -512,8 +512,6 @@ svg.anatomy.chart .zone-lbl { font-weight: 600; }
 .search:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
 .no-match { color: var(--ink-soft); margin-top: 24px; }
 .group[hidden], .tile[hidden] { display: none; }
-.tile.ready { display: grid; grid-template-columns: 32px 1fr; column-gap: 12px; row-gap: 4px; align-items: start; }
-.tile .tile-icon { grid-row: span 2; width: 32px; height: 32px; color: var(--accent); opacity: 0.8; margin-top: 2px; }
 .tools-toggle { display: none; }
 .viz { transition: box-shadow 0.3s; }
 .viz.flash { animation: vizflash 0.6s ease-out; }
@@ -542,6 +540,5 @@ svg.anatomy.chart .zone-lbl { font-weight: 600; }
   :root { --bg: #11161d; --surface: #1a212b; --line: #2e3845; --ink: #e6ebf2; --ink-soft: #a5b0bf; --accent: #6aa7e8; --accent-soft: #1d2d42; --good-soft: #15291f; --warn-soft: #33201c; }
   body.present { --bg: #11161d; }
   .viz { --surface: #ffffff; --line: #dde2ea; --ink: #1b2430; --ink-soft: #5a6676; --accent: #2f6fb5; --accent-soft: #e6eef8; background: #fff; color: #1b2430; }
-  .tile .tile-icon { opacity: 1; }
   dialog.share { background: var(--surface); color: var(--ink); }
 }
