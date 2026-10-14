@@ -138,7 +138,7 @@ export default {
       'La urodinamia mide la presión dentro de la vejiga mientras se llena y se vacía. Muestra cuánto guarda la vejiga, qué tan elástica es y si la presión sube tanto que puede dañar los riñones. Muchas veces se usa en la vejiga neurogénica, las válvulas de uretra posterior o los escapes de orina difíciles de tratar.',
     facts: ['Dura alrededor de 1 hora', 'Una sonda delgada en la vejiga y un tubo suave y pequeño en el recto; se usa un gel para adormecer', 'Almohadillas adhesivas cerca de las nalgas revisan el músculo de control', 'Por lo general sin sedación, porque su hijo o hija necesita decirnos cómo siente la vejiga y orinar', 'A veces se hace con imágenes de rayos X (videourodinamia)'],
     shows: {
-      label: 'Riesgo por presión de la vejiga (UMPIRE)',
+      label: 'Riesgo por presión del músculo de la vejiga (Pdet), UMPIRE',
       patterns: { low: 'Riesgo bajo', intPressure: 'Intermedio: presión', intDO: 'Intermedio: contracciones', high: 'Riesgo alto' },
       texts: {
         low: 'La presión se mantiene baja mientras la vejiga se llena. La vejiga puede guardar más o menos de lo normal, y puede haber pequeños escapes, pero los riñones no están bajo presión. Por lo general se hacen revisiones regulares.',
@@ -152,9 +152,9 @@ export default {
         intDO: 'Para profesionales: hiperactividad del detrusor (≥2 contracciones de ≥15 cm H₂O sobre la basal) o contracciones de vaciado, con presión al final del llenado o DLPP < 40 cm H₂O.',
         high: 'Para profesionales: distensibilidad baja con presión al final del llenado o DLPP ≥ 40 cm H₂O.',
       },
-      source: 'Categorías del estudio UMPIRE de espina bífida (definiciones revisadas, Tanaka et al., J Pediatr Urol 2021).',
+      source: 'La gráfica muestra la presión del detrusor (Pdet): la presión de la vejiga menos la presión de la barriga, es decir, la presión que hace el músculo de la vejiga. Categorías del estudio UMPIRE de espina bífida (definiciones revisadas, Tanaka et al., J Pediatr Urol 2021).',
       warm: 'Líquido tibio llenando la vejiga',
-      chart: { title: 'Presión de la vejiga', volume: 'Cantidad en la vejiga', pressure: 'Presión (cm H₂O)', low: 'Bajo', mid: 'Intermedio', high: 'Riesgo alto' },
+      chart: { title: 'Presión de la vejiga', volume: 'Cantidad en la vejiga', pressure: 'Presión del detrusor, Pdet (cm H₂O)', low: 'Bajo', mid: 'Intermedio', high: 'Riesgo alto' },
     },
     steps: [
       'Su hijo o hija puede orinar primero, a veces en un baño de uroflujometría.',

@@ -138,7 +138,7 @@ export default {
       'Urodynamics measures pressure inside the bladder as it fills and empties. It shows how much the bladder holds, how stretchy it is, and whether pressure gets high enough to harm the kidneys. It is often used for neurogenic bladder, posterior urethral valves, or hard-to-treat wetting.',
     facts: ['Takes about 1 hour', 'A thin catheter in the bladder and a small soft tube in the bottom; numbing jelly is used', 'Sticky pads near the bottom check the control muscle', 'Usually no sedation, because your child needs to tell us how the bladder feels and to pee', 'Sometimes done with x-ray pictures (video urodynamics)'],
     shows: {
-      label: 'Bladder pressure risk (UMPIRE)',
+      label: 'Bladder muscle pressure (Pdet) risk, UMPIRE',
       patterns: { low: 'Low risk', intPressure: 'Intermediate: pressure', intDO: 'Intermediate: squeezing', high: 'High risk' },
       texts: {
         low: 'Pressure stays low while the bladder fills. The bladder may hold more or less than usual, and small leaks can happen, but the kidneys are not under pressure. Children are usually followed with regular check-ups.',
@@ -152,9 +152,9 @@ export default {
         intDO: 'For clinicians: detrusor overactivity (≥2 contractions of ≥15 cm H₂O over baseline) or voiding contractions, with end-filling pressure or DLPP < 40 cm H₂O.',
         high: 'For clinicians: poor compliance with end-filling pressure or DLPP ≥ 40 cm H₂O.',
       },
-      source: 'Categories from the UMPIRE spina bifida study (revised definitions, Tanaka et al., J Pediatr Urol 2021).',
+      source: 'The chart shows detrusor pressure (Pdet): bladder pressure minus belly pressure, which is the pressure made by the bladder muscle itself. Categories from the UMPIRE spina bifida study (revised definitions, Tanaka et al., J Pediatr Urol 2021).',
       warm: 'Warm fluid filling the bladder',
-      chart: { title: 'Bladder pressure', volume: 'Amount in bladder', pressure: 'Pressure (cm H₂O)', low: 'Low', mid: 'Intermediate', high: 'High risk' },
+      chart: { title: 'Bladder pressure', volume: 'Amount in bladder', pressure: 'Detrusor pressure, Pdet (cm H₂O)', low: 'Low', mid: 'Intermediate', high: 'High risk' },
     },
     steps: [
       'Your child may pee first, sometimes into a uroflow toilet.',
