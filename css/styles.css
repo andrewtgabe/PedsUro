@@ -526,8 +526,9 @@ svg.anatomy.chart .zone-lbl { font-weight: 600; }
   .tools-toggle { display: inline-flex; margin-left: auto; }
   .tools { display: none; flex-basis: 100%; order: 4; }
   .tools.open { display: flex; }
-  .section-tabs { flex-wrap: nowrap; scrollbar-width: none; }
-  .section-tabs a { padding: 10px 12px; }
+  .section-tabs { flex-direction: column; flex-wrap: nowrap; gap: 2px; overflow: visible; border-bottom: 0; }
+  .section-tabs a { padding: 8px 12px; border-bottom: 0; border-left: 3px solid transparent; margin: 0; border-radius: 0 8px 8px 0; }
+  .section-tabs a[aria-current] { border-left-color: var(--accent); background: var(--accent-soft); }
   /* keep the picture on screen while reading the explanation */
   .model .viz-col { display: contents; }
   .model > .viz-col > .viz:not(.two) { position: sticky; top: 0; z-index: 4; box-shadow: 0 4px 10px rgb(0 0 0 / 0.08); }
