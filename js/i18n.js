@@ -16,6 +16,7 @@ import enHernia from '../content/en/hernia.js';
 import enVaricocele from '../content/en/varicocele.js';
 import enPhimosis from '../content/en/phimosis.js';
 import enMeatal from '../content/en/meatal.js';
+import enBuried from '../content/en/buried.js';
 import enLabial from '../content/en/labial.js';
 import enUti from '../content/en/uti.js';
 import enStones from '../content/en/stones.js';
@@ -47,6 +48,7 @@ import esPuv from '../content/es/puv.js';
 import esNeurogenic from '../content/es/neurogenic.js';
 import esVaricocele from '../content/es/varicocele.js';
 import esMeatal from '../content/es/meatal.js';
+import esBuried from '../content/es/buried.js';
 import esLabial from '../content/es/labial.js';
 import esBowel from '../content/es/bowel.js';
 import esTestismass from '../content/es/testismass.js';
@@ -62,7 +64,7 @@ const languages = {
   en: {
     common: enCommon, vur: enVur, hydronephrosis: enHydronephrosis, upj: enUpj, uvj: enUvj, duplex: enDuplex,
     puv: enPuv, ectopic: enEctopic, torsion: enTorsion, cryptorchidism: enCryptorchidism, hydrocele: enHydrocele,
-    hernia: enHernia, varicocele: enVaricocele, phimosis: enPhimosis, meatal: enMeatal, labial: enLabial,
+    hernia: enHernia, varicocele: enVaricocele, phimosis: enPhimosis, meatal: enMeatal, buried: enBuried, labial: enLabial,
     uti: enUti, stones: enStones, hypospadias: enHypospadias, enuresis: enEnuresis, bbd: enBbd, neurogenic: enNeurogenic, bowel: enBowel, testismass: enTestismass, imaging: enImaging,
   },
   es: {
@@ -70,7 +72,7 @@ const languages = {
     cryptorchidism: esCryptorchidism, hernia: esHernia, hydrocele: esHydrocele, phimosis: esPhimosis,
     torsion: esTorsion, stones: esStones, bbd: esBbd, hypospadias: esHypospadias,
     upj: esUpj, uvj: esUvj, duplex: esDuplex, ectopic: esEctopic,
-    puv: esPuv, neurogenic: esNeurogenic, varicocele: esVaricocele, meatal: esMeatal, labial: esLabial, bowel: esBowel, testismass: esTestismass, imaging: esImaging,
+    puv: esPuv, neurogenic: esNeurogenic, varicocele: esVaricocele, meatal: esMeatal, buried: esBuried, labial: esLabial, bowel: esBowel, testismass: esTestismass, imaging: esImaging,
   },
 };
 

@@ -556,3 +556,7 @@ svg.anatomy.chart .zone-lbl { font-weight: 600; }
 .home-head h1 { hyphens: manual; }
 .home-head h1 .keep { display: inline-block; }
 @media (max-width: 640px) { .home-head h1 { font-size: clamp(1.5rem, 7.5vw, 2rem); } .home-head h1 .keep { display: block; } }
+svg.anatomy.buried { max-height: 440px; margin: 0 auto; }
+svg.anatomy .shaft.bare { fill: #e7a3a6; stroke: #b86c70; }
+svg.anatomy .fat-pad { fill: #fbf1ec; stroke: #d9b8aa; stroke-width: 2.5; }
+svg.anatomy .scrotum.web { stroke-width: 2; }

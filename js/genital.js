@@ -545,3 +545,58 @@ export function massView({ kind = 'solid', size = 0.5, incision = false, clamp: 
     <text class="lbl small" x="330" y="440">${text.scrotum}</text>
   </svg>`;
 }
+
+// ---------- buried penis side view ----------
+
+//   buried: 0..1 how far the fat pad and loose skin hide the shaft
+//   press: 0..1 fingers pressing the fat pad back (shows the true length)
+//   web: 0..1 how far scrotal skin reaches up the underside of the shaft
+//   foreskin: uncircumcised; scar: tight scar ring at the base after circumcision
+//   bare: skin slid back off the shaft during surgery; anchors: base stitches
+//   seam: rotated skin flaps closed on the underside; arrows: show flaps rotating
+//   pressArrow: draw the pressing arrow
+//   mark: 'circ' (cut line below the head) or 'web' (line across the web)
+//   webCut: 0 none, 1 web opened into a diamond, 2 closed up and down; dressing
+//   text: { fat, shaft, glans, scrotum, web, anchor, flap, scar, length }
+export function buriedSide({ buried = 0, press = 0, web = 0, foreskin = false, scar = false, bare = false, anchors = false, seam = false, arrows = false, mark = '', webCut = 0, dressing = false, pressArrow = false, text }) {
+  const b = clamp(buried * (1 - press), 0, 1);
+  const padRx = 26 + 150 * b;
+  const padRy = 52 + 34 * b;
+  const wx = 130 + web * 150;
+  const shaftCls = bare ? 'shaft bare' : 'shaft';
+  const visible = 300 - Math.min(290, 110 + padRx);
+  // Middle of the web's free edge, and a unit vector across it.
+  const ex = (wx + 226) / 2, ey = 197;
+  const nx = 0.95, ny = 0.31;
+
+  return `<svg class="anatomy genital buried" viewBox="0 40 440 290" role="img">
+    <rect class="body-wall" x="0" y="20" width="110" height="320"/>
+    <path class="scrotum" d="M104 170 L150 172 C 210 180 222 230 206 266 C 192 300 128 304 112 270 C 102 250 104 220 104 170 Z"/>
+    <text class="lbl small" x="160" y="318" text-anchor="middle">${text.scrotum}</text>
+    ${web > 0.02 ? `<path class="scrotum web" d="M110 172 L${f(wx)} 172 C ${f(wx - 14)} 190 ${f(Math.max(200, wx - 50))} 200 226 222 L 130 222 Z"/>` : ''}
+    <rect class="${shaftCls}" x="100" y="124" width="200" height="52" rx="12"/>
+    ${bare ? `<ellipse class="foreskin" cx="122" cy="150" rx="14" ry="34"/>` : ''}
+    <path class="glans" style="fill:#e99c9f" d="M292 120 C 344 120 360 140 360 150 C 360 160 344 180 292 180 Z"/>
+    <path class="meatus" d="M356 145 L356 155"/>
+    ${foreskin ? `<path class="foreskin" d="M250 124 L300 122 C 340 122 368 140 372 150 C 368 160 340 178 300 178 L250 176 Z"/>` : ''}
+    ${!foreskin && !bare ? `<path class="circ-line" d="M290 122 L290 178"/>` : ''}
+    <path class="fat-pad" style="stroke:none" d="M100 ${f(150 - padRy - 20)} C ${f(104 + padRx * 0.55)} ${f(150 - padRy - 6)} ${f(104 + padRx)} ${f(150 - padRy * 0.6)} ${f(104 + padRx)} 150 C ${f(104 + padRx)} ${f(150 + padRy * 0.6)} ${f(104 + padRx * 0.55)} ${f(150 + padRy + 6)} 100 ${f(150 + padRy + 20)} Z"/><path class="fat-pad" style="fill:none" d="M100 ${f(150 - padRy - 20)} C ${f(104 + padRx * 0.55)} ${f(150 - padRy - 6)} ${f(104 + padRx)} ${f(150 - padRy * 0.6)} ${f(104 + padRx)} 150 C ${f(104 + padRx)} ${f(150 + padRy * 0.6)} ${f(104 + padRx * 0.55)} ${f(150 + padRy + 6)} 100 ${f(150 + padRy + 20)}"/>
+    ${scar ? `<ellipse class="scar-ring" cx="${f(104 + padRx - 4)}" cy="150" rx="6" ry="24"/>` : ''}
+    ${pressArrow && press > 0.02 ? `<path class="pull" d="M${f(104 + padRx + 34)} 74 L${f(104 + padRx + 6)} 96 m0 0 l4 -12 m-4 12 l12 -3"/>` : ''}
+    ${anchors ? [[124, 126], [124, 174]].map(([x, y]) => `<path class="stitch" d="M${x - 6} ${y - 6} l12 12 m0 -12 l-12 12"/>`).join('') : ''}
+    ${seam ? `<path class="stitch" d="M140 172 ${[0, 1, 2, 3, 4, 5, 6].map((i) => `L${150 + i * 20} ${i % 2 ? 168 : 176}`).join(' ')}"/>` : ''}
+    ${arrows ? `<path class="pull" d="M200 118 C 236 96 262 110 254 150 C 250 172 236 182 214 186"/><path class="pull" d="M214 186 l10 -10 m-10 10 l14 2"/>` : ''}
+    ${mark === 'circ' ? `<path class="cutline" d="M286 112 L286 188"/>` : ''}
+    ${mark === 'web' ? `<path class="cutline" d="M${f(ex - 22 * nx)} ${f(ey - 22 * ny)} L${f(ex + 22 * nx)} ${f(ey + 22 * ny)}"/>` : ''}
+    ${webCut === 1 ? `<path class="muscle-cut" d="M${f(ex - 24 * nx)} ${f(ey - 24 * ny)} L${f(ex + 18 * ny)} ${f(ey - 18 * nx)} L${f(ex + 24 * nx)} ${f(ey + 24 * ny)} L${f(ex - 18 * ny)} ${f(ey + 18 * nx)} Z"/>` : ''}
+    ${webCut === 2 ? `<path class="stitch" d="M150 176 L150 214"/>${[182, 194, 206].map((y) => `<path class="stitch" d="M145 ${y - 5} l10 10 m0 -10 l-10 10"/>`).join('')}` : ''}
+    ${dressing ? `<rect class="tape" x="130" y="118" width="170" height="64" rx="14"/>` : ''}
+    <text class="lbl small" x="54" y="${f(150 - padRy - 10 < 60 ? 70 : 150 - padRy - 10)}" text-anchor="middle">${text.fat}</text>
+    ${visible > 30 && !scar && !arrows ? `<text class="lbl small" x="${f(anchors ? 262 : Math.min(230, 104 + padRx + (300 - 104 - padRx) / 2))}" y="108" text-anchor="middle">${text.shaft}</text>` : ''}
+    <text class="lbl small" x="330" y="200" text-anchor="middle">${text.glans}</text>
+    ${web > 0.25 && webCut === 0 ? `<text class="lbl small accent-text" x="${f(Math.min(320, wx + 24))}" y="236">${text.web}</text>` : ''}
+    ${anchors ? `<text class="lbl small" x="150" y="100" text-anchor="middle">${text.anchor}</text>` : ''}
+    ${arrows ? `<text class="lbl small" x="270" y="104">${text.flap}</text>` : ''}
+    ${scar ? `<text class="lbl small accent-text" x="${f(104 + padRx)}" y="96" text-anchor="middle">${text.scar}</text>` : ''}
+  </svg>`;
+}

@@ -13,6 +13,7 @@ import hernia from './chapters/hernia.js';
 import varicocele from './chapters/varicocele.js';
 import phimosis from './chapters/phimosis.js';
 import meatal from './chapters/meatal.js';
+import buried from './chapters/buried.js';
 import labial from './chapters/labial.js';
 import uti from './chapters/uti.js';
 import stones from './chapters/stones.js';
@@ -26,13 +27,13 @@ import imaging from './chapters/imaging.js';
 
 // Built chapters. To add one: create js/chapters/<id>.js and content/en/<id>.js,
 // register the content in i18n.js, then add it here.
-const CHAPTERS = { vur, hydronephrosis, upj, uvj, duplex, puv, ectopic, torsion, cryptorchidism, hydrocele, hernia, varicocele, phimosis, meatal, labial, uti, stones, hypospadias, enuresis, bbd, neurogenic, bowel, testismass, imaging };
+const CHAPTERS = { vur, hydronephrosis, upj, uvj, duplex, puv, ectopic, torsion, cryptorchidism, hydrocele, hernia, varicocele, phimosis, meatal, buried, labial, uti, stones, hypospadias, enuresis, bbd, neurogenic, bowel, testismass, imaging };
 
 // Order of conditions on the home page.
 const CATALOG = {
   upper: ['hydronephrosis', 'vur', 'upj', 'uvj', 'duplex', 'ectopic', 'stones'],
   lower: ['uti', 'enuresis', 'bbd', 'bowel', 'neurogenic', 'puv', 'exstrophy', 'hypospadias'],
-  genital: ['cryptorchidism', 'hydrocele', 'hernia', 'torsion', 'testismass', 'varicocele', 'phimosis', 'meatal', 'labial'],
+  genital: ['cryptorchidism', 'hydrocele', 'hernia', 'torsion', 'testismass', 'varicocele', 'phimosis', 'meatal', 'buried', 'labial'],
   tests: ['imaging'],
 };
 
@@ -59,6 +60,7 @@ const KEYWORDS = {
   testismass: 'testicular tumor lump cancer orchiectomy tumor bulto',
   varicocele: 'veins scrotum venas',
   phimosis: 'tight foreskin circumcision prepucio circuncisión',
+  buried: 'buried hidden concealed webbed trapped penoplasty scrotoplasty small penis pene oculto escondido atrapado',
   meatal: 'meatal stenosis narrow opening meatotomy estrechez',
   labial: 'labial adhesions girls fused labios niñas',
   imaging: 'ultrasound mag3 dmsa vcug uroflow urodynamics scan tests ultrasonido estudios pruebas',
