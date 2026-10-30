@@ -82,6 +82,7 @@ export function testisSide({ bellClapper = true, twist = 0, isch = 0, stitches =
 // -> external ring -> scrotum.
 const ROUTE = [[112, 110], [122, 250], [165, 322], [176, 372], [180, 428]];
 export const DESCENT_STOPS = { abdomen: 0.12, ring: 0.25, canal: 0.5, high: 0.75, scrotum: 1 };
+const RING_POS = 0.25;
 
 function along(pos) {
   const p = clamp(pos) * (ROUTE.length - 1);
@@ -104,7 +105,15 @@ export function descent({
 }) {
   const [x, y] = along(pos);
   const vessels = `M150 70 C 128 120 ${f(x)} ${f(Math.max(150, y - 120))} ${f(x)} ${f(y - 20)}`;
-  const vas = `M${f(x + 6)} ${f(y - 10)} C ${f(x + 40)} ${f(y - 80)} 220 300 200 268`;
+  // The vas follows the testicle: once it has passed the internal ring it runs
+  // back up the groin canal, then turns in over the top to the bladder base.
+  let vas;
+  if (pos <= RING_POS) vas = `M${f(x + 6)} ${f(y - 10)} C ${f(x + 40)} ${f(y - 80)} 220 300 200 268`;
+  else {
+    const seg = clamp(pos) * (ROUTE.length - 1);
+    const back = ROUTE.slice(2, Math.ceil(seg)).reverse().filter(([, py]) => py < y - 20);
+    vas = `M${f(x + 5)} ${f(y - 20)} ${back.map(([px, py]) => `L${px + 5} ${py}`).join(' ')} L${ROUTE[1][0] + 4} ${ROUTE[1][1]} C 132 228 182 236 200 268`;
+  }
   return `<svg class="anatomy genital" viewBox="0 0 400 470" role="img" aria-label="${text.scrotum}">
     <path class="body-wall" d="M20 20 L20 300 C 60 330 120 330 150 340 L250 340 C 280 330 340 330 380 300 L380 20"/>
     <path class="kidney" d="M100 40 C140 40 145 120 100 120 C 70 120 66 40 100 40 Z" transform="translate(4 0) scale(0.9)" opacity="0.8"/>
@@ -120,7 +129,7 @@ export function descent({
     ${divided ? `<path class="cutmark" d="M124 112 L146 104"/>` : ''}
     ${collateral > 0.3 ? `<text class="lbl small" x="${f(x + 44)}" y="${f(y - 46)}">${text.collateral}</text>` : ''}
     <path class="g-vessels" d="M250 70 C 272 120 220 300 220 408"/>
-    <path class="g-vas" d="M226 418 C 260 340 190 300 200 268"/>
+    <path class="g-vas" d="M215 408 L224 372 L235 322 L278 250 C 268 228 218 236 200 268"/>
     ${gubernaculum && pos < 1 ? `<path class="guide" d="M${f(x)} ${f(y + 18)} L180 455"/>` : ''}
     <ellipse class="testis" cx="220" cy="428" rx="16" ry="22"/>
     <ellipse class="testis ${pos < 1 ? 'flag' : ''}" cx="${f(x)}" cy="${f(y)}" rx="16" ry="22"/>

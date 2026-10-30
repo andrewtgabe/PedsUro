@@ -289,7 +289,7 @@ svg.anatomy .body-wall { fill: #fbf1ec; stroke: #d9b8aa; stroke-width: 2; }
 svg.anatomy .canal { stroke: #e5c4b6; stroke-width: 26; stroke-linecap: round; }
 svg.anatomy .raphe { stroke: #c48b78; stroke-width: 1.5; stroke-dasharray: 4 4; }
 svg.anatomy .g-vessels { fill: none; stroke: #c0392b; stroke-width: 3; opacity: 0.7; }
-svg.anatomy .g-vas { fill: none; stroke: #8f7cc8; stroke-width: 3; }
+svg.anatomy .g-vas { fill: none; stroke: #8f7cc8; stroke-width: 3; stroke-linejoin: round; stroke-linecap: round; }
 svg.anatomy .guide { stroke: #9c6a5c; stroke-width: 4; stroke-dasharray: 2 5; stroke-linecap: round; }
 svg.anatomy .pull { fill: none; stroke: var(--warn); stroke-width: 3; }
 .meter { height: 14px; border-radius: 7px; background: var(--line); overflow: hidden; margin: 6px 0 2px; }
