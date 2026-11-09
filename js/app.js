@@ -24,11 +24,12 @@ import neurogenic from './chapters/neurogenic.js';
 import bowel from './chapters/bowel.js';
 import testismass from './chapters/testismass.js';
 import imaging from './chapters/imaging.js';
+import exstrophy from './chapters/exstrophy.js';
 import visit from './chapters/visit.js';
 
 // Built chapters. To add one: create js/chapters/<id>.js and content/en/<id>.js,
 // register the content in i18n.js, then add it here.
-const CHAPTERS = { vur, hydronephrosis, upj, uvj, duplex, puv, ectopic, torsion, cryptorchidism, hydrocele, hernia, varicocele, phimosis, meatal, buried, labial, uti, stones, hypospadias, enuresis, bbd, neurogenic, bowel, testismass, imaging, visit };
+const CHAPTERS = { vur, hydronephrosis, upj, uvj, duplex, puv, ectopic, torsion, cryptorchidism, hydrocele, hernia, varicocele, phimosis, meatal, buried, labial, uti, stones, hypospadias, enuresis, bbd, neurogenic, bowel, testismass, imaging, visit, exstrophy };
 
 // Order of conditions on the home page.
 const CATALOG = {
@@ -64,6 +65,7 @@ const KEYWORDS = {
   buried: 'buried hidden concealed webbed trapped penoplasty scrotoplasty small penis pene oculto escondido atrapado',
   meatal: 'meatal stenosis narrow opening meatotomy estrechez',
   labial: 'labial adhesions girls fused labios niñas',
+  exstrophy: 'exstrophy epispadias open bladder cloacal osteotomy extrofia vejiga abierta cloaca',
   imaging: 'ultrasound mag3 dmsa vcug uroflow urodynamics scan tests ultrasonido estudios pruebas',
 };
 const app = document.getElementById('app');

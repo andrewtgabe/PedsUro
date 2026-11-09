@@ -103,6 +103,7 @@ export default {
     varicocele: 'Venas hinchadas encima del testículo, casi siempre del lado izquierdo.',
     phimosis: 'Un prepucio apretado, o uno atorado detrás de la cabeza del pene.',
     meatal: 'Una abertura estrecha en la punta del pene.',
+    exstrophy: 'La vejiga o la uretra están abiertas por fuera del cuerpo.',
     buried: 'Un pene de tamaño normal escondido bajo grasa o piel.',
     labial: 'Los labios internos de la vulva se pegan entre sí.',
     uti: 'Una infección de la vejiga o del riñón.',

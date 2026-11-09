@@ -104,6 +104,7 @@ export default {
     varicocele: 'Swollen veins above the testicle, usually on the left.',
     phimosis: 'A tight foreskin, or one stuck behind the head of the penis.',
     meatal: 'A narrow opening at the tip of the penis.',
+    exstrophy: 'The bladder or urethra is open on the outside of the body.',
     buried: 'A normal-size penis hidden under fat or skin.',
     labial: 'The inner lips of the vulva stick together.',
     uti: 'An infection of the bladder or kidney.',
