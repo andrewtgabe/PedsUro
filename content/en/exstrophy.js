@@ -18,6 +18,8 @@ export default {
     stents: 'Kidney tubes (stents)',
     cast: 'Cast',
     osteotomy: 'Bone cut',
+    pelvicFloor: 'Pelvic floor muscles',
+    rectus: 'Belly wall muscles',
     wrap: 'Plastic wrap',
   },
 
@@ -117,6 +119,22 @@ export default {
         ],
         pros: ['Fewer surgeries for some children', 'The bladder starts to fill and empty early'],
         cons: ['A long, complex surgery', 'A rare but serious risk of injury to the penis', 'Many still need more surgery to stay dry'],
+      },
+      kelly: {
+        name: 'Kelly repair',
+        summary:
+          'A one-stage repair done later in infancy, without cutting the hip bones. Instead of moving the bones, the surgeon frees the pelvic floor muscles from the bones and wraps them around the urethra to act like a new sphincter. It is done at only a few centers.',
+        steps: [
+          'Before surgery: the bladder is open and the pubic bones are wide apart.',
+          'With your baby asleep, the pelvic floor muscles and the base of the penis or clitoris are freed from the pubic bones. The nerves and blood vessels are carefully protected.',
+          'The bladder is closed and the bladder neck is made narrower. The ureters are moved to help stop reflux.',
+          'The freed muscles are wrapped around the urethra. This acts like a new sphincter to help hold urine.',
+          'The belly wall muscles are brought together in the middle to close the belly without tension. The pubic bones stay apart, so no bone cuts are needed.',
+          'The urethra and penis or genitals are rebuilt. Tubes drain urine while everything heals.',
+          'After healing: the bladder is closed inside, and the pubic bones are still apart.',
+        ],
+        pros: ['No bone cuts', 'Everything is done in one surgery', 'Rebuilds a muscle around the urethra to help with dryness'],
+        cons: ['A very long and difficult surgery', 'A risk of losing some tissue of the penis or clitoris from poor blood flow', 'Less long-term information on staying dry than other repairs'],
       },
       bones: {
         name: 'Bones and keeping still',

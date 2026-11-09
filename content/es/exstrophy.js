@@ -18,6 +18,8 @@ export default {
     stents: 'Tubos de los riñones (stents)',
     cast: 'Yeso',
     osteotomy: 'Corte del hueso',
+    pelvicFloor: 'Músculos del piso pélvico',
+    rectus: 'Músculos de la pared de la barriga',
     wrap: 'Plástico protector',
   },
 
@@ -117,6 +119,22 @@ export default {
         ],
         pros: ['Menos cirugías para algunos niños', 'La vejiga empieza a llenarse y vaciarse temprano'],
         cons: ['Una cirugía larga y compleja', 'Un riesgo poco común pero grave de lesión del pene', 'Muchos aún necesitan más cirugía para mantenerse secos'],
+      },
+      kelly: {
+        name: 'Reparación de Kelly',
+        summary:
+          'Una reparación en una sola etapa que se hace más tarde en la infancia, sin cortar los huesos de la cadera. En lugar de mover los huesos, el cirujano separa los músculos del piso pélvico de los huesos y los envuelve alrededor de la uretra para que funcionen como un nuevo esfínter. Solo se hace en pocos centros.',
+        steps: [
+          'Antes de la cirugía: la vejiga está abierta y los huesos del pubis están muy separados.',
+          'Con su bebé dormido, se separan de los huesos del pubis los músculos del piso pélvico y la base del pene o del clítoris. Se protegen con cuidado los nervios y los vasos sanguíneos.',
+          'Se cierra la vejiga y se estrecha el cuello de la vejiga. Se cambian de lugar los uréteres para ayudar a evitar el reflujo.',
+          'Los músculos separados se envuelven alrededor de la uretra. Esto funciona como un nuevo esfínter para ayudar a retener la orina.',
+          'Los músculos de la pared de la barriga se juntan en el centro para cerrar la barriga sin tensión. Los huesos del pubis quedan separados, así que no se necesitan cortes de hueso.',
+          'Se reconstruyen la uretra y el pene o los genitales. Unos tubos sacan la orina mientras todo sana.',
+          'Después de sanar: la vejiga está cerrada por dentro y los huesos del pubis siguen separados.',
+        ],
+        pros: ['Sin cortes de hueso', 'Todo se hace en una sola cirugía', 'Reconstruye un músculo alrededor de la uretra para ayudar a mantenerse seco'],
+        cons: ['Una cirugía muy larga y difícil', 'Un riesgo de perder parte del tejido del pene o del clítoris por falta de flujo de sangre', 'Hay menos información a largo plazo sobre mantenerse seco que con otras reparaciones'],
       },
       bones: {
         name: 'Huesos y mantenerse quieto',

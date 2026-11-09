@@ -88,6 +88,9 @@ function belly(s, sex = 'boy') {
       <path d="M${CX + 16} 236 C ${CX + 70} 220 ${CX + 120} 190 ${CX + 190} 160" stroke="#8a9bb0" stroke-width="6"/>
       <path d="M${CX - 10} 228 C ${CX - 70} 200 ${CX - 120} 180 ${CX - 190} 150" stroke="#8fc0a0" stroke-width="3"/>
       <path d="M${CX - 4} 226 C ${CX - 66} 190 ${CX - 112} 170 ${CX - 186} 138" stroke="#8fc0a0" stroke-width="3"/></g>` : ''}
+    ${s.rectus != null ? [-1, 1].map((d) => { const x = CX + d * (14 + (1 - s.rectus) * (s.gap / 2 + 40)); return `<rect x="${f(x - 13)}" y="20" width="26" height="262" rx="12" fill="rgb(192 96 90 / 0.35)" stroke="#a5504a" stroke-width="2"/>`; }).join('') : ''}
+    ${s.muscle != null ? `<g fill="none" stroke="#b5564f" stroke-width="10" stroke-linecap="round" opacity="0.85">${[-1, 1].map((d) => { const outer = CX + d * (s.gap / 2 + 34); const inner = CX + d * (s.gap / 2 - (s.gap / 2 - 14) * s.muscle); return `<path d="M${f(outer)} 318 Q${f((outer + inner) / 2)} ${f(330 - s.muscle * 24)} ${f(inner)} 300"/>`; }).join('')}
+      ${s.muscle > 0.95 ? `<ellipse cx="${CX}" cy="300" rx="16" ry="9" stroke-width="6"/>` : ''}</g>` : ''}
     ${s.pull ? `${arrow(CX - 150, 300, CX - 70, 300)}${arrow(CX + 150, 300, CX + 70, 300)}` : ''}
     ${s.cast ? `<path d="M96 210 L424 210 L440 300 L392 440 L282 440 L268 386 L252 386 L238 440 L128 440 L80 300 Z" fill="rgb(255 255 255 / 0.55)" stroke="#9fb3c8" stroke-width="3" stroke-dasharray="10 6"/>
       <rect x="${CX - 60}" y="236" width="120" height="70" rx="10" fill="rgb(255 255 255 / 0.25)" stroke="#9fb3c8" stroke-width="2"/>` : ''}
@@ -98,6 +101,8 @@ function belly(s, sex = 'boy') {
     ${s.open < 0.5 && s.neck ? lbl(CX + 24, 298, L.neck, 'small', 'start') : ''}
     ${s.tubes ? `${lbl(CX + 140, 150, L.spt, 'small')}${lbl(CX - 150, 130, L.stents, 'small')}` : ''}
     ${s.cast ? lbl(CX + 150, 232, L.cast, 'small') : ''}
+    ${s.muscle != null ? lbl(CX + 70, 352, L.pelvicFloor, 'small', 'start') : ''}
+    ${s.rectus != null ? lbl(CX - 70, 40, L.rectus, 'small', 'end') : ''}
     ${s.cut ? lbl(CX - 150, 168, L.osteotomy, 'small') : ''}
     ${showBones && !s.cast && !s.tubes ? lbl(CX + 150, 252, L.pubic, 'small') : ''}
     ${!s.cast && !s.tubes && s.cloaca < 0.5 ? lbl(CX - 30, f(s.navelY - 14), L.navel, 'small', 'end') : ''}
@@ -172,6 +177,17 @@ const BUILD = {
       { ...DONE, neck: true, tubes: true },
       { ...DONE, neck: true, cast: true },
       { ...DONE, neck: true },
+    ], viz, ctl),
+  // Kelly repair: no bone cuts; pelvic floor muscles freed and wrapped around the urethra.
+  kelly: (viz, ctl) =>
+    steps('kelly', [
+      BE,
+      { ...BE, muscle: 0, rectus: 0 },
+      { ...BE, open: 0, neck: true, muscle: 0, rectus: 0 },
+      { ...BE, open: 0, neck: true, muscle: 1, rectus: 0 },
+      { ...BE, open: 0, neck: true, muscle: 1, rectus: 1, navelY: 150, seam: true },
+      { ...BE, open: 0, muscle: 1, rectus: 1, navelY: 150, seam: true, epi: 0, len: 52, split: 0.1, tubes: true },
+      { ...BE, open: 0, navelY: 150, seam: true, epi: 0, len: 52, split: 0.1 },
     ], viz, ctl),
   bones: (viz, ctl) =>
     steps('bones', [
