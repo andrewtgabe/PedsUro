@@ -81,7 +81,7 @@ export default {
     duringTitle: 'During the exam',
     during: [
       'Stay close, hold hands, and speak softly.',
-      'Distract with a video, a song, or blowing pretend bubbles.',
+      'Distract with a video or a song.',
       'Praise your child for being brave, even for small steps.',
     ],
     rightsTitle: 'Your child is in control',

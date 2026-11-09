@@ -81,7 +81,7 @@ export default {
     duringTitle: 'Durante el examen',
     during: [
       'Quédese cerca, tómele la mano y hable en voz baja.',
-      'Distráigale con un video, una canción o soplando burbujas imaginarias.',
+      'Distráigale con un video o una canción.',
       'Felicite a su hijo o hija por ser valiente, aun por pasos pequeños.',
     ],
     rightsTitle: 'Su hijo o hija tiene el control',
