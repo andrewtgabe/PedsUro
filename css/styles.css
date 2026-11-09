@@ -560,3 +560,10 @@ svg.anatomy.buried { max-height: 440px; margin: 0 auto; }
 svg.anatomy .shaft.bare { fill: #e7a3a6; stroke: #b86c70; }
 svg.anatomy .fat-pad { fill: #fbf1ec; stroke: #d9b8aa; stroke-width: 2.5; }
 svg.anatomy .scrotum.web { stroke-width: 2; }
+
+/* ---------- "Your visit" guide ---------- */
+.visit-card { display: flex; flex-direction: column; gap: 4px; margin: 18px 0 4px; padding: 16px 18px; border-radius: 12px; background: var(--accent-soft); border: 1px solid var(--accent); border-left-width: 5px; color: var(--ink); text-decoration: none; }
+.visit-card strong { color: var(--accent); font-size: 1.05rem; }
+.visit-card span { font-size: 0.9rem; color: var(--ink-soft); }
+.visit-card:hover { box-shadow: 0 2px 8px rgb(0 0 0 / 0.08); }
+.reschedule { margin-top: 16px; }

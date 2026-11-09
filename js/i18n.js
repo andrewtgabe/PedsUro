@@ -27,6 +27,7 @@ import enNeurogenic from '../content/en/neurogenic.js';
 import enBowel from '../content/en/bowel.js';
 import enTestismass from '../content/en/testismass.js';
 import enImaging from '../content/en/imaging.js';
+import enVisit from '../content/en/visit.js';
 import esCommon from '../content/es/common.js';
 import esVur from '../content/es/vur.js';
 import esHydronephrosis from '../content/es/hydronephrosis.js';
@@ -53,6 +54,7 @@ import esLabial from '../content/es/labial.js';
 import esBowel from '../content/es/bowel.js';
 import esTestismass from '../content/es/testismass.js';
 import esImaging from '../content/es/imaging.js';
+import esVisit from '../content/es/visit.js';
 
 // [code, name shown in the language switcher]
 export const LANGUAGES = [
@@ -65,14 +67,14 @@ const languages = {
     common: enCommon, vur: enVur, hydronephrosis: enHydronephrosis, upj: enUpj, uvj: enUvj, duplex: enDuplex,
     puv: enPuv, ectopic: enEctopic, torsion: enTorsion, cryptorchidism: enCryptorchidism, hydrocele: enHydrocele,
     hernia: enHernia, varicocele: enVaricocele, phimosis: enPhimosis, meatal: enMeatal, buried: enBuried, labial: enLabial,
-    uti: enUti, stones: enStones, hypospadias: enHypospadias, enuresis: enEnuresis, bbd: enBbd, neurogenic: enNeurogenic, bowel: enBowel, testismass: enTestismass, imaging: enImaging,
+    uti: enUti, stones: enStones, hypospadias: enHypospadias, enuresis: enEnuresis, bbd: enBbd, neurogenic: enNeurogenic, bowel: enBowel, testismass: enTestismass, imaging: enImaging, visit: enVisit,
   },
   es: {
     common: esCommon, vur: esVur, hydronephrosis: esHydronephrosis, uti: esUti, enuresis: esEnuresis,
     cryptorchidism: esCryptorchidism, hernia: esHernia, hydrocele: esHydrocele, phimosis: esPhimosis,
     torsion: esTorsion, stones: esStones, bbd: esBbd, hypospadias: esHypospadias,
     upj: esUpj, uvj: esUvj, duplex: esDuplex, ectopic: esEctopic,
-    puv: esPuv, neurogenic: esNeurogenic, varicocele: esVaricocele, meatal: esMeatal, buried: esBuried, labial: esLabial, bowel: esBowel, testismass: esTestismass, imaging: esImaging,
+    puv: esPuv, neurogenic: esNeurogenic, varicocele: esVaricocele, meatal: esMeatal, buried: esBuried, labial: esLabial, bowel: esBowel, testismass: esTestismass, imaging: esImaging, visit: esVisit,
   },
 };
 

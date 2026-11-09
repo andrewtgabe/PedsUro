@@ -44,6 +44,9 @@ export default {
     prep: 'Cómo prepararse',
     uroflow: 'Uroflujometría',
     urodynamics: 'Urodinamia',
+    visitSteps: 'La visita',
+    exams: 'Exámenes',
+    help: 'Cómo puede ayudar',
   },
   labels: {
     kidney: 'Riñón',

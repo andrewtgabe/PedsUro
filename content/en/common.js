@@ -45,6 +45,9 @@ export default {
     prep: 'Getting ready',
     uroflow: 'Uroflow',
     urodynamics: 'Urodynamics',
+    visitSteps: 'The visit',
+    exams: 'Exams',
+    help: 'How you can help',
   },
   labels: {
     kidney: 'Kidney',

@@ -24,10 +24,11 @@ import neurogenic from './chapters/neurogenic.js';
 import bowel from './chapters/bowel.js';
 import testismass from './chapters/testismass.js';
 import imaging from './chapters/imaging.js';
+import visit from './chapters/visit.js';
 
 // Built chapters. To add one: create js/chapters/<id>.js and content/en/<id>.js,
 // register the content in i18n.js, then add it here.
-const CHAPTERS = { vur, hydronephrosis, upj, uvj, duplex, puv, ectopic, torsion, cryptorchidism, hydrocele, hernia, varicocele, phimosis, meatal, buried, labial, uti, stones, hypospadias, enuresis, bbd, neurogenic, bowel, testismass, imaging };
+const CHAPTERS = { vur, hydronephrosis, upj, uvj, duplex, puv, ectopic, torsion, cryptorchidism, hydrocele, hernia, varicocele, phimosis, meatal, buried, labial, uti, stones, hypospadias, enuresis, bbd, neurogenic, bowel, testismass, imaging, visit };
 
 // Order of conditions on the home page.
 const CATALOG = {
@@ -130,6 +131,7 @@ function renderHome() {
       <h1>${t('common.site.title').replace(/(\S+ \S+)$/, '<span class="keep">$1</span>')}</h1>
       <p>${t('common.site.tagline')}</p>
       <p class="author">${t('common.site.author')}</p>
+      <a class="visit-card" href="#/visit/visitSteps"><strong>${t('visit.card.title')}</strong><span>${t('visit.card.body')}</span></a>
       <input type="search" class="search" placeholder="${t('common.nav.search')}" aria-label="${t('common.nav.search')}">
     </header>
     <p class="no-match" hidden>${t('common.nav.noMatch')}</p>
