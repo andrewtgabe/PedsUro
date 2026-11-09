@@ -28,12 +28,12 @@ const arrow = (x1, y1, x2, y2) => {
 function bones(gap, cut) {
   const side = (s) => {
     const px = CX + (s * gap) / 2;
-    return `<path d="M${CX + s * 175} 120 C ${CX + s * 150} 190 ${CX + s * 120} 260 ${f(px + s * 40)} 296 L${f(px)} 300 M${f(px + s * 8)} 306 C ${f(px + s * 30)} 330 ${CX + s * 70} 340 ${CX + s * 95} 330"/>`;
+    return `<path d="M${CX + s * 138} 120 C ${CX + s * 128} 190 ${CX + s * 110} 260 ${f(px + s * 40)} 296 L${f(px)} 300 M${f(px + s * 8)} 306 C ${f(px + s * 30)} 330 ${CX + s * 70} 340 ${CX + s * 95} 330"/>`;
   };
   return `<g fill="none" stroke-linecap="round" opacity="0.9">
     <g stroke="#bfae86" stroke-width="16">${side(-1)}${side(1)}</g>
     <g stroke="#efe6d0" stroke-width="10">${side(-1)}${side(1)}</g>
-    ${cut ? `<path d="M${CX - 172} 176 L${CX - 132} 194 M${CX + 172} 176 L${CX + 132} 194" stroke="var(--warn)" stroke-width="5"/>` : ''}
+    ${cut ? `<path d="M${CX - 146} 172 L${CX - 112} 186 M${CX + 146} 172 L${CX + 112} 186" stroke="var(--warn)" stroke-width="5"/>` : ''}
   </g>`;
 }
 
