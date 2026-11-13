@@ -4,7 +4,7 @@ export default {
 
   embryology: {
     intro:
-      'Cada uréter empieza como una yema de un tubito cerca de la futura vejiga. Si la yema empieza demasiado lejos de la vejiga, su uréter puede terminar abriéndose en el lugar equivocado. Esto es un uréter ectópico. La mayoría de las veces drena la parte de arriba de un riñón duplicado.',
+      'Cada uréter empieza como una yema de un tubito cerca de la futura vejiga. Si la yema empieza demasiado lejos de la vejiga, su uréter puede terminar abriéndose en el lugar equivocado. Esto es un uréter ectópico. La mayoría de las veces drena la parte de arriba de un sistema colector duplicado.',
     sexLabel: 'Niño o niña',
     sexes: { girl: 'Niña', boy: 'Niño' },
     siteLabel: 'Dónde se abre el uréter',
@@ -30,7 +30,7 @@ export default {
 
   pathology: {
     intro:
-      'Un ureterocele es una bolsa como globo en el extremo de un uréter, dentro de la vejiga. Se forma cuando la abertura del uréter es demasiado pequeña para que la orina salga fácilmente. Un uréter ectópico se abre en el lugar equivocado. Los dos por lo general afectan la parte de arriba de un riñón duplicado.',
+      'Un ureterocele es una bolsa como globo en el extremo de un uréter, dentro de la vejiga. Se forma cuando la abertura del uréter es demasiado pequeña para que la orina salga fácilmente. Un uréter ectópico se abre en el lugar equivocado. Los dos por lo general afectan la parte de arriba de un sistema colector duplicado.',
     problemLabel: 'Condición',
     problems: {
       ureterocele: {
@@ -65,7 +65,7 @@ export default {
   takeaways: {
     points: [
       'Un uréter ectópico se abre en el lugar equivocado. Un ureterocele es una bolsa como globo en el extremo de un uréter.',
-      'Los dos por lo general afectan la parte de arriba de un riñón duplicado.',
+      'Los dos por lo general afectan la parte de arriba de un sistema colector duplicado.',
       'En las niñas, un uréter ectópico puede causar goteo constante.',
       'El tratamiento puede ser un procedimiento pequeño por la uretra o una cirugía, según el problema.',
     ],

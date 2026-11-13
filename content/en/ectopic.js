@@ -4,7 +4,7 @@ export default {
 
   embryology: {
     intro:
-      'Each ureter starts as a bud from a small tube near the future bladder. If the bud starts too far from the bladder, its ureter can end up opening in the wrong place. This is an ectopic ureter. It most often drains the top part of a duplicated kidney.',
+      'Each ureter starts as a bud from a small tube near the future bladder. If the bud starts too far from the bladder, its ureter can end up opening in the wrong place. This is an ectopic ureter. It most often drains the top part of a duplex collecting system.',
     sexLabel: 'Child',
     sexes: { girl: 'Girl', boy: 'Boy' },
     siteLabel: 'Where the ureter opens',
@@ -30,7 +30,7 @@ export default {
 
   pathology: {
     intro:
-      'A ureterocele is a balloon-like pouch at the end of a ureter, inside the bladder. It forms when the ureter’s opening is too tiny for urine to get out easily. An ectopic ureter opens in the wrong place. Both usually affect the top part of a duplicated kidney.',
+      'A ureterocele is a balloon-like pouch at the end of a ureter, inside the bladder. It forms when the ureter’s opening is too tiny for urine to get out easily. An ectopic ureter opens in the wrong place. Both usually affect the top part of a duplex collecting system.',
     problemLabel: 'Condition',
     problems: {
       ureterocele: {
@@ -65,7 +65,7 @@ export default {
   takeaways: {
     points: [
       'An ectopic ureter opens in the wrong place. A ureterocele is a balloon-like pouch at the end of a ureter.',
-      'Both usually affect the top part of a duplicated kidney.',
+      'Both usually affect the top part of a duplex collecting system.',
       'In girls, an ectopic ureter can cause constant dribbling.',
       'Treatment can be a small procedure through the urethra or surgery, depending on the problem.',
     ],

@@ -113,7 +113,7 @@ export default {
       joining: {
         name: 'Joining the ureters',
         summary:
-          'The top part’s ureter is connected to the bottom part’s ureter, so both drain through one healthy opening. This can be done through a small cut or robotically.',
+          'The top part’s ureter is connected to the bottom part’s ureter, so both drain through one healthy opening. This can be done through a small cut or robotically. This is only an option in a duplex collecting system. An ectopic ureter from a single system (one ureter on that side) has no second ureter to join.',
         steps: [
           'The top part’s ureter opens in the wrong place (or ends in a ureterocele), so the top part does not drain well.',
           'With your child asleep, the top part’s ureter is cut near the bladder.',
@@ -121,7 +121,7 @@ export default {
           'After healing, both parts drain into the bladder and the swelling goes down.',
         ],
         pros: ['Keeps the top part of the kidney', 'Fixes dribbling from an ectopic ureter'],
-        cons: ['Surgery with general anesthesia', 'Works best when the bottom part has no reflux'],
+        cons: ['Surgery with general anesthesia', 'Works best when the bottom part has no reflux', 'Not possible with a single system'],
       },
       reimplant: {
         name: 'Reimplant surgery',

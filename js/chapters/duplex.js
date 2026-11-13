@@ -99,7 +99,7 @@ const PROBLEMS = {
 const ECTOPIC_SITE = { girl: 'vagina', boy: 'prostatic' };
 
 function renderPathology(root) {
-  const s = { type: 'complete', problem: 'ureterocele', sex: 'girl' };
+  const s = { type: 'complete', problem: 'none', sex: 'girl' };
   const { viz, ctl, explain } = modelLayout(root, T('pathology.intro'));
   const problems = T('pathology.problems');
   const problemCtl = document.createElement('div');

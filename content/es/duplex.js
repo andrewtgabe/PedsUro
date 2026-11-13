@@ -113,7 +113,7 @@ export default {
       joining: {
         name: 'Unir los uréteres',
         summary:
-          'El uréter de la parte de arriba se une al uréter de la parte de abajo, así que los dos drenan por una sola abertura sana. Se puede hacer por una pequeña herida o con cirugía robótica.',
+          'El uréter de la parte de arriba se une al uréter de la parte de abajo, así que los dos drenan por una sola abertura sana. Se puede hacer por una pequeña herida o con cirugía robótica. Esto solo es una opción en un sistema colector duplicado. Un uréter ectópico de un sistema sencillo (un solo uréter de ese lado) no tiene un segundo uréter al cual unirse.',
         steps: [
           'El uréter de la parte de arriba se abre en el lugar equivocado (o termina en un ureterocele), así que la parte de arriba no drena bien.',
           'Con su hijo o hija dormido, se corta el uréter de la parte de arriba cerca de la vejiga.',
@@ -121,7 +121,7 @@ export default {
           'Después de sanar, las dos partes drenan a la vejiga y la hinchazón baja.',
         ],
         pros: ['Conserva la parte de arriba del riñón', 'Quita el goteo de un uréter ectópico'],
-        cons: ['Cirugía con anestesia general', 'Funciona mejor cuando la parte de abajo no tiene reflujo'],
+        cons: ['Cirugía con anestesia general', 'Funciona mejor cuando la parte de abajo no tiene reflujo', 'No es posible con un sistema sencillo'],
       },
       reimplant: {
         name: 'Cirugía de reimplante',

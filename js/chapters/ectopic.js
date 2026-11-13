@@ -68,7 +68,7 @@ function renderPathology(root) {
 
 // ---------- 3. Treatment ----------
 
-// Same procedures as for a duplicated kidney.
+// Same procedures as for a duplex collecting system.
 function renderTreatment(root) {
   return optionTabs(
     root,
