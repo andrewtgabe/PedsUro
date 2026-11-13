@@ -367,6 +367,22 @@ function duplexTract(o, g) {
     if (o.ureteroceleCut) over += `<path class="slit" d="M${f(x - 6)} ${f(y + r * 0.5)} L${f(x + 6)} ${f(y + r * 0.5)}"/>`;
   }
 
+  // Plan line before the top half is removed; cut across the top ureter near the bladder (joining).
+  if (o.cutPlan && !removed) over += `<path class="cutline" d="M380 120 L560 120" clip-path="url(#kclip)"/>`;
+  if (o.upperCut && upperPts) { const c = at(upperPts, 0.8); over += `<path class="cutline" d="M${f(c[0] - 12)} ${f(c[1])} L${f(c[0] + 12)} ${f(c[1])}"/>`; }
+  // New shared tunnel for both ureters (reimplant).
+  if (o.tunnel) {
+    for (const pts of [lowerPts, upperPts]) if (pts) { const [a, b] = [at(pts, 0.85), at(pts, 1)]; over += `<path class="tunnel" d="M${f(a[0])} ${f(a[1])} L${f(b[0])} ${f(b[1])}"/>`; }
+  }
+  // Flow arrows: upper.arrows / lower.arrows use the same spec as the single ureter.
+  if (up.arrows && upperPts) over += flowArrows(up.arrows, upperPts, upperCS);
+  if (lo.arrows) over += flowArrows(lo.arrows, lowerPts, lowerCS);
+  // Bacteria climbing the bottom part's ureter (reflux) and an infected kidney.
+  const spread = clamp(lo.bactSpread || 0);
+  if (spread > 0) over += bacteriaAlong(lowerPts, spread);
+  if (spread >= 1) over += bacterium(...lowerCS.pc, 20) + bacterium(...lowerCS.calyces[0], 70);
+  if (o.inflamed) over += `<path class="inflamed" d="${KIDNEY_PATH}"/>`;
+
   const under = `${clip}<path class="kidney" d="${KIDNEY_PATH}"/>${removedShape}${drawSystem(css, tubes)}`;
   return { under, over, upperPts, lowerPts };
 }

@@ -4,7 +4,7 @@ export default {
 
   embryology: {
     intro:
-      'Un sistema colector duplicado (también llamado riñón duplicado) tiene dos sistemas de drenaje en lugar de uno: una parte de arriba y una parte de abajo. Es común (alrededor de 1 a 5 de cada 100 personas), y la mayoría de las personas nunca saben que lo tienen.',
+      'Un sistema colector duplicado (también llamado riñón duplicado) tiene dos sistemas de drenaje en lugar de uno: una parte de arriba y una parte de abajo. Es bastante común (alrededor de 1 de cada 125 personas), y la mayoría de las personas nunca saben que lo tienen.',
     typeLabel: 'Tipo',
     types: { single: 'Típico', partial: 'Parcial', complete: 'Completo' },
     texts: {
@@ -27,13 +27,15 @@ export default {
 
   pathology: {
     intro:
-      'Un riñón duplicado tiene dos sistemas de drenaje, una parte de arriba y una de abajo, a veces con dos uréteres. La mayoría de los riñones duplicados funcionan normalmente. Cuando hay problemas, dependen de dónde se abre cada uréter.',
+      'Un sistema colector duplicado tiene dos sistemas de drenaje en un riñón, una parte de arriba y una de abajo, a veces con dos uréteres. Se encuentra en alrededor de 1 de cada 125 personas, es más común en las niñas, y alrededor de 1 de cada 5 lo tienen en los dos lados. La mayoría funcionan normalmente. Cuando hay problemas, dependen de dónde se abre cada uréter.',
     typeLabel: 'Tipo',
     types: { partial: 'Parcial', complete: 'Completo' },
     problemLabel: 'Problema',
+    sexLabel: 'Niño o niña',
+    sexes: { girl: 'Niña', boy: 'Niño' },
     problems: {
       none: {
-        name: 'Sin problema',
+        name: 'Drenaje típico',
         text: 'Las dos partes del riñón drenan bien. No se necesita tratamiento.',
       },
       reflux: {
@@ -42,11 +44,12 @@ export default {
       },
       ureterocele: {
         name: 'Ureterocele',
-        text: 'El extremo del uréter de la parte de arriba se hincha como una bolsa en forma de globo dentro de la vejiga. La bolsa tiene una abertura muy pequeña, así que la parte de arriba del riñón se llena y se hincha. Una bolsa grande también puede tapar otras aberturas.',
+        text: 'El extremo del uréter de la parte de arriba se hincha como una bolsa en forma de globo dentro de la vejiga. La bolsa tiene una abertura muy pequeña, así que la orina drena despacio y la parte de arriba del riñón se llena y se hincha. Una bolsa grande también puede tapar otras aberturas.',
       },
       ectopic: {
         name: 'Uréter ectópico',
-        text: 'El uréter de la parte de arriba se abre debajo del músculo de control de la vejiga. En las niñas esto puede causar goteo constante aunque ya sepan ir al baño. En los niños no causa goteo, pero puede causar infecciones. La parte de arriba muchas veces funciona poco.',
+        girl: 'En las niñas, el uréter de la parte de arriba se puede abrir debajo del músculo de control de la vejiga, por ejemplo en la uretra o la vagina. La orina no pasa por el músculo de control, así que hay goteo constante aunque la niña ya sepa ir al baño. La parte de arriba muchas veces funciona poco.',
+        boy: 'En los niños, el uréter de la parte de arriba se abre por encima del músculo de control, por ejemplo en la uretra cerca de la próstata o en los tubos que llevan los espermatozoides. Los niños no tienen goteo, pero pueden tener infecciones, incluso del testículo (epididimitis). La parte de arriba muchas veces funciona poco.',
       },
     },
     partialText: 'Los dos uréteres se juntan antes de la vejiga. Esto casi nunca causa problemas.',
@@ -54,10 +57,40 @@ export default {
 
   treatment: {
     intro:
-      'La mayoría de los niños con un riñón duplicado no necesitan tratamiento. Cuando hay un problema, la mejor opción depende del problema y de qué tan bien funciona la parte de arriba del riñón.',
+      'La mayoría de los niños con un sistema colector duplicado no necesitan tratamiento. Cuando hay un problema, la mejor opción depende del problema y de qué tan bien funciona la parte de arriba del riñón.',
     pros: 'Beneficios',
     cons: 'A tomar en cuenta',
     options: {
+      ultrasound: {
+        name: 'Ultrasonido de los riñones',
+        summary:
+          'El ultrasonido usa ondas de sonido para ver las dos partes del riñón. Puede mostrar una parte de arriba hinchada, un uréter ancho o un ureterocele dentro de la vejiga. No duele y no usa radiación.',
+        probe: 'Ultrasonido',
+        pros: ['Sin dolor, sin agujas, sin radiación', 'Útil para las visitas de seguimiento'],
+        cons: ['No muestra el reflujo ni qué tan bien funciona cada parte'],
+      },
+      vcug: {
+        summary:
+          'Una cistouretrografía miccional (VCUG) revisa si hay orina que regresa (reflujo), casi siempre a la parte de abajo del riñón. También muestra un ureterocele como una sombra redonda en la vejiga. Un tubo delgado pone tinte en la vejiga y se toman radiografías mientras el niño o la niña orina. Por lo general le pedimos que tome un antibiótico preventivo antes de la prueba para ayudar a prevenir una infección del riñón.',
+      },
+      scan: {
+        name: 'Estudio de función del riñón',
+        summary:
+          'Una gammagrafía DMSA o MAG3 usa una cantidad muy pequeña de trazador por una vía IV para medir qué parte del trabajo del riñón hace cada parte. Esto ayuda a decidir si conservar la parte de arriba (unir los uréteres o reimplante) o quitarla.',
+        label: 'Parte de arriba',
+        views: { good: 'Funciona bien', poor: 'Funciona poco' },
+        top: 'Arriba',
+        bottom: 'Abajo',
+        pros: ['Muestra cuánto trabaja cada parte', 'Ayuda a escoger la cirugía correcta'],
+        cons: ['Necesita una vía IV', 'Una pequeña cantidad de radiación'],
+      },
+      antibiotic: {
+        name: 'Antibiótico preventivo',
+        summary:
+          'Los bebés con reflujo o con un ureterocele muchas veces toman una dosis pequeña de antibiótico cada día. Ayuda a que una infección de la vejiga no se vuelva una infección del riñón mientras vigilamos o planeamos la cirugía.',
+        pros: ['Baja la probabilidad de una infección del riñón'],
+        cons: ['Un medicamento todos los días', 'Las bacterias pueden volverse resistentes'],
+      },
       none: {
         name: 'No necesita tratamiento',
         summary: 'Si las dos partes drenan bien y no hay infecciones, no hay que hacer nada.',
@@ -67,18 +100,26 @@ export default {
       puncture: {
         name: 'Punción del ureterocele',
         summary:
-          'Con una cámara pequeña que pasa por la uretra, el cirujano hace una abertura pequeña en el ureterocele para que la parte de arriba pueda drenar. Sin cortes en la piel.',
-        before: 'Antes',
-        after: 'Después de la punción',
+          'Con una cámara pequeña que pasa por la uretra, el cirujano hace una abertura pequeña en el ureterocele para que la parte de arriba pueda drenar. Sin cortes en la piel. Alrededor de 1 de cada 3 a 1 de cada 2 niños necesitan otra cirugía más adelante, sobre todo cuando el ureterocele llega fuera de la vejiga.',
+        steps: [
+          'El ureterocele es una bolsa en forma de globo dentro de la vejiga. La parte de arriba del riñón está llena e hinchada.',
+          'Con su hijo o hija dormido, se pasa una cámara pequeña por la uretra hasta la vejiga. Sin cortes en la piel.',
+          'El cirujano hace una abertura muy pequeña en el ureterocele.',
+          'La orina drena de la parte de arriba, la bolsa se hace más pequeña y la hinchazón baja con el tiempo.',
+        ],
         pros: ['Sin cortes en la piel', 'Alivia rápido la obstrucción', 'Se usa mucho en bebés'],
-        cons: ['Anestesia general', 'Después la orina puede regresar a la parte de arriba', 'Algunos niños necesitan otra cirugía más adelante'],
+        cons: ['Anestesia general', 'Después la orina puede regresar a la parte de arriba', 'Alrededor de 1 de cada 3 a 1 de cada 2 necesitan otra cirugía más adelante'],
       },
       joining: {
         name: 'Unir los uréteres',
         summary:
           'El uréter de la parte de arriba se une al uréter de la parte de abajo, así que los dos drenan por una sola abertura sana. Se puede hacer por una pequeña herida o con cirugía robótica.',
-        before: 'Antes',
-        after: 'Después de la cirugía',
+        steps: [
+          'El uréter de la parte de arriba se abre en el lugar equivocado (o termina en un ureterocele), así que la parte de arriba no drena bien.',
+          'Con su hijo o hija dormido, se corta el uréter de la parte de arriba cerca de la vejiga.',
+          'Se cose al costado del uréter de la parte de abajo, así que las dos partes drenan por una sola abertura sana.',
+          'Después de sanar, las dos partes drenan a la vejiga y la hinchazón baja.',
+        ],
         pros: ['Conserva la parte de arriba del riñón', 'Quita el goteo de un uréter ectópico'],
         cons: ['Cirugía con anestesia general', 'Funciona mejor cuando la parte de abajo no tiene reflujo'],
       },
@@ -86,26 +127,34 @@ export default {
         name: 'Cirugía de reimplante',
         summary:
           'Los dos uréteres se pasan juntos a un túnel nuevo y más largo en la pared de la vejiga. Esto corrige el reflujo y puede quitar un ureterocele.',
-        before: 'Antes',
-        after: 'Después de la cirugía',
+        steps: [
+          'La orina regresa a la parte de abajo, y la parte de arriba puede estar tapada por un ureterocele.',
+          'Con su hijo o hija dormido, se abre la vejiga. Se quita cualquier ureterocele y se repara la pared de la vejiga detrás de él.',
+          'Los dos uréteres, que comparten su capa de afuera, se pasan juntos a un túnel nuevo y más largo en la pared de la vejiga (verde).',
+          'Después de sanar, las dos partes drenan bien y el reflujo se corrige.',
+        ],
         pros: ['Corrige el reflujo y la obstrucción en la vejiga', 'Alta tasa de éxito'],
         cons: ['Cirugía con anestesia general', 'Estancia corta en el hospital', 'Espasmos de la vejiga por un tiempo corto después'],
       },
       removal: {
-        name: 'Quitar la parte de arriba',
+        name: 'Quitar el uréter de arriba y la mitad de arriba del riñón',
         summary:
-          'Si la parte de arriba del riñón no funciona, se puede quitar y conservar la parte de abajo sana. Esto se llama nefrectomía parcial.',
-        before: 'Antes',
-        after: 'Después de la cirugía',
+          'Si la parte de arriba del riñón no funciona, se puede quitar junto con su uréter, y conservar la parte de abajo sana. Esto se llama nefrectomía parcial (o heminefrectomía del polo superior).',
+        steps: [
+          'La parte de arriba funciona muy poco y su uréter está causando infecciones o goteo.',
+          'Con su hijo o hija dormido, por una pequeña herida o con cirugía robótica, se amarran los vasos sanguíneos de la parte de arriba. El riñón se divide en la línea entre las dos partes.',
+          'Se quitan la mitad de arriba del riñón y la mayor parte de su uréter.',
+          'La parte de abajo sana sigue drenando normalmente.',
+        ],
         pros: ['Quita la causa de las infecciones o del goteo', 'Se queda la parte de abajo sana'],
-        cons: ['Cirugía con anestesia general', 'Solo se usa si la parte de arriba funciona muy poco'],
+        cons: ['Cirugía con anestesia general', 'Solo se usa si la parte de arriba funciona muy poco', 'Una pequeña probabilidad de que la parte de abajo pierda algo de función'],
       },
     },
   },
 
   takeaways: {
     points: [
-      'Un riñón duplicado tiene dos sistemas de drenaje, una parte de arriba y una parte de abajo.',
+      'Un sistema colector duplicado tiene dos sistemas de drenaje en un riñón, una parte de arriba y una parte de abajo.',
       'Es común, y la mayoría de las personas nunca tienen problemas.',
       'Posibles problemas: reflujo a la parte de abajo, o un uréter de la parte de arriba obstruido o fuera de lugar.',
       'El tratamiento depende del problema. Las opciones van desde vigilar hasta la cirugía.',
