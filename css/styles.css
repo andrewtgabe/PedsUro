@@ -645,3 +645,4 @@ svg.anatomy .changed { animation: changed 1.4s ease-out 1; }
 svg.anatomy .xray-frame rect { fill: rgb(47 111 181 / 0.06); stroke: var(--accent); stroke-width: 3; stroke-dasharray: 10 6; }
 svg.anatomy .pill rect { fill: #f4c2c2; stroke: #b45b5b; stroke-width: 2; }
 svg.anatomy .pill path { stroke: #b45b5b; stroke-width: 2; }
+svg.anatomy .roi ellipse { fill: none; stroke: var(--accent); stroke-width: 3; stroke-dasharray: 8 6; }

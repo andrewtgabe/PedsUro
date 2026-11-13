@@ -134,11 +134,36 @@ const BUILD = {
     draw(0);
   },
 
+  // Drainage scan: IV, catheter, tracer, camera pictures, each kidney's share, then the drainage curve.
   scan(viz, ctl) {
     const o = T('treatment.options.scan');
-    const draw = (p) => (viz.innerHTML = drainageChart(p, o.chart));
-    ctl.append(segmented(o.patternLabel, Object.entries(o.patterns), 'normal', draw));
-    draw('normal');
+    viz.innerHTML = '<div data-anim></div><div data-chart></div>';
+    const anim = viz.querySelector('[data-anim]');
+    const chart = viz.querySelector('[data-chart]');
+    const roi = (cx, text) =>
+      `<g class="roi"><ellipse cx="${cx}" cy="125" rx="72" ry="102"/><text class="lbl" x="${cx}" y="252" text-anchor="middle">${text} 50%</text></g>`;
+    const states = [
+      { iv: true, k: 0, bf: 0.5 },
+      { iv: true, cath: true, k: 0, bf: 0.15 },
+      { iv: true, cath: true, cam: true, k: 0.7, bf: 0.15 },
+      { iv: true, cath: true, cam: true, k: 0.9, bf: 0.15, roi: true },
+      { iv: true, cath: true, cam: true, k: 0.6, bf: 0.15, flow: 'down' },
+      { iv: true, cath: true, cam: true, k: 0.2, bf: 0.15, flow: 'down', lasix: true },
+    ];
+    const draw = (st) => {
+      const side = { pelvisFill: st.k, flow: st.flow || '' };
+      const extra =
+        (st.cam ? '<rect class="gamma-cam" x="120" y="4" width="360" height="26" rx="8"/>' : '') +
+        (st.iv ? '<g class="iv"><path d="M560 300 C 590 260 590 200 600 180"/><circle cx="560" cy="300" r="5"/></g>' : '') +
+        (st.lasix ? '<text class="lbl small accent-text" x="560" y="170" text-anchor="end">Lasix</text>' : '') +
+        (st.roi ? roi(145, o.left) + roi(455, o.right) : '');
+      anim.innerHTML = urinaryTract({ affected: side, healthy: side, bladderFill: st.bf, catheter: !!st.cath, labels: !st.roi }).replace(/<\/svg>\s*$/, `${extra}</svg>`);
+    };
+    const stop = stepPlayer(ctl, states.map((state, n) => ({ caption: o.steps[n], state })), draw, t('common.player'));
+    const drawChart = (p) => (chart.innerHTML = drainageChart(p, o.chart));
+    ctl.append(segmented(o.patternLabel, Object.entries(o.patterns), 'normal', drawChart));
+    drawChart('normal');
+    return stop;
   },
 
   // VCUG: catheter, two fill-and-pee cycles, X-ray pictures of the bladder and kidneys.
@@ -165,23 +190,29 @@ const BUILD = {
     return stepPlayer(ctl, states.map((state, n) => ({ caption: o.steps[n], state })), draw, t('common.player'));
   },
 
+  // Bacteria climb from the urethra to the kidney; a daily low-dose antibiotic keeps them from multiplying.
   antibiotic(viz, ctl) {
     const o = T('treatment.options.antibiotic');
-    const s = { bacteria: true, dose: false };
-    // The daily dose shows as a capsule; it keeps most bacteria from growing.
     const pill = `<g class="pill"><rect x="30" y="470" width="64" height="26" rx="13"/><path d="M62 470 v26"/><text class="lbl small" x="104" y="488">${o.dose}</text></g>`;
-    const draw = () => {
+    const states = [
+      // Each step lists urethra: later steps inherit unset keys from the first one.
+      { urethra: true, bact: 0, spread: 0 },
+      { urethra: false, bact: 3, spread: 0 },
+      { urethra: false, bact: 8, spread: 0.6 },
+      { urethra: false, bact: 8, spread: 1, sick: true },
+      { urethra: false, bact: 3, spread: 0, med: true },
+      { urethra: false, bact: 2, spread: 0, med: true },
+      { urethra: false, bact: 0, spread: 0, med: true },
+    ];
+    const draw = (st) => {
       const svg = urinaryTract({
-        affected: { pelvisDilation: 0.6, pelvisFill: 1, bactPelvis: s.bacteria && !s.dose },
-        bladderBact: s.bacteria ? (s.dose ? 1 : 6) : 0,
+        affected: { pelvisDilation: 0.6, pelvisFill: 1, bactSpread: st.spread, inflamed: !!st.sick },
+        bladderBact: Math.round(st.bact),
+        urethraBact: !!st.urethra,
       });
-      viz.innerHTML = s.dose ? svg.replace(/<\/svg>\s*$/, `${pill}</svg>`) : svg;
+      viz.innerHTML = st.med ? svg.replace(/<\/svg>\s*$/, `${pill}</svg>`) : svg;
     };
-    ctl.append(
-      toggle(o.bacteria, true, (v) => { s.bacteria = v; draw(); }),
-      toggle(o.dose, false, (v) => { s.dose = v; draw(); }),
-    );
-    draw();
+    return stepPlayer(ctl, states.map((state, n) => ({ caption: o.steps[n], state })), draw, t('common.player'));
   },
 
   surgery(viz) {
@@ -195,9 +226,10 @@ function renderTreatment(root) {
     { intro: T('treatment.intro'), pros: T('treatment.pros'), cons: T('treatment.cons') },
     Object.keys(BUILD).map((key) => {
       const o = T(`treatment.options.${key}`);
-      const summary = o.links
+      let summary = o.links
         ? `${o.summary}</p><ul>${o.links.map(([id, txt]) => `<li><a href="#/${id}/treatment">${txt} →</a></li>`).join('')}</ul><p>`
         : o.summary;
+      if (o.newborn) summary += `</p><div class="callout"><p>${o.newborn}</p></div><p>`;
       return { key, ...o, summary, build: BUILD[key] };
     }),
   );

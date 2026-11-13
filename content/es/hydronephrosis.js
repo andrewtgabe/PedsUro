@@ -73,6 +73,8 @@ export default {
         name: 'Ultrasonidos de seguimiento',
         summary:
           'El ultrasonido usa ondas de sonido para ver los riñones. No duele y no usa radiación. En muchos bebés la hinchazón se hace más pequeña con el tiempo.',
+        newborn:
+          'Si la hinchazón se vio antes del nacimiento, el primer ultrasonido debe hacerse por lo menos 48 horas después de nacer. Los recién nacidos están un poco deshidratados los primeros días, así que un ultrasonido más temprano puede hacer que la hinchazón se vea más pequeña de lo que es.',
         control: 'Edad',
         months: 'meses',
         pros: ['Sin dolor, sin agujas, sin radiación', 'Muchas veces es lo único que se necesita'],
@@ -82,6 +84,16 @@ export default {
         name: 'Gammagrafía de drenaje renal',
         summary:
           'Una gammagrafía renal (muchas veces llamada MAG3) sigue una cantidad muy pequeña de trazador por la vena mientras los riñones producen orina. Muestra qué tan bien funciona y drena cada riñón. A mitad del estudio se da por la vena un medicamento que hace que los riñones produzcan más orina (Lasix). Esto ayuda a saber si el drenaje es lento o si de verdad hay una obstrucción.',
+        steps: [
+          'Se coloca una vía (IV) en el brazo o la mano y se dan líquidos extra.',
+          'Un tubo delgado y suave (sonda) mantiene la vejiga vacía, a menos que su hijo o hija sea mayor y ya sepa ir al baño.',
+          'Una cantidad muy pequeña de trazador entra por la vena. Una cámara especial toma imágenes cada pocos segundos mientras los riñones lo recogen.',
+          'La computadora mide cuánto trazador toma cada riñón. Esto muestra qué parte del trabajo hace cada riñón, por ejemplo 50% y 50%.',
+          'El trazador sale de los riñones y baja a la vejiga.',
+          'Se da Lasix por la vena. Qué tan rápido sale el trazador de cada riñón forma la curva de drenaje de abajo.',
+        ],
+        left: 'Izquierdo',
+        right: 'Derecho',
         patternLabel: 'Patrón',
         patterns: {
           normal: 'Drena bien',
@@ -112,9 +124,17 @@ export default {
       antibiotic: {
         name: 'Antibiótico preventivo',
         summary:
-          'Algunos bebés con más hinchazón o con reflujo toman una dosis pequeña de antibiótico cada día. Ayuda a prevenir infecciones de orina mientras vigilamos.',
-        bacteria: 'Entran bacterias a la vejiga',
+          'Algunos bebés con más hinchazón o con reflujo toman una dosis pequeña de antibiótico cada día. Ayuda a evitar que una infección de la vejiga se convierta en una infección del riñón mientras vigilamos.',
         dose: 'Antibiótico diario en dosis baja',
+        steps: [
+          'Los gérmenes (bacterias) de la piel alrededor de las nalgas pueden entrar a la uretra.',
+          'Las bacterias suben a la vejiga.',
+          'Sin medicamento, las bacterias se multiplican y pueden subir por el uréter hasta el riñón.',
+          'Esto causa una infección del riñón, con fiebre. Las infecciones del riñón pueden dejar cicatrices.',
+          'Con un antibiótico diario en dosis baja, las bacterias todavía pueden entrar a la vejiga.',
+          'Pero el antibiótico no las deja multiplicarse, así que no pueden llegar al riñón.',
+          'Las bacterias desaparecen y el riñón se mantiene sano.',
+        ],
         pros: ['Baja la probabilidad de una infección del riñón'],
         cons: ['Un medicamento todos los días', 'Las bacterias pueden volverse resistentes'],
       },

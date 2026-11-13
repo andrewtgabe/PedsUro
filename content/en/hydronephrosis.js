@@ -73,6 +73,8 @@ export default {
         name: 'Follow-up ultrasounds',
         summary:
           'Ultrasound uses sound waves to see the kidneys. It does not hurt and uses no radiation. Many babies’ swelling gets smaller over time.',
+        newborn:
+          'If swelling was seen before birth, the first ultrasound should be done at least 48 hours after birth. Newborns are a little dry in the first days, so an earlier ultrasound can make the swelling look smaller than it really is.',
         control: 'Age',
         months: 'months',
         pros: ['Painless, no needles, no radiation', 'Often all that is needed'],
@@ -82,6 +84,16 @@ export default {
         name: 'Kidney drainage scan',
         summary:
           'A renal scan (often called a MAG3 scan) tracks a tiny amount of tracer through an IV as the kidneys make urine. It shows how well each kidney works and how well it drains. Partway through, a medicine that makes the kidneys produce more urine (Lasix) is given through the IV. This helps tell if drainage is slow or truly blocked.',
+        steps: [
+          'An IV is placed in the arm or hand, and extra fluid is given.',
+          'A thin, soft tube (catheter) keeps the bladder empty, unless your child is older and toilet trained.',
+          'A tiny amount of tracer goes in through the IV. A special camera takes pictures every few seconds as the kidneys pick it up.',
+          'The computer measures how much tracer each kidney takes in. This shows each kidney’s share of the work, for example 50% and 50%.',
+          'The tracer drains out of the kidneys and down to the bladder.',
+          'Lasix is given through the IV. How fast the tracer leaves each kidney makes the drainage curve below.',
+        ],
+        left: 'Left',
+        right: 'Right',
         patternLabel: 'Pattern',
         patterns: {
           normal: 'Drains well',
@@ -112,9 +124,17 @@ export default {
       antibiotic: {
         name: 'Preventive antibiotic',
         summary:
-          'Some babies with more swelling or with reflux take a small daily dose of antibiotic. It helps prevent urine infections while we watch.',
-        bacteria: 'Bacteria get into the bladder',
+          'Some babies with more swelling or with reflux take a small dose of antibiotic every day. It helps keep a bladder infection from becoming a kidney infection while we watch.',
         dose: 'Daily low-dose antibiotic',
+        steps: [
+          'Germs (bacteria) from the skin around the bottom can get into the urethra.',
+          'The bacteria move up into the bladder.',
+          'Without medicine, the bacteria multiply and can climb up the ureter to the kidney.',
+          'This causes a kidney infection, with fever. Kidney infections can leave scars.',
+          'With a daily low-dose antibiotic, bacteria can still get into the bladder.',
+          'But the antibiotic keeps them from multiplying, so they cannot reach the kidney.',
+          'The bacteria fade away, and the kidney stays healthy.',
+        ],
         pros: ['Lowers the chance of a kidney infection'],
         cons: ['A medicine every day', 'Bacteria can become resistant'],
       },
