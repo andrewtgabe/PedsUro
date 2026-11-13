@@ -68,14 +68,6 @@ const KEYWORDS = {
   exstrophy: 'exstrophy epispadias open bladder cloacal osteotomy extrofia vejiga abierta cloaca',
   imaging: 'ultrasound mag3 dmsa vcug uroflow urodynamics scan tests ultrasonido estudios pruebas',
 };
-// Shortcut row at the top of the home page.
-const COMMON = ['hydronephrosis', 'vur', 'uti', 'enuresis', 'bbd', 'cryptorchidism', 'hernia', 'phimosis'];
-
-// Chapters opened on this device, newest first (kept only in this browser).
-const recent = {
-  get: () => { try { return JSON.parse(localStorage.getItem('recent')) || []; } catch { return []; } },
-  add: (id) => { try { localStorage.setItem('recent', JSON.stringify([id, ...recent.get().filter((x) => x !== id)].slice(0, 6))); } catch {} },
-};
 const app = document.getElementById('app');
 
 // Page-view badge from hits.sh. Created once per visit and moved into each new header, so
@@ -132,14 +124,6 @@ function route() {
   window.scrollTo(0, 0);
 }
 
-// Compact row of chapter links (recently viewed, common in clinic). Hidden while searching.
-const shortcutRow = (key, ids) =>
-  ids.length
-    ? `<section class="shortcuts"><h2>${t(`common.home.${key}`)}</h2><div class="chips">${ids
-        .map((id) => `<a class="chip" href="#/${id}">${t(`common.conditions.${id}`)}</a>`)
-        .join('')}</div></section>`
-    : '';
-
 function renderHome() {
   document.title = t('common.site.title');
   document.body.classList.remove('present');
@@ -153,8 +137,6 @@ function renderHome() {
       <input type="search" class="search" placeholder="${t('common.nav.search')}" aria-label="${t('common.nav.search')}">
     </header>
     <p class="no-match" hidden>${t('common.nav.noMatch')}</p>
-    ${shortcutRow('recent', recent.get().filter((id) => CHAPTERS[id] && id !== 'visit'))}
-    ${shortcutRow('common', COMMON)}
     ${Object.entries(CATALOG)
       .map(
         ([group, ids]) => `
@@ -178,7 +160,6 @@ function renderHome() {
   const plain = (x) => x.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
   app.querySelector('.search').addEventListener('input', (e) => {
     const words = plain(e.target.value).split(/\s+/).filter(Boolean);
-    app.querySelectorAll('.shortcuts').forEach((x) => (x.hidden = words.length > 0));
     let any = false;
     app.querySelectorAll('.group').forEach((g) => {
       let shown = 0;
@@ -238,7 +219,6 @@ function renderChapter(chapter, sectionId) {
     </footer>
     <footer class="disclaimer">${t('common.site.disclaimer')}<br>${t('common.site.author')}</footer>`;
 
-  recent.add(chapter.id);
   const sectionCleanup = section.render(app.querySelector('.section-body'));
   const settingsBtn = app.querySelector('.settings-toggle');
   const settingsPop = app.querySelector('.settings-pop');

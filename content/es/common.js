@@ -2,13 +2,12 @@
 export default {
   site: {
     title: 'Guía visual de urología pediátrica',
-    tagline: 'Modelos visuales interactivos para ayudar a las familias a entender la condición de su hijo o hija, los tipos de estudios y las opciones de tratamiento.',
+    tagline: 'Modelos visuales interactivos para ayudar a las familias a entender la condición de su hijo o hija, los tipos de estudios y las opciones de manejo.',
     disclaimer:
       'Para educación durante una visita con el equipo médico de su hijo o hija. Esta guía no reemplaza el consejo médico para su hijo o hija.',
     author: 'Creado por Andrew T. Gabrielson, MD',
   },
   kinds: { n: 'Sin cirugía', p: 'Procedimiento', s: 'Cirugía' },
-  home: { common: 'Comunes en la clínica', recent: 'Vistos recientemente' },
   handout: { scan: 'Escanee para verlo de nuevo en casa', plan: 'Nuestro plan' },
   nav: {
     settings: 'Idioma y pantalla',

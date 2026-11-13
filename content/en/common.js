@@ -3,13 +3,12 @@
 export default {
   site: {
     title: 'Visual Guide to Pediatric Urology',
-    tagline: 'Interactive visual models to help families understand their child’s condition, testing modalities, and treatment choices.',
+    tagline: 'Interactive visual models to help families understand their child’s condition, testing modalities, and management choices.',
     disclaimer:
       'For education during a visit with your child’s care team. This guide does not replace medical advice for your child.',
     author: 'Created by Andrew T. Gabrielson, MD',
   },
   kinds: { n: 'No surgery', p: 'Procedure', s: 'Surgery' },
-  home: { common: 'Common in clinic', recent: 'Recently viewed' },
   handout: { scan: 'Scan to see this again at home', plan: 'Our plan' },
   nav: {
     settings: 'Language and display',
