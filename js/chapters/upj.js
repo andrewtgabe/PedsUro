@@ -67,7 +67,7 @@ function renderPathology(root) {
     const d = Math.min(1, SEVERITY[s.sev] + (s.drink ? 0.3 : 0));
     viz.innerHTML = urinaryTract({
       // Arrows: urine slows at the narrow spot, then moves normally below it.
-      affected: { pelvisDilation: d, pelvisFill: 1, upj: true, mark: true, bactPelvis: s.infection, arrows: [{ mode: 'slow', from: 0.03, to: 0.2 }, { mode: 'down', from: 0.31 }] },
+      affected: { pelvisDilation: d, pelvisFill: 1, upj: true, mark: true, bactPelvis: s.infection, arrows: [{ mode: 'slow', kidney: true, from: 0.03, to: 0.2 }, { mode: 'down', from: 0.31 }] },
       healthy: { arrows: { mode: 'down' } },
       urethraArrows: 'down',
       bladderBact: s.infection ? 3 : 0,
