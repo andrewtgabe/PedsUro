@@ -127,6 +127,18 @@ export default {
           'A DMSA scan uses a tiny amount of tracer through an IV to show healthy kidney tissue and any scars. To look for scars, it is usually done 4 to 6 months after a kidney infection, so the infection has time to heal. A scan during an infection shows swelling from the infection, not scars.',
         label: 'Result',
         views: { normal: 'No scars', scar: 'Scar after an infection' },
+        left: 'Left',
+        right: 'Right',
+        wait: '2 to 3 hours',
+        steps: [
+          'An IV is placed in the arm or hand, and a tiny amount of tracer is given. No bladder catheter is needed.',
+          'Over the next 2 to 3 hours, the healthy kidney tissue slowly soaks up the tracer. Your child can play, eat and drink during the wait.',
+          'Your child lies still on a table while a special camera takes pictures of the kidneys from a few angles. This takes about 30 to 60 minutes.',
+        ],
+        result: {
+          normal: 'Healthy kidney tissue lights up evenly, with no dark spots. The computer also measures each kidney’s share of the work, here 50% and 50%.',
+          scar: 'A scar shows up as a dark spot that does not take up the tracer. In this example, the scarred kidney does 42% of the work and the other kidney does 58%.',
+        },
         pros: ['Shows kidney scars clearly', 'Shows how much each kidney does'],
         cons: ['Needs an IV', 'Small amount of radiation', 'A 2 to 3 hour wait between the tracer and the pictures'],
       },

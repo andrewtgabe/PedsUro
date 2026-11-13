@@ -127,6 +127,18 @@ export default {
           'Una gammagrafía DMSA usa una cantidad muy pequeña de trazador por la vena para mostrar el tejido sano del riñón y cualquier cicatriz. Para buscar cicatrices, por lo general se hace 4 a 6 meses después de una infección del riñón, para que la infección sane. Un estudio durante una infección muestra la hinchazón de la infección, no cicatrices.',
         label: 'Resultado',
         views: { normal: 'Sin cicatrices', scar: 'Cicatriz después de una infección' },
+        left: 'Izquierdo',
+        right: 'Derecho',
+        wait: '2 a 3 horas',
+        steps: [
+          'Se pone una vía IV en el brazo o la mano, y se da una cantidad muy pequeña de trazador. No se necesita sonda en la vejiga.',
+          'Durante las siguientes 2 a 3 horas, el tejido sano del riñón absorbe poco a poco el trazador. Su hijo o hija puede jugar, comer y tomar líquidos mientras espera.',
+          'Su hijo o hija se acuesta quieto en una mesa mientras una cámara especial toma fotos de los riñones desde varios ángulos. Esto toma de 30 a 60 minutos.',
+        ],
+        result: {
+          normal: 'El tejido sano del riñón se ilumina de forma pareja, sin manchas oscuras. La computadora también mide qué parte del trabajo hace cada riñón, aquí 50% y 50%.',
+          scar: 'Una cicatriz se ve como una mancha oscura que no absorbe el trazador. En este ejemplo, el riñón con cicatriz hace el 42% del trabajo y el otro riñón el 58%.',
+        },
         pros: ['Muestra claramente las cicatrices del riñón', 'Muestra cuánto trabaja cada riñón'],
         cons: ['Necesita una vía en la vena', 'Una pequeña cantidad de radiación', 'Una espera de 2 a 3 horas entre el trazador y las imágenes'],
       },
