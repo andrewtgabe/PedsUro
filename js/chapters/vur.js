@@ -242,7 +242,7 @@ const OPTIONS = {
     const o = T('treatment.options.dmsa');
     const states = [
       { iv: true, glow: 0 },
-      { iv: false, glow: 0.5, clock: true },
+      { iv: false, glow: 0.7, clock: true },
       { iv: false, glow: 1, cam: true },
       { iv: false, glow: 1, cam: true, result: true },
     ];
@@ -257,12 +257,12 @@ const OPTIONS = {
       const kidney = (cx, pct, label) => `<ellipse class="dmsa-glow" cx="${cx}" cy="125" rx="58" ry="88"/>${pct ? `<text class="lbl" x="${cx}" y="252" text-anchor="middle">${label} ${pct}%</text>` : ''}`;
       const draw = (st) => {
         const extra =
-          `<g opacity="${st.glow * 0.6}">${kidney(145, st.result && split[0], o.left)}${kidney(455, st.result && split[1], o.right)}</g>` +
-          (scar && st.glow ? '<path class="dmsa-cold" d="M424 40 Q446 66 458 52 Q468 68 488 56 Q478 32 455 30 Q434 30 424 40 Z"/>' : '') +
+          `<g opacity="${st.glow * 0.85}">${kidney(145, st.result && split[0], o.left)}${kidney(455, st.result && split[1], o.right)}</g>` +
+          (scar ? '<path class="dmsa-cold" d="M424 40 Q446 66 458 52 Q468 68 488 56 Q478 32 455 30 Q434 30 424 40 Z"/><path class="dmsa-cold" d="M424 210 Q446 184 458 198 Q468 182 488 194 Q478 218 455 220 Q434 220 424 210 Z"/>' : '') +
           (st.cam ? '<rect class="gamma-cam" x="120" y="4" width="360" height="26" rx="8"/>' : '') +
           (st.iv ? '<g class="iv"><path d="M560 300 C 590 260 590 200 600 180"/><circle cx="560" cy="300" r="5"/></g>' : '') +
           (st.clock ? `<text class="lbl accent-text" x="20" y="400" style="font-size:30px">⏱ ${o.wait}</text>` : '');
-        viz.innerHTML = urinaryTract({ affected: { pelvisFill: 0, scar: scar && !st.glow }, healthy: { pelvisFill: 0 }, bladderFill: 0.4, labels: !st.result }).replace(/<\/svg>\s*$/, `${extra}</svg>`);
+        viz.innerHTML = urinaryTract({ affected: { pelvisFill: 0, scar: false }, healthy: { pelvisFill: 0 }, bladderFill: 0.4, labels: !st.result }).replace(/<\/svg>\s*$/, `${extra}</svg>`);
       };
       const captions = [...o.steps, o.result[view]];
       stop = stepPlayer(holder, states.map((state, n) => ({ caption: captions[n], state })), draw, t('common.player'));
