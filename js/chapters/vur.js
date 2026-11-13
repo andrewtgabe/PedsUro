@@ -163,8 +163,10 @@ function renderPathology(root) {
 
   const draw = () => {
     root.querySelector('[data-viz]').innerHTML = urinaryTract({
-      affected: refluxSide(state.grade, state.p, state),
-      healthy: { scar: false },
+      // Arrows point back up the ureter while urine is refluxing.
+      affected: { ...refluxSide(state.grade, state.p, state), arrows: { mode: state.grade > 0 && state.p > 0.05 ? 'up' : 'down' } },
+      healthy: { scar: false, arrows: { mode: 'down' } },
+      urethraArrows: state.voiding ? 'down' : '',
       bladderFill: 1 - 0.7 * state.p,
       bladderBact: state.bacteria ? 6 : 0,
       voiding: state.voiding,

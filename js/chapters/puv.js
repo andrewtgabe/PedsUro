@@ -28,10 +28,13 @@ function renderEmbryology(root) {
 
 // Each step adds the next consequence of the blockage.
 function stepView(step) {
+  // Arrows: the valves slow urine leaving the bladder, and later all the way up both ureters.
   const kidneys = step >= 2 ? { dilation: 0.75, tort: 0.5, blunt: 0.5, pelvisFill: 1, ureterFill: 1, pale: step >= 3 } : { pelvisFill: 1 };
+  const arrows = { mode: step >= 2 ? 'slow' : 'down' };
   return urinaryTract({
-    affected: kidneys,
-    healthy: kidneys,
+    affected: { ...kidneys, arrows },
+    healthy: { ...kidneys, arrows },
+    urethraArrows: 'slow',
     urethraBlock: true,
     bladderWall: step >= 1 ? 1 : 0.2,
     bladderFill: 0.9,

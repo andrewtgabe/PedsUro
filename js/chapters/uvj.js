@@ -35,7 +35,10 @@ function renderPathology(root) {
 
   const draw = () => {
     viz.innerHTML = urinaryTract({
-      affected: megaureter(SEVERITY[s.sev], { mark: true, bactSpread: s.infection ? 0.9 : 0 }),
+      // Arrows: urine moves slowly down the whole wide ureter.
+      affected: { ...megaureter(SEVERITY[s.sev], { mark: true, bactSpread: s.infection ? 0.9 : 0 }), arrows: { mode: 'slow' } },
+      healthy: { arrows: { mode: 'down' } },
+      urethraArrows: 'down',
       bladderBact: s.infection ? 4 : 0,
     });
     explain.innerHTML = `
