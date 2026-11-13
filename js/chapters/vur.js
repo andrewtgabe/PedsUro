@@ -261,7 +261,7 @@ const OPTIONS = {
           (scar && st.glow ? '<path class="dmsa-cold" d="M424 40 Q446 66 458 52 Q468 68 488 56 Q478 32 455 30 Q434 30 424 40 Z"/>' : '') +
           (st.cam ? '<rect class="gamma-cam" x="120" y="4" width="360" height="26" rx="8"/>' : '') +
           (st.iv ? '<g class="iv"><path d="M560 300 C 590 260 590 200 600 180"/><circle cx="560" cy="300" r="5"/></g>' : '') +
-          (st.clock ? `<text class="lbl accent-text" x="300" y="470" text-anchor="middle">⏱ ${o.wait}</text>` : '');
+          (st.clock ? `<text class="lbl accent-text" x="20" y="400" style="font-size:30px">⏱ ${o.wait}</text>` : '');
         viz.innerHTML = urinaryTract({ affected: { pelvisFill: 0, scar: scar && !st.glow }, healthy: { pelvisFill: 0 }, bladderFill: 0.4, labels: !st.result }).replace(/<\/svg>\s*$/, `${extra}</svg>`);
       };
       const captions = [...o.steps, o.result[view]];
