@@ -5,7 +5,7 @@ import { segmented, toggle, modelLayout, optionTabs, takeaways, stepPlayer } fro
 
 const T = (k) => t(`puv.${k}`);
 
-// ---------- 1. How it forms ----------
+// ---------- Why it happens (shown last) ----------
 
 function renderEmbryology(root) {
   const s = { mode: 'valves', voiding: true };

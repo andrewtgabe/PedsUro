@@ -24,7 +24,7 @@ export default {
   },
 
   pathology: {
-    intro: 'Una abertura estrecha cambia cómo sale la orina, como cuando se pone el pulgar en la punta de una manguera de jardín.',
+    intro: 'La estenosis del meato significa que la abertura en la punta del pene es demasiado estrecha. Una abertura estrecha cambia cómo sale la orina, como cuando se pone el pulgar en la punta de una manguera de jardín.',
     modeLabel: 'Abertura',
     modes: { normal: 'Normal', narrow: 'Estrecha' },
     pee: 'Orinando',

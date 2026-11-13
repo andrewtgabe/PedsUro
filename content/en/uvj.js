@@ -18,7 +18,7 @@ export default {
 
   pathology: {
     intro:
-      'Because the narrow spot is at the bottom, urine backs up all the way: the ureter and the kidney’s collecting area both swell.',
+      'In a UVJ obstruction, there is a narrow spot where the ureter joins the bladder. Because the narrow spot is at the bottom, urine backs up all the way: the ureter and the kidney’s collecting area both swell.',
     severityLabel: 'Width of the ureter',
     severity: ['Mild', 'Moderate', 'Severe'],
     severityText: [

@@ -6,7 +6,7 @@ import { segmented, toggle, slider, animate, modelLayout, optionTabs, takeaways,
 const T = (k) => t(`upj.${k}`);
 const SEVERITY = [0.35, 0.65, 1];
 
-// ---------- 1. How it forms ----------
+// ---------- Why it happens (shown last) ----------
 
 // Crossing vessel: on a loop, extra urine backs up behind the vessel, the kidney swells
 // (a pain episode), then slowly drains. Returns a stop function.

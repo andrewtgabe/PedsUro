@@ -7,7 +7,7 @@ const T = (k) => t(`labial.${k}`);
 const labels = () => T('labels');
 const pct = (v) => `${Math.round(v * 100)}%`;
 
-// ---------- 1. How it forms ----------
+// ---------- Why it happens (shown last) ----------
 
 function renderEmbryology(root) {
   const steps = T('embryology.steps');

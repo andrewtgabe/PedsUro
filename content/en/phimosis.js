@@ -27,7 +27,7 @@ export default {
   },
 
   pathology: {
-    intro: 'A tight foreskin is usually normal in young boys. A few situations need attention.',
+    intro: 'Phimosis means the foreskin is too tight to pull back over the head of the penis. A tight foreskin is usually normal in young boys. A few situations need attention.',
     typeLabel: 'Situation',
     types: {
       normal: { name: 'Normal tight foreskin', text: 'Tight but healthy skin that will loosen with time. No treatment is needed unless it causes problems.' },

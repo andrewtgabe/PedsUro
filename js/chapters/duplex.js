@@ -6,7 +6,7 @@ import { segmented, animate, modelLayout, optionTabs, takeaways } from '../ui.js
 const T = (k) => t(`duplex.${k}`);
 const lbl = (x, y, txt, anchor = 'start') => `<text class="lbl small" x="${x}" y="${y}" text-anchor="${anchor}">${txt}</text>`;
 
-// ---------- 1. How it forms ----------
+// ---------- Why it happens (shown last) ----------
 
 function embryoSvg(type) {
   const kidney = `<path class="kidney" d="M78 36 C132 36 134 150 78 150 C48 150 38 126 44 110 C32 94 40 36 78 36 Z" opacity="0.6"/>`;

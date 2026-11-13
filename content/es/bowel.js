@@ -26,7 +26,7 @@ export default {
 
   pathology: {
     intro:
-      'Un recto lleno y estirado aprieta la vejiga e irrita sus nervios. Entonces la vejiga aguanta menos y aprieta demasiado pronto. Muchos niños con esta disfunción están estreñidos aunque evacuen todos los días.',
+      'La disfunción intestinal y vesical significa estreñimiento y problemas de la vejiga al mismo tiempo. Un recto lleno y estirado aprieta la vejiga e irrita sus nervios. Entonces la vejiga aguanta menos y aprieta demasiado pronto. Muchos niños con esta disfunción están estreñidos aunque evacuen todos los días.',
     fullLabel: '¿Qué tan lleno está el intestino?',
     full: ['Vacío', 'Algo', 'Lleno', 'Muy lleno'],
     hard: 'Excremento duro y seco',

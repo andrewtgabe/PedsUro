@@ -7,7 +7,7 @@ const T = (k) => t(`phimosis.${k}`);
 const labels = () => T('labels');
 const pct = (v) => `${Math.round(v * 100)}%`;
 
-// ---------- 1. How it forms ----------
+// ---------- Why it happens (shown last) ----------
 
 function renderEmbryology(root) {
   const ages = T('embryology.ages');

@@ -18,7 +18,7 @@ export default {
 
   pathology: {
     intro:
-      'Como la orina no puede salir fácilmente, la presión sube detrás de las válvulas. Con el tiempo esto afecta la vejiga y luego los riñones. Vea paso a paso lo que pasa.',
+      'Las válvulas de uretra posterior son pliegues extra de tejido en la uretra de un niño que bloquean en parte la salida de la orina de la vejiga. Como la orina no puede salir fácilmente, la presión sube detrás de las válvulas. Con el tiempo esto afecta la vejiga y luego los riñones. Vea paso a paso lo que pasa.',
     stepLabel: 'Paso',
     steps: [
       { name: 'Obstrucción', text: 'Las válvulas bloquean en parte la uretra. La vejiga tiene que apretar muy fuerte para sacar la orina.' },

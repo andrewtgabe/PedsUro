@@ -8,7 +8,7 @@ const SEVERITY = [0.3, 0.6, 1];
 
 const megaureter = (d, extra = {}) => ({ dilation: d, tort: d * 0.6, pelvisFill: 1, ureterFill: 1, uvj: true, ...extra });
 
-// ---------- 1. How it forms ----------
+// ---------- Why it happens (shown last) ----------
 
 function renderEmbryology(root) {
   const s = { mode: 'block' };

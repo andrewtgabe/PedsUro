@@ -15,7 +15,7 @@ const CAUSES = {
   scar: { buried: 0.7, web: 0, foreskin: false, scar: true },
 };
 
-// ---------- 1. How it forms ----------
+// ---------- Why it happens (shown last) ----------
 
 function renderEmbryology(root) {
   const s = { cause: 'fat' };

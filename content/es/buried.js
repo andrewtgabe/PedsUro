@@ -29,7 +29,7 @@ export default {
   },
 
   pathology: {
-    intro: 'Deslice para presionar suavemente la almohadilla de grasa, como lo hace el médico en el examen. El pene completo está ahí, solo escondido.',
+    intro: 'En el pene oculto, el pene es de tamaño normal pero está escondido bajo grasa o piel. La causa puede ser una almohadilla de grasa, piel suelta, una membrana hacia el escroto o una cicatriz (vea Por qué pasa). Deslice para presionar suavemente la almohadilla de grasa, como lo hace el médico en el examen. El pene completo está ahí, solo escondido.',
     pressLabel: 'Presión sobre la grasa',
     pressTicks: ['Nada', 'Firme'],
     hidden: 'Solo se ve la punta. El pene parece pequeño, pero su largo es normal.',

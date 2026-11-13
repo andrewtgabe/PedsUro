@@ -30,7 +30,7 @@ export default {
   },
 
   pathology: {
-    intro: 'El hipospadias se describe según dónde está el orificio y si el pene está curvo.',
+    intro: 'En el hipospadias, el orificio por donde sale la orina está en la parte de abajo del pene en lugar de en la punta. El hipospadias se describe según dónde está el orificio y si el pene está curvo.',
     whereLabel: '¿Dónde está el orificio?',
     where: {
       distal: { name: 'Cerca de la punta', opening: 0.2, text: 'El tipo más común (alrededor de 7 de cada 10). Muchas veces solo hay una pequeña diferencia en cómo se ve y cómo sale el chorro.' },

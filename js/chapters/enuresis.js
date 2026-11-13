@@ -57,7 +57,7 @@ function nightChart(opts) {
   </svg>`;
 }
 
-// ---------- 1. How it forms ----------
+// ---------- Why it happens (shown last) ----------
 
 function renderEmbryology(root) {
   const s = { lotsOfUrine: true, smallBladder: false, deepSleep: true };

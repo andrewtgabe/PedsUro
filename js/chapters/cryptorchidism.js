@@ -6,7 +6,7 @@ import { segmented, slider, toggle, animate, modelLayout, optionTabs, takeaways,
 const T = (k) => t(`cryptorchidism.${k}`);
 const labels = () => T('embryology.labels');
 
-// ---------- 1. How it forms ----------
+// ---------- Why it happens (shown last) ----------
 
 function renderEmbryology(root) {
   const stages = T('embryology.stages');

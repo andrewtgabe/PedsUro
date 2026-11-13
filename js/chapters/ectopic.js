@@ -6,7 +6,7 @@ import { BUILD as DUPLEX_TREATMENTS } from './duplex.js';
 
 const T = (k) => t(`ectopic.${k}`);
 
-// ---------- 1. How it forms ----------
+// ---------- Why it happens (shown last) ----------
 
 function renderEmbryology(root) {
   const s = { sex: 'girl', site: 'urethra' };

@@ -26,7 +26,7 @@ export default {
 
   pathology: {
     intro:
-      'A full, stretched rectum squeezes the bladder and irritates its nerves. The bladder then holds less and squeezes too early. Many children with BBD are constipated even if they poop every day.',
+      'Bowel and bladder dysfunction (BBD) means constipation and bladder problems happening together. A full, stretched rectum squeezes the bladder and irritates its nerves. The bladder then holds less and squeezes too early. Many children with BBD are constipated even if they poop every day.',
     fullLabel: 'How full is the bowel?',
     full: ['Empty', 'Some', 'Full', 'Very full'],
     hard: 'Hard, dry poop',

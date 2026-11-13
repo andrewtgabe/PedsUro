@@ -47,7 +47,7 @@ export default {
   },
 
   pathology: {
-    intro: 'Así se ve la parte baja de la barriga de un recién nacido con extrofia vesical. Muestre u oculte los huesos y cambie entre niño y niña.',
+    intro: 'En la extrofia vesical, la vejiga está abierta por fuera de la parte baja de la barriga al nacer. Así se ve la parte baja de la barriga de un recién nacido con extrofia vesical. Muestre u oculte los huesos y cambie entre niño y niña.',
     bonesLabel: 'Mostrar los huesos del pubis',
     featuresTitle: 'Lo que ve el médico',
     features: [

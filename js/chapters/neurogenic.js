@@ -7,7 +7,7 @@ import { bladderLabels } from './bbd.js';
 const T = (k) => t(`neurogenic.${k}`);
 const view = (o) => bladderNerves({ ...o, text: bladderLabels() });
 
-// ---------- 1. How it forms ----------
+// ---------- Why it happens (shown last) ----------
 
 function renderEmbryology(root) {
   const s = { cause: 'blocked' };

@@ -7,7 +7,7 @@ const T = (k) => t(`meatal.${k}`);
 const labels = () => T('labels');
 const view = (o) => penisSide({ circumcised: true, ...o, text: labels() });
 
-// ---------- 1. How it forms ----------
+// ---------- Why it happens (shown last) ----------
 
 function renderEmbryology(root) {
   const times = T('embryology.times');

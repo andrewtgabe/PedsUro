@@ -47,7 +47,7 @@ export default {
   },
 
   pathology: {
-    intro: 'This is what the lower belly looks like in a newborn with bladder exstrophy. Turn the bones on or off and switch between boy and girl.',
+    intro: 'In bladder exstrophy, the bladder is open on the outside of the lower belly at birth. This is what the lower belly looks like in a newborn with bladder exstrophy. Turn the bones on or off and switch between boy and girl.',
     bonesLabel: 'Show the pubic bones',
     featuresTitle: 'What the doctor sees',
     features: [

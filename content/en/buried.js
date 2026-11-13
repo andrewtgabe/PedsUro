@@ -29,7 +29,7 @@ export default {
   },
 
   pathology: {
-    intro: 'Slide to press gently on the fat pad, like the doctor does during the exam. The full penis is there, just hidden.',
+    intro: 'With a buried penis, the penis is a normal size but is hidden under fat or skin. The cause can be a fat pad, loose skin, webbing to the scrotum, or a scar (see Why it happens). Slide to press gently on the fat pad, like the doctor does during the exam. The full penis is there, just hidden.',
     pressLabel: 'Pressing on the fat pad',
     pressTicks: ['None', 'Firm'],
     hidden: 'Only the tip shows. The penis looks small, but its length is normal.',

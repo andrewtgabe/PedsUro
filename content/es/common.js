@@ -33,7 +33,7 @@ export default {
     body: 'Escanee con la cámara de su teléfono para abrir esta página.',
   },
   sections: {
-    embryology: 'Cómo se forma',
+    embryology: 'Por qué pasa',
     pathology: 'Qué está pasando',
     treatment: 'Opciones de tratamiento',
     takeaways: 'Puntos clave',

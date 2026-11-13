@@ -28,7 +28,7 @@ export default {
 
   pathology: {
     intro:
-      'La orina se produce todo el tiempo. Si no puede salir del riñón lo bastante rápido, la parte que recoge la orina se estira como un globo con agua. El uréter debajo del estrechamiento se ve normal.',
+      'En una obstrucción de la unión pieloureteral, hay un estrechamiento donde el riñón se une al uréter, el tubo que lleva la orina a la vejiga. La orina se produce todo el tiempo. Si no puede salir del riñón lo bastante rápido, la parte que recoge la orina se estira como un globo con agua. El uréter debajo del estrechamiento se ve normal.',
     severityLabel: 'Cantidad de obstrucción',
     severity: ['Leve', 'Moderada', 'Grave'],
     severityText: [

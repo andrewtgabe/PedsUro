@@ -20,7 +20,7 @@ export default {
   },
 
   pathology: {
-    intro: 'Every child’s bladder behaves differently, so tests (often urodynamics) are used to see which pattern your child has. The main goal is to protect the kidneys.',
+    intro: 'A neurogenic bladder is a bladder that does not work normally because of a problem with its nerves, such as spina bifida. Every child’s bladder behaves differently, so tests (often urodynamics) are used to see which pattern your child has. The main goal is to protect the kidneys.',
     typeLabel: 'Pattern',
     pressureLabel: 'Bladder pressure',
     kidneyRisk: 'Risk to kidneys',

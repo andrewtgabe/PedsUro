@@ -27,7 +27,7 @@ export default {
 
   pathology: {
     intro:
-      'Most duplicated kidneys work normally. Problems, when they happen, depend on where each ureter opens.',
+      'A duplicated kidney has two drainage systems, a top part and a bottom part, sometimes with two ureters. Most duplicated kidneys work normally. Problems, when they happen, depend on where each ureter opens.',
     typeLabel: 'Type',
     types: { partial: 'Partial', complete: 'Complete' },
     problemLabel: 'Problem',

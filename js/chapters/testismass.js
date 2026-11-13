@@ -6,7 +6,7 @@ import { segmented, modelLayout, optionTabs, takeaways, stepPlayer } from '../ui
 const T = (k) => t(`testismass.${k}`);
 const labels = () => T('labels');
 
-// ---------- 1. How it forms ----------
+// ---------- Why it happens (shown last) ----------
 
 function renderEmbryology(root) {
   const s = { tissue: 'germ' };

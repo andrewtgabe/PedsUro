@@ -146,7 +146,7 @@ function renderHome() {
           ${ids
             .map((id) =>
               CHAPTERS[id]
-                ? `<a class="tile ready" href="#/${id}/embryology" data-find="${`${t(`common.conditions.${id}`)} ${t(`common.blurbs.${id}`)} ${KEYWORDS[id] || ''}`.toLowerCase().replace(/"/g, '')}"><strong>${t(`common.conditions.${id}`)}</strong><span>${t(`common.blurbs.${id}`)}</span></a>`
+                ? `<a class="tile ready" href="#/${id}" data-find="${`${t(`common.conditions.${id}`)} ${t(`common.blurbs.${id}`)} ${KEYWORDS[id] || ''}`.toLowerCase().replace(/"/g, '')}"><strong>${t(`common.conditions.${id}`)}</strong><span>${t(`common.blurbs.${id}`)}</span></a>`
                 : `<div class="tile"><strong>${t(`common.conditions.${id}`)}</strong><span>${t('common.nav.comingSoon')}</span></div>`,
             )
             .join('')}
@@ -177,7 +177,8 @@ function renderHome() {
 }
 
 function renderChapter(chapter, sectionId) {
-  const sections = chapter.sections;
+  // Background ("Why it happens") comes last; families start with what is happening now.
+  const sections = [...chapter.sections.filter((x) => x.id !== 'embryology'), ...chapter.sections.filter((x) => x.id === 'embryology')];
   const index = Math.max(0, sections.findIndex((s) => s.id === sectionId));
   const section = sections[index];
   document.title = `${chapter.title()} · ${t(`common.sections.${section.id}`)}`;

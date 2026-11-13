@@ -7,7 +7,7 @@ const T = (k) => t(`hypospadias.${k}`);
 const labels = () => T('labels');
 const view = (o) => hypospadiasSide({ ...o, text: labels() });
 
-// ---------- 1. How it forms ----------
+// ---------- Why it happens (shown last) ----------
 
 function renderEmbryology(root) {
   const stages = T('embryology.stages');

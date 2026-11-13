@@ -34,7 +34,7 @@ export default {
     body: 'Scan with your phone camera to open this page.',
   },
   sections: {
-    embryology: 'How it forms',
+    embryology: 'Why it happens',
     pathology: 'What’s happening',
     treatment: 'Treatment options',
     takeaways: 'Key points',

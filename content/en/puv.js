@@ -18,7 +18,7 @@ export default {
 
   pathology: {
     intro:
-      'Because urine cannot leave easily, pressure builds up behind the valves. Over time this affects the bladder and then the kidneys. Step through what happens.',
+      'Posterior urethral valves (PUV) are extra flaps of tissue in a boy’s urethra that partly block urine leaving the bladder. Because urine cannot leave easily, pressure builds up behind the valves. Over time this affects the bladder and then the kidneys. Step through what happens.',
     stepLabel: 'Step',
     steps: [
       { name: 'Blockage', text: 'The valves partly block the urethra. The bladder has to squeeze very hard to push urine out.' },

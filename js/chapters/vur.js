@@ -5,7 +5,7 @@ import { segmented, toggle, animate, optionTabs, takeaways, stepPlayer } from '.
 
 const T = (k) => t(`vur.${k}`);
 
-// ---------- 1. How it forms ----------
+// ---------- Why it happens (shown last) ----------
 
 function embryoSvg(step, pos) {
   const budY = { normal: 236, low: 262, high: 206 }[pos];

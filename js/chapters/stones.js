@@ -5,7 +5,7 @@ import { segmented, slider, animate, modelLayout, optionTabs, takeaways, stepPla
 
 const T = (k) => t(`stones.${k}`);
 
-// ---------- 1. How it forms ----------
+// ---------- Why it happens (shown last) ----------
 
 // A jar of urine: darker and more crystals as it gets more concentrated.
 function crystalJar(conc, text) {

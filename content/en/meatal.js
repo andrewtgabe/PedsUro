@@ -24,7 +24,7 @@ export default {
   },
 
   pathology: {
-    intro: 'A narrow opening changes how urine comes out, like putting your thumb over the end of a garden hose.',
+    intro: 'Meatal stenosis means the opening at the tip of the penis is too narrow. A narrow opening changes how urine comes out, like putting your thumb over the end of a garden hose.',
     modeLabel: 'Opening',
     modes: { normal: 'Normal', narrow: 'Narrow' },
     pee: 'Peeing',

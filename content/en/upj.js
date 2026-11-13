@@ -28,7 +28,7 @@ export default {
 
   pathology: {
     intro:
-      'Urine is made all the time. If it cannot leave the kidney fast enough, the collecting area stretches like a water balloon. The ureter below the narrow spot looks normal.',
+      'In a UPJ obstruction, there is a narrow spot where the kidney joins the ureter, the tube that carries urine to the bladder. Urine is made all the time. If it cannot leave the kidney fast enough, the collecting area stretches like a water balloon. The ureter below the narrow spot looks normal.',
     severityLabel: 'Amount of blockage',
     severity: ['Mild', 'Moderate', 'Severe'],
     severityText: [

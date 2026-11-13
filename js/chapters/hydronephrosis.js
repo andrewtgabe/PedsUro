@@ -7,7 +7,7 @@ import { refluxSide } from './vur.js';
 const T = (k) => t(`hydronephrosis.${k}`);
 const SEVERITY = [0.3, 0.6, 1];
 
-// ---------- 1. How it forms ----------
+// ---------- Why it happens (shown last) ----------
 
 // Kidneys start small and low, then move up and grow.
 const STAGES = [

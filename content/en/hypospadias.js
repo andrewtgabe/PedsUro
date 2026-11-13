@@ -30,7 +30,7 @@ export default {
   },
 
   pathology: {
-    intro: 'Hypospadias is described by where the opening is, and whether the penis is curved.',
+    intro: 'In hypospadias, the opening where urine comes out is on the underside of the penis instead of at the tip. Hypospadias is described by where the opening is, and whether the penis is curved.',
     whereLabel: 'Where is the opening?',
     where: {
       distal: { name: 'Near the tip', opening: 0.2, text: 'The most common type (about 7 in 10). Often only a small difference in how it looks and how urine sprays.' },

@@ -110,7 +110,7 @@ function belly(s, sex = 'boy') {
   </svg>`;
 }
 
-// ---------- 1. How it forms ----------
+// ---------- Why it happens (shown last) ----------
 
 const TYPES = { typical: TYPICAL, epispadias: EPI, exstrophy: BE, cloacal: CE };
 

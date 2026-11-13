@@ -27,7 +27,7 @@ export default {
   },
 
   pathology: {
-    intro: 'Un prepucio apretado por lo general es normal en niños pequeños. Algunas situaciones necesitan atención.',
+    intro: 'La fimosis significa que el prepucio está demasiado apretado para bajarlo sobre la cabeza del pene. Un prepucio apretado por lo general es normal en niños pequeños. Algunas situaciones necesitan atención.',
     typeLabel: 'Situación',
     types: {
       normal: { name: 'Prepucio apretado normal', text: 'Piel apretada pero sana que se aflojará con el tiempo. No necesita tratamiento a menos que cause problemas.' },

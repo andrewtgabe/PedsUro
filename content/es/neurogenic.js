@@ -20,7 +20,7 @@ export default {
   },
 
   pathology: {
-    intro: 'La vejiga de cada niño se comporta diferente, por eso se hacen estudios (muchas veces urodinamia) para ver qué patrón tiene su hijo o hija. La meta principal es proteger los riñones.',
+    intro: 'Una vejiga neurogénica es una vejiga que no funciona normalmente por un problema en sus nervios, como la espina bífida. La vejiga de cada niño se comporta diferente, por eso se hacen estudios (muchas veces urodinamia) para ver qué patrón tiene su hijo o hija. La meta principal es proteger los riñones.',
     typeLabel: 'Patrón',
     pressureLabel: 'Presión en la vejiga',
     kidneyRisk: 'Riesgo para los riñones',

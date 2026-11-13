@@ -27,7 +27,7 @@ export default {
 
   pathology: {
     intro:
-      'La mayoría de los riñones duplicados funcionan normalmente. Cuando hay problemas, dependen de dónde se abre cada uréter.',
+      'Un riñón duplicado tiene dos sistemas de drenaje, una parte de arriba y una de abajo, a veces con dos uréteres. La mayoría de los riñones duplicados funcionan normalmente. Cuando hay problemas, dependen de dónde se abre cada uréter.',
     typeLabel: 'Tipo',
     types: { partial: 'Parcial', complete: 'Completo' },
     problemLabel: 'Problema',

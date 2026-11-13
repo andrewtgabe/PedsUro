@@ -18,7 +18,7 @@ export default {
 
   pathology: {
     intro:
-      'Como el estrechamiento está abajo, la orina se acumula en todo el camino: se hinchan tanto el uréter como la parte del riñón que recoge la orina.',
+      'En una obstrucción de la unión ureterovesical, hay un estrechamiento donde el uréter se une a la vejiga. Como el estrechamiento está abajo, la orina se acumula en todo el camino: se hinchan tanto el uréter como la parte del riñón que recoge la orina.',
     severityLabel: 'Ancho del uréter',
     severity: ['Leve', 'Moderado', 'Grave'],
     severityText: [

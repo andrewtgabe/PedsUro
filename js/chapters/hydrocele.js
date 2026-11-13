@@ -6,7 +6,7 @@ import { segmented, toggle, slider, animate, modelLayout, optionTabs, takeaways 
 const T = (k) => t(`hydrocele.${k}`);
 export const sacLabels = () => t('hydrocele.labels');
 
-// ---------- 1. How it forms (shared) ----------
+// ---------- Why it happens (shown last) (shared) ----------
 
 const OUTCOMES = {
   closed: { opening: 'closed' },

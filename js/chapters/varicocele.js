@@ -6,7 +6,7 @@ import { segmented, toggle, animate, modelLayout, optionTabs, takeaways, stepPla
 const T = (k) => t(`varicocele.${k}`);
 const labels = () => T('labels');
 
-// ---------- 1. How it forms ----------
+// ---------- Why it happens (shown last) ----------
 
 function renderEmbryology(root) {
   const s = { valves: 'leaky' };

@@ -7,7 +7,7 @@ import { segmented, toggle, slider, button, animate, modelLayout, optionTabs, ta
 const T = (k) => t(`torsion.${k}`);
 const labels = () => T('embryology.labels');
 
-// ---------- 1. How it forms ----------
+// ---------- Why it happens (shown last) ----------
 
 function renderEmbryology(root) {
   const s = { shape: 'bell', twist: 0 };
