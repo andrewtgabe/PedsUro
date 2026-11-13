@@ -130,7 +130,7 @@ function renderHome() {
   app.innerHTML = `
     <header class="home-head">
       <div class="top-row">${langSwitch()}${themeToggle()}</div>
-      <h1><span class="logo" aria-hidden="true"></span>${t('common.site.title').replace(/(\S+ \S+)$/, '<span class="keep">$1</span>')}</h1>
+      <h1>${t('common.site.title').replace(/(\S+ \S+)$/, '<span class="keep">$1</span>')}</h1>
       <p>${t('common.site.tagline')}</p>
       <p class="author">${t('common.site.author')}</p>
       <a class="visit-card" href="#/visit/visitSteps"><strong>${t('visit.card.title')}</strong><span>${t('visit.card.body')}</span></a>
