@@ -171,6 +171,8 @@ const stentPath = (pts) => {
 //   gap: 0..1 ureter cut away from the pelvis (pyeloplasty); excised: removed narrow piece shown aside
 //   stitches: new pelvis-to-ureter connection sewn; vesselBehind: crossing vessel behind the ureter
 //   nephrostomy: tube from the kidney out through the skin of the side/back, draining outside;
+//   balloon: 0..1 balloon widening a UVJ narrowing; uvjCut: ureter cut free at the bladder;
+//   tunnel: new tunnel where the ureter enters the bladder (reimplant)
 //   ureterostomy: ureter brought out to the skin; inflamed: infected kidney; stone: { at: 'calyx' | 'pelvis' | 0..1 along ureter, size, fragments }
 // Small chevrons showing which way urine moves. spec: { mode: 'down' | 'slow' | 'up', from, to, kidney }
 // or an array of them. Each chevron pulses in turn so the direction reads at a glance.
@@ -244,6 +246,9 @@ function upperTract(o, g) {
     ${o.nephrostomy ? `<g class="stent"><circle cx="${f(cs.pc[0] + 4)}" cy="${f(cs.pc[1] - 2)}" r="8"/><path d="M${f(cs.pc[0] + 4)} ${f(cs.pc[1] + 6)} L${f(cs.calyces[2][0])} ${f(cs.calyces[2][1])} L578 ${f(cs.calyces[2][1] + 40)}"/></g>
       <line class="skin" x1="566" y1="150" x2="566" y2="290"/><path class="stream" d="M580 ${f(cs.calyces[2][1] + 42)} L582 ${f(cs.calyces[2][1] + 70)}"/>` : ''}
     ${o.ureterostomy ? `<line class="skin" x1="530" y1="270" x2="530" y2="390"/><circle class="stoma" cx="528" cy="330" r="9"/>` : ''}
+    ${o.balloon ? (() => { const [a, b] = [at(pts, 0.88), at(pts, 0.97)]; const m = at(pts, 0.925); const ang = (Math.atan2(b[1] - a[1], b[0] - a[0]) * 180) / Math.PI; return `<ellipse class="balloon" cx="${f(m[0])}" cy="${f(m[1])}" rx="16" ry="${f(4 + 6 * clamp(o.balloon))}" transform="rotate(${f(ang)} ${f(m[0])} ${f(m[1])})"/>`; })() : ''}
+    ${o.uvjCut ? (() => { const c = at(pts, 0.84); return `<path class="cutline" d="M${f(c[0] - 12)} ${f(c[1])} L${f(c[0] + 12)} ${f(c[1])}"/>`; })() : ''}
+    ${o.tunnel ? (() => { const [a, b] = [at(pts, 0.86), at(pts, 1)]; return `<path class="tunnel" d="M${f(a[0])} ${f(a[1])} L${f(b[0])} ${f(b[1])}"/>`; })() : ''}
     ${o.stone ? stoneMarkup(o.stone, cs, pts) : ''}
     ${procedureMarkup(o, cs, pts, g)}
     ${o.inflamed ? `<path class="inflamed" d="${KIDNEY_PATH}"/>` : ''}

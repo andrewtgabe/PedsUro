@@ -24,7 +24,7 @@ export const KINDS = {
   torsion: { surgery: 's', manual: 'p', removal: 's' },
   upj: { ultrasound: '', scan: '', watch: 'n', drain: 'p', pyeloplasty: 's' },
   uti: { testing: '', antibiotics: 'n', imaging: '', prevention: 'n' },
-  uvj: { watch: 'n', antibiotic: 'n', balloon: 'p', ureterostomy: 's', reimplant: 's' },
+  uvj: { ultrasound: '', vcug: '', scan: '', watch: 'n', antibiotic: 'n', balloon: 'p', ureterostomy: 's', reimplant: 's' },
   varicocele: { watch: 'n', embolization: 'p', surgery: 's' },
   vur: { ultrasound: '', vcug: '', cevus: '', dmsa: '', habits: 'n', observation: 'n', antibiotic: 'n', injection: 's', reimplant: 's' },
 };
