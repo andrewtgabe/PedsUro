@@ -175,7 +175,7 @@ const stentPath = (pts) => {
 // Small chevrons showing which way urine moves. spec: { mode: 'down' | 'slow' | 'up', from, to, kidney }
 // or an array of them. Each chevron pulses in turn so the direction reads at a glance.
 function chevron(x, y, ang, mode, i) {
-  return `<path class="flow-arrow ${mode}" style="--i:${i}" d="M-7 -7 L2 0 L-7 7" transform="translate(${f(x)} ${f(y)}) rotate(${f((ang * 180) / Math.PI)})"/>`;
+  return `<path class="flow-arrow ${mode}" style="--i:${i}" d="M-4.5 -4.5 L1.5 0 L-4.5 4.5" transform="translate(${f(x)} ${f(y)}) rotate(${f((ang * 180) / Math.PI)})"/>`;
 }
 function flowArrows(spec, pts, cs) {
   return [].concat(spec).filter(Boolean).map(({ mode = 'down', from = 0.08, to = 0.96, kidney = false }) => {
