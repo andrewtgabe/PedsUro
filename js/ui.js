@@ -1,4 +1,8 @@
 // Small shared controls used by chapter models.
+import { t } from './i18n.js';
+import { KINDS } from './kinds.js';
+
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
 
 // Row of buttons where exactly one is selected. options: [[value, text], ...]
 export function segmented(label, options, current, onChange) {
@@ -33,6 +37,10 @@ export const list = (items, cls = '') => `<ul class="${cls}">${items.map((i) => 
 
 // Calls step(k) with k from 0 to 1 over `ms`, eased. Returns a stop function.
 export function animate(ms, step) {
+  if (reduceMotion.matches) {
+    step(1);
+    return () => {};
+  }
   const start = performance.now();
   let id;
   const ease = (k) => (k < 0.5 ? 2 * k * k : 1 - (-2 * k + 2) ** 2 / 2);
@@ -50,6 +58,11 @@ export function animate(ms, step) {
 //   text: { intro, pros, cons }
 //   options: [{ name, summary, pros, cons, tips?, build(viz, ctl) -> cleanup? }]
 export function optionTabs(root, text, options) {
+  // Order options from least to most involved and tag them (see kinds.js).
+  const kinds = KINDS[location.hash.split('/')[1]] || {};
+  const order = Object.keys(kinds);
+  const rank = (o) => (order.includes(o.key) ? order.indexOf(o.key) : order.length);
+  options = [...options].sort((a, b) => rank(a) - rank(b));
   root.innerHTML = `
     <p class="lead wide">${text.intro}</p>
     <div class="option-tabs" role="tablist"></div>
@@ -85,6 +98,8 @@ export function optionTabs(root, text, options) {
     const b = document.createElement('button');
     b.role = 'tab';
     b.textContent = o.name;
+    const kind = kinds[o.key];
+    if (kind && o.name.toLowerCase() !== t(`common.kinds.${kind}`).toLowerCase()) b.insertAdjacentHTML('beforeend', `<span class="kind kind-${kind}">${t(`common.kinds.${kind}`)}</span>`);
     b.addEventListener('click', () => show(i));
     tabs.append(b);
   });
@@ -159,6 +174,26 @@ export function stepPlayer(ctl, steps, draw, text) {
   const next = button(`${text.next} ▶`, () => { halt(); go(i + 1); }, 'btn');
   const play = button(`▶ ${text.play}`, () => { halt(); playFrom(0); });
   row.append(back, next, play);
+  const dots = document.createElement('div');
+  dots.className = 'step-dots';
+  steps.forEach((_, n) => {
+    const d = document.createElement('button');
+    d.textContent = n + 1;
+    d.setAttribute('aria-label', `${n + 1} / ${steps.length}`);
+    d.addEventListener('click', () => { halt(); go(n); });
+    dots.append(d);
+  });
+  let target = null;
+
+  // After a step settles, pulse the drawing parts that are new since the last step.
+  const leaves = () => [...(target?.querySelectorAll('svg.anatomy *:not(:has(*))') || [])];
+  let before = new Set();
+  const markChanges = () => {
+    const now = leaves();
+    const fresh = now.filter((el) => !before.has(el.outerHTML) && el.tagName !== 'text');
+    if (before.size && fresh.length && fresh.length < now.length * 0.5) fresh.forEach((el) => el.classList.add('changed'));
+    before = new Set(now.map((el) => el.outerHTML.replace(' class="changed"', '')));
+  };
 
   const blend = (from, to, k) => {
     const out = { ...to };
@@ -176,10 +211,14 @@ export function stepPlayer(ctl, steps, draw, text) {
     cap.innerHTML = `<strong>${n + 1} / ${steps.length}</strong>${steps[n].caption}`;
     back.disabled = n === 0;
     next.disabled = n === steps.length - 1;
+    dots.querySelectorAll('button').forEach((d, j) => d.setAttribute('aria-current', j === n));
     stop = animate(900, (k) => {
       cur = blend(from, to, k);
       draw(cur);
-      if (k >= 1) done?.();
+      if (k >= 1) {
+        markChanges();
+        done?.();
+      }
     });
   }
   function playFrom(n) {
@@ -189,7 +228,8 @@ export function stepPlayer(ctl, steps, draw, text) {
     clearTimeout(timer);
   }
 
-  ctl.append(cap, row);
+  ctl.append(cap, dots, row);
+  target = ctl.closest('.model, .viz-col')?.querySelector('.viz') || ctl.parentElement;
   cur = { ...steps[0].state };
   go(0);
   return () => { halt(); stop?.(); };

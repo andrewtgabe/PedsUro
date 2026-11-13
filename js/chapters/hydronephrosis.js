@@ -175,7 +175,7 @@ function renderTreatment(root) {
       const summary = o.links
         ? `${o.summary}</p><ul>${o.links.map(([id, txt]) => `<li><a href="#/${id}/treatment">${txt} →</a></li>`).join('')}</ul><p>`
         : o.summary;
-      return { ...o, summary, build: BUILD[key] };
+      return { key, ...o, summary, build: BUILD[key] };
     }),
   );
 }

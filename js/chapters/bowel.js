@@ -199,7 +199,7 @@ function renderTreatment(root) {
     Object.keys(BUILD).map((key) => {
       const o = T(`treatment.options.${key}`);
       const summary = key === 'seattle' ? `${o.summary}</p><p class="note"><a href="${SOURCE_URL}" target="_blank" rel="noopener">${o.source}</a>` : o.summary;
-      return { ...o, summary, build: BUILD[key] };
+      return { key, ...o, summary, build: BUILD[key] };
     }),
   );
 }

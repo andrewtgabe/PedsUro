@@ -8,7 +8,11 @@ export default {
       'For education during a visit with your child’s care team. This guide does not replace medical advice for your child.',
     author: 'Created by Andrew T. Gabrielson, MD',
   },
+  kinds: { n: 'No surgery', p: 'Procedure', s: 'Surgery' },
+  home: { common: 'Common in clinic', recent: 'Recently viewed' },
+  handout: { scan: 'Scan to see this again at home', plan: 'Our plan' },
   nav: {
+    settings: 'Language and display',
     home: 'All conditions',
     search: 'Search conditions and tests',
     noMatch: 'No matches. Try another word.',

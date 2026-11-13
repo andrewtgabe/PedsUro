@@ -73,7 +73,7 @@ function renderTreatment(root) {
     Object.keys(BUILD).map((key) => {
       const o = T(`treatment.options.${key}`);
       const summary = o.link ? `${o.summary}</p><p><a href="#/vur/pathology">${o.link} →</a>` : o.summary;
-      return { ...o, summary, build: BUILD[key] };
+      return { key, ...o, summary, build: BUILD[key] };
     }),
   );
 }

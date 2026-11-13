@@ -189,7 +189,7 @@ function renderTreatment(root) {
   return optionTabs(
     root,
     { intro: T('treatment.intro'), pros: T('treatment.pros'), cons: T('treatment.cons') },
-    Object.keys(BUILD).map((key) => ({ ...T(`treatment.options.${key}`), build: BUILD[key] })),
+    Object.keys(BUILD).map((key) => ({ key, ...T(`treatment.options.${key}`), build: BUILD[key] })),
   );
 }
 

@@ -73,7 +73,7 @@ function renderTreatment(root) {
   return optionTabs(
     root,
     { intro: T('treatment.intro'), pros: T('treatment.pros'), cons: T('treatment.cons') },
-    ['puncture', 'joining', 'reimplant', 'removal'].map((key) => ({ ...t(`duplex.treatment.options.${key}`), build: DUPLEX_TREATMENTS[key] })),
+    ['puncture', 'joining', 'reimplant', 'removal'].map((key) => ({ key, ...t(`duplex.treatment.options.${key}`), build: DUPLEX_TREATMENTS[key] })),
   );
 }
 

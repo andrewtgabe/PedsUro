@@ -68,6 +68,14 @@ const KEYWORDS = {
   exstrophy: 'exstrophy epispadias open bladder cloacal osteotomy extrofia vejiga abierta cloaca',
   imaging: 'ultrasound mag3 dmsa vcug uroflow urodynamics scan tests ultrasonido estudios pruebas',
 };
+// Shortcut row at the top of the home page.
+const COMMON = ['hydronephrosis', 'vur', 'uti', 'enuresis', 'bbd', 'cryptorchidism', 'hernia', 'phimosis'];
+
+// Chapters opened on this device, newest first (kept only in this browser).
+const recent = {
+  get: () => { try { return JSON.parse(localStorage.getItem('recent')) || []; } catch { return []; } },
+  add: (id) => { try { localStorage.setItem('recent', JSON.stringify([id, ...recent.get().filter((x) => x !== id)].slice(0, 6))); } catch {} },
+};
 const app = document.getElementById('app');
 
 // Page-view badge from hits.sh. Created once per visit and moved into each new header, so
@@ -120,9 +128,17 @@ function route() {
   const chapter = CHAPTERS[chapterId];
   if (chapter) renderChapter(chapter, sectionId);
   else renderHome();
-  if (viewCounter) app.querySelector('.lang-switch')?.after(viewCounter);
+  if (viewCounter) app.querySelector('.disclaimer')?.append(viewCounter);
   window.scrollTo(0, 0);
 }
+
+// Compact row of chapter links (recently viewed, common in clinic). Hidden while searching.
+const shortcutRow = (key, ids) =>
+  ids.length
+    ? `<section class="shortcuts"><h2>${t(`common.home.${key}`)}</h2><div class="chips">${ids
+        .map((id) => `<a class="chip" href="#/${id}">${t(`common.conditions.${id}`)}</a>`)
+        .join('')}</div></section>`
+    : '';
 
 function renderHome() {
   document.title = t('common.site.title');
@@ -130,13 +146,15 @@ function renderHome() {
   app.innerHTML = `
     <header class="home-head">
       <div class="top-row">${langSwitch()}${themeToggle()}</div>
-      <h1>${t('common.site.title').replace(/(\S+ \S+)$/, '<span class="keep">$1</span>')}</h1>
+      <h1><span class="logo" aria-hidden="true"></span>${t('common.site.title').replace(/(\S+ \S+)$/, '<span class="keep">$1</span>')}</h1>
       <p>${t('common.site.tagline')}</p>
       <p class="author">${t('common.site.author')}</p>
       <a class="visit-card" href="#/visit/visitSteps"><strong>${t('visit.card.title')}</strong><span>${t('visit.card.body')}</span></a>
       <input type="search" class="search" placeholder="${t('common.nav.search')}" aria-label="${t('common.nav.search')}">
     </header>
     <p class="no-match" hidden>${t('common.nav.noMatch')}</p>
+    ${shortcutRow('recent', recent.get().filter((id) => CHAPTERS[id] && id !== 'visit'))}
+    ${shortcutRow('common', COMMON)}
     ${Object.entries(CATALOG)
       .map(
         ([group, ids]) => `
@@ -160,6 +178,7 @@ function renderHome() {
   const plain = (x) => x.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
   app.querySelector('.search').addEventListener('input', (e) => {
     const words = plain(e.target.value).split(/\s+/).filter(Boolean);
+    app.querySelectorAll('.shortcuts').forEach((x) => (x.hidden = words.length > 0));
     let any = false;
     app.querySelectorAll('.group').forEach((g) => {
       let shown = 0;
@@ -190,12 +209,14 @@ function renderChapter(chapter, sectionId) {
       <button class="btn tools-toggle" aria-expanded="false">⋯ ${t('common.nav.tools')}</button>
       <div class="tools">
         <button class="btn" data-draw aria-pressed="false">✎ ${t('common.nav.draw')}</button>
-        <button class="btn" data-clear>${t('common.nav.clear')}</button>
+        <button class="btn" data-clear hidden>${t('common.nav.clear')}</button>
         <button class="btn" data-share>${t('common.nav.share')}</button>
         <button class="btn" data-print>${t('common.nav.print')}</button>
         <button class="btn" data-present></button>
-        ${langSwitch()}
-        ${themeToggle()}
+        <div class="settings">
+          <button class="btn settings-toggle" aria-expanded="false" aria-label="${t('common.nav.settings')}" title="${t('common.nav.settings')}">Aa ▾</button>
+          <div class="settings-pop" hidden>${langSwitch()}${themeToggle()}</div>
+        </div>
       </div>
     </header>
     ${isTranslated(chapter.id) ? '' : `<p class="callout lang-note">${t('common.nav.notTranslated')}</p>`}
@@ -217,7 +238,19 @@ function renderChapter(chapter, sectionId) {
     </footer>
     <footer class="disclaimer">${t('common.site.disclaimer')}<br>${t('common.site.author')}</footer>`;
 
+  recent.add(chapter.id);
   const sectionCleanup = section.render(app.querySelector('.section-body'));
+  const settingsBtn = app.querySelector('.settings-toggle');
+  const settingsPop = app.querySelector('.settings-pop');
+  settingsBtn.addEventListener('click', () => {
+    const open = settingsPop.hidden;
+    settingsPop.hidden = !open;
+    settingsBtn.setAttribute('aria-expanded', open);
+  });
+  const closeSettings = (e) => {
+    if (!e.target.closest('.settings')) { settingsPop.hidden = true; settingsBtn.setAttribute('aria-expanded', false); }
+  };
+  document.addEventListener('click', closeSettings);
   labelDrawings(`${chapter.title()} · ${t(`common.sections.${section.id}`)}`);
   app.querySelector('.tools-toggle').addEventListener('click', (e) => {
     const open = e.currentTarget.getAttribute('aria-expanded') !== 'true';
@@ -238,11 +271,12 @@ function renderChapter(chapter, sectionId) {
   app.querySelector('[data-draw]').addEventListener('click', (e) => {
     const on = e.currentTarget.getAttribute('aria-pressed') !== 'true';
     e.currentTarget.setAttribute('aria-pressed', on);
+    app.querySelector('[data-clear]').hidden = !on;
     ink.enable(on);
   });
   app.querySelector('[data-clear]').addEventListener('click', ink.clear);
   app.querySelector('[data-share]').addEventListener('click', showShare);
-  app.querySelector('[data-print]').addEventListener('click', () => window.print());
+  app.querySelector('[data-print]').addEventListener('click', () => (section.id === 'takeaways' ? printHandout(chapter) : window.print()));
 
   const onKey = (e) => {
     if (e.target.matches('input, textarea')) return;
@@ -259,7 +293,40 @@ function renderChapter(chapter, sectionId) {
     sectionCleanup?.();
     ink.destroy();
     document.removeEventListener('keydown', onKey);
+    document.removeEventListener('click', closeSettings);
+    // Remember this chapter's last drawing for the printed handout.
+    const svg = app.querySelector('.viz svg.anatomy');
+    if (svg) lastDrawing = { id: chapter.id, html: svg.outerHTML };
   };
+}
+
+// One-page take-home sheet: drawing, key points, call-us signs, typed plan, and a QR code.
+let lastDrawing = null;
+async function printHandout(chapter) {
+  const cards = app.querySelectorAll('.takeaways .card');
+  const plan = app.querySelector('.takeaways textarea')?.value.trim();
+  const drawing = lastDrawing?.id === chapter.id ? lastDrawing.html : '';
+  const sheet = document.createElement('div');
+  sheet.className = 'handout';
+  sheet.innerHTML = `
+    <header><h1>${chapter.title()}</h1><p>${t('common.site.title')}</p></header>
+    <div class="handout-grid">
+      ${drawing ? `<div class="handout-drawing">${drawing}</div>` : ''}
+      <div>${cards[0]?.outerHTML || ''}</div>
+    </div>
+    ${cards[1]?.outerHTML || ''}
+    ${plan ? `<section class="card"><h3>${t('common.handout.plan')}</h3><p class="plan">${plan.replace(/[<&]/g, (c) => ({ '<': '&lt;', '&': '&amp;' })[c])}</p></section>` : ''}
+    <footer><div class="qr"></div><p>${t('common.handout.scan')}<br><span class="url">${shareUrl().replace(/#.*/, '')}#/${chapter.id}</span></p></footer>
+    <p class="disclaimer">${t('common.site.disclaimer')}<br>${t('common.site.author')}</p>`;
+  document.body.append(sheet);
+  document.body.classList.add('printing-handout');
+  try {
+    const QRCode = await loadQr();
+    new QRCode(sheet.querySelector('.qr'), { text: `${shareUrl().replace(/#.*/, '')}#/${chapter.id}`, width: 110, height: 110 });
+  } catch {}
+  const done = () => { sheet.remove(); document.body.classList.remove('printing-handout'); window.removeEventListener('afterprint', done); };
+  window.addEventListener('afterprint', done);
+  setTimeout(() => window.print(), 150);
 }
 
 // Give each drawing a screen-reader name (its caption, or the page name).
