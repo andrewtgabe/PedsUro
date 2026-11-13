@@ -107,7 +107,7 @@ export default {
       vcug: {
         name: 'Cistouretrograma miccional (CUGM)',
         summary:
-          'Un CUGM busca orina que regresa (reflujo). Un tubo delgado pone tinte en la vejiga y se toman radiografías mientras el niño o la niña orina.',
+          'Un CUGM busca orina que regresa (reflujo). Un tubo delgado pone tinte en la vejiga y se toman radiografías mientras el niño o la niña orina. Por lo general, su hijo o hija toma un antibiótico preventivo antes del estudio para ayudar a prevenir una infección del riñón.',
         pros: ['Muestra claramente el reflujo y la uretra'],
         steps: [
           'Se coloca un tubo delgado y suave (sonda) por la uretra hasta la vejiga vacía.',

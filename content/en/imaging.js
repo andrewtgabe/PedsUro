@@ -88,7 +88,7 @@ export default {
   vcug: {
     intro:
       'A VCUG (voiding cystourethrogram) is an x-ray test that shows whether urine flows backward from the bladder toward the kidneys (reflux). It also shows the shape of the bladder and urethra.',
-    facts: ['Takes about 30 to 60 minutes', 'Needs a bladder catheter; numbing jelly is used', 'A small amount of x-ray', 'Usually no sedation, because your child needs to pee during the test', 'Not done during an active urine infection'],
+    facts: ['Takes about 30 to 60 minutes', 'Needs a bladder catheter; numbing jelly is used', 'A small amount of x-ray', 'Usually no sedation, because your child needs to pee during the test', 'Not done during an active urine infection', 'We usually start a preventive antibiotic before the test to help prevent a kidney infection'],
     shows: {
       label: 'During the test',
       views: { filling: 'Bladder filling', none: 'Peeing, no reflux', reflux: 'Peeing, with reflux' },

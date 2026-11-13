@@ -107,7 +107,7 @@ export default {
       vcug: {
         name: 'VCUG test',
         summary:
-          'A VCUG checks for urine flowing backward (reflux). A thin tube puts dye into the bladder, and X-ray pictures are taken while the child pees.',
+          'A VCUG checks for urine flowing backward (reflux). A thin tube puts dye into the bladder, and X-ray pictures are taken while the child pees. We usually have your child take a preventive antibiotic before the test to help prevent a kidney infection.',
         pros: ['Shows reflux and the urethra clearly'],
         steps: [
           'A thin, soft tube (catheter) is placed through the urethra into the empty bladder.',

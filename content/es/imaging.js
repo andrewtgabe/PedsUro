@@ -88,7 +88,7 @@ export default {
   vcug: {
     intro:
       'Un CUGM (cistouretrograma miccional) es un estudio con rayos X que muestra si la orina regresa de la vejiga hacia los riñones (reflujo). También muestra la forma de la vejiga y de la uretra.',
-    facts: ['Dura unos 30 a 60 minutos', 'Necesita una sonda en la vejiga; se usa un gel para adormecer', 'Una cantidad pequeña de rayos X', 'Por lo general sin sedación, porque su hijo o hija necesita orinar durante el estudio', 'No se hace durante una infección de orina activa'],
+    facts: ['Dura unos 30 a 60 minutos', 'Necesita una sonda en la vejiga; se usa un gel para adormecer', 'Una cantidad pequeña de rayos X', 'Por lo general sin sedación, porque su hijo o hija necesita orinar durante el estudio', 'No se hace durante una infección de orina activa', 'Por lo general, empezamos un antibiótico preventivo antes del estudio para ayudar a prevenir una infección del riñón'],
     shows: {
       label: 'Durante el estudio',
       views: { filling: 'La vejiga se llena', none: 'Orinando, sin reflujo', reflux: 'Orinando, con reflujo' },
