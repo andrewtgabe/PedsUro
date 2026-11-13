@@ -93,7 +93,7 @@ const CAUSES = {
   transient: (d) => ({ healthy: { arrows: NORMAL }, affected: { pelvisDilation: d * 0.7, blunt: d * 0.3, pelvisFill: 1, arrows: NORMAL }, urethraArrows: 'down' }),
   upj: (d) => ({
     healthy: { arrows: NORMAL },
-    affected: { pelvisDilation: d, pelvisFill: 1, upj: true, mark: true, arrows: [{ mode: 'slow', from: 0.03, to: 0.2 }, { mode: 'down', from: 0.31 }] },
+    affected: { pelvisDilation: d, pelvisFill: 1, upj: true, mark: true, arrows: [{ mode: 'slow', kidney: true, from: 0.03, to: 0.2 }, { mode: 'down', from: 0.31 }] },
     urethraArrows: 'down',
   }),
   uvj: (d) => ({
