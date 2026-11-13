@@ -137,7 +137,7 @@ export function refluxSide(grade, p, { bacteria = false, scar = false } = {}) {
 }
 
 function renderPathology(root) {
-  const state = { grade: 3, p: 1, bacteria: false, scar: false, voiding: false };
+  const state = { grade: 0, p: 1, bacteria: false, scar: false, voiding: false };
   const grades = T('pathology.grades');
   root.innerHTML = `
     <div class="model">
