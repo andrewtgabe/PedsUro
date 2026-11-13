@@ -2,6 +2,8 @@
 import { t } from '../i18n.js';
 import { urinaryTract, uvjSection, clamp } from '../anatomy.js';
 import { segmented, toggle, animate, optionTabs, takeaways, stepPlayer } from '../ui.js';
+import { pelvisSide } from '../bladder.js';
+import { vcugPlayer, cevusPlayer, infectionPlayer } from '../tests.js';
 
 const T = (k) => t(`vur.${k}`);
 
@@ -226,15 +228,45 @@ function uvjText() {
 
 // Each option builds its own model into `viz` and controls into `ctl`.
 const OPTIONS = {
+  // Tests first.
+  ultrasound(viz) {
+    viz.innerHTML = urinaryTract({ affected: { pelvisDilation: 0.35, pelvisFill: 1 } });
+  },
+
+  vcug: (viz, ctl) => vcugPlayer(viz, ctl, t('hydronephrosis.treatment.options.vcug')),
+
+  cevus: (viz, ctl) => cevusPlayer(viz, ctl, T('treatment.options.cevus')),
+
+  dmsa(viz, ctl) {
+    const o = T('treatment.options.dmsa');
+    const draw = (v) => (viz.innerHTML = urinaryTract({ affected: { pelvisFill: 0, scar: v === 'scar' }, healthy: { pelvisFill: 0 }, bladderFill: 0.4 }));
+    ctl.append(segmented(o.label, Object.entries(o.views), 'normal', draw));
+    draw('normal');
+  },
+
+  // Constipation presses on the bladder: it cannot empty, squeezes harder, and leftover urine grows bacteria.
   habits(viz, ctl) {
-    const s = { squeeze: false, pressure: 0.5 };
-    const draw = () => (viz.innerHTML = uvjSection({ tunnel: 0.55, ...s, text: uvjText() }));
     const o = T('treatment.options.habits');
-    ctl.append(
-      segmented(o.control, [[0.5, o.low], [1, o.high]], s.pressure, (v) => { s.pressure = v; draw(); }),
-      squeezeButton(s, draw),
-    );
-    draw();
+    viz.classList.add('two');
+    const states = [
+      { stool: 0, hard: false, after: 0.1, reflux: 0, bact: 0 },
+      { stool: 1, hard: true, after: 0.1, reflux: 0, bact: 0 },
+      { stool: 1, hard: true, after: 0.5, reflux: 0, bact: 0, left: true },
+      { stool: 1, hard: true, squeeze: true, after: 0.5, reflux: 1, bact: 0, high: true },
+      { stool: 1, hard: true, squeeze: true, after: 0.5, reflux: 1, bact: 6, spread: 1, high: true },
+      { stool: 0, hard: false, after: 0.1, reflux: 0, bact: 0 },
+    ];
+    const draw = (st) => {
+      const tract = urinaryTract({
+        affected: { ...refluxSide(3, st.reflux, { bacteria: st.spread > 0.5 }) },
+        bladderFill: st.after,
+        bladderBact: Math.round(st.bact),
+        voiding: !!st.squeeze,
+      }).replace(/<\/svg>\s*$/, `${st.left ? `<text class="lbl accent-text" x="300" y="300" text-anchor="middle">${o.leftover}</text>` : ''}${st.high ? `<text class="lbl accent-text" x="300" y="300" text-anchor="middle">${o.pressure}</text>` : ''}</svg>`);
+      viz.innerHTML = `<figure>${pelvisSide({ stool: st.stool, hard: st.hard, squeeze: !!st.squeeze, text: { ...t('bowel.labels'), rectum: o.rectum } })}</figure><figure>${tract}</figure>`;
+    };
+    const stop = stepPlayer(ctl, states.map((state, n) => ({ caption: o.steps[n], state })), draw, t('common.player'));
+    return () => { stop(); viz.classList.remove('two'); };
   },
 
   observation(viz, ctl) {
@@ -253,23 +285,8 @@ const OPTIONS = {
     draw();
   },
 
-  antibiotic(viz, ctl) {
-    const s = { bacteria: true, dose: false };
-    const o = T('treatment.options.antibiotic');
-    const draw = () => {
-      const bugs = s.bacteria && !s.dose;
-      viz.innerHTML = urinaryTract({
-        affected: refluxSide(3, 1, { bacteria: bugs }),
-        bladderFill: 0.45,
-        bladderBact: s.bacteria ? (s.dose ? 1 : 6) : 0,
-      });
-    };
-    ctl.append(
-      toggle(o.bacteria, s.bacteria, (v) => { s.bacteria = v; draw(); }),
-      toggle(o.dose, s.dose, (v) => { s.dose = v; draw(); }),
-    );
-    draw();
-  },
+  antibiotic: (viz, ctl) =>
+    infectionPlayer(viz, ctl, T('treatment.options.antibiotic'), ({ spread, sick }) => ({ ...refluxSide(3, 1), bactSpread: spread, inflamed: sick })),
 
   injection(viz, ctl) {
     const s = { squeeze: false, deflux: 0 };
@@ -338,7 +355,8 @@ function renderTreatment(root) {
   return optionTabs(
     root,
     { intro: T('treatment.intro'), pros: T('treatment.pros'), cons: T('treatment.cons') },
-    Object.keys(OPTIONS).map((key) => ({ key, ...T(`treatment.options.${key}`), build: OPTIONS[key] })),
+    // The VCUG text is shared with the hydronephrosis chapter.
+    Object.keys(OPTIONS).map((key) => ({ key, ...(key === 'vcug' ? t('hydronephrosis.treatment.options.vcug') : T(`treatment.options.${key}`)), build: OPTIONS[key] })),
   );
 }
 

@@ -61,7 +61,7 @@ export default {
 
   pathology: {
     intro:
-      'Normalmente la orina va en un solo sentido: de los riñones, por los uréteres, a la vejiga. En el RVU, algo de orina regresa hacia el riñón, por lo general cuando la vejiga aprieta para orinar.',
+      'Normalmente la orina va en un solo sentido: de los riñones, por los uréteres, a la vejiga. En el RVU, algo de orina regresa hacia el riñón, por lo general cuando la vejiga aprieta para orinar. Cerca de 1 de cada 3 niños que tienen una infección de orina con fiebre tienen RVU.',
     gradeLabel: 'Grado',
     play: 'Verlo pasar',
     infection: 'Bacterias en la vejiga',
@@ -99,13 +99,52 @@ export default {
     labelFromKidney: 'Desde el riñón',
     labelTunnel: 'Túnel',
     options: {
+      ultrasound: {
+        name: 'Ultrasonido de los riñones',
+        summary:
+          'El ultrasonido usa ondas de sonido para revisar el tamaño y la forma de los riñones y buscar hinchazón o cicatrices. No duele y no usa radiación. Por sí solo no puede mostrar el reflujo.',
+        pros: ['Sin dolor, sin agujas, sin radiación', 'Útil para las visitas de seguimiento'],
+        cons: ['No muestra el reflujo'],
+      },
+      cevus: {
+        name: 'Ultrasonido con contraste (ceVUS)',
+        summary:
+          'Como en el CUGM, una sonda delgada llena la vejiga, pero con un líquido que tiene burbujas muy pequeñas e inofensivas en lugar de tinte de rayos X. El ultrasonido observa la vejiga y los riñones mientras la vejiga se llena y mientras su hijo o hija orina. Si las burbujas suben al riñón, hay reflujo.',
+        probe: 'Ultrasonido',
+        steps: [
+          'Se coloca un tubo delgado y suave (sonda) por la uretra hasta la vejiga vacía.',
+          'Un líquido con burbujas pequeñas llena la vejiga. La sonda de ultrasonido observa cómo se llena.',
+          'La sonda de ultrasonido revisa los riñones mientras la vejiga está llena.',
+          'Su hijo o hija orina mientras se observan los riñones. Si las burbujas llegan al riñón, hay reflujo.',
+          'Se quita la sonda. Las burbujas son inofensivas y salen del cuerpo.',
+        ],
+        pros: ['Sin radiación', 'Encuentra y clasifica el reflujo como un CUGM', 'Se puede repetir en el seguimiento'],
+        cons: ['Todavía necesita una sonda en la vejiga', 'No se ofrece en todos los hospitales', 'Las imágenes de la uretra son menos claras que en un CUGM, lo que importa en algunos niños'],
+      },
+      dmsa: {
+        name: 'Gammagrafía DMSA',
+        summary:
+          'Una gammagrafía DMSA usa una cantidad muy pequeña de trazador por la vena para mostrar el tejido sano del riñón y cualquier cicatriz. Para buscar cicatrices, por lo general se hace 4 a 6 meses después de una infección del riñón, para que la infección sane. Un estudio durante una infección muestra la hinchazón de la infección, no cicatrices.',
+        label: 'Resultado',
+        views: { normal: 'Sin cicatrices', scar: 'Cicatriz después de una infección' },
+        pros: ['Muestra claramente las cicatrices del riñón', 'Muestra cuánto trabaja cada riñón'],
+        cons: ['Necesita una vía en la vena', 'Una pequeña cantidad de radiación', 'Una espera de 2 a 3 horas entre el trazador y las imágenes'],
+      },
       habits: {
         name: 'Hábitos sanos de vejiga e intestino',
         summary:
-          'Aguantar la orina y el estreñimiento suben la presión dentro de la vejiga. La presión alta puede abrir una válvula que de otra forma aguantaría, y hace más probables las infecciones.',
-        control: 'Presión en la vejiga',
-        low: 'Relajado, orinar con regularidad',
-        high: 'Aguantar la orina / estreñimiento',
+          'El estreñimiento y aguantar la orina hacen más probables el reflujo y las infecciones. Un recto lleno aprieta la vejiga, así que no puede vaciarse por completo y tiene que apretar más fuerte. La orina que queda deja crecer bacterias, y la presión alta empuja la orina hacia arriba.',
+        steps: [
+          'Con popó blanda y regular, el recto se mantiene vacío y la vejiga se llena y se vacía por completo.',
+          'Con estreñimiento, la popó dura se acumula en el recto y aprieta la parte de atrás de la vejiga.',
+          'La vejiga apretada no puede vaciarse por completo. Queda orina después de orinar.',
+          'La vejiga aprieta más fuerte para sacar la orina. La presión alta empuja la orina hacia arriba por el uréter (reflujo).',
+          'Las bacterias crecen en la orina que queda, y el reflujo puede llevarlas hasta el riñón.',
+          'Tratar el estreñimiento y orinar cada 2–3 horas vacía la vejiga y baja la presión, así que las infecciones son menos probables.',
+        ],
+        rectum: 'Recto',
+        leftover: 'Orina que queda',
+        pressure: 'Presión alta',
         pros: ['Ayuda a todo niño o niña con RVU', 'Baja el riesgo de infección', 'Ayuda a que el reflujo se quite y a que otros tratamientos funcionen'],
         cons: ['Requiere rutina diaria y paciencia', 'Puede necesitar un ablandador de heces'],
         tips: ['Orinar cada 2–3 horas mientras está despierto', 'Evacuar blando todos los días', 'Tomar agua durante el día', 'Relajarse por completo al orinar'],
@@ -114,6 +153,10 @@ export default {
         name: 'Vigilancia',
         summary:
           'Conforme los niños crecen, el túnel en la pared de la vejiga se alarga. Muchos niños, sobre todo con grados más bajos, superan el reflujo por sí solos.',
+        tips: [
+          'Grados I–II: cerca de 8 de cada 10 se quitan solos en unos 5 años.',
+          'Grado III o más alto: menos se quitan solos, cerca de 3 a 5 de cada 10 en el grado III y menos en los grados IV–V.',
+        ],
         control: 'Edad del niño o niña',
         ageUnit: 'años',
         pros: ['Sin procedimiento', 'Los grados bajos muchas veces se quitan con el tiempo'],
@@ -122,8 +165,16 @@ export default {
       antibiotic: {
         name: 'Antibiótico preventivo',
         summary:
-          'Una dosis pequeña de antibiótico cada día evita que crezcan bacterias en la orina. No corrige el reflujo, pero baja la probabilidad de que orina infectada llegue al riñón.',
-        bacteria: 'Entran bacterias a la vejiga',
+          'Una dosis pequeña de antibiótico cada día ayuda a evitar que una infección de la vejiga se convierta en una infección del riñón. No corrige el reflujo. En bebés varones con reflujo de grado más alto, la circuncisión también baja la probabilidad de infecciones de orina. Pregúntenos si tiene sentido para su hijo.',
+        steps: [
+          'Los gérmenes (bacterias) de la piel alrededor de las nalgas pueden entrar a la uretra.',
+          'Las bacterias suben a la vejiga.',
+          'Sin medicamento, las bacterias se multiplican y el reflujo las lleva por el uréter hasta el riñón.',
+          'Esto causa una infección del riñón, con fiebre. Las infecciones del riñón pueden dejar cicatrices.',
+          'Con un antibiótico diario en dosis baja, las bacterias todavía pueden entrar a la vejiga.',
+          'Pero el antibiótico no las deja multiplicarse, así que el reflujo no tiene gérmenes que llevar al riñón.',
+          'Las bacterias desaparecen y el riñón se mantiene sano.',
+        ],
         dose: 'Antibiótico diario en dosis baja',
         pros: ['Sin procedimiento', 'Baja la probabilidad de infección del riñón'],
         cons: ['Un medicamento todos los días', 'Algunas bacterias se vuelven resistentes', 'Todavía pueden ocurrir infecciones'],
@@ -172,6 +223,7 @@ export default {
       'El reflujo por sí solo no duele. La preocupación son las infecciones del riñón, que pueden dejar cicatrices.',
       'Muchos niños, sobre todo con grados más bajos, superan el RVU.',
       'Buenos hábitos para orinar y evacuar ayudan a todo niño o niña con RVU.',
+      'En bebés varones con reflujo de grado más alto, la circuncisión baja la probabilidad de infecciones de orina.',
       'Las opciones incluyen vigilar, un antibiótico preventivo, una inyección o cirugía.',
     ],
     callTitle: 'Llámenos o busque atención si su hijo o hija tiene',

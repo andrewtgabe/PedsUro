@@ -26,5 +26,5 @@ export const KINDS = {
   uti: { testing: '', antibiotics: 'n', imaging: '', prevention: 'n' },
   uvj: { watch: 'n', antibiotic: 'n', balloon: 'p', ureterostomy: 's', reimplant: 's' },
   varicocele: { watch: 'n', embolization: 'p', surgery: 's' },
-  vur: { habits: 'n', observation: 'n', antibiotic: 'n', injection: 'p', reimplant: 's' },
+  vur: { ultrasound: '', vcug: '', cevus: '', dmsa: '', habits: 'n', observation: 'n', antibiotic: 'n', injection: 's', reimplant: 's' },
 };

@@ -61,7 +61,7 @@ export default {
 
   pathology: {
     intro:
-      'Normally, urine flows one way: from the kidneys, down the ureters, into the bladder. In VUR, some urine flows back up toward the kidney, usually when the bladder squeezes to pee.',
+      'Normally, urine flows one way: from the kidneys, down the ureters, into the bladder. In VUR, some urine flows back up toward the kidney, usually when the bladder squeezes to pee. About 1 in 3 children who have a UTI with fever are found to have VUR.',
     gradeLabel: 'Grade',
     play: 'Watch it happen',
     infection: 'Bacteria in the bladder',
@@ -99,13 +99,52 @@ export default {
     labelFromKidney: 'From the kidney',
     labelTunnel: 'Tunnel',
     options: {
+      ultrasound: {
+        name: 'Kidney ultrasound',
+        summary:
+          'Ultrasound uses sound waves to check the size and shape of the kidneys and look for swelling or scars. It does not hurt and uses no radiation. It cannot show reflux by itself.',
+        pros: ['Painless, no needles, no radiation', 'Good for follow-up visits'],
+        cons: ['Does not show reflux'],
+      },
+      cevus: {
+        name: 'Contrast ultrasound (ceVUS)',
+        summary:
+          'Like a VCUG, a thin catheter fills the bladder, but with fluid that has tiny, harmless bubbles instead of X-ray dye. Ultrasound watches the bladder and kidneys while the bladder fills and while your child pees. Bubbles going up to the kidney mean reflux.',
+        probe: 'Ultrasound',
+        steps: [
+          'A thin, soft tube (catheter) is placed through the urethra into the empty bladder.',
+          'Fluid with tiny bubbles fills the bladder. The ultrasound probe watches the bladder fill.',
+          'The probe looks at the kidneys while the bladder is full.',
+          'Your child pees while the probe watches the kidneys. Bubbles reaching the kidney show reflux.',
+          'The catheter is removed. The bubbles are harmless and leave the body.',
+        ],
+        pros: ['No radiation', 'Finds and grades reflux like a VCUG', 'Can be repeated for follow-up'],
+        cons: ['Still needs a bladder catheter', 'Not offered at every hospital', 'Pictures of the urethra are less clear than a VCUG, which matters for some boys'],
+      },
+      dmsa: {
+        name: 'DMSA scan',
+        summary:
+          'A DMSA scan uses a tiny amount of tracer through an IV to show healthy kidney tissue and any scars. To look for scars, it is usually done 4 to 6 months after a kidney infection, so the infection has time to heal. A scan during an infection shows swelling from the infection, not scars.',
+        label: 'Result',
+        views: { normal: 'No scars', scar: 'Scar after an infection' },
+        pros: ['Shows kidney scars clearly', 'Shows how much each kidney does'],
+        cons: ['Needs an IV', 'Small amount of radiation', 'A 2 to 3 hour wait between the tracer and the pictures'],
+      },
       habits: {
         name: 'Healthy bladder & bowel habits',
         summary:
-          'Holding urine and constipation raise pressure inside the bladder. High pressure can push open a valve that would otherwise hold, and makes infections more likely.',
-        control: 'Bladder pressure',
-        low: 'Relaxed, regular peeing',
-        high: 'Holding urine / constipation',
+          'Constipation and holding urine make reflux and infections more likely. A full rectum presses on the bladder, so it cannot empty all the way, and the bladder has to squeeze harder. Leftover urine lets bacteria grow, and high pressure pushes urine back up.',
+        steps: [
+          'With soft, regular poops, the rectum stays empty and the bladder fills and empties all the way.',
+          'With constipation, hard poop builds up in the rectum and presses on the back of the bladder.',
+          'The squeezed bladder cannot empty all the way. Urine is left behind after peeing.',
+          'The bladder squeezes harder to push urine out. The high pressure pushes urine back up the ureter (reflux).',
+          'Bacteria grow in the leftover urine, and reflux can carry them up to the kidney.',
+          'Treating constipation and peeing every 2–3 hours empties the bladder and lowers the pressure, so infections are less likely.',
+        ],
+        rectum: 'Rectum',
+        leftover: 'Urine left behind',
+        pressure: 'High pressure',
         pros: ['Helps every child with VUR', 'Lowers infection risk', 'Helps reflux resolve and other treatments succeed'],
         cons: ['Takes daily routine and patience', 'May need a stool softener'],
         tips: ['Pee every 2–3 hours while awake', 'Soft, daily bowel movements', 'Drink water through the day', 'Relax fully when peeing'],
@@ -114,6 +153,10 @@ export default {
         name: 'Watchful waiting',
         summary:
           'As children grow, the tunnel in the bladder wall gets longer. Many children, especially with lower grades, outgrow reflux on their own.',
+        tips: [
+          'Grades I–II: about 8 in 10 go away on their own within about 5 years.',
+          'Grade III and higher: fewer go away on their own, about 3 to 5 in 10 for grade III and fewer for grades IV–V.',
+        ],
         control: 'Child’s age',
         ageUnit: 'years',
         pros: ['No procedure', 'Low grades often go away with time'],
@@ -122,8 +165,16 @@ export default {
       antibiotic: {
         name: 'Preventive antibiotic',
         summary:
-          'A small daily dose of antibiotic keeps bacteria from growing in the urine. It does not fix the reflux, but it lowers the chance that infected urine reaches the kidney.',
-        bacteria: 'Bacteria get into the bladder',
+          'A small daily dose of antibiotic helps keep a bladder infection from becoming a kidney infection. It does not fix the reflux. For baby boys with higher-grade reflux, circumcision also lowers the chance of UTIs. Ask us if it makes sense for your son.',
+        steps: [
+          'Germs (bacteria) from the skin around the bottom can get into the urethra.',
+          'The bacteria move up into the bladder.',
+          'Without medicine, the bacteria multiply, and reflux carries them up the ureter to the kidney.',
+          'This causes a kidney infection, with fever. Kidney infections can leave scars.',
+          'With a daily low-dose antibiotic, bacteria can still get into the bladder.',
+          'But the antibiotic keeps them from multiplying, so reflux has no germs to carry to the kidney.',
+          'The bacteria fade away, and the kidney stays healthy.',
+        ],
         dose: 'Daily low-dose antibiotic',
         pros: ['No procedure', 'Lowers the chance of kidney infection'],
         cons: ['A medicine every day', 'Some bacteria become resistant', 'Infections can still happen'],
@@ -172,6 +223,7 @@ export default {
       'Reflux alone does not hurt. The concern is kidney infections, which can scar the kidney.',
       'Many children, especially with lower grades, outgrow VUR.',
       'Good peeing and pooping habits help every child with VUR.',
+      'For baby boys with higher-grade reflux, circumcision lowers the chance of UTIs.',
       'Treatment choices include watching, a preventive antibiotic, an injection, or surgery.',
     ],
     callTitle: 'Call us or get seen if your child has',

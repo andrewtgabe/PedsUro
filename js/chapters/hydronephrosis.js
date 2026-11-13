@@ -3,6 +3,7 @@ import { t } from '../i18n.js';
 import { urinaryTract, drainageChart } from '../anatomy.js';
 import { segmented, toggle, slider, modelLayout, optionTabs, takeaways, stepPlayer } from '../ui.js';
 import { refluxSide } from './vur.js';
+import { vcugPlayer, infectionPlayer } from '../tests.js';
 
 const T = (k) => t(`hydronephrosis.${k}`);
 const SEVERITY = [0.3, 0.6, 1];
@@ -182,54 +183,10 @@ const BUILD = {
     return stop;
   },
 
-  // VCUG: catheter, two fill-and-pee cycles, X-ray pictures of the bladder and kidneys.
-  vcug(viz, ctl) {
-    const o = T('treatment.options.vcug');
-    const states = [
-      { fill: 0.15, reflux: 0, cath: true, shot: '' },
-      { fill: 0.9, reflux: 0, cath: true, shot: 'bladder' },
-      { fill: 0.9, reflux: 0.3, cath: true, shot: 'kidneys' },
-      { fill: 0.3, reflux: 1, cath: true, pee: true, shot: 'both' },
-      { fill: 0.9, reflux: 0.4, cath: true, shot: 'bladder' },
-      { fill: 0.3, reflux: 1, cath: true, pee: true, shot: 'both' },
-      { fill: 0.4, reflux: 0, shot: '' },
-    ];
-    const frames = { bladder: [190, 320, 220, 200], kidneys: [330, 20, 250, 250], both: [12, 12, 576, 512] };
-    const draw = (st) => {
-      const svg = urinaryTract({ affected: refluxSide(3, st.reflux), bladderFill: st.fill, catheter: st.cath, voiding: st.pee });
-      const fr = frames[st.shot];
-      const box = fr
-        ? `<g class="xray-frame"><rect x="${fr[0]}" y="${fr[1]}" width="${fr[2]}" height="${fr[3]}" rx="10"/><text class="lbl small" x="${fr[0] + 8}" y="${fr[1] + 20}">${o.xray}</text></g>`
-        : '';
-      viz.innerHTML = svg.replace(/<\/svg>\s*$/, `${box}</svg>`);
-    };
-    return stepPlayer(ctl, states.map((state, n) => ({ caption: o.steps[n], state })), draw, t('common.player'));
-  },
+  vcug: (viz, ctl) => vcugPlayer(viz, ctl, T('treatment.options.vcug')),
 
-  // Bacteria climb from the urethra to the kidney; a daily low-dose antibiotic keeps them from multiplying.
-  antibiotic(viz, ctl) {
-    const o = T('treatment.options.antibiotic');
-    const pill = `<g class="pill"><rect x="30" y="470" width="64" height="26" rx="13"/><path d="M62 470 v26"/><text class="lbl small" x="104" y="488">${o.dose}</text></g>`;
-    const states = [
-      // Each step lists urethra: later steps inherit unset keys from the first one.
-      { urethra: true, bact: 0, spread: 0 },
-      { urethra: false, bact: 3, spread: 0 },
-      { urethra: false, bact: 8, spread: 0.6 },
-      { urethra: false, bact: 8, spread: 1, sick: true },
-      { urethra: false, bact: 3, spread: 0, med: true },
-      { urethra: false, bact: 2, spread: 0, med: true },
-      { urethra: false, bact: 0, spread: 0, med: true },
-    ];
-    const draw = (st) => {
-      const svg = urinaryTract({
-        affected: { pelvisDilation: 0.6, pelvisFill: 1, bactSpread: st.spread, inflamed: !!st.sick },
-        bladderBact: Math.round(st.bact),
-        urethraBact: !!st.urethra,
-      });
-      viz.innerHTML = st.med ? svg.replace(/<\/svg>\s*$/, `${pill}</svg>`) : svg;
-    };
-    return stepPlayer(ctl, states.map((state, n) => ({ caption: o.steps[n], state })), draw, t('common.player'));
-  },
+  antibiotic: (viz, ctl) =>
+    infectionPlayer(viz, ctl, T('treatment.options.antibiotic'), ({ spread, sick }) => ({ pelvisDilation: 0.6, pelvisFill: 1, bactSpread: spread, inflamed: sick })),
 
   surgery(viz) {
     viz.innerHTML = urinaryTract(CAUSES.upj(1));

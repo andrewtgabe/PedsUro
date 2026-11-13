@@ -653,3 +653,4 @@ svg.anatomy .flow-arrow.slow { stroke: #8a3b00; animation-duration: 6.5s; animat
 svg.anatomy .flow-arrow.up { stroke: var(--warn); }
 @keyframes arrowpulse { 0%, 100% { opacity: 0.25; } 15% { opacity: 1; } 40% { opacity: 0.25; } }
 @media (prefers-reduced-motion: reduce) { svg.anatomy .flow-arrow { animation: none; opacity: 0.85; } }
+svg.anatomy .bubble { fill: #fff; stroke: #6aa7e8; stroke-width: 1.5; }
