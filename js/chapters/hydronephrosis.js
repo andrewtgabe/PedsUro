@@ -87,14 +87,30 @@ function renderEmbryology(root) {
 // ---------- 2. What's happening ----------
 
 // Affected-side drawing for each cause at a given amount of swelling (0..1).
+// Arrows show the path of urine: normal, slowed at a narrow spot, or flowing backward.
+const NORMAL = { mode: 'down', kidney: true };
 const CAUSES = {
-  transient: (d) => ({ affected: { pelvisDilation: d * 0.7, blunt: d * 0.3, pelvisFill: 1 } }),
-  upj: (d) => ({ affected: { pelvisDilation: d, pelvisFill: 1, upj: true, mark: true } }),
-  uvj: (d) => ({ affected: { dilation: d, tort: d * 0.5, pelvisFill: 1, ureterFill: 1, uvj: true, mark: true } }),
-  reflux: (d) => ({ affected: refluxSide(d < 0.5 ? 3 : d < 1 ? 4 : 5, 1), bladderFill: 0.3, voiding: true }),
+  transient: (d) => ({ healthy: { arrows: NORMAL }, affected: { pelvisDilation: d * 0.7, blunt: d * 0.3, pelvisFill: 1, arrows: NORMAL }, urethraArrows: 'down' }),
+  upj: (d) => ({
+    healthy: { arrows: NORMAL },
+    affected: { pelvisDilation: d, pelvisFill: 1, upj: true, mark: true, arrows: [{ mode: 'slow', kidney: true, from: 0.03, to: 0.2 }, { mode: 'down', from: 0.31 }] },
+    urethraArrows: 'down',
+  }),
+  uvj: (d) => ({
+    healthy: { arrows: NORMAL },
+    affected: { dilation: d, tort: d * 0.5, pelvisFill: 1, ureterFill: 1, uvj: true, mark: true, arrows: { mode: 'slow', kidney: true } },
+    urethraArrows: 'down',
+  }),
+  reflux: (d) => ({
+    healthy: { arrows: NORMAL },
+    affected: { ...refluxSide(d < 0.5 ? 3 : d < 1 ? 4 : 5, 1), arrows: { mode: 'up', kidney: true } },
+    bladderFill: 0.3,
+    voiding: true,
+    urethraArrows: 'down',
+  }),
   puv: (d) => {
-    const side = { dilation: d, tort: d * 0.6, pelvisFill: 1, ureterFill: 1 };
-    return { affected: side, healthy: side, bladderWall: 1, urethraBlock: true, bladderFill: 0.8 };
+    const side = { dilation: d, tort: d * 0.6, pelvisFill: 1, ureterFill: 1, arrows: { mode: 'slow', kidney: true } };
+    return { affected: side, healthy: side, bladderWall: 1, urethraBlock: true, bladderFill: 0.8, urethraArrows: 'slow' };
   },
 };
 const LINKS = { upj: 'upj', uvj: 'uvj', reflux: 'vur', puv: 'puv' };

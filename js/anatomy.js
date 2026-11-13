@@ -172,6 +172,33 @@ const stentPath = (pts) => {
 //   stitches: new pelvis-to-ureter connection sewn; vesselBehind: crossing vessel behind the ureter
 //   nephrostomy: tube from the kidney out through the skin of the side/back, draining outside;
 //   ureterostomy: ureter brought out to the skin; inflamed: infected kidney; stone: { at: 'calyx' | 'pelvis' | 0..1 along ureter, size, fragments }
+// Small chevrons showing which way urine moves. spec: { mode: 'down' | 'slow' | 'up', from, to, kidney }
+// or an array of them. Each chevron pulses in turn so the direction reads at a glance.
+function chevron(x, y, ang, mode, i) {
+  return `<path class="flow-arrow ${mode}" style="--i:${i}" d="M-7 -7 L2 0 L-7 7" transform="translate(${f(x)} ${f(y)}) rotate(${f((ang * 180) / Math.PI)})"/>`;
+}
+function flowArrows(spec, pts, cs) {
+  return [].concat(spec).filter(Boolean).map(({ mode = 'down', from = 0.08, to = 0.96, kidney = false }) => {
+    let out = '';
+    let i = 0;
+    if (kidney) {
+      cs.calyces.forEach(([x, y]) => {
+        const [mx, my] = [(x + cs.pc[0]) / 2, (y + cs.pc[1]) / 2];
+        const a = Math.atan2(cs.pc[1] - y, cs.pc[0] - x) + (mode === 'up' ? Math.PI : 0);
+        out += chevron(mx, my, a, mode, i++);
+      });
+    }
+    for (let t = from; t <= to + 1e-6; t += 0.13) {
+      const [x, y] = at(pts, t);
+      const [x0, y0] = at(pts, t - 0.02);
+      const [x1, y1] = at(pts, t + 0.02);
+      const a = Math.atan2(y1 - y0, x1 - x0) + (mode === 'up' ? Math.PI : 0);
+      out += chevron(x, y, a, mode, mode === 'up' ? 20 - i++ : i++);
+    }
+    return out;
+  }).join('');
+}
+
 function upperTract(o, g) {
   const pd = clamp(o.pelvisDilation ?? o.dilation ?? 0);
   const ud = clamp(o.ureterDilation ?? o.dilation ?? 0);
@@ -209,6 +236,7 @@ function upperTract(o, g) {
     ${o.vesselBehind ? vessel : ''}
     ${drawSystem([cs], [tube])}
     ${o.vesselBehind ? '' : vessel}${mark}
+    ${o.arrows ? flowArrows(o.arrows, pts, cs) : ''}
     ${o.stent ? stentPath(pts) : ''}
     ${gap > 0.05 ? `<path class="cutline" d="M${f(joint[0] - 9)} ${f(joint[1] + 2)} L${f(joint[0] + 9)} ${f(joint[1] + 2)} M${f(start[0] - 8)} ${f(start[1])} L${f(start[0] + 8)} ${f(start[1])}"/>` : ''}
     ${o.excised ? `<g class="excised"><line x1="${f(joint[0] - 46)}" y1="${f(joint[1] + 4)}" x2="${f(joint[0] - 40)}" y2="${f(joint[1] + 30)}"/></g>` : ''}
@@ -415,6 +443,7 @@ export function urinaryTract({
   bladderRed = false,
   sideLabels,
   labels = true,
+  urethraArrows = '',
 } = {}) {
   const g = bladderGeom(clamp(bladderFill));
   const bottom = g.cy + g.ry;
@@ -432,6 +461,7 @@ export function urinaryTract({
     <line class="urethra" x1="300" y1="${f(bottom)}" x2="300" y2="512"/>
     ${urethraBlock ? `<path class="valve" d="M288 ${f(bottom + 16)} L300 ${f(bottom + 24)} L312 ${f(bottom + 16)}"/>` : ''}
     ${voiding ? `<line class="stream" x1="300" y1="512" x2="300" y2="530"/>` : ''}
+    ${urethraArrows ? [0, 1].map((i) => chevron(300, bottom + 22 + i * 22, Math.PI / 2, urethraArrows, i + 12)).join('') : ''}
     <ellipse class="bladder" cx="${g.cx}" cy="${g.cy}" rx="${f(g.rx)}" ry="${f(g.ry)}" style="stroke-width:${f(9 + 14 * bladderWall)}"/>
     ${bladderRed ? `<ellipse class="bladder-red" cx="${g.cx}" cy="${g.cy}" rx="${f(g.rx - 4)}" ry="${f(g.ry - 4)}"/>` : ''}
     ${right.over}
