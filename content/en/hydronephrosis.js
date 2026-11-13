@@ -4,7 +4,7 @@ export default {
 
   embryology: {
     intro:
-      'Hydronephrosis means the part of the kidney that collects urine is stretched wider than usual. It is one of the most common things seen on ultrasounds during pregnancy.',
+      'The kidneys form early in pregnancy and start making urine by about week 10. Pick a week to see how they grow.',
     weekLabel: 'Week of pregnancy',
     stages: [
       { name: 'Week 6', title: 'The kidneys begin', text: 'The kidneys start out small and low, down near the bladder.' },
@@ -20,7 +20,7 @@ export default {
       steps: [
         { name: 'Before or at birth', text: 'The drainage pathway is still maturing. A slightly narrow spot, or a normal variation in shape, slows urine leaving the kidney, so the collecting area stretches a little.' },
         { name: 'First months', text: 'As the kidney and ureter grow and mature, the narrow spot widens and urine drains more easily. The swelling gets smaller.' },
-        { name: 'Usually by age 1 to 3', text: 'In most children the swelling goes away on its own. Follow-up ultrasounds check this; no surgery is needed.' },
+        { name: 'Usually by age 2 to 3', text: 'In most children the swelling goes away on its own, usually by age 2 to 3, but it can last longer. Follow-up ultrasounds check this; no surgery is needed.' },
       ],
     },
     extraText:
@@ -29,7 +29,7 @@ export default {
 
   pathology: {
     intro:
-      'Think of the urinary tract like a garden hose. If the hose is pinched, water backs up and the hose swells above the pinch. The swelling shows up above where urine is getting stuck.',
+      'Hydronephrosis means the part of the kidney that collects urine is stretched wider than usual. It is one of the most common things seen on ultrasounds during pregnancy, found in about 1 to 5 of every 100 pregnancies. Think of the urinary tract like a garden hose. If the hose is pinched, water backs up and the hose swells above the pinch. The swelling shows up above where urine is getting stuck.',
     causeLabel: 'Where is urine getting stuck?',
     severityLabel: 'Amount of swelling',
     severity: ['Mild', 'Moderate', 'Severe'],
@@ -41,8 +41,8 @@ export default {
     learnMore: 'Learn more',
     causes: {
       transient: {
-        name: 'Nothing stuck',
-        text: 'The collecting area is wider than usual, but urine still drains well. This is the most common reason. About 9 in 10 mild cases go away on their own, usually by age 2 to 3.',
+        name: 'Typical drainage',
+        text: 'The collecting area is wider than usual, but urine still drains well. This is the most common reason. About 9 in 10 mild cases go away on their own, usually by age 2 to 3, but it can last longer.',
       },
       upj: {
         name: 'Top of the ureter',
@@ -96,9 +96,18 @@ export default {
         name: 'VCUG test',
         summary:
           'A VCUG checks for urine flowing backward (reflux). A thin tube puts dye into the bladder, and X-ray pictures are taken while the child pees.',
-        dye: 'Show the dye',
         pros: ['Shows reflux and the urethra clearly'],
-        cons: ['Needs a bladder catheter', 'Small amount of radiation'],
+        steps: [
+          'A thin, soft tube (catheter) is placed through the urethra into the empty bladder.',
+          'Fill 1: dye flows in slowly and fills the bladder. X-ray pictures are taken of the bladder.',
+          'X-ray pictures of the kidneys are taken while the bladder is full.',
+          'Your child pees. Pictures show the bladder, the urethra and the kidneys. Here, dye flows back up to the kidney (reflux).',
+          'Fill 2: the bladder is filled with dye again. Some reflux only shows up on a second fill.',
+          'Your child pees again, and more pictures are taken of the bladder and kidneys.',
+          'The catheter is removed. The dye comes out in the urine over the next few pees.',
+        ],
+        xray: 'X-ray picture',
+        cons: ['Needs a bladder catheter', 'Small amount of radiation', 'Call us if your child gets a fever after the test'],
       },
       antibiotic: {
         name: 'Preventive antibiotic',

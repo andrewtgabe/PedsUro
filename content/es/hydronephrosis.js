@@ -4,7 +4,7 @@ export default {
 
   embryology: {
     intro:
-      'Hidronefrosis significa que la parte del riñón que recoge la orina está más ancha de lo normal. Es uno de los hallazgos más comunes en los ultrasonidos durante el embarazo.',
+      'Los riñones se forman temprano en el embarazo y empiezan a producir orina alrededor de la semana 10. Elija una semana para ver cómo crecen.',
     weekLabel: 'Semana del embarazo',
     stages: [
       { name: 'Semana 6', title: 'Empiezan los riñones', text: 'Los riñones empiezan pequeños y abajo, cerca de la vejiga.' },
@@ -20,7 +20,7 @@ export default {
       steps: [
         { name: 'Antes o al nacer', text: 'El camino de drenaje todavía está madurando. Un lugar un poco estrecho, o una variación normal de forma, hace que la orina salga más despacio del riñón, así que la zona que recoge la orina se estira un poco.' },
         { name: 'Primeros meses', text: 'Conforme el riñón y el uréter crecen y maduran, el lugar estrecho se ensancha y la orina drena con más facilidad. La hinchazón se hace más pequeña.' },
-        { name: 'Por lo general entre 1 y 3 años', text: 'En la mayoría de los niños la hinchazón se quita sola. Los ultrasonidos de seguimiento lo confirman; no se necesita cirugía.' },
+        { name: 'Por lo general entre 2 y 3 años', text: 'En la mayoría de los niños la hinchazón se quita sola, por lo general entre los 2 y 3 años, pero puede durar más. Los ultrasonidos de seguimiento lo confirman; no se necesita cirugía.' },
       ],
     },
     extraText:
@@ -29,7 +29,7 @@ export default {
 
   pathology: {
     intro:
-      'Piense en las vías urinarias como una manguera de jardín. Si la manguera se aprieta, el agua se acumula y la manguera se hincha antes del apretón. La hinchazón aparece arriba de donde la orina se está atorando.',
+      'Hidronefrosis significa que la parte del riñón que recoge la orina está más ancha de lo normal. Es uno de los hallazgos más comunes en los ultrasonidos durante el embarazo: se encuentra en cerca de 1 a 5 de cada 100 embarazos. Piense en las vías urinarias como una manguera de jardín. Si la manguera se aprieta, el agua se acumula y la manguera se hincha antes del apretón. La hinchazón aparece arriba de donde la orina se está atorando.',
     causeLabel: '¿Dónde se atora la orina?',
     severityLabel: 'Cantidad de hinchazón',
     severity: ['Leve', 'Moderada', 'Grave'],
@@ -41,8 +41,8 @@ export default {
     learnMore: 'Aprenda más',
     causes: {
       transient: {
-        name: 'Nada atorado',
-        text: 'La parte que recoge la orina está más ancha de lo normal, pero la orina drena bien. Es la causa más común. Alrededor de 9 de cada 10 casos leves se quitan solos, por lo general antes de los 2 a 3 años.',
+        name: 'Drenaje típico',
+        text: 'La parte que recoge la orina está más ancha de lo normal, pero la orina drena bien. Es la causa más común. Alrededor de 9 de cada 10 casos leves se quitan solos, por lo general antes de los 2 a 3 años, pero puede durar más.',
       },
       upj: {
         name: 'Parte alta del uréter',
@@ -96,9 +96,18 @@ export default {
         name: 'Cistouretrograma miccional (CUGM)',
         summary:
           'Un CUGM busca orina que regresa (reflujo). Un tubo delgado pone tinte en la vejiga y se toman radiografías mientras el niño o la niña orina.',
-        dye: 'Mostrar el tinte',
         pros: ['Muestra claramente el reflujo y la uretra'],
-        cons: ['Necesita una sonda en la vejiga', 'Una pequeña cantidad de radiación'],
+        steps: [
+          'Se coloca un tubo delgado y suave (sonda) por la uretra hasta la vejiga vacía.',
+          'Llenado 1: el tinte entra despacio y llena la vejiga. Se toman radiografías de la vejiga.',
+          'Se toman radiografías de los riñones mientras la vejiga está llena.',
+          'Su hijo o hija orina. Las imágenes muestran la vejiga, la uretra y los riñones. Aquí, el tinte regresa hacia el riñón (reflujo).',
+          'Llenado 2: la vejiga se llena de tinte otra vez. Algunos reflujos solo se ven en un segundo llenado.',
+          'Su hijo o hija orina otra vez y se toman más imágenes de la vejiga y los riñones.',
+          'Se quita la sonda. El tinte sale con la orina en las siguientes veces que orina.',
+        ],
+        xray: 'Radiografía',
+        cons: ['Necesita una sonda en la vejiga', 'Una pequeña cantidad de radiación', 'Llámenos si su hijo o hija tiene fiebre después del estudio'],
       },
       antibiotic: {
         name: 'Antibiótico preventivo',

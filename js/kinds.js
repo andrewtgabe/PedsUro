@@ -11,7 +11,7 @@ export const KINDS = {
   exstrophy: { newborn: '', staged: 's', cpre: 's', kelly: 's', bones: 's', epispadias: 's', continence: '' },
   hernia: { reduce: 'n', open: 's', laparoscopic: 's' },
   hydrocele: { watch: 'n', surgery: 's' },
-  hydronephrosis: { watch: 'n', antibiotic: 'n', scan: '', vcug: '', surgery: 's' },
+  hydronephrosis: { watch: 'n', scan: '', vcug: '', antibiotic: 'n', surgery: 's' },
   hypospadias: { watch: 'n', repair: 's', staged: 's', complications: '' },
   labial: { watch: 'n', estrogen: 'n', separation: 'p', aftercare: '' },
   meatal: { meatotomy: 'p', aftercare: '' },

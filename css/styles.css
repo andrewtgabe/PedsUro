@@ -532,7 +532,7 @@ svg.anatomy.chart .zone-lbl { font-weight: 600; }
   /* keep the picture on screen while reading the explanation */
   .model .viz-col { display: contents; }
   .model > .viz-col > .viz:not(.two) { position: sticky; top: 0; z-index: 4; box-shadow: 0 4px 10px rgb(0 0 0 / 0.08); }
-  .model > .viz-col > .viz svg.anatomy { max-height: 38vh; }
+  .model > .viz-col > .viz svg.anatomy { max-height: 30vh; }
 }
 
 /* ---------- dark mode: page chrome goes dark, drawings stay on a light panel.
@@ -640,3 +640,8 @@ svg.anatomy .changed { animation: changed 1.4s ease-out 1; }
 }
 
 [hidden] { display: none !important; }
+
+/* VCUG X-ray frame and daily-antibiotic capsule */
+svg.anatomy .xray-frame rect { fill: rgb(47 111 181 / 0.06); stroke: var(--accent); stroke-width: 3; stroke-dasharray: 10 6; }
+svg.anatomy .pill rect { fill: #f4c2c2; stroke: #b45b5b; stroke-width: 2; }
+svg.anatomy .pill path { stroke: #b45b5b; stroke-width: 2; }

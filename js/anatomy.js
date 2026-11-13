@@ -65,7 +65,8 @@ export function bladderGeom(fill) {
 function makeCS({ pc, tips, d = 0, blunt = 0, fill = 0, size = 1, xf = (p) => p, scale = 1 }) {
   const calyces = tips.map(([x, y]) => {
     const [ux, uy] = unit(x - pc[0], y - pc[1]);
-    return xf([x + ux * 7 * d, y + uy * 7 * d]);
+    // Calyces stay inside the kidney outline; severe swelling thins the tissue around them.
+    return xf([x + ux * 2 * d, y + uy * 2 * d]);
   });
   const k = size * scale;
   return {
@@ -74,7 +75,7 @@ function makeCS({ pc, tips, d = 0, blunt = 0, fill = 0, size = 1, xf = (p) => p,
     prx: (11 + 26 * d) * k,
     pry: (13 + 20 * d) * k,
     infW: (7 + 8 * d) * k,
-    cr: (9 + 8 * blunt + 9 * clamp(d * 2 - 1)) * k,
+    cr: (9 + 6 * blunt + 6 * clamp(d * 2 - 1)) * k,
     pap: 8 * (1 - Math.max(blunt, clamp(d * 1.6 - 0.6))) * k,
     fill: clamp(fill),
   };
