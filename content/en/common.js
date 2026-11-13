@@ -40,7 +40,7 @@ export default {
   sections: {
     embryology: 'Why it happens',
     pathology: 'What’s happening',
-    treatment: 'Management options',
+    treatment: 'Workup and management',
     takeaways: 'Key points',
     ultrasound: 'Ultrasound',
     mag3: 'MAG3 scan',
