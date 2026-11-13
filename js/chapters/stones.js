@@ -1,7 +1,8 @@
 // Kidney stones chapter.
 import { t } from '../i18n.js';
 import { urinaryTract, stoneShape, clamp } from '../anatomy.js';
-import { segmented, slider, animate, modelLayout, optionTabs, takeaways, stepPlayer } from '../ui.js';
+import { segmented, slider, modelLayout, optionTabs, takeaways, stepPlayer } from '../ui.js';
+import { ultrasoundProbe } from '../tests.js';
 
 const T = (k) => t(`stones.${k}`);
 
@@ -39,7 +40,8 @@ function renderEmbryology(root) {
     const k = conc > 0.65 ? 'bad' : conc > 0.3 ? 'mid' : 'good';
     explain.innerHTML = `<div class="callout ${k === 'good' ? 'good' : k === 'bad' ? 'warn' : ''}"><p>${T(`embryology.texts.${k}`)}</p></div>
       <h3>${T('embryology.riskTitle')}</h3><ul>${T('embryology.risks').map((x) => `<li>${x}</li>`).join('')}</ul>
-      <h3>${T('embryology.bladderTitle')}</h3><p>${T('embryology.bladder')}</p>`;
+      <h3>${T('embryology.bladderTitle')}</h3><p>${T('embryology.bladder')}</p>
+      <h3>${T('embryology.typesTitle')}</h3><ul>${T('embryology.types').map((x) => `<li>${x}</li>`).join('')}</ul>`;
   };
   ctl.append(
     segmented(T('embryology.waterLabel'), Object.entries(T('embryology.water')), s.water, (v) => { s.water = v; draw(); }),
@@ -51,26 +53,30 @@ function renderEmbryology(root) {
 // ---------- 2. What's happening ----------
 
 // Drawing options for a stone at each location; swelling above a blocking stone.
+// Arrows: urine slows above a blocking stone and moves normally below it.
+const DOWN = { mode: 'down' };
 function stoneView(where, size, fragments = false) {
   const stone = { size, fragments };
+  const flow = { healthy: { arrows: DOWN }, urethraArrows: 'down' };
   switch (where) {
-    case 'calyx': return { affected: { stone: { ...stone, at: 'calyx' }, pelvisFill: 1 } };
-    case 'pelvis': return { affected: { stone: { ...stone, at: 'pelvis' }, pelvisFill: 1 } };
-    case 'upj': return { affected: { stone: { ...stone, at: 0.05 }, pelvisDilation: 0.6, pelvisFill: 1 } };
-    case 'ureter': return { affected: { stone: { ...stone, at: 0.5 }, pelvisDilation: 0.5, ureterDilation: 0.3, pelvisFill: 1, ureterFillTop: 0.5 } };
-    case 'uvj': return { affected: { stone: { ...stone, at: 0.95 }, dilation: 0.45, pelvisFill: 1, ureterFillTop: 0.95 } };
-    case 'bladder': return { bladderStone: stone, affected: { pelvisFill: 1 } };
-    case 'bladderFormed': return { bladderStone: { ...stone, size: Math.max(1.2, size * 1.6) }, bladderWall: 0.5, affected: { pelvisFill: 1 } };
-    default: return { affected: { pelvisFill: 1 } };
+    case 'calyx': return { ...flow, affected: { stone: { ...stone, at: 'calyx' }, pelvisFill: 1, arrows: DOWN } };
+    case 'pelvis': return { ...flow, affected: { stone: { ...stone, at: 'pelvis' }, pelvisFill: 1, arrows: DOWN } };
+    case 'upj': return { ...flow, affected: { stone: { ...stone, at: 0.05 }, pelvisDilation: 0.6, pelvisFill: 1, arrows: [{ mode: 'slow', kidney: true, from: 0.03, to: 0.2 }, { mode: 'down', from: 0.15 }] } };
+    case 'ureter': return { ...flow, affected: { stone: { ...stone, at: 0.5 }, pelvisDilation: 0.5, ureterDilation: 0.3, pelvisFill: 1, ureterFillTop: 0.5, arrows: [{ mode: 'slow', from: 0, to: 0.42 }, { mode: 'down', from: 0.6 }] } };
+    case 'uvj': return { ...flow, affected: { stone: { ...stone, at: 0.95 }, dilation: 0.45, pelvisFill: 1, ureterFillTop: 0.95, arrows: { mode: 'slow', from: 0, to: 0.88 } } };
+    case 'bladder': return { ...flow, bladderStone: stone, affected: { pelvisFill: 1, arrows: DOWN } };
+    case 'bladderFormed': return { ...flow, bladderStone: { ...stone, size: Math.max(1.2, size * 1.6) }, bladderWall: 0.5, affected: { pelvisFill: 1, arrows: DOWN } };
+    default: return { ...flow, affected: { pelvisFill: 1, arrows: DOWN } };
   }
 }
+const SIZES = { small: 0.3, medium: 0.6, large: 1 };
 
 function renderPathology(root) {
   const s = { where: 'ureter', size: 'small' };
   const { viz, ctl, explain } = modelLayout(root, T('pathology.intro'));
   const where = T('pathology.where');
   const draw = () => {
-    viz.innerHTML = urinaryTract(stoneView(s.where, s.size === 'small' ? 0.35 : 1));
+    viz.innerHTML = urinaryTract(stoneView(s.where, SIZES[s.size]));
     explain.innerHTML = `<h3>${where[s.where].name}</h3><p>${where[s.where].text}</p>
       ${s.where === 'bladderFormed' ? '' : `<div class="callout"><p>${T(`pathology.sizeText.${s.size}`)}</p></div>`}
       <h3>${T('pathology.signsTitle')}</h3><ul>${T('pathology.signs').map((x) => `<li>${x}</li>`).join('')}</ul>`;
@@ -130,6 +136,29 @@ function procedure(key) {
 }
 
 const BUILD = {
+  // Ultrasound first (no radiation); low-dose CT only when needed.
+  imaging(viz, ctl) {
+    const o = T('treatment.options.imaging');
+    const draw = (v) => {
+      const svg = urinaryTract(stoneView('ureter', 0.6));
+      const extra = v === 'us'
+        ? ultrasoundProbe([566, 150, 70], o.probe)
+        : `<g class="ct-ring"><ellipse cx="300" cy="260" rx="292" ry="250" fill="none" stroke="#94a3b8" stroke-width="10" opacity="0.6"/><text class="lbl small" x="300" y="22" text-anchor="middle">${o.ct}</text></g>`;
+      viz.innerHTML = svg.replace(/<\/svg>\s*$/, `${extra}</svg>`);
+    };
+    ctl.append(segmented(o.label, Object.entries(o.methods), 'us', draw));
+    draw('us');
+  },
+
+  // Straining the urine to catch the stone for testing.
+  analysis(viz) {
+    viz.innerHTML = urinaryTract({ bladderStone: { size: 0.35 }, voiding: true, affected: { pelvisFill: 1 } });
+  },
+
+  metabolic(viz) {
+    viz.innerHTML = urinaryTract({ affected: { pelvisFill: 1 }, bladderFill: 0.8 });
+  },
+
   pass(viz, ctl) {
     const o = T('treatment.options.pass');
     // The stone travels down the ureter, into the bladder, then out.
@@ -144,6 +173,26 @@ const BUILD = {
     ctl.append(slider(o.control, { min: 0, max: 14, step: 1, value: 0, format: (v) => `${v} ${o.days}` }, draw));
     draw(0);
   },
+  // Fever with a blocking stone: drain the kidney right away with a stent or a nephrostomy tube.
+  drain(viz, ctl) {
+    const o = T('treatment.options.drain');
+    const sick = { stone: { at: 0.5, size: 0.7 }, pelvisDilation: 0.6, ureterDilation: 0.3, ureterFillTop: 0.5, pelvisFill: 1, inflamed: true, bactPelvis: true, stent: false, nephrostomy: false };
+    const holder = document.createElement('div');
+    holder.className = 'controls';
+    let stop = null;
+    const build = (method) => {
+      stop?.();
+      holder.innerHTML = '';
+      const tube = method === 'stent' ? { stent: true } : { nephrostomy: true };
+      const states = [sick, { ...sick, ...tube, pelvisDilation: 0.45 }, { ...sick, ...tube, inflamed: false, bactPelvis: false, pelvisDilation: 0.3, ureterDilation: 0.1 }];
+      const steps = states.map((st, n) => ({ caption: o[`${method}Steps`][n], state: st }));
+      stop = stepPlayer(holder, steps, (st) => (viz.innerHTML = urinaryTract({ affected: st })), t('common.player'));
+    };
+    ctl.append(segmented(o.methodLabel, Object.entries(o.methods), 'stent', build), holder);
+    build('stent');
+    return () => stop?.();
+  },
+
   ureteroscopy: procedure('ureteroscopy'),
   swl: procedure('swl'),
   // Bladder stone removal: transurethral, percutaneous or open, each step by step.

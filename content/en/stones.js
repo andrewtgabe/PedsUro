@@ -19,10 +19,18 @@ export default {
     risks: ['Not drinking enough water', 'Salty and processed foods', 'Family history of stones', 'Some medical conditions, medicines or a urine blockage', 'Not moving much (for example, after surgery or with a disability)'],
     bladderTitle: 'Stones that form in the bladder',
     bladder: 'Bladder stones in children usually form when urine sits in the bladder: a bladder that does not empty fully (such as a neurogenic bladder), a bladder made bigger with bowel (augmentation), repeated infections, or mucus. Drinking plenty and emptying the bladder regularly, including flushing (bladder washouts) if prescribed, helps prevent them.',
+    typesTitle: 'Types of stones',
+    types: [
+      'Calcium oxalate: the most common type in children.',
+      'Infection (struvite) stones: form with certain urine infections, often in children with bladder problems or a blockage.',
+      'Cystine: caused by an inherited condition. These need lifelong treatment.',
+      'Uric acid: less common, and can form when urine is very acidic.',
+      'Testing a stone shows its type, which guides how to prevent new ones.',
+    ],
   },
 
   pathology: {
-    intro: 'A stone sitting in the kidney often causes no pain. Pain starts when a stone moves into the ureter and blocks urine.',
+    intro: 'A stone sitting in the kidney often causes no pain. Pain starts when a stone moves into the ureter and blocks urine. Kidney stones are becoming more common in children, especially teenage girls. About 1 in 1,000 children are seen for a stone each year.',
     whereLabel: 'Where is the stone?',
     where: {
       calyx: { name: 'In the kidney', text: 'Usually no pain. It may be found by chance on an ultrasound, or cause blood in the urine.' },
@@ -33,20 +41,64 @@ export default {
       bladderFormed: { name: 'Formed in the bladder', text: 'A bladder stone that forms in the bladder can grow large. It can cause pain at the end of peeing, blood in the urine, a stream that suddenly stops, infections, or new leaking. In children who catheterize, the catheter may be hard to pass.' },
     },
     sizeLabel: 'Stone size',
-    sizes: { small: 'Small', large: 'Large' },
-    sizeText: { small: 'Small stones (under about 5 mm, the size of a pencil eraser tip) usually pass on their own.', large: 'Larger stones are less likely to pass and more likely to need a procedure.' },
+    sizes: { small: 'Under 4 mm', medium: '4 to 6 mm', large: 'Over 6 mm' },
+    sizeText: {
+      small: 'Under 4 mm (smaller than a pencil eraser tip): about 8 out of 10 pass on their own. If your child is not very sick, we usually try letting it pass first.',
+      medium: '4 to 6 mm: about half pass on their own. A trial of passage may be tried, but many need a procedure.',
+      large: 'Over 6 mm: almost none (about 1 in 100) pass on their own, so we usually go ahead with treatment.',
+    },
     signsTitle: 'What families may notice',
     signs: ['Severe pain in the side, back, belly or groin that comes in waves', 'Vomiting', 'Blood in the urine (pink, red or brown)', 'Young children: fussiness or vague belly pain', 'Fever (an emergency if a stone is blocking an infected kidney)'],
   },
 
   treatment: {
-    intro: 'Treatment depends on the stone’s size, where it is, and symptoms. Many stones pass on their own.',
+    intro: 'Treatment depends on the stone’s size, where it is, and symptoms. Many small stones pass on their own. For stones in the ureter, ureteroscopy is usually used. For kidney stones under about 2 cm, ureteroscopy or shock wave lithotripsy are options. For kidney stones over about 2 cm, PCNL or shock wave lithotripsy with a stent are options.',
     pros: 'Benefits',
     cons: 'Things to consider',
     options: {
+      imaging: {
+        name: 'Ultrasound or CT scan',
+        summary: 'An ultrasound is the first test for stones in children because it uses no radiation. It shows the stone and any swelling of the kidney. A low-dose CT scan is used only when the ultrasound does not answer the question, such as when planning surgery.',
+        label: 'Test',
+        methods: { us: 'Ultrasound', ct: 'Low-dose CT' },
+        probe: 'Ultrasound',
+        ct: 'CT scanner',
+        pros: ['Ultrasound: painless, no radiation', 'CT: shows small stones in the ureter very clearly'],
+        cons: ['Ultrasound can miss small stones in the ureter', 'CT uses some radiation'],
+      },
+      analysis: {
+        name: 'Stone analysis',
+        summary: 'Strain all urine through a small strainer or cloth until the stone comes out. Bring it to us, or keep pieces removed during surgery. The lab tells us what the stone is made of, which guides prevention.',
+        pros: ['Shows the type of stone', 'Simple to do at home'],
+        cons: ['Small stones can be missed'],
+      },
+      metabolic: {
+        name: 'Blood and 24-hour urine tests',
+        summary: 'Every child with a stone should have blood tests and a 24-hour urine collection. All urine for a full day is collected in a container. It shows which minerals are too high or too low, so we can choose the right diet changes or medicine.',
+        pros: ['Finds the cause of stones', 'Guides prevention'],
+        cons: ['Collecting urine for a full day takes planning', 'Hard in children still in diapers'],
+      },
+      drain: {
+        name: 'Emergency drainage',
+        summary: 'A fever with a stone blocking the kidney is an emergency. The urine has to be drained right away, along with antibiotics. A tube is placed for a short time. The stone is treated later, once the infection is gone.',
+        methodLabel: 'Type of tube',
+        methods: { stent: 'Double-J stent', neph: 'Nephrostomy tube' },
+        stentSteps: [
+          'A stone blocks the ureter and infected urine is trapped in the swollen kidney. The child has a fever and may look very sick.',
+          'With the child asleep, a small camera is passed into the bladder (no cut on the skin). A soft, thin tube (a double-J stent) is slid up past the stone so urine can drain into the bladder.',
+          'With the kidney draining and antibiotics working, the infection clears. The stone is treated later.',
+        ],
+        nephSteps: [
+          'A stone blocks the ureter and infected urine is trapped in the swollen kidney. The child has a fever and may look very sick.',
+          'Using ultrasound or x-ray to guide it, a thin tube (a nephrostomy tube) is passed through the skin of the back into the kidney. Urine drains out into a bag.',
+          'With the kidney draining and antibiotics working, the infection clears. The stone is treated later.',
+        ],
+        pros: ['Drains the infected kidney quickly', 'Protects the kidney'],
+        cons: ['The stone still needs treatment later', 'A stent can cause bladder discomfort', 'A nephrostomy tube and bag need care at home'],
+      },
       pass: {
-        name: 'Passing it',
-        summary: 'Drink plenty, take pain medicine, and sometimes a medicine (such as tamsulosin) that relaxes the ureter to help a ureteral stone pass. Strain the urine to catch the stone so it can be tested.',
+        name: 'Trial of passage +/- medical therapy',
+        summary: 'If your child is not very sick and the stone is small, we may wait for it to pass. Drink plenty and take pain medicine. Medical expulsive therapy with tamsulosin, a medicine that relaxes the ureter, can help a stone in the ureter pass. Strain the urine to catch the stone so it can be tested. About 8 out of 10 stones under 4 mm and about half of stones 4 to 6 mm pass on their own. Stones over 6 mm rarely pass (about 1 in 100).',
         control: 'Days',
         days: 'days',
         pros: ['No procedure', 'Most small stones pass within a few weeks'],
@@ -54,7 +106,7 @@ export default {
       },
       ureteroscopy: {
         name: 'Ureteroscopy',
-        summary: 'A thin camera goes up through the urethra and bladder into the ureter. A laser breaks the stone, and the pieces are removed. A stent (soft tube) may stay in for a short time.',
+        summary: 'A thin camera goes up through the urethra and bladder into the ureter. A laser breaks the stone, and the pieces are removed. A stent (soft tube) may stay in for a short time. This is the usual treatment for stones in the ureter, and an option for kidney stones under about 2 cm.',
         steps: [
           'A stone is stuck in the ureter. Urine backs up and the kidney swells.',
           'With the child asleep, a thin camera (ureteroscope) is passed through the urethra into the bladder, then up the ureter to the stone. There is no cut on the skin.',
@@ -68,7 +120,7 @@ export default {
       },
       swl: {
         name: 'Shock wave lithotripsy',
-        summary: 'Sound waves aimed from outside the body break the stone into small pieces that pass in the urine over the next weeks.',
+        summary: 'Sound waves aimed from outside the body break the stone into small pieces that pass in the urine over the next weeks. It is an option for kidney stones under about 2 cm, and for larger kidney stones along with a stent to help the pieces drain.',
         steps: [
           'A stone sits in the kidney.',
           'With the child asleep, they lie on a soft cushion on the machine. X-ray or ultrasound is used to aim exactly at the stone.',
@@ -138,7 +190,7 @@ export default {
       prevention: {
         name: 'Preventing stones',
         summary: 'About half of children who have a stone get another within 3 years. Every child with a stone should have blood tests and a 24-hour urine test to show what to change. Simple changes help a lot.',
-        tips: ['Drink water all day; urine should look pale yellow', 'Eat less salt and fewer processed foods', 'Keep normal amounts of dairy (do not cut calcium)', 'Lemon or orange juice can help', 'Limit sugary drinks'],
+        tips: ['Drink water all day; urine should look pale yellow', 'Eat less salt and fewer processed foods', 'Keep normal amounts of dairy (do not cut calcium)', 'Lemon or orange juice can help', 'Limit sugary drinks', 'Some children need a medicine, based on the 24-hour urine test: potassium citrate makes urine less likely to form stones, and a thiazide water pill lowers calcium in the urine'],
         pros: ['Lowers the chance of new stones'],
         cons: ['Long-term habits'],
       },

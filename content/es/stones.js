@@ -19,10 +19,18 @@ export default {
     risks: ['No tomar suficiente agua', 'Comidas saladas y procesadas', 'Familiares que han tenido piedras', 'Algunas condiciones médicas, medicamentos o una obstrucción de la orina', 'Moverse poco (por ejemplo, después de una cirugía o con una discapacidad)'],
     bladderTitle: 'Piedras que se forman en la vejiga',
     bladder: 'En los niños, las piedras de la vejiga por lo general se forman cuando la orina se queda en la vejiga: una vejiga que no se vacía por completo (como una vejiga neurogénica), una vejiga agrandada con intestino (ampliación), infecciones repetidas o moco. Tomar bastante líquido y vaciar la vejiga con regularidad, incluyendo lavados de vejiga si se los recetaron, ayuda a prevenirlas.',
+    typesTitle: 'Tipos de piedras',
+    types: [
+      'Oxalato de calcio: el tipo más común en los niños.',
+      'Piedras de infección (estruvita): se forman con ciertas infecciones de orina, muchas veces en niños con problemas de la vejiga o una obstrucción.',
+      'Cistina: causadas por una condición heredada. Necesitan tratamiento de por vida.',
+      'Ácido úrico: menos comunes, y se pueden formar cuando la orina es muy ácida.',
+      'Analizar una piedra muestra su tipo, lo que guía cómo prevenir piedras nuevas.',
+    ],
   },
 
   pathology: {
-    intro: 'Una piedra que está en el riñón muchas veces no causa dolor. El dolor empieza cuando la piedra pasa al uréter y bloquea la orina.',
+    intro: 'Una piedra que está en el riñón muchas veces no causa dolor. El dolor empieza cuando la piedra pasa al uréter y bloquea la orina. Las piedras en los riñones son cada vez más comunes en los niños, sobre todo en las adolescentes. Alrededor de 1 de cada 1,000 niños es atendido por una piedra cada año.',
     whereLabel: '¿Dónde está la piedra?',
     where: {
       calyx: { name: 'En el riñón', text: 'Por lo general no duele. Se puede encontrar por casualidad en un ultrasonido, o causar sangre en la orina.' },
@@ -33,20 +41,64 @@ export default {
       bladderFormed: { name: 'Formada en la vejiga', text: 'Una piedra que se forma en la vejiga puede crecer mucho. Puede causar dolor al terminar de orinar, sangre en la orina, un chorro que se corta de repente, infecciones o escapes nuevos de orina. En niños que usan sonda, puede costar trabajo pasar la sonda.' },
     },
     sizeLabel: 'Tamaño de la piedra',
-    sizes: { small: 'Pequeña', large: 'Grande' },
-    sizeText: { small: 'Las piedras pequeñas (menos de unos 5 mm, el tamaño de la punta de un borrador de lápiz) por lo general salen solas.', large: 'Las piedras más grandes tienen menos probabilidad de salir solas y más probabilidad de necesitar un procedimiento.' },
+    sizes: { small: 'Menos de 4 mm', medium: '4 a 6 mm', large: 'Más de 6 mm' },
+    sizeText: {
+      small: 'Menos de 4 mm (más pequeña que la punta de un borrador de lápiz): alrededor de 8 de cada 10 salen solas. Si su hijo o hija no está muy enfermo, por lo general primero intentamos dejar que salga.',
+      medium: '4 a 6 mm: alrededor de la mitad salen solas. Se puede intentar dejar que salga, pero muchas necesitan un procedimiento.',
+      large: 'Más de 6 mm: casi ninguna (alrededor de 1 de cada 100) sale sola, así que por lo general seguimos con el tratamiento.',
+    },
     signsTitle: 'Lo que las familias pueden notar',
     signs: ['Dolor fuerte en el costado, la espalda, la barriga o la ingle que viene en olas', 'Vómito', 'Sangre en la orina (rosada, roja o café)', 'Niños pequeños: irritabilidad o dolor de barriga difícil de ubicar', 'Fiebre (una emergencia si una piedra bloquea un riñón infectado)'],
   },
 
   treatment: {
-    intro: 'El tratamiento depende del tamaño de la piedra, de dónde está y de los síntomas. Muchas piedras salen solas.',
+    intro: 'El tratamiento depende del tamaño de la piedra, de dónde está y de los síntomas. Muchas piedras pequeñas salen solas. Para piedras en el uréter, por lo general se usa la ureteroscopia. Para piedras del riñón de menos de unos 2 cm, las opciones son la ureteroscopia o la litotricia por ondas de choque. Para piedras del riñón de más de unos 2 cm, las opciones son la PCNL o la litotricia por ondas de choque con un stent.',
     pros: 'Beneficios',
     cons: 'A tomar en cuenta',
     options: {
+      imaging: {
+        name: 'Ultrasonido o tomografía',
+        summary: 'El ultrasonido es la primera prueba para piedras en los niños porque no usa radiación. Muestra la piedra y si el riñón está hinchado. Una tomografía (CT) de dosis baja se usa solo cuando el ultrasonido no responde la pregunta, por ejemplo al planear una cirugía.',
+        label: 'Prueba',
+        methods: { us: 'Ultrasonido', ct: 'Tomografía de dosis baja' },
+        probe: 'Ultrasonido',
+        ct: 'Tomógrafo',
+        pros: ['Ultrasonido: sin dolor, sin radiación', 'Tomografía: muestra muy bien las piedras pequeñas en el uréter'],
+        cons: ['El ultrasonido puede no ver piedras pequeñas en el uréter', 'La tomografía usa algo de radiación'],
+      },
+      analysis: {
+        name: 'Análisis de la piedra',
+        summary: 'Cuele toda la orina con un colador pequeño o una tela hasta que salga la piedra. Tráiganosla, o guarde los pedazos que se saquen en una cirugía. El laboratorio nos dice de qué está hecha la piedra, lo que guía la prevención.',
+        pros: ['Muestra el tipo de piedra', 'Fácil de hacer en casa'],
+        cons: ['Las piedras pequeñas se pueden perder'],
+      },
+      metabolic: {
+        name: 'Análisis de sangre y de orina de 24 horas',
+        summary: 'Todo niño con una piedra debe hacerse análisis de sangre y una recolección de orina de 24 horas. Toda la orina de un día completo se junta en un recipiente. Muestra qué minerales están muy altos o muy bajos, para escoger los cambios de dieta o el medicamento correctos.',
+        pros: ['Encuentra la causa de las piedras', 'Guía la prevención'],
+        cons: ['Juntar la orina de un día completo requiere planear', 'Difícil en niños que todavía usan pañal'],
+      },
+      drain: {
+        name: 'Drenaje de emergencia',
+        summary: 'Una fiebre con una piedra que bloquea el riñón es una emergencia. Hay que drenar la orina de inmediato, junto con antibióticos. Se pone un tubo por un tiempo corto. La piedra se trata después, cuando la infección se haya quitado.',
+        methodLabel: 'Tipo de tubo',
+        methods: { stent: 'Stent doble J', neph: 'Tubo de nefrostomía' },
+        stentSteps: [
+          'Una piedra bloquea el uréter y hay orina infectada atrapada en el riñón hinchado. El niño o la niña tiene fiebre y puede verse muy enfermo.',
+          'Con el niño o la niña dormido, se pasa una cámara pequeña a la vejiga (sin cortes en la piel). Un tubo suave y delgado (un stent doble J) se sube más allá de la piedra para que la orina drene a la vejiga.',
+          'Con el riñón drenando y los antibióticos funcionando, la infección se quita. La piedra se trata después.',
+        ],
+        nephSteps: [
+          'Una piedra bloquea el uréter y hay orina infectada atrapada en el riñón hinchado. El niño o la niña tiene fiebre y puede verse muy enfermo.',
+          'Con ayuda de ultrasonido o rayos X, se pasa un tubo delgado (un tubo de nefrostomía) por la piel de la espalda hasta el riñón. La orina drena hacia una bolsa.',
+          'Con el riñón drenando y los antibióticos funcionando, la infección se quita. La piedra se trata después.',
+        ],
+        pros: ['Drena rápido el riñón infectado', 'Protege el riñón'],
+        cons: ['La piedra todavía necesita tratamiento después', 'Un stent puede causar molestia en la vejiga', 'El tubo de nefrostomía y la bolsa necesitan cuidado en casa'],
+      },
       pass: {
-        name: 'Dejarla salir',
-        summary: 'Tomar bastante líquido, medicina para el dolor y a veces un medicamento (como la tamsulosina) que relaja el uréter para ayudar a que salga una piedra del uréter. Cuele la orina para atrapar la piedra y poder analizarla.',
+        name: 'Prueba de expulsión +/- tratamiento médico',
+        summary: 'Si su hijo o hija no está muy enfermo y la piedra es pequeña, podemos esperar a que salga. Tome bastante líquido y medicina para el dolor. El tratamiento médico expulsivo con tamsulosina, un medicamento que relaja el uréter, puede ayudar a que salga una piedra del uréter. Cuele la orina para atrapar la piedra y poder analizarla. Alrededor de 8 de cada 10 piedras de menos de 4 mm y alrededor de la mitad de las de 4 a 6 mm salen solas. Las de más de 6 mm casi nunca salen (alrededor de 1 de cada 100).',
         control: 'Días',
         days: 'días',
         pros: ['Sin procedimiento', 'La mayoría de las piedras pequeñas salen en pocas semanas'],
@@ -54,7 +106,7 @@ export default {
       },
       ureteroscopy: {
         name: 'Ureteroscopía',
-        summary: 'Una cámara delgada sube por la uretra y la vejiga hasta el uréter. Un láser rompe la piedra y se sacan los pedazos. Se puede dejar un stent (tubito blando) por un tiempo corto.',
+        summary: 'Una cámara delgada sube por la uretra y la vejiga hasta el uréter. Un láser rompe la piedra y se sacan los pedazos. Se puede dejar un stent (tubito blando) por un tiempo corto. Es el tratamiento usual para piedras en el uréter, y una opción para piedras del riñón de menos de unos 2 cm.',
         steps: [
           'Una piedra está atorada en el uréter. La orina se regresa y el riñón se hincha.',
           'Con el niño o la niña dormido, se pasa una cámara delgada (ureteroscopio) por la uretra hasta la vejiga, y luego por el uréter hasta la piedra. No hay cortes en la piel.',
@@ -68,7 +120,7 @@ export default {
       },
       swl: {
         name: 'Litotricia con ondas de choque',
-        summary: 'Ondas de sonido dirigidas desde fuera del cuerpo rompen la piedra en pedazos pequeños que salen con la orina en las siguientes semanas.',
+        summary: 'Ondas de sonido dirigidas desde fuera del cuerpo rompen la piedra en pedazos pequeños que salen con la orina en las siguientes semanas. Es una opción para piedras del riñón de menos de unos 2 cm, y para piedras más grandes junto con un stent que ayuda a drenar los pedazos.',
         steps: [
           'Hay una piedra en el riñón.',
           'Con el niño o la niña dormido, se acuesta sobre un cojín suave en la máquina. Se usan rayos X o ultrasonido para apuntar justo a la piedra.',
@@ -138,7 +190,7 @@ export default {
       prevention: {
         name: 'Prevenir las piedras',
         summary: 'Alrededor de la mitad de los niños que tienen una piedra tienen otra en menos de 3 años. Todo niño con una piedra debe hacerse análisis de sangre y un examen de orina de 24 horas para ver qué cambiar. Cambios sencillos ayudan mucho.',
-        tips: ['Tomar agua todo el día; la orina debe verse amarillo claro', 'Comer menos sal y menos comida procesada', 'Mantener cantidades normales de lácteos (no quitar el calcio)', 'El jugo de limón o de naranja puede ayudar', 'Limitar las bebidas azucaradas'],
+        tips: ['Tomar agua todo el día; la orina debe verse amarillo claro', 'Comer menos sal y menos comida procesada', 'Mantener cantidades normales de lácteos (no quitar el calcio)', 'El jugo de limón o de naranja puede ayudar', 'Limitar las bebidas azucaradas', 'Algunos niños necesitan un medicamento, según el examen de orina de 24 horas: el citrato de potasio hace que la orina tenga menos probabilidad de formar piedras, y una pastilla de agua (tiazida) baja el calcio en la orina'],
         pros: ['Baja la probabilidad de piedras nuevas'],
         cons: ['Hábitos a largo plazo'],
       },

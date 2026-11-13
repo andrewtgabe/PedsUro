@@ -17,7 +17,7 @@ export const KINDS = {
   neurogenic: { cic: 'n', medicine: 'n', botox: 'p', augment: 's', channel: 's' },
   phimosis: { care: 'n', steroid: 'n', preputioplasty: 's', circumcision: 's', reduction: 'p' },
   puv: { catheter: 'p', ablation: 'p', vesicostomy: 's', bladder: '', kidney: '' },
-  stones: { pass: 'n', swl: 'p', ureteroscopy: 'p', bladderRemoval: 'p', pcnl: 's', prevention: '' },
+  stones: { imaging: '', analysis: '', metabolic: '', pass: 'n', drain: 'p', ureteroscopy: 'p', swl: 'p', pcnl: 's', bladderRemoval: 'p', prevention: '' },
   testismass: { partial: 's', radical: 's', after: '' },
   // Torsion keeps emergency surgery first: it is the standard treatment.
   torsion: { surgery: 's', manual: 'p', removal: 's' },
