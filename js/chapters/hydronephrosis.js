@@ -1,9 +1,9 @@
 // Hydronephrosis chapter: overview of kidney swelling and its causes.
 import { t } from '../i18n.js';
-import { urinaryTract, drainageChart } from '../anatomy.js';
+import { urinaryTract } from '../anatomy.js';
 import { segmented, toggle, slider, modelLayout, optionTabs, takeaways, stepPlayer } from '../ui.js';
 import { refluxSide } from './vur.js';
-import { vcugPlayer, infectionPlayer } from '../tests.js';
+import { vcugPlayer, infectionPlayer, scanPlayer } from '../tests.js';
 
 const T = (k) => t(`hydronephrosis.${k}`);
 const SEVERITY = [0.3, 0.6, 1];
@@ -151,37 +151,7 @@ const BUILD = {
     draw(0);
   },
 
-  // Drainage scan: IV, catheter, tracer, camera pictures, each kidney's share, then the drainage curve.
-  scan(viz, ctl) {
-    const o = T('treatment.options.scan');
-    viz.innerHTML = '<div data-anim></div><div data-chart></div>';
-    const anim = viz.querySelector('[data-anim]');
-    const chart = viz.querySelector('[data-chart]');
-    const roi = (cx, text) =>
-      `<g class="roi"><ellipse cx="${cx}" cy="125" rx="72" ry="102"/><text class="lbl" x="${cx}" y="252" text-anchor="middle">${text} 50%</text></g>`;
-    const states = [
-      { iv: true, k: 0, bf: 0.5 },
-      { iv: true, cath: true, k: 0, bf: 0.15 },
-      { iv: true, cath: true, cam: true, k: 0.7, bf: 0.15 },
-      { iv: true, cath: true, cam: true, k: 0.9, bf: 0.15, roi: true },
-      { iv: true, cath: true, cam: true, k: 0.6, bf: 0.15, flow: 'down' },
-      { iv: true, cath: true, cam: true, k: 0.2, bf: 0.15, flow: 'down', lasix: true },
-    ];
-    const draw = (st) => {
-      const side = { pelvisFill: st.k, flow: st.flow || '' };
-      const extra =
-        (st.cam ? '<rect class="gamma-cam" x="120" y="4" width="360" height="26" rx="8"/>' : '') +
-        (st.iv ? '<g class="iv"><path d="M560 300 C 590 260 590 200 600 180"/><circle cx="560" cy="300" r="5"/></g>' : '') +
-        (st.lasix ? '<text class="lbl small accent-text" x="560" y="170" text-anchor="end">Lasix</text>' : '') +
-        (st.roi ? roi(145, o.left) + roi(455, o.right) : '');
-      anim.innerHTML = urinaryTract({ affected: side, healthy: side, bladderFill: st.bf, catheter: !!st.cath, labels: !st.roi }).replace(/<\/svg>\s*$/, `${extra}</svg>`);
-    };
-    const stop = stepPlayer(ctl, states.map((state, n) => ({ caption: o.steps[n], state })), draw, t('common.player'));
-    const drawChart = (p) => (chart.innerHTML = drainageChart(p, o.chart));
-    ctl.append(segmented(o.patternLabel, Object.entries(o.patterns), 'normal', drawChart));
-    drawChart('normal');
-    return stop;
-  },
+  scan: (viz, ctl) => scanPlayer(viz, ctl, T('treatment.options.scan')),
 
   vcug: (viz, ctl) => vcugPlayer(viz, ctl, T('treatment.options.vcug')),
 

@@ -28,7 +28,7 @@ export default {
 
   pathology: {
     intro:
-      'In a UPJ obstruction, there is a narrow spot where the kidney joins the ureter, the tube that carries urine to the bladder. Urine is made all the time. If it cannot leave the kidney fast enough, the collecting area stretches like a water balloon. The ureter below the narrow spot looks normal.',
+      'In a UPJ obstruction, there is a narrow spot where the kidney joins the ureter, the tube that carries urine to the bladder. Urine is made all the time. If it cannot leave the kidney fast enough, the collecting area stretches like a water balloon. The ureter below the narrow spot looks normal. UPJ obstruction happens in about 1 in 1,000 to 2,000 babies. It is more common in boys and on the left side, and it is the most common cause of serious kidney swelling found before birth.',
     severityLabel: 'Amount of blockage',
     severity: ['Mild', 'Moderate', 'Severe'],
     severityText: [
@@ -37,6 +37,7 @@ export default {
       'Severe: the kidney is very stretched and its tissue gets thinner. Over time, the kidney may work less well.',
     ],
     drink: 'Drinks a lot of fluid',
+    pain: 'Pain',
     drinkText:
       'Drinking a lot makes more urine. If it cannot drain, the kidney swells fast and can cause belly or side pain, often with vomiting. Pain usually gets better as the urine slowly drains.',
     infection: 'Urine infection',
@@ -56,10 +57,30 @@ export default {
     pros: 'Benefits',
     cons: 'Things to consider',
     options: {
+      ultrasound: {
+        name: 'Kidney ultrasound',
+        summary:
+          'Ultrasound uses sound waves to see how swollen the kidney is and how thick the kidney tissue is. It does not hurt and uses no radiation. It is repeated over time to see if the swelling is getting better or worse, but it cannot show how well the kidney drains.',
+        probe: 'Ultrasound',
+        pros: ['Painless, no needles, no radiation', 'Good for follow-up visits'],
+        cons: ['Does not show how well the kidney works or drains'],
+      },
+      scan: {
+        summary:
+          'A renal scan (often called a MAG3 scan) is the main test for UPJ obstruction. A tiny amount of tracer goes in through an IV and is tracked as the kidneys make urine. It shows each kidney’s share of the work and how well it drains. Partway through, Lasix is given to make more urine. A kidney that holds on to the tracer even after Lasix is blocked.',
+        steps: [
+          'An IV is placed in the arm or hand, and extra fluid is given.',
+          'A thin, soft tube (catheter) keeps the bladder empty, unless your child is older and toilet trained.',
+          'A tiny amount of tracer goes in through the IV. A special camera takes pictures every few seconds as the kidneys pick it up.',
+          'The computer measures each kidney’s share of the work. In this example, the blocked kidney does 40% and the other kidney does 60%. A share under about 40%, or one that drops on repeat scans, is a reason for surgery.',
+          'The tracer drains out of the healthy kidney and down to the bladder. The blocked kidney holds on to it.',
+          'Lasix is given through the IV. Even with more urine, the tracer stays in the blocked kidney. This makes the flat “blocked” drainage curve below.',
+        ],
+      },
       watch: {
         name: 'Watchful waiting',
         summary:
-          'We check with ultrasounds and sometimes a kidney drainage scan. If the kidney keeps working well and the swelling stays the same or improves, no surgery is needed.',
+          'We check with ultrasounds and sometimes a kidney drainage scan. If the kidney keeps working well and the swelling stays the same or improves, no surgery is needed. About 1 in 4 babies found before birth end up needing surgery.',
         control: 'Age',
         months: 'months',
         pros: ['No surgery', 'Many babies improve on their own'],
@@ -87,7 +108,14 @@ export default {
       pyeloplasty: {
         name: 'Pyeloplasty surgery',
         summary:
-          'The surgeon removes the narrow piece and sews the wide part of the kidney to the healthy ureter. If a blood vessel is pressing, the ureter is moved in front of it. This can be done through a small cut or with a laparoscopic or robotic approach.',
+          'The surgeon removes the narrow piece and sews the wide part of the kidney to the healthy ureter. If a blood vessel is pressing, the ureter is moved in front of it. This can be done through a small cut or with a laparoscopic or robotic approach. Surgery is usually advised for:',
+        tips: [
+          'Episodes of pain',
+          'A kidney doing less than about 40% of the work, or losing function on repeat scans',
+          'Swelling that keeps getting worse',
+          'Kidney infections',
+          'Kidney stones',
+        ],
         steps: [
           'Through a small cut, or small ports for laparoscopic or robotic surgery, the surgeon reaches the kidney.',
           'The narrow piece where the kidney meets the ureter is found.',

@@ -2,6 +2,7 @@
 import { t } from '../i18n.js';
 import { urinaryTract, kidneyCloseup, peristalsis } from '../anatomy.js';
 import { segmented, toggle, slider, animate, modelLayout, optionTabs, takeaways, stepPlayer } from '../ui.js';
+import { scanPlayer, ultrasoundProbe } from '../tests.js';
 
 const T = (k) => t(`upj.${k}`);
 const SEVERITY = [0.35, 0.65, 1];
@@ -71,7 +72,7 @@ function renderPathology(root) {
       healthy: { arrows: { mode: 'down' } },
       urethraArrows: 'down',
       bladderBact: s.infection ? 3 : 0,
-    });
+    }).replace(/<\/svg>\s*$/, s.drink ? `<g class="pain"><text class="lbl accent-text" x="566" y="70" text-anchor="middle" style="font-size:34px">⚡</text><text class="lbl small accent-text" x="566" y="96" text-anchor="middle">${T('pathology.pain')}</text></g></svg>` : '</svg>');
     explain.innerHTML = `
       <div class="callout"><p>${T('pathology.severityText')[s.sev]}</p></div>
       ${s.drink ? `<div class="callout warn"><p>${T('pathology.drinkText')}</p></div>` : ''}
@@ -91,6 +92,18 @@ function renderPathology(root) {
 // ---------- 3. Treatment ----------
 
 const BUILD = {
+  ultrasound(viz) {
+    viz.innerHTML = urinaryTract({ affected: { pelvisDilation: 0.65, pelvisFill: 1, upj: true } }).replace(/<\/svg>\s*$/, `${ultrasoundProbe([566, 150, 70], T('treatment.options.ultrasound.probe'))}</svg>`);
+  },
+
+  // Drainage scan: the UPJ side takes in less tracer and holds on to it, even after Lasix.
+  scan: (viz, ctl) =>
+    scanPlayer(viz, ctl, { ...t('hydronephrosis.treatment.options.scan'), ...T('treatment.options.scan') }, {
+      split: [60, 40],
+      pattern: 'blocked',
+      affected: (st) => ({ pelvisDilation: 0.85, upj: true, pelvisFill: st.k ? Math.max(st.k, 0.85) : 0 }),
+    }),
+
   watch(viz, ctl) {
     const o = T('treatment.options.watch');
     const draw = (m) =>
@@ -133,7 +146,7 @@ const BUILD = {
       { upj: false, gap: 1, excised: true, pelvisDilation: 0.45 },
       { upj: false, gap: 0, excised: true, pelvisDilation: 0.45, stitches: true },
       { upj: false, pelvisDilation: 0.45, stitches: true, stent: true },
-      { upj: false, pelvisDilation: 0.25, flow: 'down' },
+      { upj: false, pelvisDilation: 0.15, flow: 'down' },
     ];
     const holder = document.createElement('div');
     holder.className = 'controls';
@@ -163,7 +176,8 @@ function renderTreatment(root) {
   return optionTabs(
     root,
     { intro: T('treatment.intro'), pros: T('treatment.pros'), cons: T('treatment.cons') },
-    Object.keys(BUILD).map((key) => ({ key, ...T(`treatment.options.${key}`), build: BUILD[key] })),
+    // The drainage scan shares its name, benefits and things to consider with Hydronephrosis.
+    Object.keys(BUILD).map((key) => ({ key, ...(key === 'scan' ? t('hydronephrosis.treatment.options.scan') : {}), ...T(`treatment.options.${key}`), build: BUILD[key] })),
   );
 }
 

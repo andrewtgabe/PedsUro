@@ -28,7 +28,7 @@ export default {
 
   pathology: {
     intro:
-      'En una obstrucción de la unión pieloureteral, hay un estrechamiento donde el riñón se une al uréter, el tubo que lleva la orina a la vejiga. La orina se produce todo el tiempo. Si no puede salir del riñón lo bastante rápido, la parte que recoge la orina se estira como un globo con agua. El uréter debajo del estrechamiento se ve normal.',
+      'En una obstrucción de la unión pieloureteral, hay un estrechamiento donde el riñón se une al uréter, el tubo que lleva la orina a la vejiga. La orina se produce todo el tiempo. Si no puede salir del riñón lo bastante rápido, la parte que recoge la orina se estira como un globo con agua. El uréter debajo del estrechamiento se ve normal. La obstrucción de la unión pieloureteral ocurre en alrededor de 1 de cada 1,000 a 2,000 bebés. Es más común en los niños y en el lado izquierdo, y es la causa más común de hinchazón importante del riñón que se encuentra antes de nacer.',
     severityLabel: 'Cantidad de obstrucción',
     severity: ['Leve', 'Moderada', 'Grave'],
     severityText: [
@@ -37,6 +37,7 @@ export default {
       'Grave: el riñón está muy estirado y su tejido se adelgaza. Con el tiempo, el riñón puede funcionar menos.',
     ],
     drink: 'Toma mucho líquido',
+    pain: 'Dolor',
     drinkText:
       'Tomar mucho líquido produce más orina. Si no puede drenar, el riñón se hincha rápido y puede causar dolor de barriga o de costado, muchas veces con vómito. El dolor por lo general mejora conforme la orina drena poco a poco.',
     infection: 'Infección de orina',
@@ -56,10 +57,30 @@ export default {
     pros: 'Beneficios',
     cons: 'A tomar en cuenta',
     options: {
+      ultrasound: {
+        name: 'Ultrasonido de los riñones',
+        summary:
+          'El ultrasonido usa ondas de sonido para ver qué tan hinchado está el riñón y qué tan grueso es su tejido. No duele y no usa radiación. Se repite con el tiempo para ver si la hinchazón mejora o empeora, pero no puede mostrar qué tan bien drena el riñón.',
+        probe: 'Ultrasonido',
+        pros: ['Sin dolor, sin agujas, sin radiación', 'Útil para las visitas de seguimiento'],
+        cons: ['No muestra qué tan bien funciona o drena el riñón'],
+      },
+      scan: {
+        summary:
+          'Una gammagrafía renal (muchas veces llamada MAG3) es la prueba principal para la obstrucción de la unión pieloureteral. Se pone una cantidad muy pequeña de trazador por una vía en la vena (IV) y se sigue mientras los riñones producen orina. Muestra qué parte del trabajo hace cada riñón y qué tan bien drena. A mitad de la prueba se da Lasix para producir más orina. Un riñón que retiene el trazador aun después del Lasix está bloqueado.',
+        steps: [
+          'Se pone una vía IV en el brazo o la mano, y se da líquido extra.',
+          'Un tubo delgado y suave (sonda) mantiene la vejiga vacía, a menos que su hijo o hija sea más grande y ya vaya al baño solo.',
+          'Una cantidad muy pequeña de trazador entra por la vía IV. Una cámara especial toma fotos cada pocos segundos mientras los riñones lo recogen.',
+          'La computadora mide qué parte del trabajo hace cada riñón. En este ejemplo, el riñón bloqueado hace el 40% y el otro riñón el 60%. Una parte menor de alrededor del 40%, o que baja en estudios repetidos, es una razón para la cirugía.',
+          'El trazador sale del riñón sano y baja a la vejiga. El riñón bloqueado lo retiene.',
+          'Se da Lasix por la vía IV. Aun con más orina, el trazador se queda en el riñón bloqueado. Esto forma la curva de drenaje plana de “bloqueado” que se ve abajo.',
+        ],
+      },
       watch: {
         name: 'Vigilancia',
         summary:
-          'Revisamos con ultrasonidos y a veces con una gammagrafía de drenaje renal. Si el riñón sigue funcionando bien y la hinchazón se mantiene igual o mejora, no se necesita cirugía.',
+          'Revisamos con ultrasonidos y a veces con una gammagrafía de drenaje renal. Si el riñón sigue funcionando bien y la hinchazón se mantiene igual o mejora, no se necesita cirugía. Alrededor de 1 de cada 4 bebés encontrados antes de nacer terminan necesitando cirugía.',
         control: 'Edad',
         months: 'meses',
         pros: ['Sin cirugía', 'Muchos bebés mejoran por sí solos'],
@@ -87,7 +108,14 @@ export default {
       pyeloplasty: {
         name: 'Cirugía de pieloplastia',
         summary:
-          'El cirujano quita el tramo estrecho y cose la parte ancha del riñón al uréter sano. Si un vaso sanguíneo está apretando, el uréter se pasa por delante de él. Se puede hacer por una pequeña herida o con cirugía laparoscópica o robótica.',
+          'El cirujano quita el tramo estrecho y cose la parte ancha del riñón al uréter sano. Si un vaso sanguíneo está apretando, el uréter se pasa por delante de él. Se puede hacer por una pequeña herida o con cirugía laparoscópica o robótica. Por lo general se recomienda la cirugía si hay:',
+        tips: [
+          'Episodios de dolor',
+          'Un riñón que hace menos de alrededor del 40% del trabajo, o que pierde función en estudios repetidos',
+          'Hinchazón que sigue empeorando',
+          'Infecciones del riñón',
+          'Piedras en el riñón',
+        ],
         steps: [
           'Por una pequeña herida, o por pequeños puertos para cirugía laparoscópica o robótica, el cirujano llega al riñón.',
           'Se encuentra el tramo estrecho donde el riñón se une al uréter.',
