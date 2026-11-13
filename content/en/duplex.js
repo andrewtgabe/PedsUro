@@ -1,6 +1,6 @@
 // Duplicated kidney / collecting system — all wording shown on the duplex chapter.
 export default {
-  title: 'Duplex collecting system',
+  title: 'Duplex system, ectopic ureter & ureterocele',
 
   embryology: {
     intro:

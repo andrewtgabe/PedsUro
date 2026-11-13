@@ -1,6 +1,6 @@
 // Riñón duplicado — textos del capítulo en español.
 export default {
-  title: 'Sistema colector duplicado',
+  title: 'Sistema duplicado, uréter ectópico y ureterocele',
 
   embryology: {
     intro:

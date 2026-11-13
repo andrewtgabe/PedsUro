@@ -68,7 +68,7 @@ export default {
     vur: 'Reflujo vesicoureteral (RVU)',
     upj: 'Obstrucción de la unión pieloureteral',
     uvj: 'Obstrucción ureterovesical / megauréter',
-    duplex: 'Sistema colector duplicado',
+    duplex: 'Sistema duplicado, uréter ectópico y ureterocele',
     stones: 'Piedras en el riñón, uréter y vejiga',
     uti: 'Infección urinaria',
     enuresis: 'Mojar la cama',
