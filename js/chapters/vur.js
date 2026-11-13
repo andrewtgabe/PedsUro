@@ -164,7 +164,12 @@ function renderPathology(root) {
   const draw = () => {
     root.querySelector('[data-viz]').innerHTML = urinaryTract({
       // Arrows point back up the ureter while urine is refluxing.
-      affected: { ...refluxSide(state.grade, state.p, state), arrows: { mode: state.grade > 0 && state.p > 0.05 ? 'up' : 'down' } },
+      affected: (() => {
+        // Backward arrows only where refluxed urine reaches (lower grades stop partway up the ureter).
+        const side = refluxSide(state.grade, state.p, state);
+        const up = state.grade > 0 && side.ureterFill > 0.05;
+        return { ...side, arrows: up ? { mode: 'up', from: Math.max(0.08, 1 - side.ureterFill) } : { mode: 'down' } };
+      })(),
       healthy: { scar: false, arrows: { mode: 'down' } },
       urethraArrows: state.voiding ? 'down' : '',
       bladderFill: 1 - 0.7 * state.p,
