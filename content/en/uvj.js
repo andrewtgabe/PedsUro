@@ -121,7 +121,7 @@ export default {
       reimplant: {
         name: 'Reimplant with tapering',
         summary:
-          'The surgeon removes the narrow piece, trims the wide ureter to a more normal size, and attaches it back to the bladder through a new tunnel. A stent is often left in for a short time. This is usually done once the child is at least about 1 year old and the bladder is big enough, either as the first surgery or after a ureterostomy. Surgery is usually advised for:',
+          'The surgeon removes the narrow piece, trims the wide ureter to a more normal size, and attaches it back to the bladder through a new tunnel. A stent is often left in for a short time. <strong>We typically wait until your child is at least 1 year old</strong>, when the bladder is big enough for the new tunnel. It can be the first surgery or come after a ureterostomy. Surgery is usually advised for:',
         steps: [
           'The narrow piece is at the bottom of the wide ureter, where it enters the bladder.',
           'With your child asleep, the ureter is cut free from the bladder and the narrow piece is removed.',

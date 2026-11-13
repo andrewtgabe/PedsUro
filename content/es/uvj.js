@@ -121,7 +121,7 @@ export default {
       reimplant: {
         name: 'Reimplante con estrechamiento del uréter',
         summary:
-          'El cirujano quita el tramo estrecho, recorta el uréter ancho a un tamaño más normal y lo vuelve a unir a la vejiga por un túnel nuevo. Muchas veces se deja un stent por un tiempo corto. Por lo general se hace cuando el niño tiene por lo menos alrededor de 1 año y la vejiga es lo bastante grande, ya sea como primera cirugía o después de una ureterostomía. Por lo general se recomienda la cirugía si hay:',
+          'El cirujano quita el tramo estrecho, recorta el uréter ancho a un tamaño más normal y lo vuelve a unir a la vejiga por un túnel nuevo. Muchas veces se deja un stent por un tiempo corto. <strong>Por lo general esperamos hasta que su hijo o hija tenga por lo menos 1 año</strong>, cuando la vejiga es lo bastante grande para el túnel nuevo. Puede ser la primera cirugía o hacerse después de una ureterostomía. Por lo general se recomienda la cirugía si hay:',
         steps: [
           'El tramo estrecho está en la parte de abajo del uréter ancho, donde entra a la vejiga.',
           'Con su hijo o hija dormido, se separa el uréter de la vejiga y se quita el tramo estrecho.',
