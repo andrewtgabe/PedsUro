@@ -1,10 +1,10 @@
 // Duplicated kidney / collecting system — all wording shown on the duplex chapter.
 export default {
-  title: 'Duplicated kidney',
+  title: 'Duplex collecting system',
 
   embryology: {
     intro:
-      'A duplicated kidney has two drainage systems instead of one: a top part and a bottom part. It is common (about 1 to 5 in 100 people), and most people never know they have it.',
+      'A duplex collecting system (also called a duplicated kidney) has two drainage systems instead of one: a top part and a bottom part. It is common (about 1 to 5 in 100 people), and most people never know they have it.',
     typeLabel: 'Type',
     types: { single: 'Typical', partial: 'Partial', complete: 'Complete' },
     texts: {

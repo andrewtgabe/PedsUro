@@ -45,7 +45,7 @@ const KEYWORDS = {
   vur: 'reflux backward urine reflujo',
   upj: 'blockage kidney obstruction pyeloplasty bloqueo pieloplastia',
   uvj: 'megaureter blockage wide ureter bloqueo',
-  duplex: 'duplicated double kidney two ureters doble',
+  duplex: 'duplex collecting system duplicated double kidney two ureters doble duplicado colector',
   ectopic: 'ureterocele leaking wet ectópico',
   stones: 'kidney stone bladder stone pain cálculo piedra',
   uti: 'infection fever bladder infection infección fiebre',

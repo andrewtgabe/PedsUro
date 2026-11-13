@@ -1,10 +1,10 @@
 // Riñón duplicado — textos del capítulo en español.
 export default {
-  title: 'Riñón duplicado',
+  title: 'Sistema colector duplicado',
 
   embryology: {
     intro:
-      'Un riñón duplicado tiene dos sistemas de drenaje en lugar de uno: una parte de arriba y una parte de abajo. Es común (alrededor de 1 a 5 de cada 100 personas), y la mayoría de las personas nunca saben que lo tienen.',
+      'Un sistema colector duplicado (también llamado riñón duplicado) tiene dos sistemas de drenaje en lugar de uno: una parte de arriba y una parte de abajo. Es común (alrededor de 1 a 5 de cada 100 personas), y la mayoría de las personas nunca saben que lo tienen.',
     typeLabel: 'Tipo',
     types: { single: 'Típico', partial: 'Parcial', complete: 'Completo' },
     texts: {

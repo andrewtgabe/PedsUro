@@ -69,7 +69,7 @@ export default {
     vur: 'Vesicoureteral reflux (VUR)',
     upj: 'UPJ obstruction',
     uvj: 'UVJ obstruction / megaureter',
-    duplex: 'Duplicated kidney',
+    duplex: 'Duplex collecting system',
     ectopic: 'Ectopic ureter / ureterocele',
     stones: 'Kidney, ureter & bladder stones',
     uti: 'Urinary tract infection',
