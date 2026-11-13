@@ -46,11 +46,41 @@ export default {
         name: 'Ureterocele',
         text: 'The end of the top part’s ureter swells into a balloon-like pouch inside the bladder. The pouch has a tiny opening, so urine drains slowly and the top part of the kidney backs up and swells. A large pouch can also block other openings.',
       },
+      outlet: {
+        name: 'Large ureterocele',
+        text: 'A large ureterocele can slide toward the bladder outlet and block it. Then urine can back up into both kidneys.',
+      },
       ectopic: {
         name: 'Ectopic ureter',
         girl: 'In girls, the top part’s ureter can open below the bladder’s control muscle, such as in the urethra or vagina. Urine skips the control muscle, so there is constant dribbling even when the child is toilet trained. The top part often works poorly.',
         boy: 'In boys, the top part’s ureter opens above the control muscle, such as in the urethra near the prostate or in the tubes that carry sperm. Boys do not dribble, but they can get infections, including of the testicle (epididymitis). The top part often works poorly.',
       },
+    },
+    signsTitle: 'What families may notice',
+    signs: [
+      'Found on an ultrasound before birth',
+      'Urine infections with fever',
+      'Girls with an ectopic ureter: always damp underwear despite normal peeing',
+      'Rarely, a ureterocele can bulge out of a girl’s urethra',
+    ],
+    siteLabel: 'Where the ureter opens',
+    sites: {
+      girl: { neck: 'Bladder neck', urethra: 'Urethra', vagina: 'Vagina' },
+      boy: { neck: 'Bladder neck', prostatic: 'Urethra (inside prostate)', seminal: 'Seminal vesicle', vas: 'Vas deferens' },
+    },
+    below:
+      'This opening is below the control muscle (sphincter). Urine from this ureter leaks out all the time, so the child is always a little wet, even while also peeing normally.',
+    above:
+      'This opening is above the control muscle, so it does not cause constant wetting. It can cause blockage and infections instead.',
+    boyNote: 'In boys, an ectopic ureter always opens above the control muscle, so boys do not have constant dribbling. An opening into the seminal vesicle or vas deferens (the tube that carries sperm) can cause infections near the testicle (epididymitis).',
+    labels: {
+      bladder: 'Bladder',
+      urethra: 'Urethra',
+      sphincter: 'Control muscle',
+      vagina: 'Vagina',
+      prostate: 'Prostate',
+      seminal: 'Seminal vesicle',
+      vas: 'Vas deferens',
     },
     partialText: 'The two ureters join before the bladder. This almost never causes problems.',
   },
@@ -158,6 +188,8 @@ export default {
       'It is common, and most people never have problems.',
       'Possible problems: reflux into the bottom part, or a blocked or misplaced ureter from the top part.',
       'Treatment depends on the problem. Choices range from watching to surgery.',
+      'A ureterocele is a balloon-like pouch at the end of the top part’s ureter. An ectopic ureter opens in the wrong place.',
+      'In girls, an ectopic ureter can cause constant dribbling. Boys do not dribble.',
     ],
     callTitle: 'Call us or get seen if your child has',
     call: [
@@ -165,6 +197,7 @@ export default {
       'Babies under 3 months: any fever of 100.4°F (38.0°C) or higher',
       'Constant dribbling or always-damp underwear in a toilet-trained child',
       'Belly, side or back pain, or pain when peeing',
+      'A bulge coming out of the urethra',
     ],
     planTitle: 'Our plan',
     planHint: 'Type notes here before printing (not saved).',

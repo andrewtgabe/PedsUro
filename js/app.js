@@ -5,7 +5,6 @@ import upj from './chapters/upj.js';
 import uvj from './chapters/uvj.js';
 import duplex from './chapters/duplex.js';
 import puv from './chapters/puv.js';
-import ectopic from './chapters/ectopic.js';
 import torsion from './chapters/torsion.js';
 import cryptorchidism from './chapters/cryptorchidism.js';
 import hydrocele from './chapters/hydrocele.js';
@@ -29,11 +28,11 @@ import visit from './chapters/visit.js';
 
 // Built chapters. To add one: create js/chapters/<id>.js and content/en/<id>.js,
 // register the content in i18n.js, then add it here.
-const CHAPTERS = { vur, hydronephrosis, upj, uvj, duplex, puv, ectopic, torsion, cryptorchidism, hydrocele, hernia, varicocele, phimosis, meatal, buried, labial, uti, stones, hypospadias, enuresis, bbd, neurogenic, bowel, testismass, imaging, visit, exstrophy };
+const CHAPTERS = { vur, hydronephrosis, upj, uvj, duplex, puv, torsion, cryptorchidism, hydrocele, hernia, varicocele, phimosis, meatal, buried, labial, uti, stones, hypospadias, enuresis, bbd, neurogenic, bowel, testismass, imaging, visit, exstrophy };
 
 // Order of conditions on the home page.
 const CATALOG = {
-  upper: ['hydronephrosis', 'vur', 'upj', 'uvj', 'duplex', 'ectopic', 'stones'],
+  upper: ['hydronephrosis', 'vur', 'upj', 'uvj', 'duplex', 'stones'],
   lower: ['uti', 'enuresis', 'bbd', 'bowel', 'neurogenic', 'puv', 'exstrophy', 'hypospadias'],
   genital: ['cryptorchidism', 'hydrocele', 'hernia', 'torsion', 'testismass', 'varicocele', 'phimosis', 'meatal', 'buried', 'labial'],
   tests: ['imaging'],
@@ -45,8 +44,7 @@ const KEYWORDS = {
   vur: 'reflux backward urine reflujo',
   upj: 'blockage kidney obstruction pyeloplasty bloqueo pieloplastia',
   uvj: 'megaureter blockage wide ureter bloqueo',
-  duplex: 'duplex collecting system duplicated double kidney two ureters doble duplicado colector',
-  ectopic: 'ureterocele leaking wet ectópico',
+  duplex: 'duplex collecting system duplicated double kidney two ureters doble duplicado colector ectopic ureter ureterocele leaking wet dribbling ectópico goteo',
   stones: 'kidney stone bladder stone pain cálculo piedra',
   uti: 'infection fever bladder infection infección fiebre',
   enuresis: 'bedwetting night wetting alarm mojar la cama noche',
@@ -117,6 +115,8 @@ function route() {
   cleanup?.();
   cleanup = null;
   const [, chapterId, sectionId] = location.hash.replace(/^#\/?/, '#/').split('/');
+  // The ectopic ureter / ureterocele chapter was merged into the duplex chapter.
+  if (chapterId === 'ectopic') { location.replace('#/duplex/pathology'); return; }
   const chapter = CHAPTERS[chapterId];
   if (chapter) renderChapter(chapter, sectionId);
   else renderHome();

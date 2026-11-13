@@ -1,6 +1,6 @@
 // Duplicated kidney / collecting system chapter.
 import { t } from '../i18n.js';
-import { urinaryTract, ectopicMap } from '../anatomy.js';
+import { urinaryTract, ectopicMap, ECTOPIC_SITES } from '../anatomy.js';
 import { segmented, modelLayout, optionTabs, takeaways, stepPlayer } from '../ui.js';
 import { vcugPlayer, infectionPlayer, ultrasoundProbe } from '../tests.js';
 
@@ -90,48 +90,69 @@ const PROBLEMS = {
   ureterocele: () => ({
     duplex: { type: 'complete', upper: { dilation: 0.8, pelvisFill: 1, ureterFill: 1, arrows: { mode: 'slow' } }, lower: { pelvisFill: 1, arrows: DOWN }, ureterocele: 1 },
   }),
-  // Girls: the opening is below the control muscle, so urine keeps dribbling out. Boys: it is above it.
-  ectopic: (sex) => ({
+  // A large ureterocele can slide into the bladder outlet and back urine up into both kidneys.
+  outlet: () => ({
+    duplex: { type: 'complete', upper: { dilation: 0.8, pelvisFill: 1, ureterFill: 1, arrows: { mode: 'slow' } }, lower: { dilation: 0.4, pelvisFill: 1, ureterFill: 1, arrows: { mode: 'slow' } }, ureterocele: 1, ureteroceleNeck: true },
+    healthy: { dilation: 0.45, pelvisFill: 1, ureterFill: 1, arrows: { mode: 'slow' } },
+    bladderFill: 0.95,
+    urethraArrows: 'slow',
+  }),
+  // Openings below the control muscle (only in girls) let urine dribble out all the time.
+  ectopic: (below) => ({
     duplex: { type: 'complete', upper: { dilation: 0.6, pelvisFill: 1, ureterFill: 1, arrows: DOWN }, lower: { pelvisFill: 1, arrows: DOWN }, ectopic: true },
-    urethraArrows: sex === 'girl' ? 'down' : '',
+    urethraArrows: below ? 'down' : '',
   }),
 };
-const ECTOPIC_SITE = { girl: 'vagina', boy: 'prostatic' };
+const FIRST_SITE = { girl: 'urethra', boy: 'prostatic' };
 
 function renderPathology(root) {
-  const s = { type: 'complete', problem: 'none', sex: 'girl' };
+  const s = { type: 'complete', problem: 'none', sex: 'girl', site: 'urethra' };
   const { viz, ctl, explain } = modelLayout(root, T('pathology.intro'));
   const problems = T('pathology.problems');
   const problemCtl = document.createElement('div');
   const sexCtl = document.createElement('div');
+  const siteCtl = document.createElement('div');
 
   const draw = () => {
     const partial = s.type === 'partial';
     const ectopic = !partial && s.problem === 'ectopic';
     const opts = partial
       ? { duplex: { type: 'partial', upper: { pelvisFill: 1, arrows: DOWN }, lower: { pelvisFill: 1, arrows: DOWN } } }
-      : PROBLEMS[s.problem](s.sex);
+      : PROBLEMS[s.problem](ECTOPIC_SITES[s.sex][s.site][2]);
     const { duplex, ...rest } = opts;
     const tract = urinaryTract({ affected: { duplex }, healthy: { arrows: DOWN }, urethraArrows: 'down', ...rest });
+    const below = ECTOPIC_SITES[s.sex][s.site][2];
     viz.classList.toggle('two', ectopic);
     viz.innerHTML = ectopic
-      ? `<figure>${tract}</figure><figure>${ectopicMap({ sex: s.sex, site: ECTOPIC_SITE[s.sex], text: t('ectopic.embryology.labels') })}</figure>`
+      ? `<figure>${tract}</figure><figure>${ectopicMap({ sex: s.sex, site: s.site, text: T('pathology.labels') })}</figure>`
       : tract;
     problemCtl.hidden = partial;
     sexCtl.hidden = !ectopic;
+    siteCtl.hidden = !ectopic;
+    const signs = `<h3>${T('pathology.signsTitle')}</h3><ul>${T('pathology.signs').map((x) => `<li>${x}</li>`).join('')}</ul>`;
     explain.innerHTML = partial
       ? `<p>${T('pathology.partialText')}</p>`
-      : `<h3>${problems[s.problem].name}</h3><p>${ectopic ? problems.ectopic[s.sex] : problems[s.problem].text}</p>`;
+      : ectopic
+        ? `<h3>${problems.ectopic.name}</h3><p>${problems.ectopic[s.sex]}</p>
+          <div class="callout ${below ? 'warn' : 'good'}"><p>${T(below ? 'pathology.below' : 'pathology.above')}</p></div>
+          ${s.sex === 'boy' ? `<p class="note">${T('pathology.boyNote')}</p>` : ''}${signs}`
+        : `<h3>${problems[s.problem].name}</h3><p>${problems[s.problem].text}</p>${s.problem === 'none' ? '' : signs}`;
   };
 
   problemCtl.append(
     segmented(T('pathology.problemLabel'), Object.entries(problems).map(([k, v]) => [k, v.name]), s.problem, (v) => { s.problem = v; draw(); }),
   );
-  sexCtl.append(segmented(T('pathology.sexLabel'), Object.entries(T('pathology.sexes')), s.sex, (v) => { s.sex = v; draw(); }));
+  const buildSites = () => {
+    siteCtl.innerHTML = '';
+    siteCtl.append(segmented(T('pathology.siteLabel'), Object.entries(T(`pathology.sites.${s.sex}`)), s.site, (v) => { s.site = v; draw(); }));
+  };
+  sexCtl.append(segmented(T('pathology.sexLabel'), Object.entries(T('pathology.sexes')), s.sex, (v) => { s.sex = v; s.site = FIRST_SITE[v]; buildSites(); draw(); }));
+  buildSites();
   ctl.append(
     segmented(T('pathology.typeLabel'), Object.entries(T('pathology.types')), s.type, (v) => { s.type = v; draw(); }),
     problemCtl,
     sexCtl,
+    siteCtl,
   );
   draw();
 }

@@ -6,7 +6,6 @@ export const KINDS = {
   buried: { watch: 'n', penoplasty: 's', scrotoplasty: 's' },
   cryptorchidism: { wait: 'n', orchiopexy: 's', fsOne: 's', fsTwo: 's', retractile: '' },
   duplex: { ultrasound: '', vcug: '', scan: '', antibiotic: 'n', none: 'n', puncture: 'p', joining: 's', reimplant: 's', removal: 's' },
-  ectopic: { puncture: 'p', joining: 's', reimplant: 's', removal: 's' },
   enuresis: { habits: 'n', alarm: 'n', desmopressin: 'n' },
   exstrophy: { newborn: '', staged: 's', cpre: 's', kelly: 's', bones: 's', epispadias: 's', continence: '' },
   hernia: { reduce: 'n', open: 's', laparoscopic: 's' },

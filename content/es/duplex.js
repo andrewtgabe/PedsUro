@@ -46,11 +46,41 @@ export default {
         name: 'Ureterocele',
         text: 'El extremo del uréter de la parte de arriba se hincha como una bolsa en forma de globo dentro de la vejiga. La bolsa tiene una abertura muy pequeña, así que la orina drena despacio y la parte de arriba del riñón se llena y se hincha. Una bolsa grande también puede tapar otras aberturas.',
       },
+      outlet: {
+        name: 'Ureterocele grande',
+        text: 'Un ureterocele grande se puede deslizar hacia la salida de la vejiga y taparla. Entonces la orina se puede acumular en los dos riñones.',
+      },
       ectopic: {
         name: 'Uréter ectópico',
         girl: 'En las niñas, el uréter de la parte de arriba se puede abrir debajo del músculo de control de la vejiga, por ejemplo en la uretra o la vagina. La orina no pasa por el músculo de control, así que hay goteo constante aunque la niña ya sepa ir al baño. La parte de arriba muchas veces funciona poco.',
         boy: 'En los niños, el uréter de la parte de arriba se abre por encima del músculo de control, por ejemplo en la uretra cerca de la próstata o en los tubos que llevan los espermatozoides. Los niños no tienen goteo, pero pueden tener infecciones, incluso del testículo (epididimitis). La parte de arriba muchas veces funciona poco.',
       },
+    },
+    signsTitle: 'Lo que las familias pueden notar',
+    signs: [
+      'Se encuentra en un ultrasonido antes de nacer',
+      'Infecciones de orina con fiebre',
+      'Niñas con uréter ectópico: ropa interior siempre húmeda aunque orinen normalmente',
+      'Rara vez, un ureterocele puede salir por la uretra de una niña',
+    ],
+    siteLabel: 'Dónde se abre el uréter',
+    sites: {
+      girl: { neck: 'Cuello de la vejiga', urethra: 'Uretra', vagina: 'Vagina' },
+      boy: { neck: 'Cuello de la vejiga', prostatic: 'Uretra (dentro de la próstata)', seminal: 'Vesícula seminal', vas: 'Conducto deferente' },
+    },
+    below:
+      'Esta abertura está debajo del músculo de control (esfínter). La orina de este uréter sale todo el tiempo, así que la niña siempre está un poco mojada, aunque también orine normalmente.',
+    above:
+      'Esta abertura está arriba del músculo de control, así que no causa que esté siempre mojado. En cambio, puede causar obstrucción e infecciones.',
+    boyNote: 'En los niños, un uréter ectópico siempre se abre arriba del músculo de control, así que no tienen goteo constante. Una abertura en la vesícula seminal o en el conducto deferente (el tubo que lleva los espermatozoides) puede causar infecciones cerca del testículo (epididimitis).',
+    labels: {
+      bladder: 'Vejiga',
+      urethra: 'Uretra',
+      sphincter: 'Músculo de control',
+      vagina: 'Vagina',
+      prostate: 'Próstata',
+      seminal: 'Vesícula seminal',
+      vas: 'Conducto deferente',
     },
     partialText: 'Los dos uréteres se juntan antes de la vejiga. Esto casi nunca causa problemas.',
   },
@@ -158,6 +188,8 @@ export default {
       'Es común, y la mayoría de las personas nunca tienen problemas.',
       'Posibles problemas: reflujo a la parte de abajo, o un uréter de la parte de arriba obstruido o fuera de lugar.',
       'El tratamiento depende del problema. Las opciones van desde vigilar hasta la cirugía.',
+      'Un ureterocele es una bolsa como globo en el extremo del uréter de la parte de arriba. Un uréter ectópico se abre en el lugar equivocado.',
+      'En las niñas, un uréter ectópico puede causar goteo constante. Los niños no tienen goteo.',
     ],
     callTitle: 'Llámenos o busque atención si su hijo o hija tiene',
     call: [
@@ -165,6 +197,7 @@ export default {
       'Bebés menores de 3 meses: cualquier fiebre de 100.4°F (38.0°C) o más',
       'Goteo constante o ropa interior siempre húmeda en un niño que ya sabe ir al baño',
       'Dolor de barriga, de costado o de espalda, o dolor al orinar',
+      'Un bulto que sale por la uretra',
     ],
     planTitle: 'Nuestro plan',
     planHint: 'Escriba notas aquí antes de imprimir (no se guardan).',
