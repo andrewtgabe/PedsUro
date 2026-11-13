@@ -53,7 +53,7 @@ export function animate(ms, step) {
   return () => cancelAnimationFrame(id);
 }
 
-// Standard "Treatment options" layout: pill tabs, a model, and an explanation
+// Standard "Management options" layout: pill tabs, a model, and an explanation
 // card with benefits / things to consider.
 //   text: { intro, pros, cons }
 //   options: [{ name, summary, pros, cons, tips?, build(viz, ctl) -> cleanup? }]
