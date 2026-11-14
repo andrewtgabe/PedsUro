@@ -169,7 +169,7 @@ export default {
           'Staying dry takes time. Results vary a lot, and many children need more surgery or a catheter routine. Your team will follow your child for life.',
         tips: [
           'Bladder neck surgery tightens the outlet to help hold urine.',
-          'Some children empty the bladder with a thin tube (catheter), sometimes through a small channel in the belly button.',
+          'Some children empty the bladder with a thin tube (catheter), sometimes through a small catheterizable channel, often at the belly button or lower belly.',
           'Some need a bladder made bigger with a piece of bowel (augmentation).',
           'Some children become drier as they grow, even in the teen years.',
         ],

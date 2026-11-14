@@ -169,7 +169,7 @@ export default {
           'Mantenerse seco toma tiempo. Los resultados varían mucho, y muchos niños necesitan más cirugía o una rutina con sonda. Su equipo dará seguimiento a su hijo o hija de por vida.',
         tips: [
           'La cirugía del cuello de la vejiga ajusta la salida para ayudar a retener la orina.',
-          'Algunos niños vacían la vejiga con un tubo delgado (sonda), a veces por un pequeño canal en el ombligo.',
+          'Algunos niños vacían la vejiga con un tubo delgado (sonda), a veces por un pequeño canal cateterizable, muchas veces en el ombligo o la parte baja de la barriga.',
           'Algunos necesitan agrandar la vejiga con un pedazo de intestino (ampliación).',
           'Algunos niños se vuelven más secos al crecer, incluso en la adolescencia.',
         ],
