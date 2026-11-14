@@ -78,7 +78,7 @@ export default {
         cons: ['Termine todo el tratamiento, aunque se sienta mejor', 'Puede caer pesado al estómago'],
       },
       imaging: {
-        name: 'Revisión de los riñones',
+        name: 'Imágenes de los riñones',
         summary:
           'Después de una primera infección urinaria con fiebre, a los niños menores de 5 años se les hace un ultrasonido de los riñones y la vejiga para buscar problemas en cómo se formaron. No se necesita un CUGM después de una primera infección con fiebre si el ultrasonido es normal. Se ofrece un CUGM si el ultrasonido es anormal, o después de una segunda infección con fiebre. Una gammagrafía DMSA puede buscar cicatrices en el riñón.',
         testLabel: 'Prueba',

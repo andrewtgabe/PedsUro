@@ -78,7 +78,7 @@ export default {
         cons: ['Finish the whole course, even if better', 'Can upset the stomach'],
       },
       imaging: {
-        name: 'Kidney checks',
+        name: 'Kidney imaging',
         summary:
           'After a first UTI with fever, children under 5 years get a kidney and bladder ultrasound to look for problems in how the kidneys and bladder formed. A VCUG is not needed after a first UTI with fever if the ultrasound is normal. A VCUG is offered if the ultrasound is abnormal, or after a second UTI with fever. A DMSA scan can check for kidney scars.',
         testLabel: 'Test',
