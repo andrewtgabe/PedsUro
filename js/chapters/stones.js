@@ -181,15 +181,21 @@ const BUILD = {
     const SPOTS = [[430, 120], [480, 150], [455, 205], [395, 175], [510, 205], [415, 240], [490, 95]];
     const draw = (type) => {
       viz.innerHTML = `<svg class="anatomy" viewBox="0 0 600 330" role="img" aria-label="${o.scope}">
-        <g fill="#64748b" stroke="#334155" stroke-width="2">
-          <rect x="70" y="290" width="200" height="22" rx="8"/>
-          <path d="M210 290 L210 230 Q210 200 180 180 L150 160" fill="none" stroke-width="18" stroke-linecap="round"/>
-          <rect x="110" y="40" width="34" height="140" rx="10" transform="rotate(-20 127 110)"/>
-          <rect x="96" y="20" width="40" height="30" rx="8" transform="rotate(-20 116 35)"/>
-          <rect x="120" y="215" width="120" height="12" rx="4"/>
+        <g stroke="#1f2937" stroke-width="4" stroke-linejoin="round">
+          <rect x="70" y="288" width="200" height="22" rx="4" fill="#e5e7eb"/>
+          <path d="M214 288 Q172 250 196 200 Q214 166 214 128 L250 120 Q262 170 244 214 Q230 252 262 288 Z" fill="#e5e7eb"/>
+          <circle cx="236" cy="118" r="26" fill="#e5e7eb"/><circle cx="236" cy="118" r="12" fill="#4b5563"/>
+          <g transform="rotate(-28 170 120)">
+            <rect x="150" y="40" width="44" height="130" fill="#f9fafb"/>
+            <rect x="156" y="8" width="32" height="34" fill="#4b5563"/>
+            <rect x="140" y="168" width="64" height="16" fill="#9ca3af"/>
+            <rect x="158" y="184" width="28" height="36" fill="#4b5563"/>
+          </g>
+          <path d="M96 222 L210 252 L204 268 L90 238 Z" fill="#4b5563"/>
+          <path d="M150 262 L136 288" fill="none"/>
         </g>
-        <circle cx="180" cy="208" r="7" fill="#b45309"/>
-        <line x1="190" y1="200" x2="350" y2="160" stroke="#94a3b8" stroke-dasharray="6 5"/>
+        <circle cx="168" cy="242" r="6" fill="#b45309"/>
+        <line x1="180" y1="236" x2="340" y2="170" stroke="#94a3b8" stroke-dasharray="6 5"/>
         <circle cx="455" cy="165" r="120" fill="#f8fafc" stroke="#334155" stroke-width="5"/>
         <g fill="rgb(180 83 9 / 0.18)" stroke="#b45309" stroke-width="2.5">${SPOTS.map(([x, y]) => CRYSTALS[type](x, y)).join('')}</g>
         <text class="lbl" x="455" y="312" text-anchor="middle">${o.types[type].name}</text>
