@@ -140,37 +140,106 @@ const BUILD = {
   imaging(viz, ctl) {
     const o = T('treatment.options.imaging');
     const draw = (v) => {
-      const svg = urinaryTract(stoneView('ureter', 0.6));
-      const extra = v === 'us'
-        ? ultrasoundProbe([566, 150, 70], o.probe)
-        : `<g class="ct-ring"><ellipse cx="300" cy="260" rx="292" ry="250" fill="none" stroke="#94a3b8" stroke-width="10" opacity="0.6"/><text class="lbl small" x="300" y="22" text-anchor="middle">${o.ct}</text></g>`;
-      viz.innerHTML = svg.replace(/<\/svg>\s*$/, `${extra}</svg>`);
+      if (v === 'us') {
+        viz.innerHTML = urinaryTract(stoneView('ureter', 0.6)).replace(/<\/svg>\s*$/, `${ultrasoundProbe([566, 150, 70], o.probe)}</svg>`);
+        return;
+      }
+      // A child lying on the table, sliding through the ring of the CT scanner.
+      viz.innerHTML = `<svg class="anatomy" viewBox="0 0 600 360" role="img" aria-label="${o.ct}">
+        <rect x="40" y="250" width="520" height="22" rx="8" fill="#cbd5e1" stroke="#64748b" stroke-width="2"/>
+        <rect x="270" y="272" width="60" height="70" fill="#94a3b8"/>
+        <g fill="#f1cdb6" stroke="#c99a80" stroke-width="2">
+          <circle cx="70" cy="226" r="24"/>
+          <rect x="92" y="206" width="250" height="42" rx="20"/>
+          <rect x="336" y="212" width="200" height="16" rx="8"/><rect x="336" y="230" width="200" height="16" rx="8"/>
+        </g>
+        <path d="M70 202 q-26 2 -24 24" fill="#7a4a2a"/>
+        <circle cx="300" cy="200" r="150" fill="none" stroke="#e2e8f0" stroke-width="56"/>
+        <circle cx="300" cy="200" r="150" fill="none" stroke="#94a3b8" stroke-width="3"/>
+        <circle cx="300" cy="200" r="122" fill="none" stroke="#94a3b8" stroke-width="3"/>
+        <circle cx="300" cy="200" r="178" fill="none" stroke="#94a3b8" stroke-width="3"/>
+        <circle cx="300" cy="200" r="150" fill="none" stroke="#2f6fb5" stroke-width="6" stroke-dasharray="20 30" opacity="0.6"/>
+        <text class="lbl" x="300" y="16" text-anchor="middle">${o.ct}</text>
+      </svg>`;
     };
     ctl.append(segmented(o.label, Object.entries(o.methods), 'us', draw));
     draw('us');
   },
 
-  // Straining the urine to catch the stone for testing.
-  analysis(viz) {
-    viz.innerHTML = urinaryTract({ bladderStone: { size: 0.35 }, voiding: true, affected: { pelvisFill: 1 } });
+  // The lab looks at the stone under a microscope; pick a type to see its crystals.
+  analysis(viz, ctl) {
+    const o = T('treatment.options.analysis');
+    const CRYSTALS = {
+      oxalate: (x, y) => `<path d="M${x - 12} ${y} L${x} ${y - 12} L${x + 12} ${y} L${x} ${y + 12} Z M${x - 12} ${y} L${x + 12} ${y} M${x} ${y - 12} L${x} ${y + 12}" />`,
+      struvite: (x, y) => `<path d="M${x - 18} ${y - 6} L${x - 10} ${y - 12} L${x + 10} ${y - 12} L${x + 18} ${y - 6} L${x + 10} ${y + 10} L${x - 10} ${y + 10} Z M${x - 10} ${y - 12} L${x - 4} ${y} L${x + 4} ${y} L${x + 10} ${y - 12}"/>`,
+      cystine: (x, y) => `<path d="M${x - 14} ${y} L${x - 7} ${y - 12} L${x + 7} ${y - 12} L${x + 14} ${y} L${x + 7} ${y + 12} L${x - 7} ${y + 12} Z"/>`,
+      uric: (x, y) => `<path d="M${x - 16} ${y} Q${x} ${y - 12} ${x + 16} ${y} Q${x} ${y + 12} ${x - 16} ${y} Z"/>`,
+      phosphate: (x, y) => [0, 40, 80, 120, 160].map((a) => `<line x1="${x}" y1="${y}" x2="${(x + 16 * Math.cos((a * Math.PI) / 180)).toFixed(1)}" y2="${(y - 16 * Math.sin((a * Math.PI) / 180)).toFixed(1)}"/>`).join(''),
+    };
+    const SPOTS = [[430, 120], [480, 150], [455, 205], [395, 175], [510, 205], [415, 240], [490, 95]];
+    const draw = (type) => {
+      viz.innerHTML = `<svg class="anatomy" viewBox="0 0 600 330" role="img" aria-label="${o.scope}">
+        <g fill="#64748b" stroke="#334155" stroke-width="2">
+          <rect x="70" y="290" width="200" height="22" rx="8"/>
+          <path d="M210 290 L210 230 Q210 200 180 180 L150 160" fill="none" stroke-width="18" stroke-linecap="round"/>
+          <rect x="110" y="40" width="34" height="140" rx="10" transform="rotate(-20 127 110)"/>
+          <rect x="96" y="20" width="40" height="30" rx="8" transform="rotate(-20 116 35)"/>
+          <rect x="120" y="215" width="120" height="12" rx="4"/>
+        </g>
+        <circle cx="180" cy="208" r="7" fill="#b45309"/>
+        <line x1="190" y1="200" x2="350" y2="160" stroke="#94a3b8" stroke-dasharray="6 5"/>
+        <circle cx="455" cy="165" r="120" fill="#f8fafc" stroke="#334155" stroke-width="5"/>
+        <g fill="rgb(180 83 9 / 0.18)" stroke="#b45309" stroke-width="2.5">${SPOTS.map(([x, y]) => CRYSTALS[type](x, y)).join('')}</g>
+        <text class="lbl" x="455" y="312" text-anchor="middle">${o.types[type].name}</text>
+        <text class="lbl small" x="170" y="328" text-anchor="middle">${o.scope}</text>
+      </svg>`;
+      explainType.innerHTML = `<div class="callout"><p>${o.types[type].text}</p></div>`;
+    };
+    const explainType = document.createElement('div');
+    ctl.append(segmented(o.typeLabel, Object.entries(o.types).map(([k, v]) => [k, v.name]), 'oxalate', draw), explainType);
+    draw('oxalate');
   },
 
+  // A 24-hour urine collection jug, and what the test looks for.
   metabolic(viz) {
-    viz.innerHTML = urinaryTract({ affected: { pelvisFill: 1 }, bladderFill: 0.8 });
+    const o = T('treatment.options.metabolic');
+    const marks = [0, 1, 2, 3].map((i) => `<line x1="92" y1="${300 - i * 50}" x2="112" y2="${300 - i * 50}" stroke="#7c2d12" stroke-width="2"/><text x="118" y="${304 - i * 50}" font-size="12" fill="#7c2d12">${i ? `${i} L` : ''}</text>`).join('');
+    viz.innerHTML = `<div class="kit">
+      <svg class="anatomy" viewBox="0 0 360 340" role="img" aria-label="${o.jug}">
+        <path d="M196 112 L196 86 Q196 62 220 62 L262 62 Q286 62 286 86 L286 112" fill="none" stroke="#c2410c" stroke-width="26" stroke-linejoin="round"/>
+        <path d="M196 112 L196 86 Q196 62 220 62 L262 62 Q286 62 286 86 L286 112" fill="none" stroke="#ea6a1f" stroke-width="20" stroke-linejoin="round"/>
+        <rect x="80" y="104" width="226" height="222" rx="22" fill="#ea6a1f" stroke="#c2410c" stroke-width="3"/>
+        <rect x="104" y="80" width="54" height="30" fill="#ea6a1f" stroke="#c2410c" stroke-width="3"/>
+        <rect x="92" y="52" width="78" height="32" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="3"/>
+        <rect x="122" y="34" width="18" height="20" rx="4" fill="#f8fafc" stroke="#94a3b8" stroke-width="3"/>
+        ${marks}
+        <text class="lbl small" x="190" y="230" text-anchor="middle" fill="#fff">24 h</text>
+      </svg>
+      <div><h4>${o.listTitle}</h4><ul class="risk-list">${o.risks.map((r) => `<li>${r}</li>`).join('')}</ul></div>
+    </div>`;
   },
 
   pass(viz, ctl) {
     const o = T('treatment.options.pass');
-    // The stone travels down the ureter, into the bladder, then out.
+    // Over about 4 weeks the stone travels down the ureter, into the bladder, then out into a strainer.
+    const strainer = (caught) => `<g class="strainer">
+      <path d="M310 505 Q345 500 370 470" fill="none" stroke="#94a3b8" stroke-width="2" stroke-dasharray="5 4"/>
+      <path d="M370 440 L470 440 Q462 490 420 494 Q378 490 370 440 Z" fill="#e2e8f0" stroke="#64748b" stroke-width="3"/>
+      <path d="M378 452 L462 452 M384 466 L456 466 M394 480 L446 480" stroke="#94a3b8" stroke-dasharray="3 3"/>
+      <rect x="470" y="436" width="50" height="8" rx="4" fill="#64748b"/>
+      ${caught ? '<circle cx="420" cy="472" r="8" fill="#b45309"/>' : ''}
+      <text class="lbl small" x="420" y="516" text-anchor="middle">${o.strainer}</text></g>`;
     const draw = (d) => {
-      const k = d / 14;
+      const k = d / 28;
+      let svg;
       if (k < 0.75) {
         const at = 0.25 + (0.95 - 0.25) * (k / 0.75);
-        viz.innerHTML = urinaryTract({ affected: { stone: { at, size: 0.35 }, pelvisDilation: 0.4 * (1 - k), pelvisFill: 1 } });
-      } else if (k < 1) viz.innerHTML = urinaryTract({ bladderStone: { size: 0.35 }, voiding: true, affected: { pelvisFill: 1 } });
-      else viz.innerHTML = urinaryTract({ affected: { pelvisFill: 1 } });
+        svg = urinaryTract({ affected: { stone: { at, size: 0.35 }, pelvisDilation: 0.4 * (1 - k), pelvisFill: 1 } });
+      } else if (k < 1) svg = urinaryTract({ bladderStone: { size: 0.35 }, voiding: true, affected: { pelvisFill: 1 } });
+      else svg = urinaryTract({ affected: { pelvisFill: 1 } });
+      viz.innerHTML = svg.replace(/<\/svg>\s*$/, `${strainer(k >= 1)}</svg>`);
     };
-    ctl.append(slider(o.control, { min: 0, max: 14, step: 1, value: 0, format: (v) => `${v} ${o.days}` }, draw));
+    ctl.append(slider(o.control, { min: 0, max: 28, step: 7, value: 0, format: (v) => `${v / 7} ${o.weeks}` }, draw));
     draw(0);
   },
   // Fever with a blocking stone: drain the kidney right away with a stent or a nephrostomy tube.
@@ -228,7 +297,12 @@ const BUILD = {
     return () => stop?.();
   },
   pcnl: procedure('pcnl'),
-  prevention: (viz) => { viz.innerHTML = urinaryTract({ affected: { pelvisFill: 1, flow: 'down' }, healthy: { flow: 'down' }, voiding: true }); },
+  // Big, easy-to-read habit list with an icon for each.
+  prevention(viz) {
+    const o = T('treatment.options.prevention');
+    const icons = ['💧', '🧂', '🥛', '🍋', '🥤', '💊'];
+    viz.innerHTML = `<ul class="habit-list">${o.habits.map((h, i) => `<li><span class="icon" aria-hidden="true">${icons[i]}</span><span>${h}</span></li>`).join('')}</ul>`;
+  },
 };
 
 function renderTreatment(root) {
