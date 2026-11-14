@@ -394,6 +394,9 @@ function renderTakeaways(root) {
   takeaways(root, { title: T('title'), ...T('takeaways') });
 }
 
+// The DMSA test animation, reused by the UTI chapter.
+export const dmsaBuild = (viz, ctl) => OPTIONS.dmsa(viz, ctl);
+
 export default {
   id: 'vur',
   title: () => T('title'),

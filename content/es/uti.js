@@ -22,7 +22,7 @@ export default {
   },
 
   pathology: {
-    intro: 'Las señales de una infección urinaria dependen de dónde está la infección y de la edad del niño o la niña.',
+    intro: 'Las señales de una infección urinaria dependen de dónde está la infección y de la edad del niño o la niña. Alrededor de 8 de cada 100 niñas y 2 de cada 100 niños tienen una infección urinaria antes de los 7 años. En bebés con fiebre, alrededor de 7 de cada 100 tienen una infección urinaria.',
     typeLabel: '¿Dónde está la infección?',
     types: {
       bladder: {
@@ -47,37 +47,66 @@ export default {
       testing: {
         name: 'Examen de orina',
         summary:
-          'La muestra debe estar limpia para que los microbios de la piel no den un resultado falso. En bebés, se pasa un tubo delgado (sonda) a la vejiga por unos segundos. Los niños más grandes pueden orinar en un vasito después de limpiarse (muestra limpia). El cultivo tarda de 1 a 2 días y muestra qué bacteria hay y qué antibióticos funcionan.',
+          'La muestra debe estar limpia para que los microbios de la piel no den un resultado falso. Un análisis rápido (tira reactiva y microscopio) da una primera idea en minutos. El cultivo tarda de 1 a 2 días y muestra qué bacteria hay y qué antibióticos funcionan.',
+        methodLabel: 'Cómo se toma la orina',
+        methods: { catheter: 'Sonda', cup: 'Muestra limpia', bag: 'Bolsita de orina' },
+        cupLabel: 'Vasito limpio',
+        bagLabel: 'Bolsita adhesiva',
+        notes: {
+          catheter: 'En bebés y niños que todavía no van al baño solos, se pasa un tubo delgado (sonda) a la vejiga por unos segundos. Así se obtiene la muestra más limpia.',
+          cup: 'Los niños que ya van al baño se limpian, empiezan a orinar en el inodoro y luego recogen la mitad del chorro en un vasito limpio.',
+          bag: 'Una bolsita adhesiva sobre los genitales se puede usar para una revisión rápida. Las bolsitas muchas veces se contaminan con microbios de la piel, así que un resultado positivo necesita una muestra con sonda para confirmarlo.',
+        },
         pros: ['Confirma la infección', 'Ayuda a escoger el antibiótico correcto'],
-        cons: ['La sonda es incómoda por un momento', 'Las muestras con bolsita en bebés muchas veces se contaminan'],
+        cons: ['La sonda es incómoda por un momento', 'Las muestras con bolsita muchas veces se contaminan'],
       },
       antibiotics: {
         name: 'Antibióticos',
         summary:
-          'La mayoría de los niños toman antibióticos por la boca durante unos 7 a 14 días para una infección del riñón, y menos días para una infección de la vejiga. Los bebés muy pequeños o los niños muy enfermos pueden necesitarlos por la vena al principio.',
-        control: 'Días de antibiótico',
-        days: 'días',
+          'Una infección del riñón con fiebre por lo general se trata de 7 a 10 días. Una infección de la vejiga sin complicaciones necesita menos tiempo, unos 3 a 5 días.',
+        ivLabel: 'Antibiótico por la vena',
+        cultureLabel: 'Cultivo de orina',
+        oralLabel: 'Antibiótico por la boca',
+        steps: [
+          'Se toma una muestra de orina para cultivo antes de empezar los antibióticos.',
+          'Se empieza de inmediato un antibiótico amplio que funciona contra la mayoría de las bacterias, por lo general por la vena.',
+          'Los resultados del cultivo por lo general están en unas 48 horas. Muestran qué antibiótico funciona mejor, y se ajusta el antibiótico.',
+          'Si hay un antibiótico por la boca que funciona, se cambia a ese en cuanto estén los resultados del cultivo.',
+          'Muchas veces los niños se quedan en el hospital hasta que llevan por lo menos 24 horas sin fiebre y toman el antibiótico ajustado por la boca. Terminan el tratamiento completo en casa.',
+        ],
         pros: ['Quita la infección', 'La fiebre por lo general mejora en 1 a 2 días'],
         cons: ['Termine todo el tratamiento, aunque se sienta mejor', 'Puede caer pesado al estómago'],
       },
       imaging: {
         name: 'Revisión de los riñones',
         summary:
-          'Después de una primera infección del riñón, a muchos niños pequeños se les hace un ultrasonido de los riñones. A algunos, por ejemplo con un ultrasonido anormal o con infecciones repetidas, también se les hace un CUGM para buscar reflujo.',
+          'Después de una primera infección urinaria con fiebre, a los niños menores de 5 años se les hace un ultrasonido de los riñones y la vejiga para buscar problemas en cómo se formaron. No se necesita un CUGM después de una primera infección con fiebre si el ultrasonido es normal. Se ofrece un CUGM si el ultrasonido es anormal, o después de una segunda infección con fiebre. Una gammagrafía DMSA puede buscar cicatrices en el riñón.',
+        testLabel: 'Prueba',
+        tests: { us: 'Ultrasonido', vcug: 'CUGM', dmsa: 'Gammagrafía DMSA' },
+        probe: 'Ultrasonido',
         link: 'Aprenda sobre el reflujo',
         pros: ['Encuentra problemas que hacen más probables las infecciones'],
         cons: ['Un CUGM necesita una sonda y una pequeña cantidad de radiación'],
       },
+      antibioticPrev: {
+        name: 'Antibiótico preventivo',
+        summary:
+          'Una dosis pequeña de antibiótico cada día puede ayudar a prevenir infecciones del riñón en algunos niños con reflujo. No se necesita de rutina para un reflujo leve (grado I o II) sin problemas de vejiga o intestino. Es una opción para niños con más riesgo, por ejemplo con reflujo de grado IV o V, cicatrices en el riñón o infecciones del riñón repetidas. Lo decidimos junto con su familia.',
+        link: 'Aprenda sobre el reflujo',
+        pros: ['Baja la probabilidad de una infección del riñón en niños con más riesgo'],
+        cons: ['Un medicamento todos los días', 'Las bacterias pueden volverse resistentes'],
+      },
       prevention: {
         name: 'Prevenir las infecciones urinarias',
         summary: 'Los buenos hábitos de vejiga e intestino son la mejor forma de prevenir las infecciones urinarias.',
-        tips: [
+        habits: [
           'Orinar cada 2–3 horas mientras está despierto; no aguantarse',
           'Relajarse por completo al orinar; las niñas pueden sentarse con las rodillas separadas y los pies apoyados',
           'Tratar el estreñimiento: evacuar blando todos los días',
           'Tomar agua durante el día',
           'Limpiarse de adelante hacia atrás',
           'Evitar los baños de burbujas',
+          'En niños con reflujo o infecciones repetidas, la circuncisión baja la probabilidad de infecciones urinarias',
         ],
         pros: ['Funciona para la mayoría de los niños', 'Sin medicamentos'],
         cons: ['Requiere una rutina diaria'],
@@ -96,10 +125,9 @@ export default {
     callTitle: 'Llámenos o busque atención si su hijo o hija tiene',
     call: [
       'Fiebre de 101°F (38.3°C) o más sin una causa clara como un resfriado',
-      'Bebés menores de 3 meses: cualquier fiebre de 100.4°F (38.0°C) o más',
+      'Bebés menores de 3 meses: cualquier fiebre de 100.4°F (38.0°C) o más, o irritabilidad y poca alimentación',
       'Fiebre que dura más de 2 días tomando antibióticos',
       'Vómito y no puede retener el medicamento ni los líquidos',
-      'Bebés: fiebre, irritabilidad, poca alimentación',
     ],
     planTitle: 'Nuestro plan',
     planHint: 'Escriba notas aquí antes de imprimir (no se guardan).',

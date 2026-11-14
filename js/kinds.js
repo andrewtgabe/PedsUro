@@ -22,7 +22,7 @@ export const KINDS = {
   // Torsion keeps emergency surgery first: it is the standard treatment.
   torsion: { surgery: 's', manual: 's', removal: 's' },
   upj: { ultrasound: '', scan: '', watch: 'n', drain: 's', pyeloplasty: 's' },
-  uti: { testing: '', antibiotics: 'n', imaging: '', prevention: 'n' },
+  uti: { testing: '', antibiotics: 'n', imaging: '', antibioticPrev: 'n', prevention: 'n' },
   uvj: { ultrasound: '', vcug: '', scan: '', watch: 'n', antibiotic: 'n', balloon: 's', ureterostomy: 's', reimplant: 's' },
   varicocele: { watch: 'n', embolization: 's', surgery: 's' },
   vur: { ultrasound: '', vcug: '', cevus: '', dmsa: '', habits: 'n', observation: 'n', antibiotic: 'n', injection: 's', reimplant: 's' },
