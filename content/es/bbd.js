@@ -57,7 +57,8 @@ export default {
         text: 'Algunos niños, sobre todo niñas, se mojan mucho cuando se ríen fuerte (incontinencia por risa). La vejiga se aprieta con la risa. Muchas veces mejora con la edad, y orinar con horario o un medicamento pueden ayudar.',
       },
     },
-    bowelLink: 'Aprenda más sobre la disfunción de vejiga e intestino',
+    bowelLink: 'Vea el cuidado del estreñimiento (limpieza, ablandador, rutina de baño)',
+    vaginalScene: { together: 'Rodillas juntas', stand: 'Al pararse: gotea', apart: 'Rodillas separadas, sentada atrás', pools: 'Se junta orina' },
     signsTitle: 'Señales comunes',
     signs: ['Ganas repentinas, correr al baño', 'Ropa interior húmeda', 'Orinar menos de 4 o más de 7 veces al día', 'Maniobras para aguantar: cruzar las piernas, agacharse', 'Excremento duro o evacuar pocas veces', 'Infecciones de orina'],
   },
@@ -69,7 +70,7 @@ export default {
     options: {
       firstVisit: {
         name: 'En la primera visita',
-        summary: 'La mayoría de los niños solo necesitan unas revisiones sencillas. La uroflujometría muestra cómo sale la orina: una curva suave es normal, y una curva que se corta significa que el músculo de control no se relaja.',
+        summary: 'La mayoría de los niños solo necesitan unas revisiones sencillas. La uroflujometría muestra cómo sale la orina. La forma de la curva indica el tipo de problema. Escoja un tipo.',
         tips: [
           'Un diario de vejiga e intestino de 2 a 3 días',
           'Un análisis de orina',
@@ -79,25 +80,24 @@ export default {
           'Un ultrasonido de los riñones y la vejiga en algunos niños',
         ],
         patternLabel: 'Tipo de curva',
-        patterns: { normal: 'Suave (normal)', staccato: 'Se corta', interrupted: 'En partes' },
+        patterns: { bell: 'Campana', tower: 'Torre', staccato: 'Entrecortada', interrupted: 'Interrumpida', plateau: 'Meseta' },
+        meanings: {
+          bell: 'Una curva suave y redonda. Esto es normal.',
+          tower: 'Un chorro muy rápido y explosivo (flujo máximo de más de 40). Muchas veces se ve con una vejiga hiperactiva que aprieta muy fuerte.',
+          staccato: 'Picos y bajadas marcados, pero el chorro nunca se detiene. El músculo de control se aprieta al orinar (esfínter hiperactivo).',
+          interrupted: 'Chorros separados sin flujo entre ellos. La vejiga aprieta con poca fuerza (vejiga hipoactiva), así que el niño puja para sacar la orina.',
+          plateau: 'Un chorro largo, lento y plano. Algo puede estar estrechando la salida (obstrucción).',
+        },
         chart: { title: 'Uroflujometría', time: 'Tiempo', flow: 'Flujo' },
         pros: ['Pruebas sencillas y sin dolor', 'Muestra qué tipo de problema es'],
         cons: ['El diario toma unos días en casa', 'Venga con la vejiga llena para la uroflujometría'],
       },
       schedule: {
-        name: 'Orinar con horario',
+        name: 'Micción con horario',
         summary: 'Orinar con horario evita que la vejiga se llene demasiado o que haya que correr.',
         habits: ['Orinar cada 2–3 horas mientras está despierto (una alarma de reloj ayuda)', 'Orinar antes de la escuela, en el almuerzo, después de la escuela y antes de dormir', 'Tomar agua durante el día, sobre todo en la escuela', 'Sentarse por completo en el inodoro con los pies apoyados y las rodillas separadas', 'Tomarse su tiempo; no pujar ni apurarse'],
         pros: ['Seguro y sencillo', 'Ayuda en todos los tipos'],
         cons: ['Necesita recordatorios diarios', 'Toma de semanas a meses'],
-      },
-      constipation: {
-        name: 'Tratar el estreñimiento',
-        summary: 'Ablandador de heces y fibra todos los días hasta que el excremento sea blando y diario. A veces una radiografía de la barriga muestra estreñimiento escondido.',
-        control: 'Semanas de tratamiento',
-        weeks: 'semanas',
-        pros: ['Muchas veces quita los escapes', 'Baja el riesgo de infección'],
-        cons: ['Necesita meses de medicina diaria', 'Si se deja muy pronto, puede regresar'],
       },
       biofeedback: {
         name: 'Terapia del piso pélvico',
@@ -138,6 +138,9 @@ export default {
     points: [
       'Los escapes de orina durante el día son comunes y no son a propósito.',
       'Por lo general se deben a los hábitos de la vejiga y al estreñimiento.',
+      'La vejiga y el intestino son vecinos. Un recto lleno y estirado aprieta la vejiga y puede causar urgencia, accidentes e infecciones.',
+      'El tratamiento del estreñimiento empieza vaciando el intestino, luego un ablandador diario y una rutina de baño por varios meses.',
+      'Los accidentes y ensuciarse no son a propósito. Felicite el esfuerzo y nunca castigue.',
       'Orinar cada 2–3 horas, tomar agua y mantener el excremento blando.',
       'La mayoría de los niños mejoran en unos meses.',
     ],

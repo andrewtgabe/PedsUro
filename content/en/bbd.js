@@ -57,7 +57,8 @@ export default {
         text: 'Some children, mostly girls, leak a large amount of urine when they laugh hard (giggle incontinence). The bladder squeezes with laughter. It often gets better with age, and timed peeing or medicine can help.',
       },
     },
-    bowelLink: 'Learn more about bowel and bladder dysfunction',
+    bowelLink: 'See constipation care (clean-out, softener, toilet routine)',
+    vaginalScene: { together: 'Knees together', stand: 'Stands up: dribbles', apart: 'Knees apart, sit back', pools: 'Urine pools' },
     signsTitle: 'Common signs',
     signs: ['Sudden urges, rushing to the bathroom', 'Damp underwear', 'Peeing fewer than 4 or more than 7 times a day', 'Holding maneuvers: crossing legs, squatting', 'Hard or infrequent poops', 'Urine infections'],
   },
@@ -69,7 +70,7 @@ export default {
     options: {
       firstVisit: {
         name: 'At the first visit',
-        summary: 'Most children need only a few simple checks. A uroflow test shows how the urine comes out: a smooth curve is normal, and a stop-start curve means the control muscle is not relaxing.',
+        summary: 'Most children need only a few simple checks. A uroflow test shows how the urine comes out. The shape of the curve points to the type of problem. Pick a pattern.',
         tips: [
           'A bladder and bowel diary for 2 to 3 days',
           'A urine test',
@@ -79,25 +80,24 @@ export default {
           'An ultrasound of the kidneys and bladder in some children',
         ],
         patternLabel: 'Uroflow pattern',
-        patterns: { normal: 'Smooth (normal)', staccato: 'Stop-start', interrupted: 'In bursts' },
+        patterns: { bell: 'Bell curve', tower: 'Tower', staccato: 'Staccato', interrupted: 'Interrupted', plateau: 'Plateau' },
+        meanings: {
+          bell: 'A smooth, rounded curve. This is normal.',
+          tower: 'A very fast, explosive stream (peak flow over 40). This is often seen with an overactive bladder that squeezes very hard.',
+          staccato: 'Sharp peaks and dips, but the stream never stops. The control muscle is tightening while peeing (overactive sphincter).',
+          interrupted: 'Separate bursts with no flow in between. The bladder squeezes weakly (underactive bladder), so the child strains to push urine out.',
+          plateau: 'A long, slow, flat stream. Something may be narrowing the way out (blockage).',
+        },
         chart: { title: 'Uroflow', time: 'Time', flow: 'Flow' },
         pros: ['Simple, painless tests', 'Shows which type of problem it is'],
         cons: ['The diary takes a few days at home', 'Come with a full bladder for uroflow'],
       },
       schedule: {
-        name: 'Timed peeing',
+        name: 'Timed voiding',
         summary: 'Peeing on a schedule keeps the bladder from getting too full or rushing.',
         habits: ['Pee every 2–3 hours while awake (a watch alarm helps)', 'Pee before school, at lunch, after school, and before bed', 'Drink water through the day, especially at school', 'Sit fully on the toilet with feet supported and knees apart', 'Take time; do not push or rush'],
         pros: ['Safe and simple', 'Helps every type'],
         cons: ['Needs daily reminders', 'Takes weeks to months'],
-      },
-      constipation: {
-        name: 'Treating constipation',
-        summary: 'Daily stool softener and fiber until poops are soft and daily. A belly X-ray sometimes shows hidden constipation.',
-        control: 'Weeks of treatment',
-        weeks: 'weeks',
-        pros: ['Often fixes the wetting', 'Lowers infection risk'],
-        cons: ['Needs months of daily medicine', 'Stopping too early lets it come back'],
       },
       biofeedback: {
         name: 'Pelvic floor therapy',
@@ -138,6 +138,9 @@ export default {
     points: [
       'Daytime wetting is common and is not on purpose.',
       'It is usually about bladder habits and constipation.',
+      'The bladder and bowel are neighbors. A full, stretched rectum presses on the bladder and can cause urges, accidents, and infections.',
+      'Constipation treatment starts with emptying the bowel, then a daily softener and toilet routine for several months.',
+      'Accidents and soiling are not on purpose. Praise effort and never punish.',
       'Pee every 2–3 hours, drink water, and keep poops soft.',
       'Most children improve over a few months.',
     ],

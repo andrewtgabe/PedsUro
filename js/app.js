@@ -20,7 +20,6 @@ import hypospadias from './chapters/hypospadias.js';
 import enuresis from './chapters/enuresis.js';
 import bbd from './chapters/bbd.js';
 import neurogenic from './chapters/neurogenic.js';
-import bowel from './chapters/bowel.js';
 import testismass from './chapters/testismass.js';
 import imaging from './chapters/imaging.js';
 import exstrophy from './chapters/exstrophy.js';
@@ -28,12 +27,12 @@ import visit from './chapters/visit.js';
 
 // Built chapters. To add one: create js/chapters/<id>.js and content/en/<id>.js,
 // register the content in i18n.js, then add it here.
-const CHAPTERS = { vur, hydronephrosis, upj, uvj, duplex, puv, torsion, cryptorchidism, hydrocele, hernia, varicocele, phimosis, meatal, buried, labial, uti, stones, hypospadias, enuresis, bbd, neurogenic, bowel, testismass, imaging, visit, exstrophy };
+const CHAPTERS = { vur, hydronephrosis, upj, uvj, duplex, puv, torsion, cryptorchidism, hydrocele, hernia, varicocele, phimosis, meatal, buried, labial, uti, stones, hypospadias, enuresis, bbd, neurogenic, testismass, imaging, visit, exstrophy };
 
 // Order of conditions on the home page.
 const CATALOG = {
   upper: ['hydronephrosis', 'vur', 'upj', 'uvj', 'duplex', 'stones'],
-  lower: ['uti', 'enuresis', 'bbd', 'bowel', 'neurogenic', 'puv', 'exstrophy', 'hypospadias'],
+  lower: ['uti', 'enuresis', 'bbd', 'neurogenic', 'puv', 'exstrophy', 'hypospadias'],
   genital: ['cryptorchidism', 'hydrocele', 'hernia', 'torsion', 'testismass', 'varicocele', 'phimosis', 'meatal', 'buried', 'labial'],
   tests: ['imaging'],
 };
@@ -48,8 +47,7 @@ const KEYWORDS = {
   stones: 'kidney stone bladder stone pain cálculo piedra',
   uti: 'infection fever bladder infection infección fiebre',
   enuresis: 'bedwetting night wetting alarm mojar la cama noche',
-  bbd: 'daytime wetting accidents urgency accidentes urgencia',
-  bowel: 'constipation poop stool estreñimiento popó',
+  bbd: 'daytime wetting accidents urgency accidentes urgencia constipation poop stool estreñimiento popó bowel',
   neurogenic: 'spina bifida catheter botox augmentation mitrofanoff cateterismo',
   puv: 'posterior urethral valves boys valvas',
   hypospadias: 'penis opening pee hole pene',
@@ -117,6 +115,8 @@ function route() {
   const [, chapterId, sectionId] = location.hash.replace(/^#\/?/, '#/').split('/');
   // The ectopic ureter / ureterocele chapter was merged into the duplex chapter.
   if (chapterId === 'ectopic') { location.replace('#/duplex/pathology'); return; }
+  // The bowel and bladder dysfunction chapter was merged into daytime wetting.
+  if (chapterId === 'bowel') { location.replace('#/bbd/treatment'); return; }
   const chapter = CHAPTERS[chapterId];
   if (chapter) renderChapter(chapter, sectionId);
   else renderHome();

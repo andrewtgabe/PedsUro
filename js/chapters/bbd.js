@@ -1,6 +1,7 @@
 // Daytime wetting & voiding dysfunction chapter.
 import { t } from '../i18n.js';
 import { bladderNerves } from '../bladder.js';
+import { BOWEL_BUILD, SOURCE_URL, bowelView } from './bowel.js';
 import { segmented, toggle, slider, modelLayout, optionTabs, takeaways, stepPlayer } from '../ui.js';
 
 const T = (k) => t(`bbd.${k}`);
@@ -45,10 +46,13 @@ function renderPathology(root) {
   const { viz, ctl, explain } = modelLayout(root, T('pathology.intro'));
   const types = T('pathology.types');
   const draw = () => {
-    viz.innerHTML = view(TYPES[s.type]);
+    viz.classList.toggle('two', s.type === 'constipation');
+    if (s.type === 'vaginal') viz.innerHTML = vaginalStrip(T('pathology.vaginalScene'));
+    else if (s.type === 'constipation') viz.innerHTML = `<figure>${view(TYPES.constipation)}</figure><figure>${bowelView({ stool: 1, hard: true, squeeze: true })}</figure>`;
+    else viz.innerHTML = view(TYPES[s.type]);
     explain.innerHTML = `<h3>${types[s.type].name}</h3><p>${types[s.type].text}</p>
       <h3>${T('pathology.signsTitle')}</h3><ul>${T('pathology.signs').map((x) => `<li>${x}</li>`).join('')}</ul>
-      <p><a href="#/bowel/pathology">${T('pathology.bowelLink')} →</a></p>`;
+      ${s.type === 'constipation' ? `<p><a href="#/bbd/treatment">${T('pathology.bowelLink')} →</a></p>` : ''}`;
   };
   ctl.append(segmented(T('pathology.typeLabel'), Object.entries(types).map(([k, v]) => [k, v.name]), s.type, (v) => { s.type = v; draw(); }));
   draw();
@@ -56,22 +60,54 @@ function renderPathology(root) {
 
 // ---------- 3. Treatment ----------
 
-// Uroflow curve: how fast urine comes out over time. Normal is a smooth bell; stop-start is jagged.
-function flowCurve(kind, L) {
-  const pts = [];
-  for (let i = 0; i <= 60; i++) {
-    const x = i / 60;
-    let y = Math.sin(Math.PI * x);
-    if (kind === 'staccato') y *= 0.55 + 0.45 * Math.abs(Math.sin(x * 22));
-    if (kind === 'interrupted') y = Math.max(0, Math.sin(Math.PI * ((x * 3) % 1))) * 0.8;
-    pts.push(`${(60 + x * 460).toFixed(1)} ${(210 - y * 150).toFixed(1)}`);
-  }
-  return `<svg class="anatomy chart" viewBox="0 0 560 250" role="img" aria-label="${L.title}">
-    <line class="axis" x1="60" y1="210" x2="540" y2="210"/><line class="axis" x1="60" y1="40" x2="60" y2="210"/>
-    <path class="curve on" d="M${pts.join(' L')}" style="stroke:${kind === 'normal' ? '#16a34a' : '#dc2626'}"/>
-    <text class="tick" x="300" y="234" text-anchor="middle">${L.time}</text>
-    <text class="tick" x="22" y="125" text-anchor="middle" transform="rotate(-90 22 125)">${L.flow}</text>
-    <text class="lbl" x="300" y="28" text-anchor="middle">${L.title}</text>
+// Uroflow curves (time 0..1 → flow 0..1), drawn like a standard teaching chart.
+const smooth = (x, a, b) => (x <= a ? 0 : x >= b ? 1 : (1 - Math.cos((Math.PI * (x - a)) / (b - a))) / 2);
+const FLOWS = {
+  bell: { color: '#3730a3', fn: (x) => (x < 0.5 ? 0.78 * Math.pow(Math.sin((Math.PI * x) / 0.5), 1.6) : 0) },
+  tower: { color: '#eab308', fn: (x) => (x < 0.26 ? Math.pow(Math.sin((Math.PI * x) / 0.26), 0.55) : 0) },
+  staccato: { color: '#2dd4bf', fn: (x) => smooth(x, 0.08, 0.3) * (1 - smooth(x, 0.68, 0.8)) * (0.6 + 0.16 * Math.sin(2 * Math.PI * (x - 0.3) / 0.13)) },
+  interrupted: { color: '#7e22ce', fn: (x) => (x > 0.08 && x < 0.88 ? 0.22 * Math.pow(Math.max(0, Math.sin(Math.PI * (x - 0.08) / 0.16)), 2) : 0) },
+  plateau: { color: '#b91c1c', fn: (x) => 0.17 * smooth(x, 0, 0.2) * (1 - smooth(x, 0.7, 1)) },
+};
+function flowCurve(sel, L) {
+  const path = (fn) => {
+    const pts = [];
+    for (let i = 0; i <= 200; i++) { const x = i / 200; pts.push(`${(60 + x * 400).toFixed(1)} ${(220 - fn(x) * 190).toFixed(1)}`); }
+    return 'M' + pts.join(' L');
+  };
+  const curves = Object.entries(FLOWS).map(([k, c]) =>
+    `<path d="${path(c.fn)}" fill="none" stroke="${c.color}" stroke-width="${k === sel ? 5 : 2}" opacity="${k === sel ? 1 : 0.25}"/>`).join('');
+  const legend = Object.entries(FLOWS).map(([k, c], i) =>
+    `<g opacity="${k === sel ? 1 : 0.55}"><line x1="470" y1="${44 + i * 24}" x2="494" y2="${44 + i * 24}" stroke="${c.color}" stroke-width="4"/><text x="500" y="${49 + i * 24}" font-size="14" font-weight="${k === sel ? 700 : 400}" fill="currentColor">${L.patterns[k]}</text></g>`).join('');
+  return `<svg class="anatomy chart" viewBox="0 0 600 250" role="img" aria-label="${L.chart.title}">
+    <line class="axis" x1="60" y1="220" x2="460" y2="220"/><line class="axis" x1="60" y1="20" x2="60" y2="220"/>
+    ${curves}${legend}
+    <text class="tick" x="260" y="244" text-anchor="middle">${L.chart.time}</text>
+    <text class="tick" x="24" y="120" text-anchor="middle" transform="rotate(-90 24 120)">${L.chart.flow}</text>
+  </svg>`;
+}
+
+// Urine trapped in the vagina: knees together, standing up, then the fix.
+function vaginalStrip(L) {
+  const panel = (x, { apart, stand }) => {
+    const legGap = apart ? 26 : 4;
+    const body = stand
+      ? `<rect x="${x + 70}" y="40" width="60" height="90" rx="20" fill="#93c5fd"/><rect x="${x + 72}" y="128" width="26" height="90" rx="10" fill="#f1cdb6"/><rect x="${x + 102}" y="128" width="26" height="90" rx="10" fill="#f1cdb6"/>
+         <path d="M${x + 72} 122 L${x + 128} 122 L${x + 124} 146 L${x + 76} 146 Z" fill="#fff" stroke="#94a3b8" stroke-width="2"/>
+         <ellipse cx="${x + 100}" cy="140" rx="12" ry="5" fill="var(--urine)"/>
+         ${[0, 1, 2].map((i) => `<circle cx="${x + 100}" cy="${158 + i * 14}" r="3.5" fill="var(--urine)"/>`).join('')}`
+      : `<rect x="${x + 70}" y="36" width="60" height="80" rx="20" fill="#93c5fd"/>
+         <rect x="${x + 100 - legGap / 2 - 30}" y="112" width="30" height="64" rx="10" fill="#f1cdb6"/><rect x="${x + 100 + legGap / 2}" y="112" width="30" height="64" rx="10" fill="#f1cdb6"/>
+         <path d="M${x + 58} 176 L${x + 142} 176 L${x + 130} 230 L${x + 70} 230 Z" fill="#f8fafc" stroke="#94a3b8" stroke-width="3"/>
+         ${apart ? `<path d="M${x + 100} 120 L${x + 100} 206" stroke="var(--urine)" stroke-width="5"/>` : `<ellipse cx="${x + 100}" cy="118" rx="9" ry="6" fill="var(--urine)"/><path d="M${x + 100} 124 L${x + 100} 150" stroke="var(--urine)" stroke-width="3" stroke-dasharray="4 4"/>`}`;
+    return body;
+  };
+  const caps = [L.together, L.stand, L.apart];
+  return `<svg class="anatomy" viewBox="0 0 600 280" role="img" aria-label="${L.together}">
+    ${panel(0, { apart: false })}${panel(200, { stand: true })}${panel(400, { apart: true })}
+    ${caps.map((c, i) => `<text class="lbl small" x="${100 + i * 200}" y="258" text-anchor="middle">${c}</text>`).join('')}
+    <text x="${100 + 400}" y="30" font-size="24" text-anchor="middle">✅</text>
+    <text class="lbl small accent-text" x="100" y="106" text-anchor="middle">${L.pools}</text>
   </svg>`;
 }
 
@@ -99,9 +135,13 @@ const BUILD = {
   // First visit: a uroflow curve, with the full checklist in the side panel.
   firstVisit(viz, ctl) {
     const o = T('treatment.options.firstVisit');
-    const draw = (k) => (viz.innerHTML = flowCurve(k, o.chart));
-    ctl.append(segmented(o.patternLabel, Object.entries(o.patterns), 'normal', draw));
-    draw('normal');
+    const note = document.createElement('div');
+    const draw = (k) => {
+      viz.innerHTML = flowCurve(k, o);
+      note.innerHTML = `<div class="callout ${k === 'bell' ? 'good' : ''}"><p><strong>${o.patterns[k]}:</strong> ${o.meanings[k]}</p></div>`;
+    };
+    ctl.append(segmented(o.patternLabel, Object.entries(o.patterns), 'bell', draw), note);
+    draw('bell');
   },
 
   schedule(viz) {
@@ -109,12 +149,8 @@ const BUILD = {
     viz.innerHTML = iconList(o.habits, ['⏰', '🏫', '💧', '🦶', '🧘']);
   },
 
-  constipation(viz, ctl) {
-    const o = T('treatment.options.constipation');
-    const draw = (w) => (viz.innerHTML = view({ fill: 0.4, stool: 1 - w / 8, shaky: w < 4 }));
-    ctl.append(slider(o.control, { min: 0, max: 8, step: 1, value: 0, format: (v) => `${v} ${o.weeks}` }, draw));
-    draw(0);
-  },
+  // Constipation care, from the former bowel and bladder dysfunction chapter.
+  ...BOWEL_BUILD,
 
   // Pelvic floor therapy, step by step: stickers, a screen game, relaxing while peeing, a smooth stream.
   biofeedback(viz, ctl) {
@@ -147,10 +183,15 @@ const BUILD = {
 };
 
 function renderTreatment(root) {
+  const text = (key) => {
+    if (!(key in BOWEL_BUILD)) return T(`treatment.options.${key}`);
+    const o = t(`bowel.treatment.options.${key}`);
+    return key === 'seattle' ? { ...o, summary: `${o.summary}</p><p class="note"><a href="${SOURCE_URL}" target="_blank" rel="noopener">${o.source}</a>` } : o;
+  };
   return optionTabs(
     root,
     { intro: T('treatment.intro'), pros: T('treatment.pros'), cons: T('treatment.cons') },
-    Object.keys(BUILD).map((key) => ({ key, ...T(`treatment.options.${key}`), build: BUILD[key] })),
+    Object.keys(BUILD).map((key) => ({ key, ...text(key), build: BUILD[key] })),
   );
 }
 

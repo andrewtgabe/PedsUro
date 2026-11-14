@@ -1,11 +1,13 @@
-// Bowel and bladder dysfunction (BBD) chapter.
+// Bowel and bladder dysfunction (BBD): constipation management, now shown inside the
+// daytime wetting chapter (bbd.js). Its wording stays in content/*/bowel.js.
 import { t } from '../i18n.js';
 import { pelvisSide, bristolChart } from '../bladder.js';
 import { segmented, toggle, slider, animate, modelLayout, optionTabs, takeaways } from '../ui.js';
 
 const T = (k) => t(`bowel.${k}`);
 const labels = () => T('labels');
-const view = (o) => pelvisSide({ ...o, text: labels() });
+export const bowelView = (o) => pelvisSide({ ...o, text: labels() });
+const view = bowelView;
 
 // ---------- 1. How it builds up ----------
 
@@ -88,7 +90,7 @@ const BISACODYL = [
   { min: 15, max: 40, lbMin: 33, lbMax: 88, ages: '3–10', tabs: '1' },
   { min: 40, max: Infinity, lbMin: 88, lbMax: Infinity, ages: '10+', tabs: '1–2' },
 ];
-const SOURCE_URL = 'https://www.seattlechildrens.org/pdf/PE1071.pdf';
+export const SOURCE_URL = 'https://www.seattlechildrens.org/pdf/PE1071.pdf';
 
 // Look up by the unit the family entered, matching the handout's printed bands.
 const band = (table, w, unit) =>
@@ -169,7 +171,7 @@ function seattleCalculator(viz, ctl) {
   draw();
 }
 
-const BUILD = {
+export const BOWEL_BUILD = {
   cleanout(viz, ctl) {
     const o = T('treatment.options.cleanout');
     const draw = (d) => (viz.innerHTML = view({ stool: 1 - d / 4, hard: d < 2, squeeze: d < 2 }));
@@ -196,10 +198,10 @@ function renderTreatment(root) {
   return optionTabs(
     root,
     { intro: T('treatment.intro'), pros: T('treatment.pros'), cons: T('treatment.cons') },
-    Object.keys(BUILD).map((key) => {
+    Object.keys(BOWEL_BUILD).map((key) => {
       const o = T(`treatment.options.${key}`);
       const summary = key === 'seattle' ? `${o.summary}</p><p class="note"><a href="${SOURCE_URL}" target="_blank" rel="noopener">${o.source}</a>` : o.summary;
-      return { key, ...o, summary, build: BUILD[key] };
+      return { key, ...o, summary, build: BOWEL_BUILD[key] };
     }),
   );
 }

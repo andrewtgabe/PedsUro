@@ -1,8 +1,7 @@
 // Treatment option order (least to most involved) and tags shown on each option button.
 // n = no surgery, s = surgery, '' = information only (no tag).
 export const KINDS = {
-  bbd: { firstVisit: '', schedule: '', constipation: '', biofeedback: '', medicine: '', more: '' },
-  bowel: { cleanout: 'n', seattle: '', maintenance: 'n', routine: 'n', goal: '' },
+  bbd: { firstVisit: '', schedule: '', cleanout: '', seattle: '', maintenance: '', routine: '', goal: '', biofeedback: '', medicine: '', more: '' },
   buried: { watch: 'n', penoplasty: 's', scrotoplasty: 's' },
   cryptorchidism: { wait: 'n', orchiopexy: 's', fsOne: 's', fsTwo: 's', retractile: '' },
   duplex: { ultrasound: '', vcug: '', scan: '', antibiotic: 'n', none: 'n', puncture: 's', joining: 's', reimplant: 's', removal: 's' },
