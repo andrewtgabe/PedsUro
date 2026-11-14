@@ -28,6 +28,18 @@ export default {
   pathology: {
     intro:
       'Bedwetting is very common and slowly gets better as children grow. It is not caused by laziness, and it is not the child’s fault.',
+    causeLabel: 'Common causes',
+    causes: {
+      brain: { name: 'Brain still learning', text: 'The connection between the brain and the bladder is still developing. When the bladder is full, the brain may not wake the child up yet. Bedwetting also runs in families: if one or both parents wet the bed as children, their child is much more likely to.' },
+      urine: { name: 'Lots of urine at night', text: 'At night the body makes a hormone (ADH, also called vasopressin) that slows urine-making. Some children do not make enough of it yet, so they make more urine than the bladder can hold.' },
+      bladder: { name: 'Small bladder', text: 'The bladder may hold a smaller amount, or the bladder muscle may squeeze too early during sleep.' },
+      constipation: { name: 'Constipation', text: 'A full bowel presses right against the bladder. The bladder cannot hold as much, which can cause night or daytime accidents.' },
+      sleep: { name: 'Deep sleep', text: 'These children sleep normally, but very deeply. It is hard for them to wake up to the feeling of a full bladder.' },
+      stress: { name: 'Stress or big changes', text: 'Stress can bring on wetting, especially in a child who had been dry. Examples are moving to a new home, starting a new school, parents separating, or a new baby in the family.' },
+      medical: { name: 'Other medical causes', text: 'Less often, bedwetting comes from a urine infection, type 1 diabetes (very thirsty, peeing a lot), or blocked breathing during sleep (sleep apnea), for example from large tonsils or adenoids.' },
+      adhd: { name: 'ADHD', text: 'Bedwetting is more common in children with attention-deficit/hyperactivity disorder (ADHD).' },
+    },
+    scene: { room: 'Sleeping child', kidney: 'Kidney', bladder: 'Bladder', stool: 'Full bowel', noSignal: 'Brain does not wake', noWake: 'Signal arrives, still asleep', wet: 'Wet bed' },
     ageLabel: 'Age',
     years: 'years old',
     rateText: 'out of 100 children still wet the bed at this age',

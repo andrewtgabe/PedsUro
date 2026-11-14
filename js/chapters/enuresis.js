@@ -1,6 +1,6 @@
 // Nocturnal enuresis (bedwetting) chapter.
 import { t } from '../i18n.js';
-import { toggle, slider, modelLayout, optionTabs, takeaways, stepPlayer } from '../ui.js';
+import { toggle, slider, segmented, modelLayout, optionTabs, takeaways, stepPlayer } from '../ui.js';
 
 const T = (k) => t(`enuresis.${k}`);
 
@@ -89,18 +89,96 @@ function iconGrid(n) {
   return `<svg class="anatomy chart" viewBox="0 0 370 360" role="img" aria-label="${n} / 100">${out}</svg>`;
 }
 
+// A sleeping child seen from the side with the brain, kidneys and bladder drawn in.
+// The bladder fills over a loop; each cause changes how it fills or whether the brain wakes.
+const CAUSE_SETUP = {
+  brain: { rate: 1, cap: 1, signal: 'broken' },
+  urine: { rate: 2, cap: 1, signal: 'broken' },
+  bladder: { rate: 1, cap: 0.55, signal: 'broken' },
+  constipation: { rate: 1, cap: 0.6, signal: 'broken', stool: true },
+  sleep: { rate: 1, cap: 1, signal: 'bounce' },
+  stress: { rate: 1, cap: 1, signal: 'broken', bubble: '🏠 🏫 👶' },
+  medical: { rate: 1.5, cap: 0.8, signal: 'broken', bubble: '🦠 🍬 😴' },
+  adhd: { rate: 1, cap: 1, signal: 'broken', bubble: '⚡' },
+};
+function causeScene(cause, fill, L) {
+  const c = CAUSE_SETUP[cause];
+  const full = fill >= 0.98;
+  const brx = 46 * Math.sqrt(c.cap);
+  const bry = 30 * Math.sqrt(c.cap);
+  const bx = 360;
+  const by = 196;
+  const level = by + bry - 2 * bry * Math.min(fill, 1);
+  const signal = full
+    ? (c.signal === 'bounce'
+      ? `<path d="M${bx - 20} ${by - 24} Q230 60 128 104" fill="none" stroke="#16a34a" stroke-width="4" stroke-dasharray="8 6"/><text class="lbl small" x="140" y="70">${L.noWake}</text>`
+      : `<path d="M${bx - 20} ${by - 24} Q260 90 200 100" fill="none" stroke="#16a34a" stroke-width="4" stroke-dasharray="8 6"/><path d="M184 88 L204 108 M204 88 L184 108" stroke="#dc2626" stroke-width="5"/><text class="lbl small" x="150" y="70">${L.noSignal}</text>`)
+    : '';
+  const drops = cause === 'urine' || cause === 'medical'
+    ? [0, 1, 2].map((i) => `<circle cx="${290 + i * 10}" cy="${150 + ((fill * 200 + i * 20) % 40)}" r="4" fill="var(--urine)"/>`).join('') : '';
+  return `<svg class="anatomy" viewBox="0 0 600 300" role="img" aria-label="${L.room}">
+    <rect x="40" y="236" width="520" height="22" rx="6" fill="#ca8a04"/>
+    <ellipse cx="100" cy="196" rx="44" ry="16" fill="#fff" stroke="#cbd5e1" stroke-width="2"/>
+    <circle cx="108" cy="150" r="46" fill="#f1cdb6" stroke="#c99a80" stroke-width="2"/>
+    <path d="M70 128 q24 -40 76 -12" fill="none" stroke="#7a4a2a" stroke-width="10" stroke-linecap="round"/>
+    <path d="M96 162 q8 6 16 0" fill="none" stroke="#7a4a2a" stroke-width="3"/>
+    <path d="M86 128 q22 -26 50 -4 q10 18 -8 26 q-22 8 -42 -6 q-8 -8 0 -16 Z" fill="#f9a8d4" stroke="#db2777" stroke-width="2"/>
+    ${cause === 'adhd' ? '<text x="150" y="112" font-size="22">⚡</text>' : ''}
+    <text class="lbl" x="${cause === 'sleep' ? 150 : 160}" y="${cause === 'sleep' ? 104 : 116}" style="font-size:${cause === 'sleep' ? 34 : 20}px" fill="#64748b">Zzz</text>
+    <path d="M150 170 Q330 150 540 196 L540 236 L150 236 Z" fill="#a5b4fc" stroke="#6366f1" stroke-width="2"/>
+    <g opacity="0.95">
+      <ellipse cx="280" cy="176" rx="18" ry="26" fill="#c47b6b" stroke="#8c4f43" stroke-width="2"/>
+      <path d="M290 196 Q320 200 ${bx - brx + 6} ${by}" fill="none" stroke="#e7b0a4" stroke-width="5"/>
+      ${c.stool ? `<ellipse cx="${bx + 34}" cy="${by + 4}" rx="34" ry="24" fill="#8b5a2b" stroke="#5b3a1a" stroke-width="2"/><text class="lbl small" x="${bx + 70}" y="${by + 40}">${L.stool}</text>` : ''}
+      <clipPath id="bcl"><ellipse cx="${bx}" cy="${by}" rx="${brx}" ry="${bry}"/></clipPath>
+      <ellipse cx="${bx}" cy="${by}" rx="${brx}" ry="${bry}" fill="#fde68a" stroke="#d97706" stroke-width="3"/>
+      <rect x="${bx - brx}" y="${level}" width="${2 * brx}" height="${2 * bry}" fill="var(--urine)" clip-path="url(#bcl)"/>
+      ${drops}
+    </g>
+    <text class="lbl small" x="280" y="138" text-anchor="middle">${L.kidney}</text>
+    <text class="lbl small" x="${bx}" y="${by + bry + 18}" text-anchor="middle">${L.bladder}</text>
+    ${c.bubble ? `<g><ellipse cx="240" cy="44" rx="70" ry="28" fill="#fff" stroke="#94a3b8" stroke-width="2"/><circle cx="170" cy="86" r="6" fill="#fff" stroke="#94a3b8" stroke-width="2"/><text x="240" y="54" text-anchor="middle" font-size="24">${c.bubble}</text></g>` : ''}
+    ${signal}
+    ${full ? `<ellipse cx="${bx + 30}" cy="232" rx="50" ry="7" fill="var(--urine)" opacity="0.85"/><text class="lbl accent-text" x="${bx + 30}" y="282" text-anchor="middle">${L.wet}</text>` : ''}
+  </svg>`;
+}
+
 function renderPathology(root) {
+  const s = { cause: 'brain' };
   const { viz, ctl, explain } = modelLayout(root, T('pathology.intro'));
-  const draw = (age) => {
-    const n = PREVALENCE[age];
-    viz.innerHTML = iconGrid(n);
-    explain.innerHTML = `<p class="big-stat"><strong>${n}</strong> ${T('pathology.rateText')}</p>
-      ${age === 5 ? `<div class="callout good"><p>${T('pathology.normalAt5')}</p></div>` : ''}
-      <p>${T('pathology.each')}</p>
+  const causes = T('pathology.causes');
+  viz.innerHTML = '<div data-scene></div><div class="mini-grid" data-grid></div><p class="caption" data-rate></p>';
+  const scene = viz.querySelector('[data-scene]');
+  const grid = viz.querySelector('[data-grid]');
+  const rate = viz.querySelector('[data-rate]');
+  let fill = 0;
+  let last = performance.now();
+  let id;
+  const frame = (now) => {
+    const c = CAUSE_SETUP[s.cause];
+    fill += ((now - last) / 5000) * c.rate / c.cap;
+    last = now;
+    if (fill > 1.5) fill = 0;
+    scene.innerHTML = causeScene(s.cause, Math.min(fill, 1), T('pathology.scene'));
+    id = requestAnimationFrame(frame);
+  };
+  id = requestAnimationFrame(frame);
+  const showCause = () => {
+    explain.innerHTML = `<h3>${causes[s.cause].name}</h3><p>${causes[s.cause].text}</p>
       <h3>${T('pathology.whenTitle')}</h3><ul>${T('pathology.when').map((x) => `<li>${x}</li>`).join('')}</ul>`;
   };
-  ctl.append(slider(T('pathology.ageLabel'), { min: 5, max: 15, step: 1, value: 5, format: (v) => `${v} ${T('pathology.years')}` }, draw));
-  draw(5);
+  const drawAge = (age) => {
+    const n = PREVALENCE[age];
+    grid.innerHTML = iconGrid(n);
+    rate.innerHTML = `<strong>${n}</strong> ${T('pathology.rateText')}. ${T('pathology.each')}${age === 5 ? ` ${T('pathology.normalAt5')}` : ''}`;
+  };
+  ctl.append(
+    segmented(T('pathology.causeLabel'), Object.entries(causes).map(([k, v]) => [k, v.name]), s.cause, (v) => { s.cause = v; fill = 0; showCause(); }),
+    slider(T('pathology.ageLabel'), { min: 5, max: 15, step: 1, value: 5, format: (v) => `${v} ${T('pathology.years')}` }, drawAge),
+  );
+  showCause();
+  drawAge(5);
+  return () => cancelAnimationFrame(id);
 }
 
 // ---------- 3. Treatment ----------

@@ -668,3 +668,5 @@ svg.anatomy .bubble { fill: #fff; stroke: #6aa7e8; stroke-width: 1.5; }
 .habit-list { list-style: none; margin: 0; padding: 8px; display: grid; gap: 14px; font-size: 1.2rem; line-height: 1.4; }
 .habit-list li { display: flex; gap: 14px; align-items: flex-start; }
 .habit-list .icon { font-size: 1.8rem; line-height: 1; flex: none; width: 2.2rem; text-align: center; }
+.mini-grid { max-width: 200px; margin: 8px auto 0; }
+.mini-grid svg { width: 100%; height: auto; max-height: none; }

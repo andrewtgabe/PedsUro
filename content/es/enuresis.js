@@ -28,6 +28,18 @@ export default {
   pathology: {
     intro:
       'Mojar la cama es muy común y mejora poco a poco conforme los niños crecen. No es por flojera y no es culpa del niño o la niña.',
+    causeLabel: 'Causas comunes',
+    causes: {
+      brain: { name: 'El cerebro todavía aprende', text: 'La conexión entre el cerebro y la vejiga todavía se está desarrollando. Cuando la vejiga está llena, puede que el cerebro todavía no despierte al niño o la niña. Mojar la cama también es de familia: si uno o los dos padres mojaban la cama de niños, su hijo o hija tiene mucha más probabilidad.' },
+      urine: { name: 'Mucha orina en la noche', text: 'En la noche el cuerpo produce una hormona (ADH, también llamada vasopresina) que hace más lenta la producción de orina. Algunos niños todavía no producen suficiente, así que hacen más orina de la que la vejiga puede aguantar.' },
+      bladder: { name: 'Vejiga pequeña', text: 'La vejiga puede aguantar menos, o el músculo de la vejiga puede apretarse antes de tiempo mientras duerme.' },
+      constipation: { name: 'Estreñimiento', text: 'Un intestino lleno aprieta la vejiga. La vejiga no puede aguantar tanto, lo que puede causar accidentes de noche o de día.' },
+      sleep: { name: 'Sueño profundo', text: 'Estos niños duermen normal, pero muy profundo. Les cuesta despertarse con la sensación de la vejiga llena.' },
+      stress: { name: 'Estrés o cambios grandes', text: 'El estrés puede hacer que moje la cama, sobre todo en un niño que ya estaba seco. Por ejemplo, mudarse de casa, empezar en una escuela nueva, la separación de los padres o un bebé nuevo en la familia.' },
+      medical: { name: 'Otras causas médicas', text: 'Con menos frecuencia, mojar la cama se debe a una infección de orina, diabetes tipo 1 (mucha sed, orina mucho) o respiración bloqueada al dormir (apnea del sueño), por ejemplo por amígdalas o adenoides grandes.' },
+      adhd: { name: 'TDAH', text: 'Mojar la cama es más común en niños con trastorno por déficit de atención e hiperactividad (TDAH).' },
+    },
+    scene: { room: 'Niño dormido', kidney: 'Riñón', bladder: 'Vejiga', stool: 'Intestino lleno', noSignal: 'El cerebro no despierta', noWake: 'Llega la señal, sigue dormido', wet: 'Cama mojada' },
     ageLabel: 'Edad',
     years: 'años',
     rateText: 'de cada 100 niños todavía mojan la cama a esta edad',
