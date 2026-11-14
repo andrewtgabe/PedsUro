@@ -144,22 +144,24 @@ const BUILD = {
         viz.innerHTML = urinaryTract(stoneView('ureter', 0.6)).replace(/<\/svg>\s*$/, `${ultrasoundProbe([566, 150, 70], o.probe)}</svg>`);
         return;
       }
-      // A child lying on the table, sliding through the ring of the CT scanner.
-      viz.innerHTML = `<svg class="anatomy" viewBox="0 0 600 360" role="img" aria-label="${o.ct}">
-        <rect x="40" y="250" width="520" height="22" rx="8" fill="#cbd5e1" stroke="#64748b" stroke-width="2"/>
-        <rect x="270" y="272" width="60" height="70" fill="#94a3b8"/>
-        <g fill="#f1cdb6" stroke="#c99a80" stroke-width="2">
-          <circle cx="70" cy="226" r="24"/>
-          <rect x="92" y="206" width="250" height="42" rx="20"/>
-          <rect x="336" y="212" width="200" height="16" rx="8"/><rect x="336" y="230" width="200" height="16" rx="8"/>
-        </g>
-        <path d="M70 202 q-26 2 -24 24" fill="#7a4a2a"/>
-        <circle cx="300" cy="200" r="150" fill="none" stroke="#e2e8f0" stroke-width="56"/>
-        <circle cx="300" cy="200" r="150" fill="none" stroke="#94a3b8" stroke-width="3"/>
-        <circle cx="300" cy="200" r="122" fill="none" stroke="#94a3b8" stroke-width="3"/>
-        <circle cx="300" cy="200" r="178" fill="none" stroke="#94a3b8" stroke-width="3"/>
-        <circle cx="300" cy="200" r="150" fill="none" stroke="#2f6fb5" stroke-width="6" stroke-dasharray="20 30" opacity="0.6"/>
-        <text class="lbl" x="300" y="16" text-anchor="middle">${o.ct}</text>
+      // A child lying on the table, head in the opening of the CT scanner (simplified clinic photo).
+      viz.innerHTML = `<svg class="anatomy" viewBox="0 0 600 380" role="img" aria-label="${o.ct}">
+        <rect x="0" y="330" width="600" height="50" fill="#e5e7eb"/>
+        <rect x="40" y="20" width="300" height="320" rx="60" fill="#f8fafc" stroke="#cbd5e1" stroke-width="3"/>
+        <path d="M64 120 Q60 250 150 318" fill="none" stroke="#f97316" stroke-width="6" stroke-linecap="round"/>
+        <circle cx="200" cy="165" r="92" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="4"/>
+        <circle cx="210" cy="165" r="70" fill="#cbd5e1"/>
+        <circle cx="222" cy="165" r="50" fill="#94a3b8" opacity="0.5"/>
+        <circle cx="300" cy="140" r="9" fill="#e2e8f0" stroke="#94a3b8" stroke-width="2"/>
+        <path d="M150 236 L560 236 L590 262 L180 262 Z" fill="#cbd5e1" stroke="#94a3b8" stroke-width="2"/>
+        <path d="M180 262 L590 262 L590 272 L180 272 Z" fill="#94a3b8"/>
+        <rect x="300" y="272" width="200" height="58" fill="#9ca3af"/>
+        <ellipse cx="212" cy="222" rx="30" ry="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+        <circle cx="232" cy="210" r="20" fill="#f1cdb6" stroke="#c99a80" stroke-width="2"/>
+        <path d="M214 200 q8 -16 30 -8" fill="none" stroke="#7a4a2a" stroke-width="8" stroke-linecap="round"/>
+        <path d="M250 214 Q300 190 400 200 Q500 196 560 222 L566 240 L246 240 Z" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+        <path d="M290 202 Q330 196 370 200 L376 238 L288 238 Z" fill="#94a3b8" opacity="0.7"/>
+        <text class="lbl" x="200" y="14" text-anchor="middle">${o.ct}</text>
       </svg>`;
     };
     ctl.append(segmented(o.label, Object.entries(o.methods), 'us', draw));
