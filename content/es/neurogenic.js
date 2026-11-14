@@ -47,6 +47,8 @@ export default {
         text: 'Ningún músculo funciona bien. La orina se escapa todo el tiempo. La presión se mantiene baja, así que los riñones por lo general están seguros, pero el niño siempre está mojado.',
       },
     },
+    gauge: { title: 'Presión en la vejiga', safe: 'Segura', intermediate: 'Intermedia', unsafe: 'Peligrosa' },
+    muscle: { tight: 'Flechas rojas: el músculo de control se aprieta y se cierra, así que la orina no puede salir.', weak: 'Flecha azul: el músculo de control no puede cerrar, así que la orina se escapa.' },
     reflux: 'La orina que regresa a los riñones (reflujo) en una vejiga con presión alta aumenta todavía más el riesgo para los riñones.',
     bowel: 'Los mismos nervios controlan el intestino, así que el estreñimiento y los accidentes con excremento también son comunes.',
   },

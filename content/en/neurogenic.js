@@ -47,6 +47,8 @@ export default {
         text: 'Neither muscle works well. Urine leaks out all the time. Pressure stays low, so the kidneys are usually safe, but the child is always wet.',
       },
     },
+    gauge: { title: 'Bladder pressure', safe: 'Safe', intermediate: 'Intermediate', unsafe: 'Unsafe' },
+    muscle: { tight: 'Red arrows: the control muscle squeezes shut, so urine cannot get out.', weak: 'Blue arrow: the control muscle cannot close, so urine leaks out.' },
     reflux: 'Urine flowing back up to the kidneys (reflux) in a high-pressure bladder adds even more risk to the kidneys.',
     bowel: 'The same nerves control the bowel, so constipation and poop accidents are common too.',
   },

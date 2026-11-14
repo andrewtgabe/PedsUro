@@ -670,3 +670,5 @@ svg.anatomy .bubble { fill: #fff; stroke: #6aa7e8; stroke-width: 1.5; }
 .habit-list .icon { font-size: 1.8rem; line-height: 1; flex: none; width: 2.2rem; text-align: center; }
 .mini-grid { max-width: 200px; margin: 8px auto 0; }
 .mini-grid svg { width: 100%; height: auto; max-height: none; }
+.gauge-row { display: grid; grid-template-columns: minmax(0, 2.2fr) minmax(0, 1fr); gap: 8px; align-items: center; }
+.gauge-row figure { margin: 0; }

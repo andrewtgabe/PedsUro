@@ -30,14 +30,53 @@ function renderEmbryology(root) {
 const TYPES = {
   high: { view: { fill: 0.5, squeeze: true, shaky: true, sphincter: 'tight', thick: 1, lesion: true, signals: 'up' }, pressure: 95 },
   retain: { view: { fill: 1, sphincter: 'tight', lesion: true, signals: 'up' }, pressure: 55 },
-  urge: { view: { fill: 0.3, squeeze: true, shaky: true, sphincter: 'weak', leak: true, lesion: true, signals: 'up' }, pressure: 35 },
+  urge: { view: { fill: 0.3, squeeze: true, shaky: true, sphincter: 'weak', leak: true, lesion: true, signals: 'up' }, pressure: 42 },
   leaky: { view: { fill: 0.2, sphincter: 'weak', leak: true, lesion: true, signals: 'up' }, pressure: 15 },
 };
 
-const meter = (pct) => {
-  const color = pct > 70 ? 'var(--warn)' : pct > 35 ? '#c9962b' : 'var(--good)';
-  return `<div class="meter"><span style="width:${pct}%;background:${color}"></span></div>`;
-};
+
+// Arrows at the control muscle: squeezing shut (tight) or not closing (weak).
+function sphincterArrows(o) {
+  const ry = 44 + 40 * o.fill;
+  const y = 300 + ry + 29;
+  const tight = o.sphincter === 'tight';
+  const color = tight ? '#dc2626' : '#2563eb';
+  const head = (x, dir) => `<path d="M${x} ${y} l${-8 * dir} -7 l0 14 Z" fill="${color}"/>`;
+  return tight
+    ? `<g><line x1="236" y1="${y}" x2="266" y2="${y}" stroke="${color}" stroke-width="4"/>${head(274, 1)}
+       <line x1="356" y1="${y + 22}" x2="330" y2="${y + 4}" stroke="${color}" stroke-width="4"/><path d="M324 ${y} l14 1 l-7 11 Z" fill="${color}"/></g>`
+    : `<g><line x1="270" y1="${y}" x2="242" y2="${y}" stroke="${color}" stroke-width="4"/>${head(234, -1)}</g>`;
+}
+
+// Pressure gauge: safe (green), intermediate (yellow), unsafe (red) with a needle.
+function pressureGauge(pct, L) {
+  const cx = 110;
+  const cy = 120;
+  const r = 80;
+  const pt = (deg, rad) => [cx + rad * Math.cos((deg * Math.PI) / 180), cy - rad * Math.sin((deg * Math.PI) / 180)];
+  const sector = (a1, a2, color) => {
+    const [x1, y1] = pt(a1, r);
+    const [x2, y2] = pt(a2, r);
+    return `<path d="M${cx} ${cy} L${x1.toFixed(1)} ${y1.toFixed(1)} A${r} ${r} 0 0 1 ${x2.toFixed(1)} ${y2.toFixed(1)} Z" fill="${color}" stroke="#1f2937" stroke-width="3"/>`;
+  };
+  const ang = 180 - 1.8 * pct;
+  const [nx, ny] = pt(ang, r - 14);
+  const zone = pct >= 66 ? L.unsafe : pct >= 33 ? L.intermediate : L.safe;
+  return `<svg class="anatomy" viewBox="0 0 220 300" role="img" aria-label="${L.title}: ${zone}">
+    <rect x="88" y="214" width="44" height="34" fill="#facc15" stroke="#1f2937" stroke-width="4"/>
+    <path d="M92 254 h36 M92 266 h36 M92 278 h36" stroke="#1f2937" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="${cx}" cy="${cy + 10}" r="104" fill="#6b6370" stroke="#1f2937" stroke-width="5"/>
+    <circle cx="${cx}" cy="${cy + 10}" r="88" fill="#ececec" stroke="#1f2937" stroke-width="4"/>
+    ${sector(180, 120, '#6ee7b7')}${sector(120, 60, '#fde68a')}${sector(60, 0, '#fca5a5')}
+    <line x1="${cx}" y1="${cy}" x2="${nx.toFixed(1)}" y2="${ny.toFixed(1)}" stroke="#374151" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="${cx}" cy="${cy}" r="12" fill="#374151"/>
+    <text x="${pt(150, 52)[0].toFixed(0)}" y="${pt(150, 52)[1].toFixed(0)}" text-anchor="middle" font-size="11" font-weight="700" fill="#065f46">${L.safe}</text>
+    <text x="${cx}" y="${cy - 56}" text-anchor="middle" font-size="11" font-weight="700" fill="#92400e">${L.intermediate}</text>
+    <text x="${pt(30, 52)[0].toFixed(0)}" y="${pt(30, 52)[1].toFixed(0)}" text-anchor="middle" font-size="11" font-weight="700" fill="#991b1b">${L.unsafe}</text>
+    <text x="${cx}" y="${cy + 62}" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2937">${zone}</text>
+    <text x="${cx}" y="298" text-anchor="middle" font-size="13" fill="currentColor">${L.title}</text>
+  </svg>`;
+}
 
 function renderPathology(root) {
   const s = { type: 'high' };
@@ -45,9 +84,10 @@ function renderPathology(root) {
   const types = T('pathology.types');
   const draw = () => {
     const ty = TYPES[s.type];
-    viz.innerHTML = view(ty.view);
+    viz.innerHTML = `<div class="gauge-row"><figure>${view(ty.view).replace(/<\/svg>\s*$/, `${sphincterArrows(ty.view)}</svg>`)}</figure>
+      <figure>${pressureGauge(ty.pressure, T('pathology.gauge'))}</figure></div>`;
     explain.innerHTML = `<h3>${types[s.type].name}</h3><p>${types[s.type].text}</p>
-      <p>${T('pathology.pressureLabel')}</p>${meter(ty.pressure)}
+      <p class="note">${T(`pathology.muscle.${ty.view.sphincter}`)}</p>
       ${s.type === 'high' ? `<p class="note">${T('pathology.reflux')}</p>` : ''}
       <p class="note">${T('pathology.bowel')}</p>`;
   };
