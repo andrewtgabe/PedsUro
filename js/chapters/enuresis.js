@@ -122,7 +122,12 @@ function causeScene(cause, fill, L) {
     <circle cx="108" cy="150" r="46" fill="#f1cdb6" stroke="#c99a80" stroke-width="2"/>
     <path d="M70 128 q24 -40 76 -12" fill="none" stroke="#7a4a2a" stroke-width="10" stroke-linecap="round"/>
     <path d="M96 162 q8 6 16 0" fill="none" stroke="#7a4a2a" stroke-width="3"/>
-    <path d="M86 128 q22 -26 50 -4 q10 18 -8 26 q-22 8 -42 -6 q-8 -8 0 -16 Z" fill="#f9a8d4" stroke="#db2777" stroke-width="2"/>
+    <g stroke="#be185d" stroke-width="2" stroke-linecap="round" fill="none">
+      <path d="M82 134 q-6 -12 4 -20 q2 -12 16 -12 q8 -8 20 -2 q12 -4 18 6 q12 4 8 16 q6 10 -4 18 q-2 10 -14 10 q-8 6 -18 0 q-10 4 -18 -4 q-12 0 -12 -12 Z" fill="#f9a8d4"/>
+      <path d="M110 104 q-4 14 2 30 q4 8 0 14"/>
+      <path d="M90 118 q8 2 10 10 M92 136 q8 -4 14 2"/>
+      <path d="M122 112 q-2 10 8 12 M120 130 q10 -2 16 6 M128 146 q4 -6 12 -4"/>
+    </g>
     ${cause === 'adhd' ? '<text x="150" y="112" font-size="22">⚡</text>' : ''}
     <text class="lbl" x="${cause === 'sleep' ? 150 : 160}" y="${cause === 'sleep' ? 104 : 116}" style="font-size:${cause === 'sleep' ? 34 : 20}px" fill="#64748b">Zzz</text>
     <path d="M150 170 Q330 150 540 196 L540 236 L150 236 Z" fill="#a5b4fc" stroke="#6366f1" stroke-width="2"/>
@@ -147,10 +152,13 @@ function renderPathology(root) {
   const s = { cause: 'brain' };
   const { viz, ctl, explain } = modelLayout(root, T('pathology.intro'));
   const causes = T('pathology.causes');
-  viz.innerHTML = '<div data-scene></div><div class="mini-grid" data-grid></div><p class="caption" data-rate></p>';
+  viz.innerHTML = '<div data-scene></div>';
   const scene = viz.querySelector('[data-scene]');
-  const grid = viz.querySelector('[data-grid]');
-  const rate = viz.querySelector('[data-rate]');
+  // The 100-child chart sits under the cause buttons, above its age slider.
+  const grid = document.createElement('div');
+  grid.className = 'mini-grid';
+  const rate = document.createElement('p');
+  rate.className = 'caption';
   let fill = 0;
   let last = performance.now();
   let id;
@@ -174,6 +182,8 @@ function renderPathology(root) {
   };
   ctl.append(
     segmented(T('pathology.causeLabel'), Object.entries(causes).map(([k, v]) => [k, v.name]), s.cause, (v) => { s.cause = v; fill = 0; showCause(); }),
+    grid,
+    rate,
     slider(T('pathology.ageLabel'), { min: 5, max: 15, step: 1, value: 5, format: (v) => `${v} ${T('pathology.years')}` }, drawAge),
   );
   showCause();
