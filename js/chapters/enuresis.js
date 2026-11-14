@@ -1,6 +1,6 @@
 // Nocturnal enuresis (bedwetting) chapter.
 import { t } from '../i18n.js';
-import { toggle, slider, modelLayout, optionTabs, takeaways } from '../ui.js';
+import { toggle, slider, modelLayout, optionTabs, takeaways, stepPlayer } from '../ui.js';
 
 const T = (k) => t(`enuresis.${k}`);
 
@@ -95,6 +95,7 @@ function renderPathology(root) {
     const n = PREVALENCE[age];
     viz.innerHTML = iconGrid(n);
     explain.innerHTML = `<p class="big-stat"><strong>${n}</strong> ${T('pathology.rateText')}</p>
+      ${age === 5 ? `<div class="callout good"><p>${T('pathology.normalAt5')}</p></div>` : ''}
       <p>${T('pathology.each')}</p>
       <h3>${T('pathology.whenTitle')}</h3><ul>${T('pathology.when').map((x) => `<li>${x}</li>`).join('')}</ul>`;
   };
@@ -104,21 +105,96 @@ function renderPathology(root) {
 
 // ---------- 3. Treatment ----------
 
-const CHILD = { lotsOfUrine: true, smallBladder: false, deepSleep: true };
+// A simple bedroom for showing how a treatment is used night by night.
+//   time: 'night' | 'morning'; kid: 'bed' | 'toilet'; ring: alarm sounding; unit: alarm worn;
+//   parent: parent helping; stars: dry nights on the chart (of 14); wet: wet patch; dry: dry badge;
+//   glass: 'ok' | 'no' (drinks allowed / stopped); pill: bedtime tablet; gauge: 0..1 urine made overnight.
+function bedroom(st, L) {
+  const sky = st.time === 'morning'
+    ? '<circle cx="50" cy="44" r="18" fill="#facc15"/>'
+    : '<path d="M58 28 a18 18 0 1 0 0 34 a14 14 0 1 1 0 -34 Z" fill="#94a3b8"/>';
+  const kidBed = st.kid === 'bed';
+  const kid = kidBed
+    ? `<circle cx="112" cy="196" r="20" fill="#f1cdb6" stroke="#c99a80" stroke-width="2"/>
+       <path d="M96 186 q10 -16 32 -6" fill="none" stroke="#7a4a2a" stroke-width="7" stroke-linecap="round"/>`
+    : `<g><circle cx="470" cy="150" r="18" fill="#f1cdb6" stroke="#c99a80" stroke-width="2"/>
+       <rect x="456" y="168" width="28" height="56" rx="10" fill="#93c5fd"/><rect x="458" y="222" width="10" height="40" rx="4" fill="#93c5fd"/><rect x="472" y="222" width="10" height="40" rx="4" fill="#93c5fd"/></g>`;
+  const unit = st.unit && kidBed
+    ? `<rect x="138" y="200" width="22" height="16" rx="4" fill="#2563eb"/>${st.ring ? '<path d="M166 196 q10 12 0 24 M176 190 q16 18 0 36" fill="none" stroke="#dc2626" stroke-width="3" stroke-linecap="round"/>' : ''}
+       <text class="lbl small" x="150" y="${st.ring ? 150 : 170}" text-anchor="middle">${st.ring ? L.ring : L.unit}</text>
+       <path d="M200 236 L232 290" stroke="#64748b" stroke-dasharray="4 3"/><text class="lbl small" x="236" y="304">${L.sensor}</text>`
+    : '';
+  const parent = st.parent
+    ? `<g><circle cx="320" cy="120" r="20" fill="#e7b99c"/><rect x="302" y="140" width="36" height="80" rx="12" fill="var(--accent)"/><rect x="306" y="218" width="12" height="44" rx="4" fill="#475569"/><rect x="322" y="218" width="12" height="44" rx="4" fill="#475569"/>
+       <path d="M304 160 L240 196" stroke="#e7b99c" stroke-width="8" stroke-linecap="round"/></g>` : '';
+  const toilet = `<g><rect x="512" y="200" width="44" height="60" rx="6" fill="#f8fafc" stroke="#94a3b8" stroke-width="3"/><ellipse cx="520" cy="236" rx="26" ry="10" fill="#f8fafc" stroke="#94a3b8" stroke-width="3"/></g>`;
+  const cal = st.stars != null
+    ? `<g transform="translate(400 20)"><rect width="180" height="86" rx="8" fill="#fff" stroke="#94a3b8" stroke-width="2"/>
+       <text class="lbl small" x="90" y="16" text-anchor="middle">${L.chart}</text>
+       ${Array.from({ length: 14 }, (_, i) => `<text x="${16 + (i % 7) * 25}" y="${44 + Math.floor(i / 7) * 28}" font-size="18" text-anchor="middle">${i < st.stars ? '⭐' : '▫️'}</text>`).join('')}</g>` : '';
+  const glass = st.glass
+    ? `<g transform="translate(250 40)"><path d="M0 0 L34 0 L30 50 L4 50 Z" fill="#dbeafe" stroke="#64748b" stroke-width="2"/>${st.glass === 'no' ? '<path d="M-8 -6 L42 56 M42 -6 L-8 56" stroke="#dc2626" stroke-width="5"/>' : ''}
+       <text class="lbl small" x="17" y="72" text-anchor="middle">${st.glass === 'no' ? L.noDrinks : L.lastDrink}</text></g>` : '';
+  const pill = st.pill ? `<g class="pill"><rect x="150" y="60" width="54" height="22" rx="11"/><path d="M177 60 v22"/><text class="lbl small" x="177" y="102" text-anchor="middle">${L.pill}</text></g>` : '';
+  const gauge = st.gauge != null
+    ? `<g transform="translate(430 130)"><rect x="-16" y="0" width="32" height="110" rx="10" fill="#fff" stroke="#64748b" stroke-width="2"/>
+       <rect x="-14" y="${108 - 106 * st.gauge}" width="28" height="${106 * st.gauge}" rx="8" fill="var(--urine)"/>
+       <text class="lbl small" x="0" y="128" text-anchor="middle">${L.urine}</text></g>` : '';
+  return `<svg class="anatomy" viewBox="0 0 600 340" role="img" aria-label="${L.room}">
+    <rect x="0" y="262" width="600" height="78" fill="#f1f5f9"/>
+    ${sky}${cal}${glass}${pill}
+    <rect x="70" y="150" width="14" height="112" rx="4" fill="#a16207"/>
+    <rect x="70" y="226" width="290" height="24" rx="6" fill="#ca8a04"/>
+    <ellipse cx="114" cy="214" rx="34" ry="12" fill="#fff" stroke="#cbd5e1" stroke-width="2"/>
+    ${kid}
+    <path d="M${kidBed ? 132 : 100} 206 Q240 190 356 214 L356 232 L${kidBed ? 132 : 100} 232 Z" fill="#a5b4fc" stroke="#6366f1" stroke-width="2"/>
+    ${st.wet ? '<ellipse cx="210" cy="226" rx="34" ry="7" fill="var(--urine)" opacity="0.8"/>' : ''}
+    ${unit}${parent}${toilet}${gauge}
+    ${st.dry ? `<g><rect x="230" y="120" width="110" height="34" rx="17" fill="#16a34a"/><text x="285" y="142" text-anchor="middle" fill="#fff" font-weight="700" font-size="18">${L.dry}</text></g>` : ''}
+  </svg>`;
+}
+
+function nightSteps(viz, ctl, o, states) {
+  const base = { time: 'night', kid: 'bed', ring: false, unit: false, parent: false, stars: null, wet: false, dry: false, glass: '', pill: false, gauge: null };
+  return stepPlayer(ctl, states.map((st, n) => ({ caption: o.steps[n], state: { ...base, ...st } })), (st) => (viz.innerHTML = bedroom(st, o.scene)), t('common.player'));
+}
 
 const BUILD = {
-  habits: (viz) => { viz.innerHTML = nightChart({ ...CHILD }); },
-  alarm(viz, ctl) {
-    const o = T('treatment.options.alarm');
-    const draw = (w) => (viz.innerHTML = nightChart({ ...CHILD, alarm: w === 0 ? 'off' : w < 8 ? 'learning' : 'learned' }));
-    ctl.append(slider(o.control, { min: 0, max: 12, step: 1, value: 0, format: (v) => `${v} ${o.weeks}` }, draw));
-    draw(0);
+  firstVisit(viz) {
+    const o = T('treatment.options.firstVisit');
+    viz.innerHTML = `<ul class="habit-list">${o.checks.map((h, i) => `<li><span class="icon" aria-hidden="true">${['💬', '🩺', '🧪', '📓', '💩', '🔎'][i]}</span><span>${h}</span></li>`).join('')}</ul>`;
   },
-  desmopressin(viz, ctl) {
-    const o = T('treatment.options.desmopressin');
-    const draw = (on) => (viz.innerHTML = nightChart({ ...CHILD, desmo: on }));
-    ctl.append(toggle(o.dose, false, draw));
-    draw(false);
+
+  habits(viz) {
+    const o = T('treatment.options.habits');
+    viz.innerHTML = `<ul class="habit-list">${o.habits.map((h, i) => `<li><span class="icon" aria-hidden="true">${['💧', '🌙', '🥤', '🚽', '💩', '🌟'][i]}</span><span>${h}</span></li>`).join('')}</ul>`;
+  },
+
+  // How a family uses the alarm, night by night, until 14 dry nights in a row.
+  alarm: (viz, ctl) =>
+    nightSteps(viz, ctl, T('treatment.options.alarm'), [
+      { unit: true, stars: 0 },
+      { unit: true, ring: true, wet: true, stars: 0 },
+      { unit: true, ring: true, parent: true, wet: true, stars: 0 },
+      { kid: 'toilet', parent: true, stars: 0 },
+      { unit: true, parent: true, stars: 1 },
+      { unit: true, time: 'morning', dry: true, stars: 8 },
+      { time: 'morning', dry: true, stars: 14 },
+    ]),
+
+  // How desmopressin is taken: stop drinks, tablet at bedtime, no drinks overnight, less urine made.
+  desmopressin: (viz, ctl) =>
+    nightSteps(viz, ctl, T('treatment.options.desmopressin'), [
+      { kid: 'toilet', glass: 'ok', time: 'night' },
+      { pill: true, glass: 'no', gauge: 0 },
+      { glass: 'no', gauge: 0.35 },
+      { time: 'morning', gauge: 0.45, dry: true },
+      { time: 'morning', dry: true, stars: 10 },
+    ]),
+
+  combined(viz) {
+    const o = T('treatment.options.combined');
+    viz.innerHTML = `<ul class="habit-list">${o.items.map((h, i) => `<li><span class="icon" aria-hidden="true">${['⏰', '💊', '🫧'][i]}</span><span>${h}</span></li>`).join('')}</ul>`;
   },
 };
 
