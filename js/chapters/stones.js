@@ -72,7 +72,7 @@ function stoneView(where, size, fragments = false) {
 const SIZES = { small: 0.3, medium: 0.6, large: 1 };
 
 function renderPathology(root) {
-  const s = { where: 'ureter', size: 'small' };
+  const s = { where: 'calyx', size: 'small' };
   const { viz, ctl, explain } = modelLayout(root, T('pathology.intro'));
   const where = T('pathology.where');
   const draw = () => {
