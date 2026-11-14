@@ -40,6 +40,7 @@ export default {
     pathology: 'Qué está pasando',
     treatment: 'Evaluación y manejo',
     takeaways: 'Puntos clave',
+    followup: 'Seguimiento',
     ultrasound: 'Ultrasonido',
     mag3: 'Estudio MAG3',
     dmsa: 'Estudio DMSA',

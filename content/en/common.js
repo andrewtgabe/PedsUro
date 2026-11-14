@@ -41,6 +41,7 @@ export default {
     pathology: 'What’s happening',
     treatment: 'Workup and management',
     takeaways: 'Key points',
+    followup: 'Follow-up',
     ultrasound: 'Ultrasound',
     mag3: 'MAG3 scan',
     dmsa: 'DMSA scan',

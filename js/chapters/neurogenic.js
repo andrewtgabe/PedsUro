@@ -187,6 +187,36 @@ function renderTreatment(root) {
   );
 }
 
+// ---------- Follow-up (UMPIRE-style proactive schedule, birth to age 5) ----------
+
+const STAGE_X = [70, 170, 270, 370, 470, 570];
+function followTimeline(at, names, icons) {
+  return `<svg class="anatomy" viewBox="0 0 640 220" role="img" aria-label="${names[at]}">
+    <line x1="70" y1="120" x2="570" y2="120" stroke="var(--line)" stroke-width="8" stroke-linecap="round"/>
+    <line x1="70" y1="120" x2="${STAGE_X[at]}" y2="120" stroke="var(--accent)" stroke-width="8" stroke-linecap="round"/>
+    ${STAGE_X.map((x, i) => `<g>
+      <circle cx="${x}" cy="120" r="${i === at ? 24 : 16}" fill="${i <= at ? 'var(--accent)' : '#fff'}" stroke="var(--accent)" stroke-width="3"/>
+      <text x="${x}" y="${i === at ? 130 : 127}" text-anchor="middle" style="font-size:${i === at ? 26 : 18}px">${icons[i]}</text>
+      <text class="lbl${i === at ? '' : ' small'}" x="${x}" y="176" text-anchor="middle">${names[i]}</text></g>`).join('')}
+  </svg>`;
+}
+
+function renderFollowup(root) {
+  const stages = T('followup.stages');
+  const icons = ['👶', '📈', '🔎', '🎂', '📅', '⚠️'];
+  const { viz, ctl, explain } = modelLayout(root, T('followup.intro'));
+  const draw = (i) => {
+    const st = stages[i];
+    viz.innerHTML = followTimeline(i, stages.map((x) => x.name), icons);
+    explain.innerHTML = `<h3>${st.title}</h3>
+      <h4>${T('followup.testsTitle')}</h4><ul>${st.tests.map((x) => `<li>${x}</li>`).join('')}</ul>
+      <h4>${T('followup.decideTitle')}</h4><ul>${st.decide.map((x) => `<li>${x}</li>`).join('')}</ul>
+      <p class="note">${T('followup.note')}</p>`;
+  };
+  ctl.append(segmented(T('followup.stageLabel'), stages.map((x, i) => [i, x.name]), 0, draw));
+  draw(0);
+}
+
 export default {
   id: 'neurogenic',
   title: () => T('title'),
@@ -194,6 +224,7 @@ export default {
     { id: 'embryology', render: renderEmbryology },
     { id: 'pathology', render: renderPathology },
     { id: 'treatment', render: renderTreatment },
+    { id: 'followup', render: renderFollowup },
     { id: 'takeaways', render: (root) => takeaways(root, { title: T('title'), ...T('takeaways') }) },
   ],
 };

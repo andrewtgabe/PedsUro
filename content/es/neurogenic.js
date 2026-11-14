@@ -172,6 +172,53 @@ export default {
     },
   },
 
+  followup: {
+    intro:
+      'Los bebés con espina bífida se siguen de cerca con un calendario de estudios planeado desde el nacimiento hasta los 5 años. Esto sigue un plan proactivo como el protocolo UMPIRE apoyado por los CDC (manejo urológico para preservar la función inicial del riñón). La meta es encontrar a tiempo una vejiga de alto riesgo, antes de que se dañen los riñones. Escoja una etapa.',
+    stageLabel: 'Etapa',
+    testsTitle: 'Estudios',
+    decideTitle: 'Lo que decidimos',
+    note: 'Su equipo puede ajustar este calendario para su hijo o hija. La mayoría de los recién nacidos tienen riñones normales al nacer, pero la vejiga puede cambiar conforme crece.',
+    stages: [
+      {
+        name: 'Recién nacido',
+        title: 'En el hospital después de nacer',
+        tests: ['Ultrasonido de riñones y vejiga en la primera semana, o antes de salir de la unidad de cuidados intensivos', 'Usar sonda cada 6 horas, midiendo cuánta orina queda en la vejiga', 'Un análisis de sangre de la función de los riñones (inicial)'],
+        decide: ['Seguir usando sonda si queda mucha orina en la vejiga (más de unos 30 mL), los riñones están moderada o muy hinchados, o hay reflujo grave', 'Si no, muchas veces se puede dejar de usar la sonda'],
+      },
+      {
+        name: '3 meses',
+        title: 'Alrededor de los 3 meses',
+        tests: ['Urodinamia (muchas veces con tinte de rayos X para buscar reflujo, o una cistouretrografía aparte)', 'Ultrasonido de riñones y vejiga', 'Gammagrafía DMSA para buscar cicatrices en los riñones (inicial)'],
+        decide: ['Empezar a usar sonda cada 4 horas y oxibutinina si la presión de la vejiga es de más de 40, la vejiga aprieta contra un músculo de control apretado, o hay reflujo grave'],
+      },
+      {
+        name: '6–9 meses',
+        title: 'Durante el primer año',
+        tests: ['Visita a la clínica y ultrasonido de riñones y vejiga cada 3 a 6 meses', 'Preguntas sobre cualquier infección de orina'],
+        decide: ['Vigilar si hay hinchazón nueva, infecciones o una pared de la vejiga más gruesa, que indican que hay que aumentar el tratamiento'],
+      },
+      {
+        name: '1 año',
+        title: 'Alrededor del año',
+        tests: ['Urodinamia de nuevo', 'Ultrasonido de riñones y vejiga', 'Análisis de sangre de la función de los riñones'],
+        decide: ['Ajustar la sonda y el medicamento según las nuevas presiones y el tamaño de la vejiga'],
+      },
+      {
+        name: '1 a 5 años',
+        title: 'De 1 a 5 años',
+        tests: ['Visita a la clínica, ultrasonido y análisis de sangre de los riñones cada 6 a 12 meses si está estable', 'Urodinamia de nuevo si algo cambia', 'Un diario de vejiga e intestino'],
+        decide: ['Muchas familias empiezan a usar sonda para mantenerse seco entre los 2 y 5 años, antes del kínder', 'Planear el programa para el intestino'],
+      },
+      {
+        name: 'En cualquier momento',
+        title: 'Señales de que hay que aumentar el cuidado',
+        tests: ['Hinchazón nueva de los riñones o reflujo en los estudios', 'Infecciones del riñón con fiebre', 'Presión que sube o una vejiga más gruesa en la urodinamia', 'Escapes nuevos, dolor de espalda o cambios en las piernas (posible médula anclada)'],
+        decide: ['Usar sonda más seguido, agregar o cambiar el medicamento, agregar una sonda que drene durante la noche', 'Si los riñones siguen en riesgo: Botox, vesicostomía en bebés o ampliación de la vejiga'],
+      },
+    ],
+  },
+
   takeaways: {
     points: [
       'Una vejiga neurogénica se debe a problemas de los nervios, muchas veces por espina bífida.',

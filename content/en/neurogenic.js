@@ -172,6 +172,53 @@ export default {
     },
   },
 
+  followup: {
+    intro:
+      'Babies with spina bifida are followed closely with a planned schedule of tests from birth to age 5. This follows a proactive plan like the CDC-supported UMPIRE protocol (Urologic Management to Preserve Initial Renal function). The goal is to find a high-risk bladder early, before the kidneys are harmed. Pick a stage.',
+    stageLabel: 'Stage',
+    testsTitle: 'Tests',
+    decideTitle: 'What we decide',
+    note: 'Your team may adjust this schedule for your child. Most newborns have normal kidneys at birth, but the bladder can change as your child grows.',
+    stages: [
+      {
+        name: 'Newborn',
+        title: 'In the hospital after birth',
+        tests: ['Kidney and bladder ultrasound within the first week, or before going home from the NICU', 'Catheterizing every 6 hours, measuring how much urine is left in the bladder', 'A blood test for kidney function (baseline)'],
+        decide: ['Keep catheterizing if the bladder holds a lot of leftover urine (more than about 30 mL), the kidneys are moderately or very swollen, or there is severe reflux', 'Otherwise, catheterizing can often be stopped'],
+      },
+      {
+        name: '3 months',
+        title: 'Around 3 months old',
+        tests: ['Urodynamics (often with X-ray dye to look for reflux, or a separate VCUG)', 'Kidney and bladder ultrasound', 'DMSA scan to check for kidney scars (baseline)'],
+        decide: ['Start catheterizing every 4 hours and oxybutynin if bladder pressure is over 40, the bladder squeezes against a tight control muscle, or there is severe reflux'],
+      },
+      {
+        name: '6–9 months',
+        title: 'During the first year',
+        tests: ['Clinic visit and kidney and bladder ultrasound every 3 to 6 months', 'Questions about any urine infections'],
+        decide: ['Watch for new swelling, infections, or a thicker bladder wall, which mean treatment needs to step up'],
+      },
+      {
+        name: '1 year',
+        title: 'Around 1 year old',
+        tests: ['Repeat urodynamics', 'Kidney and bladder ultrasound', 'Blood test for kidney function'],
+        decide: ['Adjust catheterizing and medicine based on the new pressures and bladder size'],
+      },
+      {
+        name: 'Ages 1–5',
+        title: 'From 1 to 5 years old',
+        tests: ['Clinic visit, ultrasound, and kidney blood tests every 6 to 12 months if stable', 'Urodynamics again if things change', 'A bladder and bowel diary'],
+        decide: ['Many families start catheterizing for dryness between ages 2 and 5, before kindergarten', 'Plan the bowel program'],
+      },
+      {
+        name: 'Any time',
+        title: 'Signs that care needs to step up',
+        tests: ['New kidney swelling or reflux on imaging', 'Kidney infections with fever', 'Rising pressure or a thicker bladder on urodynamics', 'New leaking, back pain, or leg changes (possible tethered cord)'],
+        decide: ['Catheterize more often, add or change medicine, add overnight catheter drainage', 'If the kidneys are still at risk: Botox, vesicostomy in babies, or bladder augmentation'],
+      },
+    ],
+  },
+
   takeaways: {
     points: [
       'A neurogenic bladder is caused by nerve problems, often from spina bifida.',
