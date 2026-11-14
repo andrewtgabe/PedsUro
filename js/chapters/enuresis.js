@@ -120,9 +120,10 @@ function causeScene(cause, fill, L) {
     <rect x="40" y="236" width="520" height="22" rx="6" fill="#ca8a04"/>
     <ellipse cx="100" cy="196" rx="44" ry="16" fill="#fff" stroke="#cbd5e1" stroke-width="2"/>
     <circle cx="108" cy="150" r="46" fill="#f1cdb6" stroke="#c99a80" stroke-width="2"/>
-    <path d="M70 128 q24 -40 76 -12" fill="none" stroke="#7a4a2a" stroke-width="10" stroke-linecap="round"/>
-    <path d="M96 162 q8 6 16 0" fill="none" stroke="#7a4a2a" stroke-width="3"/>
-    <g stroke="#be185d" stroke-width="2" stroke-linecap="round" fill="none">
+    <path d="M70 168 q-10 -30 4 -52" fill="none" stroke="#7a4a2a" stroke-width="10" stroke-linecap="round"/>
+    <path d="M110 116 q6 4 12 0" fill="none" stroke="#7a4a2a" stroke-width="3" stroke-linecap="round"/>
+    <path d="M136 128 q6 6 12 2" fill="none" stroke="#7a4a2a" stroke-width="3" stroke-linecap="round"/>
+    <g transform="translate(100 158) scale(0.5) translate(-112 -126)" stroke="#be185d" stroke-width="3" stroke-linecap="round" fill="none">
       <path d="M82 134 q-6 -12 4 -20 q2 -12 16 -12 q8 -8 20 -2 q12 -4 18 6 q12 4 8 16 q6 10 -4 18 q-2 10 -14 10 q-8 6 -18 0 q-10 4 -18 -4 q-12 0 -12 -12 Z" fill="#f9a8d4"/>
       <path d="M110 104 q-4 14 2 30 q4 8 0 14"/>
       <path d="M90 118 q8 2 10 10 M92 136 q8 -4 14 2"/>
