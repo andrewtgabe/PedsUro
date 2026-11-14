@@ -1,7 +1,7 @@
 // Neurogenic bladder chapter.
 import { t } from '../i18n.js';
 import { bladderNerves } from '../bladder.js';
-import { segmented, toggle, button, animate, modelLayout, optionTabs, takeaways, stepPlayer } from '../ui.js';
+import { segmented, toggle, modelLayout, optionTabs, takeaways, stepPlayer } from '../ui.js';
 import { bladderLabels } from './bbd.js';
 
 const T = (k) => t(`neurogenic.${k}`);
@@ -17,7 +17,8 @@ function renderEmbryology(root) {
     const blocked = s.cause === 'blocked';
     viz.innerHTML = view({ fill: 0.8, signals: 'both', lesion: blocked });
     explain.innerHTML = `<div class="callout ${blocked ? 'warn' : 'good'}"><p>${causes[s.cause].text}</p></div>
-      <h3>${T('embryology.whyTitle')}</h3><ul>${T('embryology.why').map((x) => `<li>${x}</li>`).join('')}</ul>`;
+      <h3>${T('embryology.whyTitle')}</h3><ul>${T('embryology.why').map((x) => `<li>${x}</li>`).join('')}</ul>
+      <div class="callout"><ul>${T('embryology.facts').map((x) => `<li>${x}</li>`).join('')}</ul></div>`;
   };
   ctl.append(segmented(T('embryology.causeLabel'), Object.entries(causes).map(([k, v]) => [k, v.name]), s.cause, (v) => { s.cause = v; draw(); }));
   draw();
@@ -25,10 +26,12 @@ function renderEmbryology(root) {
 
 // ---------- 2. What's happening ----------
 
+// Four patterns: bladder muscle overactive or underactive, control muscle overactive (tight) or underactive (weak).
 const TYPES = {
   high: { view: { fill: 0.5, squeeze: true, shaky: true, sphincter: 'tight', thick: 1, lesion: true, signals: 'up' }, pressure: 95 },
-  leaky: { view: { fill: 0.2, sphincter: 'weak', leak: true, lesion: true, signals: 'up' }, pressure: 20 },
-  floppy: { view: { fill: 1, leak: true, lesion: true, signals: 'up' }, pressure: 45 },
+  retain: { view: { fill: 1, sphincter: 'tight', lesion: true, signals: 'up' }, pressure: 55 },
+  urge: { view: { fill: 0.3, squeeze: true, shaky: true, sphincter: 'weak', leak: true, lesion: true, signals: 'up' }, pressure: 35 },
+  leaky: { view: { fill: 0.2, sphincter: 'weak', leak: true, lesion: true, signals: 'up' }, pressure: 15 },
 };
 
 const meter = (pct) => {
@@ -45,6 +48,7 @@ function renderPathology(root) {
     viz.innerHTML = view(ty.view);
     explain.innerHTML = `<h3>${types[s.type].name}</h3><p>${types[s.type].text}</p>
       <p>${T('pathology.pressureLabel')}</p>${meter(ty.pressure)}
+      ${s.type === 'high' ? `<p class="note">${T('pathology.reflux')}</p>` : ''}
       <p class="note">${T('pathology.bowel')}</p>`;
   };
   ctl.append(segmented(T('pathology.typeLabel'), Object.entries(types).map(([k, v]) => [k, v.name]), s.type, (v) => { s.type = v; draw(); }));
@@ -93,34 +97,93 @@ function procedure(key) {
 }
 
 
+const iconList = (items, icons) => `<ul class="habit-list">${items.map((h, i) => `<li><span class="icon" aria-hidden="true">${icons[i]}</span><span>${h}</span></li>`).join('')}</ul>`;
+
+// Urodynamics: bladder filling (left) and the pressure line (right). Above 40 is the danger zone.
+function pressureChart(st, L) {
+  const pts = [];
+  for (let i = 0; i <= 100 * st.t; i++) {
+    const x = i / 100;
+    const p = st.high ? 8 + 60 * Math.pow(x, 2.2) + (x > 0.5 ? 10 * Math.max(0, Math.sin(x * 40)) : 0) : 6 + 10 * x;
+    pts.push(`${(50 + x * 260).toFixed(1)} ${(200 - p * 2.2).toFixed(1)}`);
+  }
+  const y40 = 200 - 40 * 2.2;
+  return `<svg class="anatomy chart" viewBox="0 0 330 240" role="img" aria-label="${L.title}">
+    <rect x="50" y="20" width="260" height="${y40 - 20}" fill="rgb(220 38 38 / 0.08)"/>
+    <line x1="50" y1="${y40}" x2="310" y2="${y40}" stroke="#dc2626" stroke-dasharray="6 4"/>
+    <text x="306" y="${y40 - 6}" text-anchor="end" font-size="12" fill="#dc2626">${L.danger}</text>
+    <line class="axis" x1="50" y1="200" x2="310" y2="200"/><line class="axis" x1="50" y1="20" x2="50" y2="200"/>
+    ${pts.length > 1 ? `<path d="M${pts.join(' L')}" fill="none" stroke="${st.high ? '#dc2626' : '#16a34a'}" stroke-width="4"/>` : ''}
+    ${st.leak ? `<circle cx="${pts[pts.length - 1].split(' ')[0]}" cy="${pts[pts.length - 1].split(' ')[1]}" r="8" fill="none" stroke="#2563eb" stroke-width="3"/><text x="200" y="40" font-size="12" fill="#2563eb">${L.leak}</text>` : ''}
+    <text class="tick" x="180" y="224" text-anchor="middle">${L.volume}</text>
+    <text class="tick" x="18" y="110" text-anchor="middle" transform="rotate(-90 18 110)">${L.pressure}</text>
+  </svg>`;
+}
+
 const BUILD = {
+  // Regular check-ups, with urodynamics shown step by step.
+  tests(viz, ctl) {
+    const o = T('treatment.options.tests');
+    viz.classList.add('two');
+    const states = [
+      { t: 0, high: false, fill: 0.05, catheter: true },
+      { t: 0.5, high: false, fill: 0.45, catheter: true },
+      { t: 1, high: false, fill: 0.9, catheter: true },
+      { t: 1, high: true, fill: 0.9, catheter: true, thick: 1, squeeze: true },
+      { t: 1, high: true, fill: 0.9, catheter: true, thick: 1, squeeze: true, leak: true },
+    ];
+    const stop = stepPlayer(ctl, states.map((state, n) => ({ caption: o.steps[n], state })), (st) => {
+      viz.innerHTML = `<figure>${view({ fill: st.fill, catheter: st.catheter, thick: st.thick || 0, squeeze: !!st.squeeze, lesion: true, leak: !!st.leak, sphincter: st.high ? 'tight' : 'closed' })}</figure><figure>${pressureChart(st, o.chart)}</figure>`;
+    }, t('common.player'));
+    return () => { stop?.(); viz.classList.remove('two'); };
+  },
+
+  // How to catheterize, step by step.
   cic(viz, ctl) {
     const o = T('treatment.options.cic');
-    let stop = null;
-    const draw = (fill, cath) => (viz.innerHTML = view({ fill, catheter: cath, lesion: true, thick: 0.5 }));
-    ctl.append(button(o.action, () => {
-      stop?.();
-      stop = animate(2000, (k) => draw(0.9 * (1 - k) + 0.05, k < 0.98));
-    }));
-    draw(0.9, false);
-    return () => stop?.();
+    const icons = ['🧼', '🧻', '💧', '➡️', '🚽', '↩️', '⏰'];
+    const states = [
+      { fill: 0.9, cath: false }, { fill: 0.9, cath: false }, { fill: 0.9, cath: false },
+      { fill: 0.9, cath: true }, { fill: 0.15, cath: true }, { fill: 0.05, cath: false }, { fill: 0.05, cath: false },
+    ];
+    return stepPlayer(ctl, states.map((state, n) => ({ caption: o.steps[n], state: { ...state, n } })), (st) => {
+      const n = Math.round(st.n);
+      viz.innerHTML = view({ fill: st.fill, catheter: st.cath, lesion: true, thick: 0.5 })
+        .replace(/<\/svg>\s*$/, `<text x="330" y="110" style="font-size:52px">${icons[n] || ""}</text></svg>`);
+    }, t('common.player'));
   },
+
   medicine(viz, ctl) {
     const o = T('treatment.options.medicine');
     const draw = (on) => (viz.innerHTML = view(on ? { fill: 0.7, lesion: true, thick: 0.5 } : HIGH));
     ctl.append(toggle(o.dose, false, draw));
     draw(false);
   },
+
+  bowel(viz) {
+    const o = T('treatment.options.bowel');
+    viz.innerHTML = iconList(o.items, ['📅', '💊', '🚿', '🔁', '🕳️']);
+  },
+
   botox: procedure('botox'),
   augment: procedure('augment'),
   channel: procedure('channel'),
+
+  other(viz) {
+    const o = T('treatment.options.other');
+    viz.innerHTML = iconList(o.items, ['🌙', '👶', '🔒', '🎗️', '🚰']);
+  },
 };
 
 function renderTreatment(root) {
   return optionTabs(
     root,
     { intro: T('treatment.intro'), pros: T('treatment.pros'), cons: T('treatment.cons') },
-    Object.keys(BUILD).map((key) => ({ key, ...T(`treatment.options.${key}`), build: BUILD[key] })),
+    Object.keys(BUILD).map((key) => {
+      const o = T(`treatment.options.${key}`);
+      const summary = key === 'bowel' ? `${o.summary}</p><p><a href="#/bbd/treatment">${o.link} →</a>` : o.summary;
+      return { key, ...o, summary, build: BUILD[key] };
+    }),
   );
 }
 

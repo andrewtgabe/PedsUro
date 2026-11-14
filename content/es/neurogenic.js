@@ -17,6 +17,11 @@ export default {
       'Lesión o tumor de la médula espinal',
       'Agenesia sacra: la parte más baja de la columna no se formó.',
     ],
+    facts: [
+      'En los Estados Unidos, la espina bífida afecta a unos 3 a 4 de cada 10,000 bebés, unos 1,500 bebés cada año.',
+      'Tomar 400 microgramos de ácido fólico todos los días antes y al principio del embarazo baja el riesgo.',
+      'Todos los niños con espina bífida tienen la médula espinal algo anclada por tejido de cicatriz. Alrededor de 1 de cada 4 tienen síntomas nuevos y necesitan cirugía para liberarla.',
+    ],
   },
 
   pathology: {
@@ -26,18 +31,23 @@ export default {
     kidneyRisk: 'Riesgo para los riñones',
     types: {
       high: {
-        name: 'Apretada y que aprieta',
-        text: 'La vejiga aprieta por sí sola mientras el músculo de control se queda apretado. La presión sube mucho. La pared de la vejiga se engruesa, y la orina puede regresar y dañar los riñones. Este es el patrón más preocupante.',
+        name: 'Vejiga hiperactiva, músculo de control apretado',
+        text: 'La vejiga aprieta por sí sola mientras el músculo de control se queda apretado (disinergia detrusor-esfínter). La presión sube mucho. La pared de la vejiga se engruesa, y la orina puede regresar y dañar los riñones. Este es el patrón más preocupante.',
+      },
+      retain: {
+        name: 'Vejiga débil, músculo de control apretado',
+        text: 'La vejiga no aprieta bien y el músculo de control se queda cerrado. La vejiga se estira mucho y no se vacía, lo que causa infecciones y escapes cuando se desborda.',
+      },
+      urge: {
+        name: 'Vejiga hiperactiva, músculo de control débil',
+        text: 'La vejiga aprieta por sí sola y el músculo de control débil no puede aguantar, así que se escapa orina seguido en pequeñas cantidades. La presión por lo general es más baja porque la orina se escapa.',
       },
       leaky: {
-        name: 'Músculo débil, con escapes',
-        text: 'El músculo de control no puede cerrar bien, así que la orina se escapa todo el tiempo. La presión se mantiene baja, así que los riñones por lo general están seguros, pero el niño siempre está mojado.',
-      },
-      floppy: {
-        name: 'Grande y flácida',
-        text: 'La vejiga no aprieta bien y se estira mucho. No se vacía, y eso causa infecciones y escapes cuando se desborda.',
+        name: 'Vejiga débil, músculo de control débil',
+        text: 'Ningún músculo funciona bien. La orina se escapa todo el tiempo. La presión se mantiene baja, así que los riñones por lo general están seguros, pero el niño siempre está mojado.',
       },
     },
+    reflux: 'La orina que regresa a los riñones (reflujo) en una vejiga con presión alta aumenta todavía más el riesgo para los riñones.',
     bowel: 'Los mismos nervios controlan el intestino, así que el estreñimiento y los accidentes con excremento también son comunes.',
   },
 
@@ -47,19 +57,63 @@ export default {
     pros: 'Beneficios',
     cons: 'A tomar en cuenta',
     options: {
+      tests: {
+        name: 'Estudios y revisiones',
+        summary: 'Como la vejiga puede cambiar conforme el niño crece, los estudios regulares buscan problemas a tiempo. El nivel del problema en la columna no predice cómo funcionará la vejiga, así que los estudios son la única forma de saberlo.',
+        tips: [
+          'Ultrasonido de riñones y vejiga poco después de nacer, luego cada 3 a 6 meses el primer año y cada 6 a 12 meses después',
+          'Urodinamia a los 2 a 4 meses de edad, otra vez alrededor del año, y cuando algo cambia',
+          'Una cistouretrografía miccional, un ultrasonido con contraste o una videourodinamia para buscar reflujo',
+          'Análisis de sangre para la función de los riñones',
+          'Una gammagrafía DMSA para buscar cicatrices en algunos niños, por ejemplo después de infecciones',
+          'Un diario de vejiga e intestino',
+        ],
+        chart: { title: 'Urodinamia', pressure: 'Presión en la vejiga', volume: 'Cantidad llenada', danger: 'Más de 40: riesgo para los riñones', leak: 'Punto de escape' },
+        steps: [
+          'Se pone una sonda delgada en la vejiga. Un tubo pequeño y blando en el trasero mide la presión de la barriga. Su hijo o hija está despierto.',
+          'La vejiga se llena despacio con agua estéril mientras se registra la presión.',
+          'Una vejiga segura se llena como un globo: aguanta una buena cantidad mientras la presión se mantiene baja.',
+          'En una vejiga de alto riesgo, la presión sube a más de 40. Una presión tan alta puede empujar la orina hacia arriba y dañar los riñones.',
+          'El estudio también muestra la presión cuando la orina empieza a escaparse (punto de escape) y si la vejiga aprieta sola. Con tinte de rayos X (videourodinamia), también puede mostrar reflujo.',
+        ],
+        pros: ['Encuentra a tiempo una vejiga de alto riesgo', 'Guía el tratamiento'],
+        cons: ['Varios estudios cada año al principio', 'La urodinamia necesita una sonda'],
+      },
       cic: {
         name: 'Usar sonda',
-        summary: 'Cateterismo intermitente limpio: se pasa un tubo delgado y liso a la vejiga cada 3–4 horas para vaciarla, y luego se saca. Primero aprenden los padres, y muchos niños aprenden a hacerlo solos.',
-        action: 'Vaciar con sonda',
+        summary: 'Cateterismo intermitente limpio: se pasa un tubo delgado y liso a la vejiga cada 3–4 horas para vaciarla, y luego se saca. Primero aprenden los padres, y muchos niños aprenden a hacerlo solos. Algunos niños con presión alta también usan una sonda que drena durante la noche. Es común que haya bacterias en la orina sin síntomas al usar sonda, y por lo general no se tratan.',
+        steps: [
+          'Lávese bien las manos con agua y jabón.',
+          'Limpie la abertura de la uretra con una toallita, de adelante hacia atrás.',
+          'Ponga lubricante en la punta de una sonda limpia (muchas ya vienen cubiertas).',
+          'Deslice la sonda con cuidado hasta que empiece a salir la orina.',
+          'Deje que la vejiga se vacíe por completo, en el inodoro o en un recipiente.',
+          'Saque la sonda despacio. Si sale más orina, espere hasta que pare.',
+          'Repita cada 3 a 4 horas mientras está despierto. Anote las cantidades en un diario de sonda.',
+        ],
         pros: ['Mantiene baja la presión y protege los riñones', 'Menos infecciones', 'Ayuda a mantenerse seco'],
         cons: ['Varias veces todos los días', 'Requiere práctica'],
       },
       medicine: {
         name: 'Medicamento para la vejiga',
-        summary: 'Medicamentos como la oxibutinina relajan la vejiga para que aguante más con menos presión.',
+        summary: 'Estos medicamentos relajan la vejiga para que aguante más con menos presión. La oxibutinina es la más usada, por la boca o puesta en la vejiga por la sonda, lo que causa menos efectos secundarios. Otras opciones son la solifenacina, la tolterodina y el mirabegrón. Trate también el estreñimiento, porque muchos de estos medicamentos lo pueden empeorar.',
         dose: 'Medicamento',
         pros: ['Baja la presión', 'Menos escapes entre una sonda y otra'],
         cons: ['Estreñimiento, boca seca, enrojecimiento de la cara', 'No es suficiente para todos los niños'],
+      },
+      bowel: {
+        name: 'Programa para el intestino',
+        summary: 'Los mismos nervios controlan el intestino, así que la mayoría de los niños necesitan un programa diario para el intestino para mantenerse limpios y evitar el estreñimiento. Encontrar el plan correcto puede tomar tiempo.',
+        link: 'Vea el cuidado del estreñimiento (limpieza, ablandador, rutina de baño)',
+        items: [
+          'Sentarse en el inodoro a la misma hora todos los días, muchas veces después de comer',
+          'Un ablandador de heces diario (como Miralax) y a veces sen',
+          'Supositorios o enemas para ayudar a vaciar el intestino',
+          'Lavar el intestino por el trasero con un equipo especial (como Peristeen)',
+          'Un canal pequeño o un tubo en la barriga para lavar el intestino desde arriba (Malone o cecostomía)',
+        ],
+        pros: ['Menos accidentes con excremento', 'Ayuda a que el tratamiento de la vejiga funcione mejor'],
+        cons: ['Toma tiempo cada día', 'Puede requerir prueba y error'],
       },
       botox: {
         name: 'Inyecciones de Botox',
@@ -102,6 +156,19 @@ export default {
         pros: ['Usar la sonda es más fácil y más independiente'],
         cons: ['Cirugía', 'El canal se puede estrechar y necesitar cuidado'],
       },
+      other: {
+        name: 'Otras opciones y cirugías',
+        summary: 'Algunos niños necesitan otras formas de proteger los riñones o de mantenerse secos. La opción correcta depende de la urodinamia, los riñones, la movilidad y lo que su familia prefiera.',
+        items: [
+          'Una sonda que drena la vejiga durante la noche mientras duerme, para mantener baja la presión',
+          'Vesicostomía: una abertura pequeña de la vejiga a la parte baja de la barriga para bebés cuyos riñones están en riesgo a pesar de la sonda y los medicamentos. La orina drena al pañal.',
+          'Cirugía del cuello de la vejiga para apretar la salida y detener los escapes: reconstrucción, un cabestrillo, inyecciones de relleno o un esfínter artificial. Por lo general se hace junto con una ampliación.',
+          'Liberar la médula anclada si la médula espinal se vuelve a pegar',
+          'Un tubo o abertura que drena la orina todo el tiempo (sonda suprapúbica, ileovesicostomía) para niños que no pueden usar sonda',
+        ],
+        pros: ['Protege los riñones cuando otros tratamientos no son suficientes', 'Puede ayudar a mantenerse seco y a ser más independiente'],
+        cons: ['Cirugía con anestesia general', 'Puede necesitarse otra cirugía más adelante'],
+      },
     },
   },
 
@@ -112,6 +179,7 @@ export default {
       'Usar sonda con regularidad y los medicamentos mantienen baja la presión.',
       'La cirugía puede ayudar cuando otros tratamientos no son suficientes.',
       'El cuidado es de por vida, con estudios y revisiones regulares.',
+      'Muchos niños con espina bífida son alérgicos al látex. Use sondas, guantes y materiales sin látex en casa, en la escuela y en el hospital.',
     ],
     callTitle: 'Llámenos o busque atención si su hijo o hija tiene',
     call: ['Fiebre u orina turbia y con mal olor y se siente enfermo', 'Dificultad para pasar la sonda', 'Escapes nuevos entre una sonda y otra, o dolor de espalda o debilidad en las piernas nuevos', 'Si su hijo o hija tiene una válvula (shunt): dolor de cabeza, vómito o sueño fuera de lo normal — vaya a la sala de emergencias'],

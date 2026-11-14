@@ -13,7 +13,7 @@ export const KINDS = {
   hypospadias: { watch: 'n', repair: 's', staged: 's', complications: '' },
   labial: { watch: 'n', estrogen: 'n', separation: 's', aftercare: '' },
   meatal: { meatotomy: 's', aftercare: '' },
-  neurogenic: { cic: 'n', medicine: 'n', botox: 's', augment: 's', channel: 's' },
+  neurogenic: { tests: '', cic: 'n', medicine: 'n', bowel: 'n', botox: 's', augment: 's', channel: 's', other: 's' },
   phimosis: { care: 'n', steroid: 'n', preputioplasty: 's', circumcision: 's', reduction: 's' },
   puv: { catheter: 's', ablation: 's', vesicostomy: 's', bladder: '', kidney: '' },
   stones: { imaging: '', analysis: '', metabolic: '', pass: 'n', drain: 's', ureteroscopy: 's', swl: 's', pcnl: 's', bladderRemoval: 's', prevention: '' },
