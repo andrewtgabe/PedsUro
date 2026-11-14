@@ -11,7 +11,7 @@ export default {
     poop: 'Poop',
     lesion: 'Signals blocked',
     augment: 'Added bowel',
-    channel: 'Belly button channel',
+    channel: 'Catheterizable channel',
   },
 
   cycle: [

@@ -11,7 +11,7 @@ export default {
     poop: 'Excremento',
     lesion: 'Señales bloqueadas',
     augment: 'Intestino agregado',
-    channel: 'Canal del ombligo',
+    channel: 'Canal cateterizable',
   },
 
   cycle: [
