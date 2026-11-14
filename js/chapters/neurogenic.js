@@ -203,7 +203,7 @@ function followTimeline(at, names, icons) {
 
 function renderFollowup(root) {
   const stages = T('followup.stages');
-  const icons = ['👶', '📈', '🔎', '🎂', '📅', '⚠️'];
+  const icons = ['👶', '📈', '🔎', '🎂', '🎒', '⚠️'];
   const { viz, ctl, explain } = modelLayout(root, T('followup.intro'));
   const draw = (i) => {
     const st = stages[i];
